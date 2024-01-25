@@ -28,7 +28,7 @@ class RecipeCard extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
+        margin: const EdgeInsets.only(top: 8, bottom: 8),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -42,9 +42,8 @@ class RecipeCard extends StatelessWidget {
         child: Row(
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
               ),
               child: Hero(
                 tag: "recipe_image_$index",
