@@ -1,6 +1,7 @@
 import 'package:the_recipes/models/recipe.dart';
 import 'package:the_recipes/screens/recipe_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RecipeCard extends StatelessWidget {
   const RecipeCard({
@@ -16,16 +17,7 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, '/recipe');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeScreen(
-              recipe: recipe,
-              index: index,
-            ),
-          ),
-        );
+        Get.to(RecipeScreen(recipe: recipe, index: index));
       },
       child: Container(
         margin: const EdgeInsets.only(top: 8, bottom: 8),

@@ -1,12 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
+import 'package:the_recipes/firebase_options.dart';
 
 import 'package:the_recipes/screens/add_recipe_screen.dart';
 import 'package:the_recipes/screens/inicial_screen.dart';
 import 'package:the_recipes/the_recipe_app_theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -15,9 +20,11 @@ void main() {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    MaterialApp(
+    GetMaterialApp(
       title: 'The Recipes App',
+      defaultTransition: Transition.downToUp,
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
