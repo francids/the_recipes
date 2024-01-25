@@ -128,9 +128,6 @@ class AddRecipeScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 48,
-          ),
         ],
       ),
     );

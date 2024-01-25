@@ -8,10 +8,15 @@ class TheRecipeAppTheme {
 
   static TextTheme textTheme = GoogleFonts.openSansTextTheme(
     const TextTheme(
+      displayLarge: TextStyle(
+        color: Colors.black,
+        fontSize: 23,
+        fontWeight: FontWeight.w600,
+      ),
       displayMedium: TextStyle(
         color: Colors.black,
         fontSize: 20,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w500,
       ),
       bodyMedium: TextStyle(
         color: Colors.black54,

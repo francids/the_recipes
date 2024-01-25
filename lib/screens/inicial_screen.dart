@@ -237,68 +237,83 @@ class _InicialScreenState extends State<InicialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'The Recipes App',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-          ),
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
               children: [
                 Expanded(
-                  child: FilledButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AddRecipeScreen(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10,
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                      ],
                     ),
-                    child: const Text(
-                      'Agregar Receta',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                    child: FilledButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AddRecipeScreen(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        'Agregar Receta',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-            const Divider(
-              height: 20,
-              color: Colors.black12,
-            ),
-            // const RecipeCard(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: recipes.length,
-                itemBuilder: (context, index) {
-                  return RecipeCard(
+          ),
+          const Divider(
+            indent: 16,
+            endIndent: 16,
+            thickness: 0.6,
+            color: Colors.black12,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: RecipeCard(
                     recipe: recipes[index],
-                    index: index,
-                  );
-                },
-              ),
+                    index: index, // Esto es para el Hero (Animación)
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

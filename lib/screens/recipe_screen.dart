@@ -30,6 +30,15 @@ class RecipeScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.favorite_border,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -40,15 +49,27 @@ class RecipeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Hero(
-                        tag: "recipe_image_$index",
-                        child: Image.network(
-                          recipe.image,
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width,
-                          fit: BoxFit.cover,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Hero(
+                          tag: "recipe_image_$index",
+                          child: Image.network(
+                            recipe.image,
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -70,7 +91,11 @@ class RecipeScreen extends StatelessWidget {
                         maxLines: 2,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const Divider(
+                      thickness: 0.3,
+                      height: 16,
+                      color: Colors.black12,
+                    ),
                     Text(
                       "Ingredientes",
                       style: Theme.of(context).textTheme.displayMedium,
@@ -96,7 +121,11 @@ class RecipeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 3),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const Divider(
+                      thickness: 0.3,
+                      height: 16,
+                      color: Colors.black12,
+                    ),
                     Text(
                       "Instrucciones",
                       style: Theme.of(context).textTheme.displayMedium,
@@ -126,9 +155,6 @@ class RecipeScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 48,
           ),
         ],
       ),
