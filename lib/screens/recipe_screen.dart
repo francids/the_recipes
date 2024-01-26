@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:the_recipes/models/recipe.dart';
 
 class RecipeScreen extends StatelessWidget {
@@ -15,21 +19,99 @@ class RecipeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          recipe.title,
-          style: const TextStyle(color: Colors.black),
+        title: Hero(
+          tag: "recipe_title_$index",
+          child: Text(
+            recipe.title,
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
         ),
+        foregroundColor: Colors.black,
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          icon: const Icon(Icons.arrow_back),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Dialogs.materialDialog(
+                msg: "¿Estás seguro de que quieres eliminar esta receta?",
+                title: "Eliminar receta",
+                color: Colors.white,
+                barrierColor: Colors.white.withOpacity(0.7),
+                lottieBuilder: LottieBuilder.asset(
+                  'assets/lottie/delete.json',
+                  fit: BoxFit.fill,
+                ),
+                titleStyle: GoogleFonts.openSans(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+                msgStyle: GoogleFonts.openSans(
+                  color: Colors.black54,
+                  fontSize: 13,
+                ),
+                useRootNavigator: true,
+                useSafeArea: true,
+                context: context,
+                actions: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: FilledButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            'Eliminar receta',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: OutlinedButton(
+                          onPressed: Get.back,
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            foregroundColor: Colors.black12,
+                            shadowColor: Colors.transparent,
+                          ),
+                          child: const Text(
+                            'Cancelar',
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+            icon: const Icon(Icons.delete_outline),
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -51,10 +133,10 @@ class RecipeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Hero(
-                          tag: "recipe_image_$index",
+                      child: Hero(
+                        tag: "recipe_image_$index",
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
                           child: Image.network(
                             recipe.image,
                             width: MediaQuery.of(context).size.width,
@@ -65,22 +147,9 @@ class RecipeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Hero(
-                      tag: "recipe_title_$index",
-                      child: Text(
-                        recipe.title,
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Hero(
-                      tag: "recipe_description_$index",
-                      child: Text(
-                        recipe.description,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
+                    Text(
+                      recipe.description,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Divider(
                       thickness: 0.3,
@@ -102,8 +171,6 @@ class RecipeScreen extends StatelessWidget {
                           return Text(
                             "\u2022   ${recipe.ingredients[index]}",
                             style: Theme.of(context).textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 20,
                           );
                         },
                         itemCount: recipe.ingredients.length,
@@ -132,8 +199,6 @@ class RecipeScreen extends StatelessWidget {
                           return Text(
                             "${index + 1}. ${recipe.directions[index]}",
                             style: Theme.of(context).textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 20,
                           );
                         },
                         itemCount: recipe.directions.length,
