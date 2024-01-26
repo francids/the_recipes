@@ -30,15 +30,6 @@ class RecipeScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_border,
-              color: Colors.black,
-            ),
-          ),
-        ],
       ),
       body: Column(
         children: [
