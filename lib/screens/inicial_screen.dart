@@ -1,6 +1,6 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:the_recipes/controllers/recipe_controller.dart';
-import 'package:the_recipes/models/recipe.dart';
 import 'package:the_recipes/screens/add_recipe_screen.dart';
 import 'package:the_recipes/widgets/recipe_card.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,6 @@ class InicialScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Recipe> recipes = RecipeController().recipes;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -67,26 +66,32 @@ class InicialScreen extends StatelessWidget {
             thickness: 0.6,
             color: Colors.black12,
           ),
-          Expanded(
-            child: Obx(
-              () {
-                return ListView.builder(
-                  itemCount: recipes.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                      ),
-                      child: RecipeCard(
-                        recipe: recipes[index],
-                        index: index, // Esto es para el Hero (Animación)
-                      ),
-                    );
-                  },
+          FutureBuilder(
+            future: RecipeController().getRecipes(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                EasyLoading.showSuccess('Recetas cargadas');
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: snapshot.data?.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                        ),
+                        child: RecipeCard(
+                          recipe: snapshot.data![index],
+                          index: index, // Esto es para el Hero (Animación)
+                        ),
+                      );
+                    },
+                  ),
                 );
-              },
-            ),
+              } else {
+                return const SizedBox();
+              }
+            },
           ),
         ],
       ),

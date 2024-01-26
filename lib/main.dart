@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:the_recipes/firebase_options.dart';
 
@@ -36,6 +37,7 @@ void main() async {
         colorScheme: TheRecipeAppTheme.colorScheme,
         useMaterial3: false,
       ),
+      builder: EasyLoading.init(),
     ),
   );
 }

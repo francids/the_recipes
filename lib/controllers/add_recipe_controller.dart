@@ -4,8 +4,8 @@ class AddRecipeController extends GetxController {
   RxString title = ''.obs;
   RxString image = ''.obs;
   RxString description = ''.obs;
-  RxList<String> ingredients = <String>[].obs;
-  RxList<String> directions = <String>[].obs;
+  RxString ingredients = ''.obs;
+  RxString directions = ''.obs;
 
   RxnString recipeTitleValidate = RxnString(null);
   RxnString recipeImageValidate = RxnString(null);
@@ -33,12 +33,12 @@ class AddRecipeController extends GetxController {
       descriptionValidate,
       time: const Duration(milliseconds: 500),
     );
-    debounce<List<String>>(
+    debounce<String>(
       ingredients,
       ingredientsValidate,
       time: const Duration(milliseconds: 500),
     );
-    debounce<List<String>>(
+    debounce<String>(
       directions,
       directionsValidate,
       time: const Duration(milliseconds: 500),
@@ -75,17 +75,17 @@ class AddRecipeController extends GetxController {
     }
   }
 
-  void ingredientsValidate(List<String> value) {
+  void ingredientsValidate(String value) {
     addRecipe.value = null;
-    if (value.length < 2) {
-      recipeIngredientsValidate.value = 'Se requieren al menos 2 ingredientes';
+    if (value.isEmpty) {
+      recipeIngredientsValidate.value = 'Los ingredientes son requeridos';
     } else {
       recipeIngredientsValidate.value = null;
       addRecipe.value = addRecipeValidate();
     }
   }
 
-  void directionsValidate(List<String> value) {
+  void directionsValidate(String value) {
     addRecipe.value = null;
     if (value.isEmpty) {
       recipeDirectionsValidate.value = 'Los pasos son requeridos';
@@ -101,9 +101,9 @@ class AddRecipeController extends GetxController {
 
   void recipeDescription(String value) => description.value = value;
 
-  void recipeIngredients(String value) => ingredients.add(value);
+  void recipeIngredients(String value) => ingredients.value = value;
 
-  void recipeDirections(String value) => directions.add(value);
+  void recipeDirections(String value) => directions.value = value;
 
   Future<bool> Function() addRecipeValidate() {
     return () async {
