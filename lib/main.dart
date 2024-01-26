@@ -27,11 +27,7 @@ void main() async {
       title: 'The Recipes App',
       defaultTransition: Transition.downToUp,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const InicialScreen(),
-        '/add': (context) => const AddRecipeScreen(),
-      },
+      home: const InicialScreen(),
       theme: ThemeData(
         textTheme: TheRecipeAppTheme.textTheme,
         colorScheme: TheRecipeAppTheme.colorScheme,
