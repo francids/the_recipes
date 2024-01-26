@@ -17,7 +17,10 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(RecipeScreen(recipe: recipe, index: index));
+        Get.to(
+          RecipeScreen(recipe: recipe, index: index),
+          curve: Curves.easeOutCirc,
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(top: 8, bottom: 8),
@@ -33,12 +36,10 @@ class RecipeCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              child: Hero(
-                tag: "recipe_image_$index",
+            Hero(
+              tag: "recipe_image_$index",
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
                 child: Image.network(
                   recipe.image,
                   width: 80,
@@ -62,14 +63,11 @@ class RecipeCard extends StatelessWidget {
                   const SizedBox(height: 8),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
-                    child: Hero(
-                      tag: "recipe_description_$index",
-                      child: Text(
-                        recipe.description,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
+                    child: Text(
+                      recipe.description,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                   ),
                 ],
