@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:the_recipes/controllers/recipe_controller.dart';
-import 'package:the_recipes/screens/add_recipe_screen.dart';
-import 'package:the_recipes/widgets/recipe_card.dart';
+import 'package:the_recipes/views/screens/add_recipe_screen.dart';
+import 'package:the_recipes/views/widgets/recipe_card.dart';
 import 'package:flutter/material.dart';
 
 class InicialScreen extends StatelessWidget {
