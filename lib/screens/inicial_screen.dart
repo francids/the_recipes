@@ -1,4 +1,3 @@
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:the_recipes/controllers/recipe_controller.dart';
 import 'package:the_recipes/screens/add_recipe_screen.dart';
@@ -10,6 +9,7 @@ class InicialScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RecipeController recipeController = Get.put(RecipeController());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -19,6 +19,15 @@ class InicialScreen extends StatelessWidget {
         centerTitle: true,
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+            onPressed: () {
+              recipeController.refreshRecipes();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -67,30 +76,22 @@ class InicialScreen extends StatelessWidget {
             thickness: 0.6,
             color: Colors.black12,
           ),
-          FutureBuilder(
-            future: RecipeController().getRecipes(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                EasyLoading.showSuccess('Recetas cargadas');
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                        ),
-                        child: RecipeCard(recipe: snapshot.data![index]),
-                      );
-                    },
-                  ),
-                );
-              } else {
-                return const SizedBox();
-              }
-            },
-          ),
+          Obx(() {
+            return Expanded(
+              child: ListView.builder(
+                itemCount: recipeController.recipes.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                    ),
+                    child: RecipeCard(recipe: recipeController.recipes[index]),
+                  );
+                },
+              ),
+            );
+          }),
         ],
       ),
     );
