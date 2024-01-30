@@ -9,23 +9,22 @@ class RecipeScreen extends StatelessWidget {
   const RecipeScreen({
     super.key,
     required this.recipe,
-    required this.index,
   });
 
   final Recipe recipe;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Hero(
-          tag: "recipe_title_$index",
+          tag: "recipe_title_${recipe.id}",
           child: Text(
             recipe.title,
             style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
+        centerTitle: true,
         foregroundColor: Colors.black,
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
@@ -85,14 +84,15 @@ class RecipeScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: OutlinedButton(
-                          onPressed: Get.back,
-                          style: ElevatedButton.styleFrom(
+                        child: TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          style: TextButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            foregroundColor: Colors.black12,
-                            shadowColor: Colors.transparent,
+                            foregroundColor: Colors.transparent,
                           ),
                           child: const Text(
                             'Cancelar',
@@ -134,7 +134,7 @@ class RecipeScreen extends StatelessWidget {
                         ],
                       ),
                       child: Hero(
-                        tag: "recipe_image_$index",
+                        tag: "recipe_image_${recipe.id}",
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(

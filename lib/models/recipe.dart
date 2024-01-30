@@ -1,4 +1,5 @@
 class Recipe {
+  String id;
   String title;
   String description;
   String image;
@@ -6,6 +7,7 @@ class Recipe {
   List<String> directions;
 
   Recipe({
+    required this.id,
     required this.title,
     required this.description,
     required this.image,
@@ -15,7 +17,8 @@ class Recipe {
         assert(directions.isNotEmpty);
 
   Recipe.fromMap(Map<String, dynamic> map)
-      : title = map['title'] ?? '',
+      : id = map['id'] ?? '',
+        title = map['title'] ?? '',
         description = map['description'] ?? '',
         image = map['image'] ?? '',
         ingredients = List<String>.from(map['ingredients'] ?? []),
@@ -26,6 +29,7 @@ class Recipe {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'title': title,
       'description': description,
       'image': image,

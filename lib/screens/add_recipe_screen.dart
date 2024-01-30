@@ -14,6 +14,7 @@ class AddRecipeScreen extends StatelessWidget {
           'Agregar Receta',
           style: TextStyle(color: Colors.black),
         ),
+        centerTitle: true,
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         leading: IconButton(
@@ -97,8 +98,9 @@ class AddRecipeScreen extends StatelessWidget {
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         minLines: 3,
+                        textAlignVertical: TextAlignVertical.top,
                         decoration: InputDecoration(
-                          labelText: 'Tiempo de preparación',
+                          labelText: 'Ingredientes de la receta',
                           errorText:
                               recipeController.recipeIngredientsValidate.value,
                           border: OutlineInputBorder(
@@ -115,6 +117,7 @@ class AddRecipeScreen extends StatelessWidget {
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         minLines: 3,
+                        textAlignVertical: TextAlignVertical.top,
                         decoration: InputDecoration(
                           labelText: 'Pasos de la receta',
                           errorText:
