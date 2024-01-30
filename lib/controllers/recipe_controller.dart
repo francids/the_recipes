@@ -6,9 +6,20 @@ import 'package:the_recipes/models/recipe.dart';
 class RecipeController extends GetxController {
   var db = FirebaseFirestore.instance;
 
-  List<Recipe> recipes = [];
+  List<Recipe> recipes = <Recipe>[].obs;
 
-  Future<List<Recipe>> getRecipes() async {
+  @override
+  void onInit() {
+    super.onInit();
+    getRecipes();
+  }
+
+  Future<void> refreshRecipes() async {
+    recipes.clear();
+    await getRecipes();
+  }
+
+  Future<void> getRecipes() async {
     EasyLoading.show(status: 'Cargando recetas...');
 
     await db.collection("recipes").get().then((value) {
@@ -20,6 +31,14 @@ class RecipeController extends GetxController {
       }
       update();
     });
-    return recipes;
+
+    EasyLoading.showSuccess('Recetas cargadas');
+  }
+
+  Future<void> deleteRecipe(String id) async {
+    EasyLoading.show(status: 'Eliminando receta...');
+    await db.collection("recipes").doc(id).delete();
+    update();
+    EasyLoading.showSuccess('Receta eliminada');
   }
 }
