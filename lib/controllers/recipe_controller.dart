@@ -10,14 +10,13 @@ class RecipeController extends GetxController {
 
   Future<List<Recipe>> getRecipes() async {
     EasyLoading.show(status: 'Cargando recetas...');
-    await Future.delayed(const Duration(milliseconds: 3500));
+
     await db.collection("recipes").get().then((value) {
       for (var element in value.docs) {
-        recipes.add(
-          Recipe.fromMap(
-            element.data(),
-          ),
-        );
+        String docId = element.id;
+        Map<String, dynamic> recipe = element.data();
+        recipe['id'] = docId;
+        recipes.add(Recipe.fromMap(recipe));
       }
       update();
     });
