@@ -3,15 +3,17 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
+import 'package:the_recipes/controllers/recipe_controller.dart';
 import 'package:the_recipes/models/recipe.dart';
 
 class RecipeScreen extends StatelessWidget {
-  const RecipeScreen({
+  RecipeScreen({
     super.key,
     required this.recipe,
   });
 
   final Recipe recipe;
+  final RecipeController recipeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,10 @@ class RecipeScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         child: FilledButton(
                           onPressed: () {
+                            recipeController.deleteRecipe(recipe.id);
                             Get.back();
+                            Get.back();
+                            recipeController.refreshRecipes();
                           },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
