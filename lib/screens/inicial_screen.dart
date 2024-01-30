@@ -16,6 +16,7 @@ class InicialScreen extends StatelessWidget {
           'The Recipes App',
           style: Theme.of(context).textTheme.displayLarge,
         ),
+        centerTitle: true,
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
       ),
@@ -80,10 +81,7 @@ class InicialScreen extends StatelessWidget {
                           left: 16,
                           right: 16,
                         ),
-                        child: RecipeCard(
-                          recipe: snapshot.data![index],
-                          index: index, // Esto es para el Hero (Animación)
-                        ),
+                        child: RecipeCard(recipe: snapshot.data![index]),
                       );
                     },
                   ),
