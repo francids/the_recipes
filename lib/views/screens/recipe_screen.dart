@@ -67,7 +67,8 @@ class RecipeScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         child: FilledButton(
                           onPressed: () {
-                            recipeController.deleteRecipe(recipe.id);
+                            recipeController.deleteRecipe(
+                                recipe.id, recipe.image);
                             Get.back();
                             Get.back();
                             recipeController.refreshRecipes();

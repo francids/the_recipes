@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:the_recipes/controllers/add_recipe_controller.dart';
 
 class AddRecipeScreen extends StatelessWidget {
@@ -7,7 +10,8 @@ class AddRecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AddRecipeController recipeController = Get.put(AddRecipeController());
+    AddRecipeController addRecipeController = Get.put(AddRecipeController());
+    final ImagePicker imagePicker = ImagePicker();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -19,7 +23,7 @@ class AddRecipeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back(result: false);
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -35,122 +39,139 @@ class AddRecipeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          height: MediaQuery.of(context).size.width * 0.6,
-                          decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.transparent,
-                                blurRadius: 80,
+                    Obx(() {
+                      return GestureDetector(
+                        onTap: () async {
+                          final XFile? image = await imagePicker.pickImage(
+                              source: ImageSource.gallery);
+                          if (image != null) {
+                            addRecipeController.setImagePath(image);
+                          }
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            height: MediaQuery.of(context).size.width * 0.6,
+                            decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.transparent,
+                                  blurRadius: 80,
+                                ),
+                              ],
+                              image: DecorationImage(
+                                image: Image.file(
+                                  File(
+                                    addRecipeController.fullPath.string,
+                                  ),
+                                ).image,
+                                fit: BoxFit.cover,
                               ),
-                            ],
-                            border: Border.all(
-                              color: Colors.deepOrange,
-                              width: 3,
-                              strokeAlign: BorderSide.strokeAlignInside,
+                              border: Border.all(
+                                color: Colors.deepOrange,
+                                width: 3,
+                                strokeAlign: BorderSide.strokeAlignInside,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            child: const Icon(
+                              Icons.add_a_photo,
+                              color: Colors.deepOrange,
+                              size: 40,
+                            ),
                           ),
-                          child: const Icon(
-                            Icons.add_a_photo,
-                            size: 48,
-                            color: Colors.deepOrange,
-                          ),
+                        ),
+                      );
+                    }),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      initialValue: addRecipeController.titleController.text,
+                      onChanged: (value) {
+                        addRecipeController.titleController.text = value;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Título de la receta',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Obx(() {
-                      return TextFormField(
-                        onChanged: recipeController.recipeTitle,
-                        decoration: InputDecoration(
-                          labelText: 'Título de la receta',
-                          errorText: recipeController.recipeTitleValidate.value,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                    TextFormField(
+                      initialValue:
+                          addRecipeController.descriptionController.text,
+                      onChanged: (value) {
+                        addRecipeController.descriptionController.text = value;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Descripción de la receta',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      );
-                    }),
+                      ),
+                    ),
                     const SizedBox(height: 16),
-                    Obx(() {
-                      return TextFormField(
-                        onChanged: recipeController.recipeDescription,
-                        decoration: InputDecoration(
-                          labelText: 'Descripción de la receta',
-                          errorText:
-                              recipeController.recipeDescriptionValidate.value,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                    TextFormField(
+                      initialValue:
+                          addRecipeController.ingredientsController.text,
+                      onChanged: (value) {
+                        addRecipeController.ingredientsController.text = value;
+                      },
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      minLines: 3,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: InputDecoration(
+                        labelText: 'Ingredientes de la receta',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      );
-                    }),
+                        helperText: 'Separar en cada línea cada ingrediente',
+                      ),
+                    ),
                     const SizedBox(height: 16),
-                    Obx(() {
-                      return TextFormField(
-                        onChanged: recipeController.recipeIngredients,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        minLines: 3,
-                        textAlignVertical: TextAlignVertical.top,
-                        decoration: InputDecoration(
-                          labelText: 'Ingredientes de la receta',
-                          errorText:
-                              recipeController.recipeIngredientsValidate.value,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          helperText: 'Separar en cada línea cada ingrediente',
+                    TextFormField(
+                      initialValue:
+                          addRecipeController.directionsController.text,
+                      onChanged: (value) {
+                        addRecipeController.directionsController.text = value;
+                      },
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      minLines: 3,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: InputDecoration(
+                        labelText: 'Pasos de la receta',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      );
-                    }),
-                    const SizedBox(height: 16),
-                    Obx(() {
-                      return TextFormField(
-                        onChanged: recipeController.recipeDirections,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        minLines: 3,
-                        textAlignVertical: TextAlignVertical.top,
-                        decoration: InputDecoration(
-                          labelText: 'Pasos de la receta',
-                          errorText:
-                              recipeController.recipeDirectionsValidate.value,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          helperText: 'Separar en cada línea cada paso',
-                        ),
-                      );
-                    }),
+                        helperText: 'Separar en cada línea cada paso',
+                      ),
+                    ),
                     const SizedBox(height: 16),
                     Row(
                       children: [
                         Expanded(
-                          child: Obx(() {
-                            return FilledButton(
-                              onPressed: recipeController.addRecipe.value,
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                          child: FilledButton(
+                            onPressed: () async {
+                              await addRecipeController.addRecipe();
+                              Get.back(result: true);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Text(
-                                'Agregar Receta',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                            ),
+                            child: const Text(
+                              'Agregar Receta',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                               ),
-                            );
-                          }),
+                            ),
+                          ),
                         ),
                       ],
                     ),
