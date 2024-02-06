@@ -48,8 +48,11 @@ class InicialScreen extends StatelessWidget {
                       ],
                     ),
                     child: FilledButton(
-                      onPressed: () {
-                        Get.to(const AddRecipeScreen());
+                      onPressed: () async {
+                        var upd = await Get.to(const AddRecipeScreen());
+                        if (upd == true) {
+                          recipeController.refreshRecipes();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
