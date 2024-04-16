@@ -1,6 +1,6 @@
-# The Recipes App
-
 <img src="./assets/TheRecipesApp%20-%20Presentation.png" alt="TheRecipesApp">
+
+# The Recipes App
 
 ## Descripción
 
