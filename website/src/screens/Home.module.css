@@ -9,7 +9,8 @@
 
 .heroLogo {
   width: 100%;
-  max-width: 350px;
+  max-width: 200px;
+  user-select: none;
 }
 
 .appShowcase {
@@ -22,6 +23,7 @@
   gap: 30px;
   padding: 40px 0;
   flex-wrap: wrap;
+  user-select: none;
 }
 
 .mockup {
@@ -102,6 +104,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+  user-select: none;
 }
 
 .downloadBtn {

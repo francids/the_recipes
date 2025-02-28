@@ -1,5 +1,5 @@
 import styles from "./Home.module.css";
-import LogoPng from "../assets/Logo.png";
+import LogoSvg from "../assets/Logo.svg";
 import InicialScreenPng from "../assets/InicialScreen.png";
 import RecipeListScreenPng from "../assets/RecipeScreen.png";
 
@@ -46,7 +46,7 @@ export default function Home() {
       <section className={styles.hero}>
         <div>
           <img
-            src={LogoPng}
+            src={LogoSvg}
             alt="The Recipes App"
             className={styles.heroLogo}
           />
