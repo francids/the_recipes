@@ -73,18 +73,19 @@ export default function Home() {
       </section>
 
       <section className={styles.cta}>
-        <h2 className={styles.ctaTitle}>¡Organiza tus recetas hoy mismo!</h2>
+        <h2 className={styles.ctaTitle}>¡Proyecto en desarrollo!</h2>
         <p className={styles.ctaText}>
-          Descarga The Recipes App y comienza a gestionar tus recetas favoritas
-          de forma sencilla.
+          The Recipes App está actualmente en desarrollo. Sigue el progreso.
         </p>
         <div className={styles.ctaButtons}>
-          <button className={styles.downloadBtn} disabled>
-            <span>Google Play</span>
-          </button>
-          <button className={styles.downloadBtn} disabled>
-            <span>App Store</span>
-          </button>
+          <a
+            href="https://github.com/francids/the_recipes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.downloadBtn}
+          >
+            <span>Ver en GitHub</span>
+          </a>
         </div>
       </section>
 
