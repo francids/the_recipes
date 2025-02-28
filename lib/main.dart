@@ -3,18 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:the_recipes/controllers/auth_controller.dart';
 import 'package:the_recipes/firebase_options.dart';
 
 import 'package:the_recipes/views/screens/inicial_screen.dart';
 import 'package:the_recipes/the_recipe_app_theme.dart';
+import 'package:the_recipes/views/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+    overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
+    ],
+  );
+
+  Get.put(AuthController());
+
   runApp(
-    MyApp(),
+    const MyApp(),
   );
 }
 
@@ -28,7 +42,7 @@ class MyApp extends StatelessWidget {
       transitionDuration: const Duration(milliseconds: 350),
       defaultTransition: Transition.downToUp,
       debugShowCheckedModeBanner: false,
-      home: const InicialScreen(),
+      home: _handleAuthState(),
       theme: ThemeData(
         textTheme: TheRecipeAppTheme.textTheme,
         colorScheme: TheRecipeAppTheme.colorScheme,
@@ -45,6 +59,18 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       builder: EasyLoading.init(),
+    );
+  }
+
+  Widget _handleAuthState() {
+    return GetX<AuthController>(
+      builder: (a) {
+        if (a.user.value != null) {
+          return const InicialScreen();
+        } else {
+          return const LoginScreen();
+        }
+      },
     );
   }
 }

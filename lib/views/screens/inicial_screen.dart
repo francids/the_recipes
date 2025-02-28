@@ -1,5 +1,5 @@
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:the_recipes/controllers/auth_controller.dart';
 import 'package:the_recipes/controllers/recipe_controller.dart';
 import 'package:the_recipes/views/screens/add_recipe_screen.dart';
 import 'package:the_recipes/views/widgets/recipe_card.dart';
@@ -11,18 +11,26 @@ class InicialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecipeController recipeController = Get.put(RecipeController());
+    final AuthController authController = Get.find<AuthController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'The Recipes App',
+          "The Recipes App",
           style: Theme.of(context).textTheme.displayLarge,
+        ),
+        leading: IconButton(
+          onPressed: () {
+            recipeController.refreshRecipes();
+          },
+          icon: const Icon(Icons.refresh),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              recipeController.refreshRecipes();
+              authController.signOut();
             },
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),

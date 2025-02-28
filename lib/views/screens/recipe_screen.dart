@@ -39,7 +39,7 @@ class RecipeScreen extends StatelessWidget {
                 msg: "¿Estás seguro de que quieres eliminar esta receta?",
                 title: "Eliminar receta",
                 color: Colors.white,
-                barrierColor: Colors.white.withOpacity(0.7),
+                barrierColor: Colors.white.withAlpha(178),
                 lottieBuilder: LottieBuilder.asset(
                   'assets/lottie/delete.json',
                   fit: BoxFit.fill,
@@ -56,8 +56,8 @@ class RecipeScreen extends StatelessWidget {
                 useRootNavigator: true,
                 useSafeArea: true,
                 context: context,
-                actions: [
-                  Column(
+                actionsBuilder: (context) {
+                  return Column(
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
@@ -107,8 +107,8 @@ class RecipeScreen extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                ],
+                  );
+                },
               );
             },
             icon: const Icon(Icons.delete_outline),
