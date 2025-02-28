@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:the_recipes/controllers/recipe_controller.dart';
 import 'package:the_recipes/views/screens/add_recipe_screen.dart';
@@ -16,10 +17,6 @@ class InicialScreen extends StatelessWidget {
           'The Recipes App',
           style: Theme.of(context).textTheme.displayLarge,
         ),
-        centerTitle: true,
-        shadowColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
         actions: [
           IconButton(
             onPressed: () {

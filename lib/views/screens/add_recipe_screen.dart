@@ -18,9 +18,6 @@ class AddRecipeScreen extends StatelessWidget {
           'Agregar Receta',
           style: TextStyle(color: Colors.black),
         ),
-        centerTitle: true,
-        shadowColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
             Get.back(result: false);

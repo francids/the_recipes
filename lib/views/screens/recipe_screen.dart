@@ -26,10 +26,6 @@ class RecipeScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
-        centerTitle: true,
-        foregroundColor: Colors.black,
-        shadowColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
             Get.back();
