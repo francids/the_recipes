@@ -57,57 +57,55 @@ class RecipeScreen extends StatelessWidget {
                 useSafeArea: true,
                 context: context,
                 actionsBuilder: (context) {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: FilledButton(
-                          onPressed: () {
-                            recipeController.deleteRecipe(
-                                recipe.id, recipe.image);
-                            Get.back();
-                            Get.back();
-                            recipeController.refreshRecipes();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                  return [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: FilledButton(
+                        onPressed: () {
+                          recipeController.deleteRecipe(
+                              recipe.id, recipe.image);
+                          Get.back();
+                          Get.back();
+                          recipeController.refreshRecipes();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Text(
-                            'Eliminar receta',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        ),
+                        child: const Text(
+                          'Eliminar receta',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            foregroundColor: Colors.transparent,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: TextButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Text(
-                            'Cancelar',
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          foregroundColor: Colors.transparent,
+                        ),
+                        child: const Text(
+                          'Cancelar',
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                    ],
-                  );
+                    ),
+                  ];
                 },
               );
             },
