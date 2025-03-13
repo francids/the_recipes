@@ -1,18 +1,18 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:the_recipes/controllers/recipe_controller.dart';
+import 'package:path/path.dart' as path;
 
 class AddRecipeController extends GetxController {
-  final storage = FirebaseStorage.instance;
   RecipeController recipeController = RecipeController();
 
-  Future<void> refreshRecipes() async {
-    await recipeController.refreshRecipes();
+  void refreshRecipes() {
+    recipeController.refreshRecipes();
   }
 
   TextEditingController titleController = TextEditingController();
@@ -30,24 +30,33 @@ class AddRecipeController extends GetxController {
     update();
   }
 
-  Future<void> uploadImage() async {
-    EasyLoading.show(status: 'Subiendo imagen...');
-    await storage.ref('recipe-images/$fileName').putFile(image!);
-    EasyLoading.showSuccess('Imagen subida');
+  Future<void> saveImageLocally() async {
+    if (image == null) return;
+    EasyLoading.show(status: 'Guardando imagen...');
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String imagesPath = path.join(appDocDir.path, 'recipe-images');
+    Directory imagesDir = Directory(imagesPath);
+    if (!await imagesDir.exists()) {
+      await imagesDir.create(recursive: true);
+    }
+    String finalImagePath = path.join(imagesPath, fileName!);
+    await image!.copy(finalImagePath);
+    fullPath.value = finalImagePath;
+    EasyLoading.showSuccess('Imagen guardada');
   }
 
-  Future<String> getImageUrl() async {
-    return await storage.ref('recipe-images/$fileName').getDownloadURL();
+  Future<String> getImagePath() async {
+    return fullPath.value;
   }
 
   Future<void> addRecipe() async {
     EasyLoading.show(status: 'Agregando receta...');
-    await uploadImage();
-    String image = await getImageUrl();
+    await saveImageLocally();
+    String imagePath = await getImagePath();
     await recipeController.addRecipe(
       titleController.text,
       descriptionController.text,
-      image,
+      imagePath,
       ingredientsController.text.split('\n'),
       directionsController.text.split('\n'),
     );

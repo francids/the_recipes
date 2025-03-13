@@ -1,4 +1,6 @@
-class Recipe {
+import 'package:hive_ce_flutter/hive_flutter.dart';
+
+class Recipe extends HiveObject {
   String id;
   String title;
   String description;

@@ -84,22 +84,30 @@ class InicialScreen extends StatelessWidget {
             thickness: 0.6,
             color: Colors.black12,
           ),
-          Obx(() {
-            return Expanded(
-              child: ListView.builder(
-                itemCount: recipeController.recipes.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: RecipeCard(recipe: recipeController.recipes[index]),
-                  );
-                },
-              ),
-            );
-          }),
+          GetX<RecipeController>(
+            builder: (controller) {
+              return Expanded(
+                child: controller.recipes.isEmpty
+                    ? const Center(
+                        child: Text("No hay recetas disponibles"),
+                      )
+                    : ListView.builder(
+                        itemCount: controller.recipes.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                            ),
+                            child: RecipeCard(
+                              recipe: controller.recipes[index],
+                            ),
+                          );
+                        },
+                      ),
+              );
+            },
+          ),
         ],
       ),
     );

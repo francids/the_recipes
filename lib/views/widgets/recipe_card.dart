@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:the_recipes/models/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,8 +40,8 @@ class RecipeCard extends StatelessWidget {
               tag: "recipe_image_${recipe.id}",
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  recipe.image,
+                child: Image.file(
+                  File(recipe.image),
                   width: 80,
                   height: 80,
                   fit: BoxFit.cover,

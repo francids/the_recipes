@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,7 +65,9 @@ class RecipeScreen extends StatelessWidget {
                       child: FilledButton(
                         onPressed: () {
                           recipeController.deleteRecipe(
-                              recipe.id, recipe.image);
+                            recipe.id,
+                            recipe.image,
+                          );
                           Get.back();
                           Get.back();
                           recipeController.refreshRecipes();
@@ -137,8 +141,8 @@ class RecipeScreen extends StatelessWidget {
                         tag: "recipe_image_${recipe.id}",
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            recipe.image,
+                          child: Image.file(
+                            File(recipe.image),
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.width,
                             fit: BoxFit.cover,

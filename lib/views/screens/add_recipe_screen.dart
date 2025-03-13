@@ -57,14 +57,17 @@ class AddRecipeScreen extends StatelessWidget {
                                   blurRadius: 80,
                                 ),
                               ],
-                              image: DecorationImage(
-                                image: Image.file(
-                                  File(
-                                    addRecipeController.fullPath.string,
-                                  ),
-                                ).image,
-                                fit: BoxFit.cover,
-                              ),
+                              image: addRecipeController
+                                      .fullPath.value.isNotEmpty
+                                  ? DecorationImage(
+                                      image: FileImage(
+                                        File(
+                                          addRecipeController.fullPath.value,
+                                        ),
+                                      ),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null,
                               border: Border.all(
                                 color: Colors.deepOrange,
                                 width: 3,
