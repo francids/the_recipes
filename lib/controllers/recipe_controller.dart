@@ -5,8 +5,11 @@ import 'package:get/get.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:the_recipes/hive_boxes.dart';
 import 'package:the_recipes/models/recipe.dart';
+import 'package:uuid/uuid.dart';
 
 class RecipeController extends GetxController {
+  final uuid = Uuid();
+
   List<Recipe> recipes = <Recipe>[].obs;
 
   @override
@@ -38,7 +41,7 @@ class RecipeController extends GetxController {
   ) async {
     EasyLoading.show(status: 'Agregando receta...');
 
-    String id = DateTime.now().millisecondsSinceEpoch.toString();
+    String id = uuid.v4();
 
     Recipe recipe = Recipe(
       id: id,
