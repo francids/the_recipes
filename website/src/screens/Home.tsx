@@ -38,6 +38,12 @@ export default function Home() {
       description:
         "En futuras actualizaciones, podrás compartir tus mejores creaciones culinarias con amigos y familiares.",
     },
+    {
+      icon: "🌙",
+      title: "Próximamente: Modo oscuro",
+      description:
+        "Pronto podrás disfrutar de la aplicación con un tema oscuro, perfecto para cocinar en ambientes con poca luz o para cuidar tus ojos.",
+    },
   ];
 
   const renderFeatureCards = () => {
@@ -111,7 +117,7 @@ export default function Home() {
           <h1 className={styles.heroTitle}>Tu libro de recetas digital</h1>
           <p className={styles.heroSubtitle}>
             Almacena, organiza y encuentra fácilmente todas tus recetas
-            favoritas en un solo lugar
+            favoritas en un solo lugar.
           </p>
         </div>
         <div className={styles.appShowcase}>
