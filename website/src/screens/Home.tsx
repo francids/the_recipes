@@ -1,38 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./Home.module.css";
 import LogoSvg from "../assets/Logo.svg";
 import InicialScreenPng from "../assets/InicialScreen.png";
 import RecipeListScreenPng from "../assets/RecipeScreen.png";
 import { ReactSVG } from "react-svg";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("darkMode");
-
-    if (savedTheme !== null) {
-      return savedTheme === "true";
-    }
-
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("darkMode");
-    } else {
-      document.documentElement.classList.remove("darkMode");
-    }
-    localStorage.setItem("darkMode", darkMode.toString());
-  }, [darkMode]);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
   };
 
   const features = [
@@ -157,20 +135,6 @@ export default function Home() {
         <div className={styles.featuresGrid}>{renderFeatureCards()}</div>
       </section>
 
-      {/* <section className={styles.testimonial}>
-        <div className={styles.testimonialContent}>
-          <div className={styles.quoteMark}>"</div>
-          <p className={styles.testimonialText}>
-            The Recipes App ha cambiado completamente mi forma de organizar mis
-            recetas. ¡Ya no pierdo tiempo buscando entre papeles o marcadores!
-          </p>
-          <div className={styles.testimonialAuthor}></div>
-            <p className={styles.authorName}>María García</p>
-            <p className={styles.authorTitle}>Chef aficionada</p>
-          </div>
-        </div>
-      </section> */}
-
       <section id="cta" className={styles.cta}>
         <h2 className={styles.ctaTitle}>¡Proyecto en desarrollo!</h2>
         <p className={styles.ctaText}>
@@ -202,69 +166,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <div className={styles.footerLogo}>
-            <ReactSVG
-              src={LogoSvg}
-              className={styles.footerLogoImg}
-              aria-label="The Recipes App"
-            />
-            <p className={styles.footerTagline}>
-              Tu asistente culinario digital
-            </p>
-          </div>
-          <div className={styles.footerLinks}>
-            <div className={styles.footerLinkColumn}>
-              <h3 className={styles.footerLinkTitle}>The Recipes</h3>
-              <a href="#features" className={styles.footerLink}>
-                Características
-              </a>
-              <a href="#cta" className={styles.footerLink}>
-                Desarrollo
-              </a>
-            </div>
-            <div className={styles.footerLinkColumn}>
-              <h3 className={styles.footerLinkTitle}>Contacto</h3>
-              <a
-                href="https://github.com/francids/the_recipes"
-                className={styles.footerLink}
-              >
-                GitHub
-              </a>
-            </div>
-            <div className={styles.footerLinkColumn}>
-              <h3 className={styles.footerLinkTitle}>Preferencias</h3>
-              <div className={styles.themeSelector}>
-                <span className={styles.themeSelectorLabel}>Modo oscuro</span>
-                <button
-                  onClick={toggleTheme}
-                  className={styles.themeToggle}
-                  aria-label={
-                    darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
-                  }
-                >
-                  <div
-                    className={`${styles.themeToggleSlider} ${
-                      darkMode ? styles.themeToggleActive : ""
-                    }`}
-                  >
-                    <span className={styles.themeToggleIcon}>
-                      {darkMode ? "🌙" : "☀️"}
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.footerBottom}>
-          <p>
-            &copy; {new Date().getFullYear()} The Recipes App. Todos los
-            derechos reservados.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
