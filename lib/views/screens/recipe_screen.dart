@@ -1,12 +1,12 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
-import 'package:the_recipes/controllers/recipe_controller.dart';
-import 'package:the_recipes/models/recipe.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:google_fonts/google_fonts.dart";
+import "package:lottie/lottie.dart";
+import "package:material_dialogs/material_dialogs.dart";
+import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/models/recipe.dart";
 
 class RecipeScreen extends StatelessWidget {
   RecipeScreen({
@@ -38,28 +38,48 @@ class RecipeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               Dialogs.materialDialog(
-                msg: "¿Estás seguro de que quieres eliminar esta receta?",
+                msg:
+                    "¿Estás seguro de que quieres eliminar esta receta? Esta acción no se puede deshacer.",
                 title: "Eliminar receta",
-                color: Colors.white,
-                barrierColor: Colors.white.withAlpha(178),
                 lottieBuilder: LottieBuilder.asset(
-                  'assets/lottie/delete.json',
+                  "assets/lottie/delete.json",
                   fit: BoxFit.fill,
                 ),
                 titleStyle: GoogleFonts.openSans(
-                  color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),
                 msgStyle: GoogleFonts.openSans(
-                  color: Colors.black54,
                   fontSize: 13,
                 ),
+                msgAlign: TextAlign.center,
                 useRootNavigator: true,
                 useSafeArea: true,
                 context: context,
                 actionsBuilder: (context) {
                   return [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: TextButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          foregroundColor: Colors.transparent,
+                        ),
+                        child: const Text(
+                          "Cancelar",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: FilledButton(
@@ -78,33 +98,11 @@ class RecipeScreen extends StatelessWidget {
                           ),
                         ),
                         child: const Text(
-                          'Eliminar receta',
+                          "Eliminar",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: TextButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          foregroundColor: Colors.transparent,
-                        ),
-                        child: const Text(
-                          'Cancelar',
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),

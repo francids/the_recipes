@@ -1,11 +1,11 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
-import 'package:hive_ce_flutter/adapters.dart';
-import 'package:the_recipes/hive_boxes.dart';
-import 'package:the_recipes/models/recipe.dart';
-import 'package:uuid/uuid.dart';
+import "package:flutter_easyloading/flutter_easyloading.dart";
+import "package:get/get.dart";
+import "package:hive_ce_flutter/adapters.dart";
+import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/models/recipe.dart";
+import "package:uuid/uuid.dart";
 
 class RecipeController extends GetxController {
   final uuid = Uuid();
@@ -39,7 +39,7 @@ class RecipeController extends GetxController {
     List<String> ingredients,
     List<String> directions,
   ) async {
-    EasyLoading.show(status: 'Agregando receta...');
+    EasyLoading.show(status: "Agregando receta...");
 
     String id = uuid.v4();
 
@@ -55,11 +55,11 @@ class RecipeController extends GetxController {
     await Hive.box<Recipe>(recipesBox).put(id, recipe);
 
     update();
-    EasyLoading.showSuccess('Receta agregada');
+    EasyLoading.showSuccess("Receta agregada");
   }
 
   Future<void> deleteRecipe(String id, String image) async {
-    EasyLoading.show(status: 'Eliminando receta...');
+    EasyLoading.show(status: "Eliminando receta...");
 
     try {
       var box = Hive.box<Recipe>(recipesBox);
@@ -69,7 +69,7 @@ class RecipeController extends GetxController {
         print("Receta con ID $id eliminada correctamente");
       } else {
         print("Error: No se encontró la receta con ID $id");
-        EasyLoading.showError('La receta no existe');
+        EasyLoading.showError("La receta no existe");
         return;
       }
 
@@ -86,10 +86,10 @@ class RecipeController extends GetxController {
       }
 
       update();
-      EasyLoading.showSuccess('Receta eliminada');
+      EasyLoading.showSuccess("Receta eliminada");
     } catch (e) {
       print("Error eliminando receta: $e");
-      EasyLoading.showError('Error al eliminar la receta');
+      EasyLoading.showError("Error al eliminar la receta");
     }
   }
 }

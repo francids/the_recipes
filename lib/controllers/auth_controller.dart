@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:the_recipes/views/screens/inicial_screen.dart';
-import 'package:the_recipes/views/screens/login_screen.dart';
+import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter_easyloading/flutter_easyloading.dart";
+import "package:get/get.dart";
+import "package:google_sign_in/google_sign_in.dart";
+import "package:the_recipes/views/screens/inicial_screen.dart";
+import "package:the_recipes/views/screens/login_screen.dart";
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();

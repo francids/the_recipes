@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:the_recipes/controllers/auth_controller.dart';
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
+import "package:get/get.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
