@@ -9,6 +9,8 @@ class ModernFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final ModernFormFieldDecoration decoration;
+  final TextInputAction? textInputAction;
+  final bool? expands;
 
   const ModernFormField({
     Key? key,
@@ -20,6 +22,8 @@ class ModernFormField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.decoration = const ModernFormFieldDecoration(),
+    this.textInputAction,
+    this.expands,
   }) : super(key: key);
 
   @override
@@ -34,9 +38,12 @@ class ModernFormField extends StatelessWidget {
         autofocus: decoration.autofocus,
         keyboardType: keyboardType,
         obscureText: obscureText,
-        maxLines: decoration.maxLines,
+        // Establecer maxLines a null permite que el campo crezca indefinidamente
+        maxLines: decoration.wrapText ? null : 1,
         minLines: decoration.minLines,
-        initialValue: initialValue,
+        expands: expands ?? false,
+        textInputAction: textInputAction,
+        initialValue: controller == null ? initialValue : null,
         onChanged: onChanged,
         validator: validator,
         style: theme.textTheme.bodyMedium,
@@ -57,18 +64,21 @@ class ModernFormFieldDecoration {
   final InputBorder? customEnabledBorder;
   final InputBorder? customFocusedBorder;
   final InputBorder? customErrorBorder;
+  final bool wrapText;
 
   const ModernFormFieldDecoration({
     this.labelText,
     this.prefixIcon,
     this.suffixIcon,
-    this.maxLines = 1,
-    this.minLines,
+    // El valor predeterminado de maxLines ahora es null para permitir expansión
+    this.maxLines,
+    this.minLines = 1,
     this.focusNode,
     this.autofocus = false,
     this.customEnabledBorder,
     this.customFocusedBorder,
     this.customErrorBorder,
+    this.wrapText = true,
   });
 
   InputDecoration buildInputDecoration(BuildContext context, String hintText) {
@@ -81,6 +91,7 @@ class ModernFormFieldDecoration {
       suffixIcon: suffixIcon,
       filled: true,
       fillColor: theme.colorScheme.surface,
+      isCollapsed: !wrapText,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 16.0,
         vertical: 16.0,

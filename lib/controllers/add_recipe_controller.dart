@@ -15,6 +15,9 @@ class AddRecipeController extends GetxController {
   final RxList<String> directionsList = <String>[].obs;
   final RxString fullPath = "".obs;
 
+  final RxBool isRecipeGenerated = false.obs;
+  final RxString generationError = ''.obs;
+
   String? fileName;
   File? image;
 

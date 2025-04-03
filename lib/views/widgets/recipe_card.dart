@@ -53,11 +53,16 @@ class RecipeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Hero(
-                    tag: "recipe_title_${recipe.id}",
-                    child: Text(
-                      recipe.title,
-                      style: Theme.of(context).textTheme.displayMedium,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: Hero(
+                      tag: "recipe_title_${recipe.id}",
+                      child: Text(
+                        recipe.title,
+                        style: Theme.of(context).textTheme.displayMedium,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),

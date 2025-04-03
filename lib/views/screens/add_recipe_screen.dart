@@ -6,6 +6,7 @@ import "package:image_picker/image_picker.dart";
 import "package:lottie/lottie.dart";
 import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/add_recipe_controller.dart";
+import "package:the_recipes/controllers/ai_recipe_controller.dart";
 import "package:the_recipes/views/widgets/form_field.dart";
 
 class AddRecipeScreen extends StatefulWidget {
@@ -319,9 +320,80 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
               ),
             ),
           ),
+          SizedBox(height: 24),
+          Obx(
+            () => addRecipeController.fullPath.value.isNotEmpty
+                ? Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 32),
+                    child: FilledButton.icon(
+                      onPressed: _generateRecipeFromImage,
+                      icon: Icon(Icons.auto_awesome, color: Colors.white),
+                      label: Text(
+                        "Generar información de la receta",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
+          ),
         ],
       ),
     );
+  }
+
+  void _generateRecipeFromImage() async {
+    Get.dialog(
+      Center(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(color: Colors.deepOrange),
+              SizedBox(height: 16),
+              Text("Analizando la imagen...", style: TextStyle(fontSize: 16)),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+
+    try {
+      final aiController = Get.put(AIRecipeController());
+      final recipe = await aiController
+          .generateRecipeFromImage(addRecipeController.fullPath.value);
+
+      addRecipeController.title.value = recipe.title;
+      addRecipeController.description.value = recipe.description;
+      addRecipeController.ingredientsList.value = recipe.ingredients;
+      addRecipeController.directionsList.value = recipe.directions;
+
+      Get.back();
+      _nextStep();
+
+      Get.snackbar(
+        "Éxito",
+        "Se ha generado información de la receta",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: Duration(seconds: 3),
+      );
+    } catch (e) {
+      Get.back();
+      Get.snackbar(
+        "Error",
+        "No se pudo generar la receta: ${e.toString()}",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 4),
+      );
+    }
   }
 
   Widget _buildTitleAndDescriptionStep() {
@@ -331,7 +403,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           "Título de la receta",
           addRecipeController.title,
         ),
-        // SizedBox(height: 8),
         _buildTextField(
           "Descripción de la receta",
           addRecipeController.description,

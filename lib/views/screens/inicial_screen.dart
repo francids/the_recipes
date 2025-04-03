@@ -65,7 +65,7 @@ class InicialScreen extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        "Agregar Receta",
+                        "Agregar receta",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
