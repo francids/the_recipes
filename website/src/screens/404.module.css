@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #ff5722;
+  background: var(--hero-gradient);
   color: #fff;
 }
 
@@ -23,8 +23,8 @@
 
 .button {
   display: inline-flex;
-  color: #ff5722;
-  background-color: white;
+  color: var(--navbar-logo);
+  background-color: var(--card-bg);
   padding: 15px 30px;
   border-radius: 50px;
   font-size: 1.1rem;
@@ -33,7 +33,7 @@
   margin-top: 12px;
   margin-bottom: 20px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+  box-shadow: var(--card-shadow);
   cursor: pointer;
   border: none;
   align-items: center;
@@ -42,7 +42,7 @@
 }
 
 .button:hover {
-  background-color: #fff3e0;
+  background-color: var(--border-color);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(255, 87, 34, 0.4);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }

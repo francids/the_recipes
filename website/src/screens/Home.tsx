@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import LogoSvg from "../assets/Logo.svg";
 import InicialScreenPng from "../assets/InicialScreen.png";
@@ -8,8 +8,31 @@ import { ReactSVG } from "react-svg";
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("darkMode");
+
+    if (savedTheme !== null) {
+      return savedTheme === "true";
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("darkMode");
+    } else {
+      document.documentElement.classList.remove("darkMode");
+    }
+    localStorage.setItem("darkMode", darkMode.toString());
+  }, [darkMode]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
   };
 
   const features = [
@@ -141,7 +164,7 @@ export default function Home() {
             The Recipes App ha cambiado completamente mi forma de organizar mis
             recetas. ¡Ya no pierdo tiempo buscando entre papeles o marcadores!
           </p>
-          <div className={styles.testimonialAuthor}>
+          <div className={styles.testimonialAuthor}></div>
             <p className={styles.authorName}>María García</p>
             <p className={styles.authorTitle}>Chef aficionada</p>
           </div>
@@ -209,6 +232,29 @@ export default function Home() {
               >
                 GitHub
               </a>
+            </div>
+            <div className={styles.footerLinkColumn}>
+              <h3 className={styles.footerLinkTitle}>Preferencias</h3>
+              <div className={styles.themeSelector}>
+                <span className={styles.themeSelectorLabel}>Modo oscuro</span>
+                <button
+                  onClick={toggleTheme}
+                  className={styles.themeToggle}
+                  aria-label={
+                    darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
+                  }
+                >
+                  <div
+                    className={`${styles.themeToggleSlider} ${
+                      darkMode ? styles.themeToggleActive : ""
+                    }`}
+                  >
+                    <span className={styles.themeToggleIcon}>
+                      {darkMode ? "🌙" : "☀️"}
+                    </span>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
