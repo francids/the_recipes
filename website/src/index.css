@@ -7,11 +7,15 @@
   --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   --border-color: #eee;
   --secondary-text: #666;
-  --navbar-bg: rgba(255, 255, 255, 0.95);
+  --navbar-bg: rgba(255, 255, 255, 0.96);
   --navbar-logo: #ff5722;
   --hero-gradient: linear-gradient(135deg, #ff5722 0%, #ff9800 100%);
   --footer-bg: #333;
   --footer-border: #444;
+  --scroll-btn-bg: #ff5722;
+  --scroll-btn-color: #fff;
+  --scroll-btn-hover: #ff7043;
+  --scroll-btn-shadow: 0 2px 10px rgba(255, 87, 34, 0.4);
 }
 
 :root.darkMode {

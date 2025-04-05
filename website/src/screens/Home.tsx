@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import LogoSvg from "../assets/Logo.svg";
 import InicialScreenPng from "../assets/InicialScreen.png";
@@ -8,9 +8,42 @@ import Footer from "../components/Footer";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [hideNavbar, setHideNavbar] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHideNavbar(true);
+      } else {
+        setHideNavbar(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const features = [
@@ -64,7 +97,9 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <nav className={styles.navbar}>
+      <nav
+        className={`${styles.navbar} ${hideNavbar ? styles.navbarHidden : ""}`}
+      >
         <a href="#" className={styles.navbarLogo}>
           <ReactSVG
             src={LogoSvg}
@@ -179,6 +214,24 @@ export default function Home() {
       </section>
 
       <Footer />
+
+      {showScrollTop && (
+        <button
+          className={styles.scrollTopButton}
+          onClick={scrollToTop}
+          aria-label="Volver arriba"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="currentColor"
+          >
+            <path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
