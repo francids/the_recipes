@@ -81,9 +81,9 @@ export default function Home() {
     },
     {
       icon: "🌙",
-      title: "Próximamente: Modo oscuro",
+      title: "Modo oscuro",
       description:
-        "Pronto podrás disfrutar de la aplicación con un tema oscuro, perfecto para cocinar en ambientes con poca luz o para cuidar tus ojos.",
+        "Disfruta de la aplicación con un tema oscuro, perfecto para cocinar en ambientes con poca luz o para cuidar tus ojos.",
     },
   ];
 
