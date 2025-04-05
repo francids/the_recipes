@@ -26,7 +26,7 @@ export async function generateRecipeFromImage(image: File): Promise<Recipe> {
         content: [
           {
             type: "text",
-            text: "Genera la receta de esta imagen en español",
+            text: "Genera la receta de esta imagen en español. El título de la receta debe ser un nombre corto del plato, seguido de una descripción de texto plano. Luego, enumera los ingredientes y las instrucciones para prepararlo.",
           },
           {
             type: "image_url",
