@@ -15,6 +15,12 @@ export default function Home() {
 
   const features = [
     {
+      icon: "📱",
+      title: "Funciona localmente",
+      description:
+        "Toda la información se almacena en tu dispositivo, sin necesidad de conexión a internet para acceder a tus recetas.",
+    },
+    {
       icon: "📋",
       title: "Visualiza tus recetas",
       description:
