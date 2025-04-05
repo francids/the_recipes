@@ -2,7 +2,6 @@ import "dart:io";
 
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:google_fonts/google_fonts.dart";
 import "package:lottie/lottie.dart";
 import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
@@ -19,6 +18,8 @@ class RecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Hero(
@@ -38,24 +39,21 @@ class RecipeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               Dialogs.materialDialog(
+                context: context,
                 msg:
                     "¿Estás seguro de que quieres eliminar esta receta? Esta acción no se puede deshacer.",
                 title: "Eliminar receta",
                 lottieBuilder: LottieBuilder.asset(
                   "assets/lottie/delete.json",
-                  fit: BoxFit.fill,
-                ),
-                titleStyle: GoogleFonts.openSans(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
-                msgStyle: GoogleFonts.openSans(
-                  fontSize: 13,
+                  fit: BoxFit.contain,
                 ),
                 msgAlign: TextAlign.center,
+                titleStyle: Theme.of(context).textTheme.displayMedium!,
+                msgStyle: Theme.of(context).textTheme.bodyMedium,
+                color: Theme.of(context).colorScheme.surface,
+                dialogWidth: MediaQuery.of(context).size.width * 0.8,
                 useRootNavigator: true,
                 useSafeArea: true,
-                context: context,
                 actionsBuilder: (context) {
                   return [
                     SizedBox(
@@ -64,20 +62,7 @@ class RecipeScreen extends StatelessWidget {
                         onPressed: () {
                           Get.back();
                         },
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          foregroundColor: Colors.transparent,
-                        ),
-                        child: const Text(
-                          "Cancelar",
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        child: const Text("Cancelar"),
                       ),
                     ),
                     SizedBox(
@@ -92,18 +77,8 @@ class RecipeScreen extends StatelessWidget {
                           Get.back();
                           recipeController.refreshRecipes();
                         },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
                         child: const Text(
                           "Eliminar",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
                         ),
                       ),
                     ),
@@ -126,11 +101,12 @@ class RecipeScreen extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:
+                            isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
-                            color: Colors.black12,
+                            color: isDarkMode ? Colors.black38 : Colors.black12,
                             blurRadius: 10,
                           ),
                         ],

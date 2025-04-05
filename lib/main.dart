@@ -5,6 +5,7 @@ import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/firebase_options.dart";
 import "package:the_recipes/hive/hive_adapters.dart";
 import "package:the_recipes/hive_boxes.dart";
@@ -19,6 +20,7 @@ void main() async {
   await Hive.initFlutter();
   Hive..registerAdapter(RecipeAdapter());
   await Hive.openBox<Recipe>(recipesBox);
+  await Hive.openBox(ThemeController.themeBox);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -33,6 +35,7 @@ void main() async {
   );
 
   Get.put(AuthController());
+  Get.put(ThemeController());
 
   runApp(
     const MyApp(),
@@ -49,8 +52,10 @@ class MyApp extends StatelessWidget {
       transitionDuration: const Duration(milliseconds: 350),
       defaultTransition: Transition.downToUp,
       debugShowCheckedModeBanner: false,
-      home: _handleAuthState(),
       theme: TheRecipeAppTheme.theme,
+      darkTheme: TheRecipeAppTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      home: _handleAuthState(),
       builder: EasyLoading.init(),
     );
   }

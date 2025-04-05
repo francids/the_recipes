@@ -1,7 +1,6 @@
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:google_fonts/google_fonts.dart";
 import "package:image_picker/image_picker.dart";
 import "package:lottie/lottie.dart";
 import "package:material_dialogs/material_dialogs.dart";
@@ -110,14 +109,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     "assets/lottie/back.json",
                     fit: BoxFit.contain,
                   ),
-                  titleStyle: GoogleFonts.openSans(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  msgStyle: GoogleFonts.openSans(
-                    fontSize: 13,
-                  ),
                   msgAlign: TextAlign.center,
+                  titleStyle: Theme.of(context).textTheme.displayMedium!,
+                  msgStyle: Theme.of(context).textTheme.bodyMedium,
+                  color: Theme.of(context).colorScheme.surface,
+                  dialogWidth: MediaQuery.of(context).size.width * 0.8,
                   useRootNavigator: true,
                   useSafeArea: true,
                   actionsBuilder: (context) {
@@ -192,7 +188,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                       child: Text(
                         title,
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Padding(
@@ -200,7 +198,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                       child: Text(
                         "(Paso ${_currentStep.value + 1} de 4)",
                         style: TextStyle(
-                            fontSize: 16, color: Colors.grey.shade700),
+                          fontSize: 16,
+                          color: Colors.grey.shade700,
+                        ),
                       ),
                     ),
                   ],
@@ -268,6 +268,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Widget _buildImageStep() {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Center(
       child: Column(
         children: [
@@ -316,7 +318,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black54,
+                color: isDarkMode ? Colors.white70 : Colors.black54,
               ),
             ),
           ),
@@ -343,25 +345,22 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   void _generateRecipeFromImage() async {
-    Get.dialog(
-      Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(color: Colors.deepOrange),
-              SizedBox(height: 16),
-              Text("Analizando la imagen...", style: TextStyle(fontSize: 16)),
-            ],
-          ),
-        ),
-      ),
+    Dialogs.materialDialog(
+      context: context,
       barrierDismissible: false,
+      title: "Analizando imagen",
+      msg: "Por favor espera mientras procesamos la imagen",
+      lottieBuilder: LottieBuilder.asset(
+        "assets/lottie/loading.json",
+        fit: BoxFit.contain,
+      ),
+      msgAlign: TextAlign.center,
+      titleStyle: Theme.of(context).textTheme.displayMedium!,
+      msgStyle: Theme.of(context).textTheme.bodyMedium,
+      color: Theme.of(context).colorScheme.surface,
+      dialogWidth: MediaQuery.of(context).size.width * 0.8,
+      useRootNavigator: true,
+      useSafeArea: true,
     );
 
     try {

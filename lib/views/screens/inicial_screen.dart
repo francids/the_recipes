@@ -1,6 +1,7 @@
 import "package:get/get.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/views/screens/add_recipe_screen.dart";
 import "package:the_recipes/views/widgets/recipe_card.dart";
 import "package:flutter/material.dart";
@@ -12,6 +13,7 @@ class InicialScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final RecipeController recipeController = Get.put(RecipeController());
     final AuthController authController = Get.find<AuthController>();
+    final ThemeController themeController = Get.find<ThemeController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -28,62 +30,36 @@ class InicialScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
+              themeController.toggleTheme();
+            },
+            icon: Obx(() => Icon(
+                  themeController.isDarkMode
+                      ? Icons.light_mode
+                      : Icons.dark_mode,
+                )),
+            tooltip: "Cambiar tema",
+          ),
+          IconButton(
+            onPressed: () {
               authController.signOut();
             },
             icon: const Icon(Icons.logout),
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var upd = await Get.to(const AddRecipeScreen());
+          if (upd == true) {
+            recipeController.refreshRecipes();
+          }
+        },
+        tooltip: "Agregar receta",
+        child: const Icon(Icons.add),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 10,
-                        ),
-                      ],
-                    ),
-                    child: FilledButton(
-                      onPressed: () async {
-                        var upd = await Get.to(const AddRecipeScreen());
-                        if (upd == true) {
-                          recipeController.refreshRecipes();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: const Text(
-                        "Agregar receta",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Divider(
-            indent: 16,
-            endIndent: 16,
-            thickness: 0.6,
-            color: Colors.black12,
-          ),
           GetX<RecipeController>(
             builder: (controller) {
               return Expanded(

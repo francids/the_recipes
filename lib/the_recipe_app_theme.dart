@@ -3,13 +3,21 @@ import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
 
 class TheRecipeAppTheme {
-  static ThemeData theme = ThemeData(
-    textTheme: _textTheme,
-    colorScheme: _colorScheme,
-    appBarTheme: _appBarTheme,
-    filledButtonTheme: _filledButtonTheme,
-    useMaterial3: false,
-  );
+  static ThemeData theme = getTheme(false);
+  static ThemeData darkTheme = getTheme(true);
+
+  static ThemeData getTheme(bool isDark) {
+    return ThemeData(
+      textTheme: _getTextTheme(isDark),
+      colorScheme: isDark ? _darkColorScheme : _colorScheme,
+      appBarTheme: _getAppBarTheme(isDark),
+      floatingActionButtonTheme: _floatingActionButtonThemeData(isDark),
+      filledButtonTheme: _filledButtonTheme,
+      brightness: isDark ? Brightness.dark : Brightness.light,
+      scaffoldBackgroundColor: isDark ? const Color(0xFF121212) : Colors.white,
+      useMaterial3: false,
+    );
+  }
 
   static FilledButtonThemeData _filledButtonTheme = const FilledButtonThemeData(
     style: ButtonStyle(
@@ -30,16 +38,36 @@ class TheRecipeAppTheme {
     ),
   );
 
-  static AppBarTheme _appBarTheme = const AppBarTheme(
-    centerTitle: true,
-    systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark, // Dark icons for Android
-      statusBarBrightness: Brightness.light, // Dark icons for iOS
-    ),
-    backgroundColor: Colors.transparent,
-    foregroundColor: Colors.black,
-    shadowColor: Colors.transparent,
-  );
+  static AppBarTheme _getAppBarTheme(bool isDark) {
+    return AppBarTheme(
+      centerTitle: true,
+      systemOverlayStyle: isDark
+          ? const SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.light,
+              statusBarBrightness: Brightness.dark,
+            )
+          : const SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarBrightness: Brightness.light,
+            ),
+      backgroundColor: Colors.transparent,
+      foregroundColor: isDark ? Colors.white : Colors.black,
+      shadowColor: Colors.transparent,
+    );
+  }
+
+  static FloatingActionButtonThemeData _floatingActionButtonThemeData(
+      bool isDark) {
+    return FloatingActionButtonThemeData(
+      backgroundColor: Colors.deepOrange,
+      foregroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+    );
+  }
 
   static ColorScheme _colorScheme = ColorScheme.fromSeed(
     seedColor: Colors.deepOrange,
@@ -50,22 +78,33 @@ class TheRecipeAppTheme {
     brightness: Brightness.light,
   );
 
-  static TextTheme _textTheme = GoogleFonts.openSansTextTheme(
-    const TextTheme(
-      displayLarge: TextStyle(
-        color: Colors.black,
-        fontSize: 23,
-        fontWeight: FontWeight.w600,
-      ),
-      displayMedium: TextStyle(
-        color: Colors.black,
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-      ),
-      bodyMedium: TextStyle(
-        color: Colors.black54,
-        fontSize: 13,
-      ),
-    ),
+  static ColorScheme _darkColorScheme = ColorScheme.fromSeed(
+    seedColor: Colors.deepOrange,
+    primary: Colors.deepOrange,
+    secondary: Colors.deepOrange,
+    surface: const Color(0xFF1E1E1E),
+    error: Colors.red,
+    brightness: Brightness.dark,
   );
+
+  static TextTheme _getTextTheme(bool isDark) {
+    return GoogleFonts.openSansTextTheme(
+      TextTheme(
+        displayLarge: TextStyle(
+          color: isDark ? Colors.white : Colors.black,
+          fontSize: 23,
+          fontWeight: FontWeight.w600,
+        ),
+        displayMedium: TextStyle(
+          color: isDark ? Colors.white : Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
+        bodyMedium: TextStyle(
+          color: isDark ? Colors.white70 : Colors.black54,
+          fontSize: 13,
+        ),
+      ),
+    );
+  }
 }
