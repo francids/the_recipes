@@ -150,24 +150,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 13px;
   padding: 40px 0;
   flex-wrap: wrap;
   user-select: none;
 }
 
 .mockup {
-  width: 280px;
-  border-radius: 30px;
+  width: 360px;
   transition: all 0.5s ease;
 }
 
 .mockupLeft {
-  transform: rotate(-5deg);
+  transform: rotate(-3deg);
 }
 
 .mockupRight {
-  transform: rotate(5deg);
+  transform: rotate(3deg);
 }
 
 .mockup:hover {
