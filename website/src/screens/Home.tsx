@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import LogoSvg from "../assets/Logo.svg";
-import InicialScreenPng from "../assets/InicialScreen.png";
-import RecipeListScreenPng from "../assets/RecipeScreen.png";
+import LightInicialScreen from "../assets/LightInicialScreen.webp";
+import LightRecipeListScreen from "../assets/LightRecipeScreen.webp";
+import DarkInicialScreen from "../assets/DarkInicialScreen.webp";
+import DarkRecipeListScreen from "../assets/DarkRecipeScreen.webp";
 import { ReactSVG } from "react-svg";
 import Footer from "../components/Footer";
 
@@ -162,16 +164,33 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.appShowcase}>
-          <img
-            src={InicialScreenPng}
-            alt="App receta detallada"
-            className={`${styles.mockup} ${styles.mockupLeft}`}
-          />
-          <img
-            src={RecipeListScreenPng}
-            alt="App lista de recetas"
-            className={`${styles.mockup} ${styles.mockupRight}`}
-          />
+          {document.documentElement.classList.contains("darkMode") ? (
+            <>
+              <img
+                src={DarkInicialScreen}
+                alt="App receta detallada - modo oscuro"
+                className={`${styles.mockup} ${styles.mockupLeft}`}
+              />
+              <img
+                src={DarkRecipeListScreen}
+                alt="App lista de recetas - modo oscuro"
+                className={`${styles.mockup} ${styles.mockupRight}`}
+              />
+            </>
+          ) : (
+            <>
+              <img
+                src={LightInicialScreen}
+                alt="App receta detallada - modo claro"
+                className={`${styles.mockup} ${styles.mockupLeft}`}
+              />
+              <img
+                src={LightRecipeListScreen}
+                alt="App lista de recetas - modo claro"
+                className={`${styles.mockup} ${styles.mockupRight}`}
+              />
+            </>
+          )}
         </div>
       </section>
 
