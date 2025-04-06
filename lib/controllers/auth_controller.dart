@@ -2,20 +2,24 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:get/get.dart";
 import "package:google_sign_in/google_sign_in.dart";
-import "package:the_recipes/views/screens/inicial_screen.dart";
-import "package:the_recipes/views/screens/login_screen.dart";
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Rx<User?> user = Rx<User?>(null);
+  User? _user;
+
+  User? get user => _user;
+  bool get isLoggedIn => _user != null;
 
   @override
   void onInit() {
     super.onInit();
-    user.bindStream(_auth.authStateChanges());
+    _auth.authStateChanges().listen((User? user) {
+      _user = user;
+      update();
+    });
   }
 
   Future<void> signInWithGoogle() async {
@@ -37,10 +41,8 @@ class AuthController extends GetxController {
       );
 
       await _auth.signInWithCredential(credential);
+      update();
       EasyLoading.showSuccess("Sesión iniciada correctamente");
-      Get.offAll(() {
-        return const InicialScreen();
-      });
     } catch (e) {
       EasyLoading.showError("Error al iniciar sesión");
     }
@@ -51,16 +53,10 @@ class AuthController extends GetxController {
       EasyLoading.show(status: "Cerrando sesión...");
       await _auth.signOut();
       await _googleSignIn.signOut();
-      Get.offAll(() {
-        return const LoginScreen();
-      });
+      update();
       EasyLoading.showSuccess("Sesión cerrada correctamente");
     } catch (e) {
       EasyLoading.showError("Error al cerrar sesión: ${e.toString()}");
     }
-  }
-
-  bool get isLoggedIn {
-    return _auth.currentUser != null;
   }
 }

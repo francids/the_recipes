@@ -6,6 +6,7 @@ import "package:lottie/lottie.dart";
 import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/add_recipe_controller.dart";
 import "package:the_recipes/controllers/ai_recipe_controller.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/views/widgets/form_field.dart";
 
 class AddRecipeScreen extends StatefulWidget {
@@ -269,6 +270,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   Widget _buildImageStep() {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final authController = Get.find<AuthController>();
 
     return Center(
       child: Column(
@@ -324,7 +326,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           ),
           SizedBox(height: 24),
           Obx(
-            () => addRecipeController.fullPath.value.isNotEmpty
+            () => addRecipeController.fullPath.value.isNotEmpty &&
+                    authController.isLoggedIn
                 ? Container(
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(horizontal: 32),
@@ -337,7 +340,27 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : addRecipeController.fullPath.value.isNotEmpty &&
+                        !authController.isLoggedIn
+                    ? Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: Column(
+                          children: [
+                            Text(
+                              "La función de generar recetas automáticamente a partir de imágenes no está disponible actualmente. Esta característica estará disponible en futuras versiones.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: isDarkMode
+                                    ? Colors.white70
+                                    : Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : SizedBox(),
           ),
         ],
       ),

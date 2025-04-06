@@ -12,7 +12,6 @@ import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/views/screens/inicial_screen.dart";
 import "package:the_recipes/the_recipe_app_theme.dart";
-import "package:the_recipes/views/screens/login_screen.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,20 +54,8 @@ class MyApp extends StatelessWidget {
       theme: TheRecipeAppTheme.theme,
       darkTheme: TheRecipeAppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: _handleAuthState(),
+      home: const InicialScreen(),
       builder: EasyLoading.init(),
-    );
-  }
-
-  Widget _handleAuthState() {
-    return GetX<AuthController>(
-      builder: (a) {
-        if (a.user.value != null) {
-          return const InicialScreen();
-        } else {
-          return const LoginScreen();
-        }
-      },
     );
   }
 }

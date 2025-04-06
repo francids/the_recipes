@@ -6,9 +6,9 @@ class ThemeController extends GetxController {
   static const themeBox = 'theme_box';
   static const themeKey = 'dark_theme';
 
-  final RxBool _isDarkMode = false.obs;
+  bool _isDarkMode = false;
 
-  bool get isDarkMode => _isDarkMode.value;
+  bool get isDarkMode => _isDarkMode;
 
   @override
   void onInit() {
@@ -25,18 +25,21 @@ class ThemeController extends GetxController {
       final box = Hive.box(themeBox);
       final isDark = box.get(themeKey, defaultValue: false);
 
-      _isDarkMode.value = isDark;
+      _isDarkMode = isDark;
 
+      update(); // Notify listeners
       applyTheme();
     } catch (e) {
       print("Error al cargar el tema: $e");
-      _isDarkMode.value = Get.isPlatformDarkMode;
+      _isDarkMode = Get.isPlatformDarkMode;
+      update(); // Notify listeners
       applyTheme();
     }
   }
 
   void toggleTheme() async {
-    _isDarkMode.value = !_isDarkMode.value;
+    _isDarkMode = !_isDarkMode;
+    update(); // Notify listeners
 
     try {
       if (!Hive.isBoxOpen(themeBox)) {
@@ -44,7 +47,7 @@ class ThemeController extends GetxController {
       }
 
       final box = Hive.box(themeBox);
-      await box.put(themeKey, _isDarkMode.value);
+      await box.put(themeKey, _isDarkMode);
 
       applyTheme();
     } catch (e) {
@@ -53,6 +56,6 @@ class ThemeController extends GetxController {
   }
 
   void applyTheme() {
-    Get.changeThemeMode(_isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
+    Get.changeThemeMode(_isDarkMode ? ThemeMode.dark : ThemeMode.light);
   }
 }
