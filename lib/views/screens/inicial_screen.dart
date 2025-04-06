@@ -1,8 +1,7 @@
 import "package:get/get.dart";
-import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
-import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/views/screens/add_recipe_screen.dart";
+import "package:the_recipes/views/screens/settings_screen.dart";
 import "package:the_recipes/views/widgets/recipe_card.dart";
 import "package:flutter/material.dart";
 
@@ -12,8 +11,6 @@ class InicialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecipeController recipeController = Get.put(RecipeController());
-    final AuthController authController = Get.find<AuthController>();
-    final ThemeController themeController = Get.find<ThemeController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -21,29 +18,13 @@ class InicialScreen extends StatelessWidget {
           "The Recipes App",
           style: Theme.of(context).textTheme.displayLarge,
         ),
-        leading: IconButton(
-          onPressed: () {
-            recipeController.refreshRecipes();
-          },
-          icon: const Icon(Icons.refresh),
-        ),
         actions: [
           IconButton(
             onPressed: () {
-              themeController.toggleTheme();
+              Get.to(() => const SettingsScreen());
             },
-            icon: Obx(() => Icon(
-                  themeController.isDarkMode
-                      ? Icons.light_mode
-                      : Icons.dark_mode,
-                )),
-            tooltip: "Cambiar tema",
-          ),
-          IconButton(
-            onPressed: () {
-              authController.signOut();
-            },
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.settings),
+            tooltip: "Configuración",
           ),
         ],
       ),

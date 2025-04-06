@@ -17,25 +17,21 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return GestureDetector(
-      onTap: () {
-        Get.to(
-          RecipeScreen(recipe: recipe),
-          curve: Curves.easeOutCirc,
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.only(top: 8, bottom: 8),
-        decoration: BoxDecoration(
-          color: isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: isDarkMode ? Colors.black38 : Colors.black12,
-              blurRadius: 10,
-            ),
-          ],
-        ),
+    return Card(
+      margin: const EdgeInsets.only(top: 8, bottom: 8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
+      elevation: 5,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(10),
+        onTap: () {
+          Get.to(
+            RecipeScreen(recipe: recipe),
+            curve: Curves.easeOutCirc,
+          );
+        },
         child: Row(
           children: [
             Hero(

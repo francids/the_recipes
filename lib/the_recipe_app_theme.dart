@@ -15,7 +15,9 @@ class TheRecipeAppTheme {
       filledButtonTheme: _filledButtonTheme,
       brightness: isDark ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: isDark ? const Color(0xFF121212) : Colors.white,
-      useMaterial3: false,
+      splashColor: Colors.deepOrange.withAlpha(32),
+      highlightColor: Colors.deepOrange.withAlpha(32),
+      useMaterial3: true,
     );
   }
 
@@ -53,6 +55,7 @@ class TheRecipeAppTheme {
       backgroundColor: Colors.transparent,
       foregroundColor: isDark ? Colors.white : Colors.black,
       shadowColor: Colors.transparent,
+      elevation: 0,
     );
   }
 

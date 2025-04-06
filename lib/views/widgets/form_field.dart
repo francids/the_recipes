@@ -65,6 +65,7 @@ class ModernFormFieldDecoration {
   final InputBorder? customFocusedBorder;
   final InputBorder? customErrorBorder;
   final bool wrapText;
+  final Color? fillColor;
 
   const ModernFormFieldDecoration({
     this.labelText,
@@ -79,6 +80,7 @@ class ModernFormFieldDecoration {
     this.customFocusedBorder,
     this.customErrorBorder,
     this.wrapText = true,
+    this.fillColor,
   });
 
   InputDecoration buildInputDecoration(BuildContext context, String hintText) {
@@ -90,7 +92,7 @@ class ModernFormFieldDecoration {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       filled: true,
-      fillColor: theme.colorScheme.surface,
+      fillColor: fillColor ?? theme.colorScheme.surface,
       isCollapsed: !wrapText,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 16.0,
