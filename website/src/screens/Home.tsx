@@ -57,33 +57,27 @@ export default function Home() {
     },
     {
       icon: "📋",
-      title: "Visualiza tus recetas",
+      title: "Gestiona tus recetas",
       description:
-        "Accede fácilmente a todas tus recetas guardadas, con instrucciones paso a paso e ingredientes necesarios.",
-    },
-    {
-      icon: "➕",
-      title: "Almacena nuevas recetas",
-      description:
-        "Añade tus recetas favoritas de forma sencilla para tenerlas siempre a mano cuando las necesites.",
-    },
-    {
-      icon: "🗑️",
-      title: "Gestiona tu colección",
-      description:
-        "Elimina las recetas que ya no necesitas o actualiza las existentes con nuevas mejoras.",
-    },
-    {
-      icon: "🔄",
-      title: "Próximamente: Compartir",
-      description:
-        "En futuras actualizaciones, podrás compartir tus mejores creaciones culinarias con amigos y familiares.",
+        "Visualiza, añade y elimina recetas fácilmente. Instrucciones paso a paso e ingredientes siempre a mano cuando los necesites.",
     },
     {
       icon: "🌙",
       title: "Modo oscuro",
       description:
         "Disfruta de la aplicación con un tema oscuro, perfecto para cocinar en ambientes con poca luz o para cuidar tus ojos.",
+    },
+    {
+      icon: "🔄",
+      title: "Próximamente: Compartir",
+      description:
+        "En futuras versiones, podrás compartir tus mejores creaciones culinarias con amigos y familiares.",
+    },
+    {
+      icon: "🤖",
+      title: "Próximamente: IA para recetas",
+      description:
+        "En futuras versiones, podrás generar automáticamente la información de una receta a partir de una imagen utilizando inteligencia artificial.",
     },
   ];
 
