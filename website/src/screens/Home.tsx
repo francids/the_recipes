@@ -12,6 +12,7 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [hideNavbar, setHideNavbar] = useState(false);
+  const [navbarTransparent, setNavbarTransparent] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleMenu = () => {
@@ -32,6 +33,12 @@ export default function Home() {
         setHideNavbar(true);
       } else {
         setHideNavbar(false);
+      }
+
+      if (currentScrollY < 50) {
+        setNavbarTransparent(true);
+      } else {
+        setNavbarTransparent(false);
       }
 
       setLastScrollY(currentScrollY);
@@ -94,7 +101,9 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <nav
-        className={`${styles.navbar} ${hideNavbar ? styles.navbarHidden : ""}`}
+        className={`${styles.navbar} ${hideNavbar ? styles.navbarHidden : ""} ${
+          navbarTransparent ? styles.navbarTransparent : ""
+        }`}
       >
         <a href="#" className={styles.navbarLogo}>
           <ReactSVG
