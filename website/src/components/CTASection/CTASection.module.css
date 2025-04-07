@@ -1,0 +1,77 @@
+.cta {
+  background: var(--bg-color);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.ctaText {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: var(--secondary-text);
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  user-select: none;
+}
+
+.downloadBtn {
+  display: inline-flex;
+  background-color: #ff5722;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+  cursor: pointer;
+  border: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.githubIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.downloadBtn:hover {
+  background-color: #e64a19;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid var(--text-color);
+  align-items: center;
+  gap: 10px;
+}
+
+.secondaryBtn:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}

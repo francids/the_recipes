@@ -1,0 +1,36 @@
+.scrollTopButton {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--scroll-btn-bg);
+  color: var(--scroll-btn-color);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  box-shadow: var(--scroll-btn-shadow);
+  cursor: pointer;
+  z-index: 999;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.scrollTopButton:hover {
+  background-color: var(--scroll-btn-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--scroll-btn-shadow);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
