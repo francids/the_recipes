@@ -28,15 +28,15 @@
 
 .downloadBtn {
   display: inline-flex;
-  background-color: #ff5722;
-  color: white;
+  background-color: var(--primary-button-bg);
+  color: var(--primary-button-color);
   padding: 15px 30px;
   border-radius: 50px;
   font-size: 1.1rem;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+  box-shadow: var(--primary-button-shadow);
   cursor: pointer;
   border: none;
   align-items: center;
@@ -49,9 +49,9 @@
 }
 
 .downloadBtn:hover {
-  background-color: #e64a19;
+  background-color: var(--primary-button-hover);
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+  box-shadow: var(--primary-button-hover-shadow);
 }
 
 .secondaryBtn {

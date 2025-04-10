@@ -7,9 +7,18 @@
   --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   --border-color: #eee;
   --secondary-text: #666;
+  --primary-button-bg: #ff5722;
+  --primary-button-color: #fff;
+  --primary-button-hover: #e64a19;
+  --primary-button-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+  --primary-button-hover-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
   --navbar-bg: rgba(255, 255, 255, 0.96);
   --navbar-logo: #ff5722;
   --hero-gradient: linear-gradient(135deg, #ff5722 0%, #ff9800 100%);
+  --hero-button-bg: #fff;
+  --hero-button-color: #ff5722;
+  --hero-button-hover: #fff8ed;
+  --hero-button-shadow: 0 2px 10px rgba(255, 87, 34, 0.4);
   --footer-bg: #333;
   --footer-border: #444;
   --scroll-btn-bg: #ff5722;
@@ -28,6 +37,10 @@
   --navbar-bg: rgba(30, 30, 30, 0.95);
   --navbar-logo: #fff;
   --hero-gradient: linear-gradient(135deg, #420f00 0%, #1a1a1a 100%);
+  --hero-button-bg: #ff5722;
+  --hero-button-color: #fff;
+  --hero-button-hover: #ff7043;
+  --hero-button-shadow: 0 2px 10px rgba(255, 87, 34, 0.4);
   --footer-bg: #1a1a1a;
   --footer-border: #333;
 }

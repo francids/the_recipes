@@ -3,17 +3,35 @@ import styles from "./CTASection.module.css";
 export default function CTASection() {
   return (
     <section id="cta" className={styles.cta}>
-      <h2 className={styles.ctaTitle}>¡Proyecto en desarrollo!</h2>
+      <h2 className={styles.ctaTitle}>¡Ya disponible!</h2>
       <p className={styles.ctaText}>
-        The Recipes App está actualmente en desarrollo. Sigue el progreso o
-        contribuye al proyecto.
+        The Recipes App ya está disponible para Android. Descarga la aplicación
+        y empieza a organizar tus recetas favoritas hoy mismo.
       </p>
       <div className={styles.ctaButtons}>
+        <a
+          href="https://the-recipe-app.uptodown.com/android"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.downloadBtn}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="currentColor"
+            className={styles.downloadIcon}
+          >
+            <path d="M40-240q9-107 65.5-197T256-580l-74-128q-6-9-3-19t13-15q8-5 18-2t16 12l74 128q86-36 180-36t180 36l74-128q6-9 16-12t18 2q10 5 13 15t-3 19l-74 128q94 53 150.5 143T920-240H40Zm240-110q21 0 35.5-14.5T330-400q0-21-14.5-35.5T280-450q-21 0-35.5 14.5T230-400q0 21 14.5 35.5T280-350Zm400 0q21 0 35.5-14.5T730-400q0-21-14.5-35.5T680-450q-21 0-35.5 14.5T630-400q0 21 14.5 35.5T680-350Z" />
+          </svg>
+          <span>Descargar ahora</span>
+        </a>
         <a
           href="https://github.com/francids/the_recipes"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.downloadBtn}
+          className={styles.secondaryBtn}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

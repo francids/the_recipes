@@ -35,6 +35,31 @@
   margin-bottom: 2rem;
 }
 
+.heroButton {
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 15px 30px;
+  cursor: pointer;
+  background-color: var(--hero-button-bg);
+  color: var(--hero-button-color);
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--hero-button-shadow);
+}
+
+.heroButton:hover {
+  background-color: var(--hero-button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 87, 34, 0.4);
+}
+
 .appShowcase {
   position: relative;
   max-width: 1200px;
