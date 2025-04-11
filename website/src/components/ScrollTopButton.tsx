@@ -1,4 +1,4 @@
-import styles from "./ScrollTopButton.module.css";
+"use client";
 
 interface ScrollTopButtonProps {
   showScrollTop: boolean;
@@ -14,14 +14,12 @@ export default function ScrollTopButton({
     });
   };
 
-  if (!showScrollTop) {
-    return null;
-  }
+  if (!showScrollTop) return null;
 
   return (
     <button
-      className={styles.scrollTopButton}
       onClick={scrollToTop}
+      className="fixed bottom-8 right-8 w-14 h-14 bg-orange-600 text-white rounded-full flex justify-center items-center shadow-lg z-50 transition-all duration-300 animate-fadeIn hover:bg-orange-700 hover:-translate-y-1"
       aria-label="Volver arriba"
     >
       <svg

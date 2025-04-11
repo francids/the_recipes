@@ -7,9 +7,11 @@
 
 ## Tecnologías
 
-- **Vite**.
+- **Next.js**.
 - **React**.
 - **TypeScript**.
+- **Tailwind CSS**.
+- **Bun**.
 
 ## Instalación
 
