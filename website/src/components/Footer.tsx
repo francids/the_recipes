@@ -5,15 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("darkMode");
+  const [darkMode, setDarkMode] = useState(false);
 
-    if (savedTheme !== null) {
-      return savedTheme === "true";
-    }
+  useEffect(() => {
+    const storedDarkMode = localStorage.getItem("darkMode");
+    const isDarkMode =
+      storedDarkMode !== null
+        ? storedDarkMode === "true"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+    setDarkMode(isDarkMode);
+  }, []);
 
   useEffect(() => {
     if (darkMode) {
