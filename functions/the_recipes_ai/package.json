@@ -1,9 +1,12 @@
 {
   "name": "the_recipes_ai",
+  "module": "src/index.ts",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir=dist --format=cjs",
+    "start": "bun run build && bun run dist/index.js"
   },
   "dependencies": {
     "elysia": "latest",
@@ -12,6 +15,5 @@
   },
   "devDependencies": {
     "bun-types": "latest"
-  },
-  "module": "src/index.js"
+  }
 }
