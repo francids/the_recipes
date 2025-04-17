@@ -51,6 +51,13 @@ export async function POST(req: Request) {
       image: z.string(),
     }).parse(body);
 
+    if (Buffer.byteLength(image, "base64") > 5 * 1024 * 1024) {
+      return NextResponse.json(
+        { error: "Imagen demasiado grande (>5 MB)" },
+        { status: 400 },
+      );
+    }
+
     const { object } = await generateObject({
       model: google("models/gemini-2.0-flash"),
       schema: recipeSchema,
