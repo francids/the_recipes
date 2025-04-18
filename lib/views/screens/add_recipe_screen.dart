@@ -424,10 +424,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         _buildTextField(
           "Título de la receta",
           addRecipeController.title,
+          "Ejemplo: Ensalada César",
         ),
         _buildTextField(
           "Descripción de la receta",
           addRecipeController.description,
+          "Ejemplo: Una deliciosa ensalada con pollo y aderezo César",
         ),
       ],
     );
@@ -447,13 +449,14 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     );
   }
 
-  Widget _buildTextField(String label, RxString value) {
+  Widget _buildTextField(String label, RxString value, String hint) {
     return Obx(
       () => ModernFormField(
+        topLabel: label,
         initialValue: value.value,
         onChanged: (text) => value.value = text,
         keyboardType: TextInputType.text,
-        hintText: label,
+        hintText: hint,
       ),
     );
   }
