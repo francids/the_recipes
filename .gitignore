@@ -45,6 +45,8 @@ app.*.map.json
 # Environment files
 .env
 *.env
+env.g.dart
+.env.*
 
 # Firebase
 google-services.json
