@@ -21,9 +21,14 @@ class RecipeCard extends StatelessWidget {
       margin: const EdgeInsets.only(top: 8, bottom: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: isDarkMode ? Colors.white30 : Colors.black26,
+          width: 0.5,
+          strokeAlign: BorderSide.strokeAlignInside,
+        ),
       ),
-      color: isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
-      elevation: 5,
+      color: Colors.transparent,
+      elevation: 0,
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () {
