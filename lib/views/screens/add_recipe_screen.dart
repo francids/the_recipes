@@ -7,6 +7,7 @@ import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/add_recipe_controller.dart";
 import "package:the_recipes/controllers/ai_recipe_controller.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/gestures/drag_start_listener.dart";
 import "package:the_recipes/views/widgets/form_field.dart";
 
 class AddRecipeScreen extends StatefulWidget {
@@ -263,7 +264,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   Widget _buildScrollablePage(Widget content) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: content,
     );
   }
@@ -419,19 +420,22 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Widget _buildTitleAndDescriptionStep() {
-    return Column(
-      children: [
-        _buildTextField(
-          "Título de la receta",
-          addRecipeController.title,
-          "Ejemplo: Ensalada César",
-        ),
-        _buildTextField(
-          "Descripción de la receta",
-          addRecipeController.description,
-          "Ejemplo: Una deliciosa ensalada con pollo y aderezo César",
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        children: [
+          _buildTextField(
+            "Título de la receta",
+            addRecipeController.title,
+            "Ejemplo: Ensalada César",
+          ),
+          _buildTextField(
+            "Descripción de la receta",
+            addRecipeController.description,
+            "Ejemplo: Una deliciosa ensalada con pollo y aderezo César",
+          ),
+        ],
+      ),
     );
   }
 
@@ -462,6 +466,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Widget _buildDynamicList(RxList<String> list, String label) {
+    final listKey = GlobalKey(debugLabel: label);
+
     return Obx(
       () => Column(
         children: [
@@ -472,34 +478,71 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
             ),
           ),
           SizedBox(height: 16),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: list.length,
-            itemBuilder: (context, i) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ModernFormField(
-                        initialValue: list[i],
-                        onChanged: (text) => list[i] = text,
-                        keyboardType: TextInputType.text,
-                        hintText: "$label ${i + 1}",
+          list.isEmpty
+              ? Center(
+                  child: Text(
+                    "Ningún ${label.toLowerCase()} agregado todavía",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                )
+              : ReorderableListView.builder(
+                  key: listKey,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  onReorder: (oldIndex, newIndex) {
+                    if (oldIndex < newIndex) {
+                      newIndex -= 1;
+                    }
+                    final List<String> updatedList = List<String>.from(list);
+
+                    final item = updatedList.removeAt(oldIndex);
+                    updatedList.insert(newIndex, item);
+
+                    list.value = updatedList;
+                    setState(() {});
+                  },
+                  itemCount: list.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                      key: ValueKey('item-$i'),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.remove_circle, color: Colors.red),
-                      onPressed: () {
-                        list.removeAt(i);
-                      },
-                    ),
-                  ],
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          CustomDragStartListener(
+                            index: i,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Icon(
+                                Icons.drag_handle,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: ModernFormField(
+                              initialValue: list[i],
+                              onChanged: (text) => list[i] = text,
+                              keyboardType: TextInputType.text,
+                              hintText: "$label ${i + 1}",
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.remove_circle, color: Colors.red),
+                            onPressed: () {
+                              list.removeAt(i);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ],
       ),
     );
