@@ -20,11 +20,28 @@ class InicialScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.more_vert),
+            tooltip: "Menu",
             onPressed: () {
-              Get.to(() => const SettingsScreen());
+              showMenu(
+                context: context,
+                position: const RelativeRect.fromLTRB(100, 100, 0, 0),
+                items: [
+                  PopupMenuItem(
+                    child: const Text("Recargar recetas"),
+                    onTap: () {
+                      recipeController.refreshRecipes();
+                    },
+                  ),
+                  PopupMenuItem(
+                    child: const Text("Configuración"),
+                    onTap: () {
+                      Get.to(() => const SettingsScreen());
+                    },
+                  ),
+                ],
+              );
             },
-            icon: const Icon(Icons.settings),
-            tooltip: "Configuración",
           ),
         ],
       ),

@@ -18,6 +18,7 @@ class TheRecipeAppTheme {
       splashColor: Colors.deepOrange.withAlpha(32),
       highlightColor: Colors.deepOrange.withAlpha(32),
       useMaterial3: true,
+      popupMenuTheme: _popupMenuTheme(isDark),
     );
   }
 
@@ -108,6 +109,26 @@ class TheRecipeAppTheme {
           fontSize: 13,
         ),
       ),
+    );
+  }
+
+  static PopupMenuThemeData _popupMenuTheme(bool isDark) {
+    return PopupMenuThemeData(
+      color: isDark ? const Color(0xFF2A2A2A) : Colors.white,
+      textStyle: TextStyle(
+        color: isDark ? Colors.white : Colors.black87,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: isDark ? Colors.white30 : Colors.black26,
+          width: 0.5,
+          strokeAlign: BorderSide.strokeAlignInside,
+        ),
+      ),
+      elevation: 2,
     );
   }
 }
