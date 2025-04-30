@@ -5,6 +5,8 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,7 +25,10 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={openSans.className}>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          {children}
+          <SpeedInsights />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
