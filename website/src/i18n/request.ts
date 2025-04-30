@@ -3,7 +3,7 @@ import { cookies, headers } from "next/headers";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
-const supportedLocales = ["en", "es"];
+const supportedLocales = ["en", "es", "de", "fr", "pt", "zh"];
 const defaultLocale = "en";
 
 async function getBrowserLocale(): Promise<string | null> {

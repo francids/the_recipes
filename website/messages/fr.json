@@ -1,0 +1,47 @@
+{
+  "Navbar": {
+    "features": "Fonctionnalités",
+    "download": "Télécharger"
+  },
+  "HeroSection": {
+    "title": "Votre livre de recettes numérique",
+    "description": "Stockez, organisez et retrouvez facilement toutes vos recettes préférées au même endroit. Maintenant disponible pour Android !",
+    "download": "Télécharger maintenant"
+  },
+  "FeaturesSection": {
+    "title": "Fonctionnalités principales",
+    "feature1_title": "Fonctionne hors ligne",
+    "feature1_description": "Informations stockées sur votre appareil, pas besoin d'internet.",
+    "feature2_title": "Gérez vos recettes",
+    "feature2_description": "Visualisez, ajoutez et supprimez des recettes avec les instructions et les ingrédients toujours à portée de main.",
+    "feature3_title": "Mode sombre",
+    "feature3_description": "Thème sombre idéal pour cuisiner dans des environnements peu éclairés.",
+    "feature4_title": "Bientôt disponible : Partager",
+    "feature4_description": "Bientôt, vous pourrez partager vos créations culinaires avec vos amis et votre famille.",
+    "feature5_title": "Bientôt disponible : IA pour les recettes",
+    "feature5_description": "Génération automatique de recettes à partir d'images grâce à l'IA."
+  },
+  "CTASection": {
+    "title": "Disponible maintenant !",
+    "description": "L'application The Recipes est maintenant disponible pour Android. Téléchargez l'application et commencez à organiser vos recettes préférées dès aujourd'hui.",
+    "download_now": "Télécharger maintenant",
+    "view_github": "Voir sur GitHub",
+    "discover_features": "Découvrir les fonctionnalités"
+  },
+  "Footer": {
+    "tagline": "Votre assistant culinaire numérique",
+    "section_recipes": "The Recipes",
+    "link_features": "Fonctionnalités",
+    "link_development": "Développement",
+    "section_contact": "Contact",
+    "section_preferences": "Préférences",
+    "theme_label": "Thème actuel :",
+    "theme_light": "Mode clair",
+    "theme_dark": "Mode sombre",
+    "theme_system": "Mode système",
+    "theme_toggle_to_dark": "Passer en mode sombre",
+    "theme_toggle_to_system": "Passer en mode système",
+    "theme_toggle_to_light": "Passer en mode clair",
+    "copyright": "© {year} The Recipes App. Tous droits réservés."
+  }
+}
