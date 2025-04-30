@@ -13,7 +13,7 @@ Revisa el archivo `.env.example` para más información sobre las variables de e
 
 ## Instalación
 
-1 . Clona el repositorio:
+1. Clona el repositorio:
 
 ```bash
 git clone https://github.com/francids/the_recipes.git
