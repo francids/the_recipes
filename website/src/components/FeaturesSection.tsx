@@ -1,33 +1,33 @@
+import { useTranslations } from "next-intl";
+
 export default function FeaturesSection() {
+  const t = useTranslations("FeaturesSection");
+
   const features = [
     {
       icon: "📱",
-      title: "Funciona localmente",
-      description:
-        "Información almacenada en tu dispositivo, sin necesidad de internet.",
+      title: t("feature1_title"),
+      description: t("feature1_description"),
     },
     {
       icon: "📋",
-      title: "Gestiona tus recetas",
-      description:
-        "Visualiza, añade y elimina recetas con instrucciones e ingredientes siempre a mano.",
+      title: t("feature2_title"),
+      description: t("feature2_description"),
     },
     {
       icon: "🌙",
-      title: "Modo oscuro",
-      description: "Tema oscuro ideal para cocinar en ambientes con poca luz.",
+      title: t("feature3_title"),
+      description: t("feature3_description"),
     },
     {
       icon: "🔄",
-      title: "Próximamente: Compartir",
-      description:
-        "Pronto podrás compartir tus creaciones culinarias con amigos y familia.",
+      title: t("feature4_title"),
+      description: t("feature4_description"),
     },
     {
       icon: "🤖",
-      title: "Próximamente: IA para recetas",
-      description:
-        "Generación automática de recetas a partir de imágenes con IA.",
+      title: t("feature5_title"),
+      description: t("feature5_description"),
     },
   ];
 
@@ -37,7 +37,7 @@ export default function FeaturesSection() {
       className="py-20 px-5 bg-white dark:bg-zinc-900 text-center"
     >
       <h2 className="text-4xl font-bold mb-16 text-orange-600 relative">
-        Características principales
+        {t("title")}
         <span className="absolute bottom-[-1.5rem] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-orange-600 rounded"></span>
       </h2>
 

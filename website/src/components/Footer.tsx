@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 type Theme = "light" | "dark" | "system";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
   const [theme, setTheme] = useState<Theme>("system");
 
   useEffect(() => {
@@ -90,10 +92,10 @@ export default function Footer() {
       icon: theme === "light" ? "☀️" : theme === "dark" ? "🌙" : "💻",
       label:
         theme === "light"
-          ? "Cambiar a modo oscuro"
+          ? t("theme_toggle_to_dark")
           : theme === "dark"
-          ? "Cambiar a modo sistema"
-          : "Cambiar a modo claro",
+          ? t("theme_toggle_to_system")
+          : t("theme_toggle_to_light"),
       positionClass: isCurrentlyDark
         ? "transform translate-x-[30px] bg-zinc-500"
         : "bg-orange-500",
@@ -104,9 +106,9 @@ export default function Footer() {
   const buttonState = getButtonState();
 
   const themeLabel = () => {
-    if (theme === "light") return "Modo claro";
-    if (theme === "dark") return "Modo oscuro";
-    return "Modo sistema";
+    if (theme === "light") return t("theme_light");
+    if (theme === "dark") return t("theme_dark");
+    return t("theme_system");
   };
 
   return (
@@ -124,39 +126,45 @@ export default function Footer() {
             />
           </div>
           <p className="text-neutral-400 dark:text-neutral-300 text-lg">
-            Tu asistente culinario digital
+            {t("tagline")}
           </p>
         </div>
         <div className="flex gap-10 flex-wrap">
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">The Recipes</h3>
+            <h3 className="text-orange-500 mb-5 text-lg">
+              {t("section_recipes")}
+            </h3>{" "}
             <Link
               href="/#features"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
-              Características
+              {t("link_features")}
             </Link>
             <Link
               href="/#cta"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
-              Desarrollo
+              {t("link_development")}
             </Link>
           </div>
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">Contacto</h3>
+            <h3 className="text-orange-500 mb-5 text-lg">
+              {t("section_contact")}
+            </h3>{" "}
             <a
               href="https://github.com/francids/the_recipes"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
-              GitHub
+              Github
             </a>
           </div>
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">Preferencias</h3>
+            <h3 className="text-orange-500 mb-5 text-lg">
+              {t("section_preferences")}
+            </h3>{" "}
             <div className="flex items-center justify-start gap-2.5 mt-2.5">
               <span className="text-neutral-400 dark:text-neutral-300 text-base">
-                Tema actual: {themeLabel()}
+                {t("theme_label")} {themeLabel()}
               </span>
               <button
                 onClick={toggleTheme}
@@ -176,10 +184,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="pt-8 border-t border-zinc-800 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 text-sm">
-        <p>
-          &copy; {new Date().getFullYear()} The Recipes App. Todos los derechos
-          reservados.
-        </p>
+        <p>{t("copyright", { year: new Date().getFullYear() })}</p>
       </div>
     </footer>
   );

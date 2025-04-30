@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
+
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -10,14 +13,18 @@ export const metadata: Metadata = {
     "Tu libro de recetas digital - Almacena, organiza y encuentra fácilmente todas tus recetas favoritas",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
+
   return (
-    <html lang="es">
-      <body className={openSans.className}>{children}</body>
+    <html lang={locale}>
+      <body className={openSans.className}>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      </body>
     </html>
   );
 }
