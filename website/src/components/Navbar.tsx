@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import LanguageSelect from "./LanguageSelect";
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -10,6 +12,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
+  const t = useTranslations("Navbar");
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -34,28 +37,31 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
 
   return (
     <nav className="flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-md">
-      <Link href="/" className="flex items-center select-none">
-        <Image
-          src="/Logo.svg"
-          alt="The Recipes App"
-          width={40}
-          height={40}
-          className="dark:invert"
-        />
-      </Link>
+      <div className="flex items-center gap-4 select-none">
+        <Link href="/" className="flex items-center select-none">
+          <Image
+            src="/Logo.svg"
+            alt="The Recipes App"
+            width={40}
+            height={40}
+            className="dark:invert"
+          />
+        </Link>
+        <LanguageSelect />
+      </div>
 
       <div className="hidden md:flex gap-8 items-center select-none">
         <Link
           href="#features"
           className="font-medium text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >
-          Características
+          {t("features")}
         </Link>
         <Link
           href="#cta"
           className="font-medium text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >
-          Descargar
+          {t("download")}
         </Link>
         <a
           href="https://github.com/francids/the_recipes"
@@ -96,14 +102,14 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
           onClick={toggleMenu}
           className="font-medium py-2 text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >
-          Características
+          {t("features")}
         </Link>
         <Link
           href="#cta"
           onClick={toggleMenu}
           className="font-medium py-2 text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >
-          Descargar
+          {t("download")}
         </Link>
         <a
           href="https://github.com/francids/the_recipes"

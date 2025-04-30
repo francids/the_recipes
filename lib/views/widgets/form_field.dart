@@ -8,11 +8,12 @@ class ModernFormField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-  final ModernFormFieldDecoration decoration;
   final TextInputAction? textInputAction;
   final bool? expands;
+  final String topLabel;
+  final ModernFormFieldDecoration decoration;
 
-  const ModernFormField({
+  ModernFormField({
     Key? key,
     required this.hintText,
     this.initialValue = "",
@@ -21,10 +22,13 @@ class ModernFormField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.onChanged,
-    this.decoration = const ModernFormFieldDecoration(),
+    this.topLabel = "",
     this.textInputAction,
     this.expands,
-  }) : super(key: key);
+    ModernFormFieldDecoration? decoration,
+  })  : decoration =
+            decoration ?? ModernFormFieldDecoration(topLabel: topLabel),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,29 +36,45 @@ class ModernFormField extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextFormField(
-        controller: controller,
-        focusNode: decoration.focusNode,
-        autofocus: decoration.autofocus,
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        // Establecer maxLines a null permite que el campo crezca indefinidamente
-        maxLines: decoration.wrapText ? null : 1,
-        minLines: decoration.minLines,
-        expands: expands ?? false,
-        textInputAction: textInputAction,
-        initialValue: controller == null ? initialValue : null,
-        onChanged: onChanged,
-        validator: validator,
-        style: theme.textTheme.bodyMedium,
-        decoration: decoration.buildInputDecoration(context, hintText),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (topLabel.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6.0, left: 2.0),
+              child: Text(
+                topLabel,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+            ),
+          TextFormField(
+            controller: controller,
+            focusNode: decoration.focusNode,
+            autofocus: decoration.autofocus,
+            keyboardType: keyboardType,
+            obscureText: obscureText,
+            maxLines: decoration.wrapText ? null : 1,
+            minLines: decoration.minLines,
+            expands: expands ?? false,
+            textInputAction: textInputAction,
+            initialValue: controller == null ? initialValue : null,
+            onChanged: onChanged,
+            validator: validator,
+            style: theme.textTheme.bodyMedium!.copyWith(
+              color: theme.colorScheme.onSurface,
+            ),
+            decoration: decoration.buildInputDecoration(context, hintText),
+          ),
+        ],
       ),
     );
   }
 }
 
 class ModernFormFieldDecoration {
-  final String? labelText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final int? maxLines;
@@ -66,12 +86,11 @@ class ModernFormFieldDecoration {
   final InputBorder? customErrorBorder;
   final bool wrapText;
   final Color? fillColor;
+  final String? topLabel;
 
   const ModernFormFieldDecoration({
-    this.labelText,
     this.prefixIcon,
     this.suffixIcon,
-    // El valor predeterminado de maxLines ahora es null para permitir expansión
     this.maxLines,
     this.minLines = 1,
     this.focusNode,
@@ -81,6 +100,7 @@ class ModernFormFieldDecoration {
     this.customErrorBorder,
     this.wrapText = true,
     this.fillColor,
+    this.topLabel,
   });
 
   InputDecoration buildInputDecoration(BuildContext context, String hintText) {
@@ -88,7 +108,9 @@ class ModernFormFieldDecoration {
 
     return InputDecoration(
       hintText: hintText,
-      labelText: labelText,
+      hintStyle: theme.textTheme.bodyMedium?.copyWith(
+        color: theme.colorScheme.onSurface.withAlpha(48),
+      ),
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       filled: true,

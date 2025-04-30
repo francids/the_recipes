@@ -1,0 +1,47 @@
+{
+  "Navbar": {
+    "features": "Features",
+    "download": "Download"
+  },
+  "HeroSection": {
+    "title": "Your digital recipe book",
+    "description": "Store, organize, and easily find all your favorite recipes in one place. Now available for Android!",
+    "download": "Download now"
+  },
+  "FeaturesSection": {
+    "title": "Main Features",
+    "feature1_title": "Works offline",
+    "feature1_description": "Information stored on your device, no internet needed.",
+    "feature2_title": "Manage your recipes",
+    "feature2_description": "View, add, and delete recipes with instructions and ingredients always at hand.",
+    "feature3_title": "Dark mode",
+    "feature3_description": "Dark theme ideal for cooking in low-light environments.",
+    "feature4_title": "Coming soon: Share",
+    "feature4_description": "Soon you'll be able to share your culinary creations with friends and family.",
+    "feature5_title": "Coming soon: AI for recipes",
+    "feature5_description": "Automatic recipe generation from images using AI."
+  },
+  "CTASection": {
+    "title": "Available now!",
+    "description": "The Recipes App is now available for Android. Download the app and start organizing your favorite recipes today.",
+    "download_now": "Download now",
+    "view_github": "View on GitHub",
+    "discover_features": "Discover features"
+  },
+  "Footer": {
+    "tagline": "Your digital culinary assistant",
+    "section_recipes": "The Recipes",
+    "link_features": "Features",
+    "link_development": "Development",
+    "section_contact": "Contact",
+    "section_preferences": "Preferences",
+    "theme_label": "Current theme:",
+    "theme_light": "Light mode",
+    "theme_dark": "Dark mode",
+    "theme_system": "System mode",
+    "theme_toggle_to_dark": "Switch to dark mode",
+    "theme_toggle_to_system": "Switch to system mode",
+    "theme_toggle_to_light": "Switch to light mode",
+    "copyright": "© {year} The Recipes App. All rights reserved."
+  }
+}

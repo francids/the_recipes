@@ -1,0 +1,47 @@
+{
+  "Navbar": {
+    "features": "Características",
+    "download": "Descargar"
+  },
+  "HeroSection": {
+    "title": "Tu libro de recetas digital",
+    "description": "Almacena, organiza y encuentra fácilmente todas tus recetas favoritas en un solo lugar. ¡Ya disponible para Android!",
+    "download": "Descargar ahora"
+  },
+  "FeaturesSection": {
+    "title": "Características principales",
+    "feature1_title": "Funciona localmente",
+    "feature1_description": "Información almacenada en tu dispositivo, sin necesidad de internet.",
+    "feature2_title": "Gestiona tus recetas",
+    "feature2_description": "Visualiza, añade y elimina recetas con instrucciones e ingredientes siempre a mano.",
+    "feature3_title": "Modo oscuro",
+    "feature3_description": "Tema oscuro ideal para cocinar en ambientes con poca luz.",
+    "feature4_title": "Próximamente: Compartir",
+    "feature4_description": "Pronto podrás compartir tus creaciones culinarias con amigos y familia.",
+    "feature5_title": "Próximamente: IA para recetas",
+    "feature5_description": "Generación automática de recetas a partir de imágenes con IA."
+  },
+  "CTASection": {
+    "title": "¡Ya disponible!",
+    "description": "The Recipes App ya está disponible para Android. Descarga la aplicación y empieza a organizar tus recetas favoritas hoy mismo.",
+    "download_now": "Descargar ahora",
+    "view_github": "Ver en GitHub",
+    "discover_features": "Descubrir funciones"
+  },
+  "Footer": {
+    "tagline": "Tu asistente culinario digital",
+    "section_recipes": "The Recipes",
+    "link_features": "Características",
+    "link_development": "Desarrollo",
+    "section_contact": "Contacto",
+    "section_preferences": "Preferencias",
+    "theme_label": "Tema actual:",
+    "theme_light": "Modo claro",
+    "theme_dark": "Modo oscuro",
+    "theme_system": "Modo sistema",
+    "theme_toggle_to_dark": "Cambiar a modo oscuro",
+    "theme_toggle_to_system": "Cambiar a modo sistema",
+    "theme_toggle_to_light": "Cambiar a modo claro",
+    "copyright": "© {year} The Recipes App. Todos los derechos reservados."
+  }
+}

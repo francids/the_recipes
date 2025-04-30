@@ -2,37 +2,28 @@
 
 <img src="./assets/TheRecipesApp%20-%20Presentation.png" alt="TheRecipesApp">
 
-The Recipes App es una aplicación móvil enfocada en recetas. The Recipes App le permite al usuario revisar sus recetas,
-agregar nuevas y eliminar algunas.
+The Recipes App es una aplicación móvil enfocada en recetas. The Recipes App le permite al usuario revisar sus recetas, agregar nuevas y eliminar algunas.
+
+## Funcionalidades
+
+- [x] **Gestión de recetas**: El usuario puede agregar, visualizar y eliminar recetas.
+- [x] **Funcionalidad local**: La aplicación permite al usuario gestionar sus recetas sin necesidad de conexión a Internet.
+- [x] **Modo oscuro**: La aplicación cuenta con un modo oscuro para mejorar la experiencia del usuario en condiciones de poca luz.
+- [ ] **Compartición de recetas**: El usuario puede compartir sus recetas con otros usuarios a través de un enlace único.
+- [ ] **IA**: La aplicación utiliza inteligencia artificial para:
+  - [ ] Generar recetas basadas en una foto de un plato.
+  - [ ] Sugerir recetas basadas en los ingredientes que el usuario tiene en casa.
+  - [ ] Sugerir recetas basadas en las preferencias del usuario.
 
 ## Directorios
 
-- **android**: Contiene el código fuente de la aplicación móvil para Android.
-- **assets**: Contiene los recursos de la aplicación móvil y del repositorio.
-- **lib**: Contiene el código fuente de la aplicación móvil.
-- **website**: Contiene el código fuente de la página web.
-
-## Flujo de trabajo
-
-1. El usuario inicia sesión en la aplicación móvil con su cuenta de Google.
-2. El usuario visualiza las recetas creadas por él mismo.
-3. El usuario puede agregar una nueva receta.
-4. El usuario puede eliminar una receta.
-5. El usuario puede hacer pública una receta y compartirla con un amigo mediante un enlace.
-6. El amigo puede visualizar la receta compartida en la página web mediante el enlace.
+- **lib/**: Contiene el código fuente de la aplicación móvil desarrollada en Flutter.
+- **website/**: Contiene el código fuente de la página web; incluye visualizar recetas compartidas, API's de IA y la página de inicio.
 
 ## Tecnologías
 
-- **Flutter**.
-- **Dart**.
-- **Firebase**.
-- **GetX**.
+La aplicación móvil está desarrollada en [Flutter](https://flutter.dev/) con [Hive CE](https://pub.dev/packages/hive_ce) y [GetX](https://pub.dev/packages/get).
 
-## Instalación
+La página web está desarrollada en [Next.js](https://nextjs.org/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/). Las funcionalidades de IA están desarrolladas con [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/); adicionalmente, se utiliza [Upstash Redis](https://upstash.com/) para el cacheo de las peticiones a la API de IA.
 
-1. Clonar el repositorio.
-2. Ejecutar `flutter pub get` para instalar las dependencias.
-3. Crear un proyecto en Firebase e instalar el CLI de Firebase: `npm install -g firebase-tools`.
-4. Iniciar sesión con `firebase login`.
-5. Configurar la aplicación con Firebase: `flutterfire configure`.
-6. Ejecutar la aplicación: `flutter run`.
+Tanto la aplicación móvil como la página web usan [Firebase](https://firebase.google.com/) para la autenticación de usuarios y el almacenamiento de recetas en la nube.

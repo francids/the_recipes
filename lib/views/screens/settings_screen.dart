@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 // import 'package:material_dialogs/material_dialogs.dart';
 // import 'package:the_recipes/controllers/auth_controller.dart';
 import 'package:the_recipes/controllers/theme_controller.dart';
+import 'package:the_recipes/env/env.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -58,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     subtitle: Text(
-                      "1.0.0",
+                      Env.APP_VERSION,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Theme.of(context).colorScheme.outline,
                           ),

@@ -3,31 +3,112 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+
+type Theme = "light" | "dark" | "system";
 
 export default function Footer() {
-  const [darkMode, setDarkMode] = useState(false);
+  const t = useTranslations("Footer");
+  const [theme, setTheme] = useState<Theme>("system");
 
   useEffect(() => {
-    const storedDarkMode = localStorage.getItem("darkMode");
-    const isDarkMode =
-      storedDarkMode !== null
-        ? storedDarkMode === "true"
-        : window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    setDarkMode(isDarkMode);
+    const storedTheme = localStorage.getItem("theme") as Theme | null;
+    if (storedTheme && ["light", "dark", "system"].includes(storedTheme)) {
+      setTheme(storedTheme);
+    } else {
+      setTheme("system");
+    }
   }, []);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("darkMode", darkMode.toString());
-  }, [darkMode]);
+    const applyTheme = (currentTheme: Theme) => {
+      let isDarkMode: boolean;
+      if (currentTheme === "system") {
+        isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      } else {
+        isDarkMode = currentTheme === "dark";
+      }
+
+      if (isDarkMode) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      if (
+        localStorage.getItem("theme") ||
+        currentTheme !== "system" ||
+        theme !== "system"
+      ) {
+        localStorage.setItem("theme", currentTheme);
+      }
+    };
+
+    applyTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = () => {
+      if (theme === "system") {
+        if (mediaQuery.matches) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+    };
+
+    handleChange();
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [theme]);
 
   const toggleTheme = () => {
-    setDarkMode(!darkMode);
+    setTheme((prevTheme) => {
+      if (prevTheme === "light") return "dark";
+      if (prevTheme === "dark") return "system";
+      return "light";
+    });
+  };
+
+  const getButtonState = () => {
+    let isCurrentlyDark: boolean;
+    if (theme === "system") {
+      if (typeof window !== "undefined") {
+        isCurrentlyDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+      } else {
+        isCurrentlyDark = false;
+      }
+    } else {
+      isCurrentlyDark = theme === "dark";
+    }
+
+    return {
+      icon: theme === "light" ? "☀️" : theme === "dark" ? "🌙" : "💻",
+      label:
+        theme === "light"
+          ? t("theme_toggle_to_dark")
+          : theme === "dark"
+          ? t("theme_toggle_to_system")
+          : t("theme_toggle_to_light"),
+      positionClass: isCurrentlyDark
+        ? "transform translate-x-[30px] bg-zinc-500"
+        : "bg-orange-500",
+      isDarkEffective: isCurrentlyDark,
+    };
+  };
+
+  const buttonState = getButtonState();
+
+  const themeLabel = () => {
+    if (theme === "light") return t("theme_light");
+    if (theme === "dark") return t("theme_dark");
+    return t("theme_system");
   };
 
   return (
@@ -45,56 +126,56 @@ export default function Footer() {
             />
           </div>
           <p className="text-neutral-400 dark:text-neutral-300 text-lg">
-            Tu asistente culinario digital
+            {t("tagline")}
           </p>
         </div>
         <div className="flex gap-10 flex-wrap">
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">The Recipes</h3>
+            <h3 className="text-orange-500 mb-5 text-lg">
+              {t("section_recipes")}
+            </h3>{" "}
             <Link
               href="/#features"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
-              Características
+              {t("link_features")}
             </Link>
             <Link
               href="/#cta"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
-              Desarrollo
+              {t("link_development")}
             </Link>
           </div>
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">Contacto</h3>
+            <h3 className="text-orange-500 mb-5 text-lg">
+              {t("section_contact")}
+            </h3>{" "}
             <a
               href="https://github.com/francids/the_recipes"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
-              GitHub
+              Github
             </a>
           </div>
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">Preferencias</h3>
+            <h3 className="text-orange-500 mb-5 text-lg">
+              {t("section_preferences")}
+            </h3>{" "}
             <div className="flex items-center justify-start gap-2.5 mt-2.5">
               <span className="text-neutral-400 dark:text-neutral-300 text-base">
-                Modo oscuro
+                {t("theme_label")} {themeLabel()}
               </span>
               <button
                 onClick={toggleTheme}
                 className="relative inline-block w-[60px] h-[30px] bg-zinc-700 dark:bg-zinc-800 rounded-full border-none cursor-pointer overflow-hidden transition-colors"
-                aria-label={
-                  darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
-                }
+                aria-label={buttonState.label}
               >
                 <div
-                  className={`absolute top-0.5 left-0.5 w-[26px] h-[26px] flex items-center justify-center rounded-full transition-transform ease-in-out duration-300 ${
-                    darkMode
-                      ? "transform translate-x-[30px] bg-zinc-500"
-                      : "bg-orange-500"
-                  }`}
+                  className={`absolute top-0.5 left-0.5 w-[26px] h-[26px] flex items-center justify-center rounded-full transition-transform ease-in-out duration-300 ${buttonState.positionClass}`}
                 >
                   <span className="text-sm flex items-center justify-center select-none pointer-events-none">
-                    {darkMode ? "🌙" : "☀️"}
+                    {buttonState.icon}
                   </span>
                 </div>
               </button>
@@ -103,10 +184,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="pt-8 border-t border-zinc-800 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 text-sm">
-        <p>
-          &copy; {new Date().getFullYear()} The Recipes App. Todos los derechos
-          reservados.
-        </p>
+        <p>{t("copyright", { year: new Date().getFullYear() })}</p>
       </div>
     </footer>
   );
