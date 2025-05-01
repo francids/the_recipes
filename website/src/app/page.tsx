@@ -36,7 +36,6 @@ export default function Home() {
     };
 
     const handleResize = () => {
-      // Cerrar el menú automáticamente si la pantalla se redimensiona a tamaño desktop
       if (window.innerWidth >= 768 && isMenuOpen) {
         setIsMenuOpen(false);
         document.body.style.overflow = "";
@@ -49,7 +48,6 @@ export default function Home() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
-      // Asegurar que el scroll esté habilitado cuando el componente se desmonta
       document.body.style.overflow = "";
     };
   }, [lastScrollY, isMenuOpen]);
