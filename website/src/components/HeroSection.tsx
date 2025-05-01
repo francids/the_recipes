@@ -6,7 +6,9 @@ import { useTranslations } from "next-intl";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean | undefined>();
+  const [image1Loaded, setImage1Loaded] = useState(false);
+  const [image2Loaded, setImage2Loaded] = useState(false);
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -53,7 +55,12 @@ export default function HeroSection() {
       </div>
 
       <div className="max-w-6xl mx-auto py-10 flex justify-center items-center gap-3 md:gap-5 flex-wrap select-none">
-        <div className="w-64 md:w-80 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 -rotate-3">
+        <div className="w-64 md:w-80 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 -rotate-3 relative">
+          {!image1Loaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-orange-800/20 rounded-lg">
+              <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
           <Image
             src={
               isDarkMode
@@ -63,11 +70,20 @@ export default function HeroSection() {
             alt="App receta detallada - modo oscuro"
             width={360}
             height={720}
-            className="w-full h-auto"
+            className={`w-full h-auto transition-opacity duration-300 ${
+              image1Loaded ? "opacity-100" : "opacity-0"
+            }`}
             priority
+            unoptimized={true}
+            onLoadingComplete={() => setImage1Loaded(true)}
           />
         </div>
-        <div className="w-64 md:w-80 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 rotate-3">
+        <div className="w-64 md:w-80 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 rotate-3 relative">
+          {!image2Loaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-orange-800/20 rounded-lg">
+              <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
           <Image
             src={
               isDarkMode ? "/DarkRecipeScreen.webp" : "/LightRecipeScreen.webp"
@@ -75,8 +91,12 @@ export default function HeroSection() {
             alt="App lista de recetas - modo oscuro"
             width={360}
             height={720}
-            className="w-full h-auto"
+            className={`w-full h-auto transition-opacity duration-300 ${
+              image2Loaded ? "opacity-100" : "opacity-0"
+            }`}
             priority
+            unoptimized={true}
+            onLoadingComplete={() => setImage2Loaded(true)}
           />
         </div>
       </div>
