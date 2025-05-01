@@ -115,103 +115,104 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Agregar Receta"),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: _handleBackButton,
-          ),
-          actions: [
-            Obx(
-              () => _currentStep.value == 3
-                  ? IconButton(
-                      icon: const Icon(Icons.save),
-                      onPressed: _handleSaveRecipe)
-                  : const SizedBox(),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Agregar Receta"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: _handleBackButton,
         ),
-        body: Column(
-          children: [
-            Obx(
-              () => Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text(
-                      _stepTitles[_currentStep.value],
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "(Paso ${_currentStep.value + 1} de 4)",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                onPageChanged: (index) => _currentStep.value = index,
+        actions: [
+          Obx(
+            () => _currentStep.value == 3
+                ? IconButton(
+                    icon: const Icon(Icons.save), onPressed: _handleSaveRecipe)
+                : const SizedBox(),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
                 children: [
-                  _wrapInScrollView(
-                    ImageStepWidget(controller: controller),
-                  ),
-                  _wrapInScrollView(
-                    TextFieldsStepWidget(controller: controller),
-                  ),
-                  _wrapInScrollView(
-                    DynamicListStepWidget(
-                      list: controller.ingredientsList,
-                      label: "Ingrediente",
+                  Text(
+                    _stepTitles[_currentStep.value],
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  _wrapInScrollView(
-                    DynamicListStepWidget(
-                      list: controller.directionsList,
-                      label: "Paso",
+                  Text(
+                    "(Paso ${_currentStep.value + 1} de 4)",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey.shade700,
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-        bottomNavigationBar: Obx(
-          () => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _currentStep.value > 0
-                        ? TextButton(
-                            onPressed: () => _handleNavigation(false),
-                            child: const Text("Anterior"))
-                        : const SizedBox(),
-                    _currentStep.value < 3 && _isCurrentStepValid.value
-                        ? FilledButton(
-                            onPressed: () => _handleNavigation(true),
-                            child: const Text("Siguiente"))
-                        : const SizedBox(),
-                  ],
-                ),
-              ),
-            ],
           ),
+          Expanded(
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              onPageChanged: (index) => _currentStep.value = index,
+              children: [
+                _wrapInScrollView(
+                  ImageStepWidget(controller: controller),
+                ),
+                _wrapInScrollView(
+                  TextFieldsStepWidget(controller: controller),
+                ),
+                _wrapInScrollView(
+                  DynamicListStepWidget(
+                    list: controller.ingredientsList,
+                    label: "Ingrediente",
+                  ),
+                ),
+                _wrapInScrollView(
+                  DynamicListStepWidget(
+                    list: controller.directionsList,
+                    label: "Paso",
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Obx(
+        () => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 24,
+                right: 24,
+                top: 8,
+                bottom: 32,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _currentStep.value > 0
+                      ? TextButton(
+                          onPressed: () => _handleNavigation(false),
+                          child: const Text("Anterior"))
+                      : const SizedBox(),
+                  _currentStep.value < 3 && _isCurrentStepValid.value
+                      ? FilledButton(
+                          onPressed: () => _handleNavigation(true),
+                          child: const Text("Siguiente"))
+                      : const SizedBox(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
