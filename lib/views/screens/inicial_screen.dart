@@ -45,15 +45,41 @@ class InicialScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var upd = await Get.to(const AddRecipeScreen());
-          if (upd == true) {
-            recipeController.refreshRecipes();
-          }
-        },
-        tooltip: "Agregar receta",
-        child: const Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Tooltip(
+            message: "Funciones de IA",
+            preferBelow: false,
+            child: FloatingActionButton.small(
+              onPressed: () {
+                Get.showSnackbar(
+                  const GetSnackBar(
+                    title: "Función no disponible",
+                    message: "Esta función no está disponible en esta versión",
+                    duration: Duration(seconds: 1),
+                    snackPosition: SnackPosition.TOP,
+                  ),
+                );
+              },
+              child: const Icon(Icons.hexagon_outlined),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Tooltip(
+            message: "Agregar receta",
+            preferBelow: false,
+            child: FloatingActionButton(
+              onPressed: () async {
+                var upd = await Get.to(const AddRecipeScreen());
+                if (upd == true) {
+                  recipeController.refreshRecipes();
+                }
+              },
+              child: const Icon(Icons.add),
+            ),
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
