@@ -3,14 +3,15 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocale } from "next-intl";
 import { setCookie } from "cookies-next";
+import Image from "next/image";
 
 const languageOptions = [
-  { code: "es", name: "Español" },
-  { code: "en", name: "English" },
-  { code: "de", name: "Deutsch" },
-  { code: "fr", name: "Français" },
-  { code: "pt", name: "Português" },
-  { code: "zh", name: "中文" },
+  { code: "es", name: "Español", flagCode: "ES" },
+  { code: "en", name: "English", flagCode: "GB" },
+  { code: "de", name: "Deutsch", flagCode: "DE" },
+  { code: "fr", name: "Français", flagCode: "FR" },
+  { code: "pt", name: "Português", flagCode: "PT" },
+  { code: "zh", name: "中文", flagCode: "CN" },
 ];
 
 export default function LanguageSelect() {
@@ -54,6 +55,13 @@ export default function LanguageSelect() {
     return language ? language.name : "English";
   };
 
+  const getCurrentLanguageFlag = () => {
+    const language = languageOptions.find(
+      (lang) => lang.code === selectedLanguage
+    );
+    return language ? language.flagCode : "GB";
+  };
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -62,6 +70,14 @@ export default function LanguageSelect() {
         aria-label="Seleccionar idioma"
         aria-expanded={isOpen}
       >
+        <Image
+          src={`https://flag.vercel.app/s/${getCurrentLanguageFlag()}.svg`}
+          alt={getCurrentLanguageName()}
+          width={16}
+          height={16}
+          className="inline-block ml-2"
+          loading="lazy"
+        />
         <span className="text-sm font-medium text-orange-700 dark:text-orange-400">
           {getCurrentLanguageName()}
         </span>
@@ -90,13 +106,21 @@ export default function LanguageSelect() {
               <li key={language.code}>
                 <button
                   onClick={() => changeLanguage(language.code)}
-                  className={`block w-full text-left px-4 py-2 text-sm ${
+                  className={`flex justify-start items-center w-full gap-0 text-left px-4 py-2 text-sm ${
                     language.code === selectedLanguage
                       ? "bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400 font-medium"
                       : "text-zinc-700 dark:text-zinc-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400"
                   }`}
                 >
-                  {language.name}
+                  <Image
+                    src={`https://flag.vercel.app/s/${language.flagCode}.svg`}
+                    alt={language.name}
+                    width={16}
+                    height={16}
+                    className="inline-block mr-2"
+                    loading="lazy"
+                  />
+                  <span>{language.name}</span>
                 </button>
               </li>
             ))}
