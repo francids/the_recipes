@@ -1,0 +1,47 @@
+{
+  "Navbar": {
+    "features": "特徴",
+    "download": "ダウンロード"
+  },
+  "HeroSection": {
+    "title": "あなたのデジタルレシピブック",
+    "description": "お気に入りのレシピをすべて1か所に保存、整理し、簡単に見つけられます。Androidで利用可能になりました！",
+    "download": "今すぐダウンロード"
+  },
+  "FeaturesSection": {
+    "title": "主な特徴",
+    "feature1_title": "オフラインで動作",
+    "feature1_description": "情報はデバイスに保存され、インターネットは不要です。",
+    "feature2_title": "レシピを管理",
+    "feature2_description": "手順と材料を常に手元に置いて、レシピを表示、追加、削除できます。",
+    "feature3_title": "ダークモード",
+    "feature3_description": "暗い環境での料理に最適なダークテーマ。",
+    "feature4_title": "近日公開：共有",
+    "feature4_description": "まもなく、あなたの料理作品を友人や家族と共有できるようになります。",
+    "feature5_title": "近日公開：レシピ用AI",
+    "feature5_description": "AIを使用して画像からレシピを自動生成します。"
+  },
+  "CTASection": {
+    "title": "今すぐ利用可能！",
+    "description": "The Recipes AppがAndroidで利用可能になりました。アプリをダウンロードして、今日からお気に入りのレシピの整理を始めましょう。",
+    "download_now": "今すぐダウンロード",
+    "view_github": "GitHubで表示",
+    "discover_features": "特徴を発見"
+  },
+  "Footer": {
+    "tagline": "あなたのデジタル料理アシスタント",
+    "section_recipes": "The Recipes",
+    "link_features": "特徴",
+    "link_development": "開発",
+    "section_contact": "連絡先",
+    "section_preferences": "設定",
+    "theme_label": "現在のテーマ：",
+    "theme_light": "ライトモード",
+    "theme_dark": "ダークモード",
+    "theme_system": "システムモード",
+    "theme_toggle_to_dark": "ダークモードに切り替え",
+    "theme_toggle_to_system": "システムモードに切り替え",
+    "theme_toggle_to_light": "ライトモードに切り替え",
+    "copyright": "© {year} The Recipes App. 無断複写・転載を禁じます。"
+  }
+}

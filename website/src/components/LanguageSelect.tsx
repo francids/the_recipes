@@ -9,9 +9,12 @@ const languageOptions = [
   { code: "es", name: "Español", flagCode: "ES" },
   { code: "en", name: "English", flagCode: "GB" },
   { code: "de", name: "Deutsch", flagCode: "DE" },
+  { code: "it", name: "Italiano", flagCode: "IT" },
   { code: "fr", name: "Français", flagCode: "FR" },
   { code: "pt", name: "Português", flagCode: "PT" },
   { code: "zh", name: "中文", flagCode: "CN" },
+  { code: "ja", name: "日本語", flagCode: "JP" },
+  { code: "ko", name: "한국어", flagCode: "KR" },
 ];
 
 export default function LanguageSelect() {
