@@ -1,0 +1,47 @@
+{
+  "Navbar": {
+    "features": "기능",
+    "download": "다운로드"
+  },
+  "HeroSection": {
+    "title": "나만의 디지털 레시피 북",
+    "description": "좋아하는 모든 레시피를 한 곳에 저장, 정리하고 쉽게 찾아보세요. 이제 Android에서 사용할 수 있습니다!",
+    "download": "지금 다운로드"
+  },
+  "FeaturesSection": {
+    "title": "주요 기능",
+    "feature1_title": "오프라인 작동",
+    "feature1_description": "정보는 기기에 저장되며 인터넷 연결이 필요하지 않습니다.",
+    "feature2_title": "레시피 관리",
+    "feature2_description": "지침과 재료를 항상 손쉽게 확인하며 레시피를 보고, 추가하고, 삭제할 수 있습니다.",
+    "feature3_title": "다크 모드",
+    "feature3_description": "어두운 환경에서 요리하기에 이상적인 다크 테마입니다.",
+    "feature4_title": "출시 예정: 공유",
+    "feature4_description": "곧 친구 및 가족과 요리 창작물을 공유할 수 있게 됩니다.",
+    "feature5_title": "출시 예정: 레시피용 AI",
+    "feature5_description": "AI를 사용하여 이미지에서 레시피를 자동으로 생성합니다."
+  },
+  "CTASection": {
+    "title": "지금 이용 가능!",
+    "description": "The Recipes 앱이 이제 Android에서 사용 가능합니다. 앱을 다운로드하고 오늘부터 좋아하는 레시피 정리를 시작하세요.",
+    "download_now": "지금 다운로드",
+    "view_github": "GitHub에서 보기",
+    "discover_features": "기능 살펴보기"
+  },
+  "Footer": {
+    "tagline": "나만의 디지털 요리 도우미",
+    "section_recipes": "The Recipes",
+    "link_features": "기능",
+    "link_development": "개발",
+    "section_contact": "연락처",
+    "section_preferences": "환경 설정",
+    "theme_label": "현재 테마:",
+    "theme_light": "라이트 모드",
+    "theme_dark": "다크 모드",
+    "theme_system": "시스템 모드",
+    "theme_toggle_to_dark": "다크 모드로 전환",
+    "theme_toggle_to_system": "시스템 모드로 전환",
+    "theme_toggle_to_light": "라이트 모드로 전환",
+    "copyright": "© {year} The Recipes App. 모든 권리 보유."
+  }
+}
