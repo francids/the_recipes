@@ -99,11 +99,15 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
     if (hasData) {
       UIHelpers.showConfirmationDialog(
-          context: context,
-          title: "Salir",
-          message: "¿Salir sin guardar?",
-          lottieAsset: "assets/lottie/back.json",
-          confirmAction: () => Get.back(result: false));
+        context: context,
+        title: "Salir",
+        message: "¿Salir sin guardar?",
+        lottieAsset: "assets/lottie/back.json",
+        confirmAction: () {
+          Get.back();
+          Get.back(result: false);
+        },
+      );
     } else {
       Get.back(result: false);
     }
