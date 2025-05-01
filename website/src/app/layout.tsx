@@ -10,6 +10,30 @@ import { Analytics } from "@vercel/analytics/next";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
+const themeScript = `
+(function() {
+  try {
+    const storedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else if (storedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      if (prefersDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  } catch (e) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+       document.documentElement.classList.add('dark');
+    }
+  }
+})();
+`;
+
 export const metadata: Metadata = {
   title: "The Recipes",
   description:
@@ -34,7 +58,10 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className={openSans.className}>
         <NextIntlClientProvider>
           {children}
