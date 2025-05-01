@@ -20,7 +20,7 @@ export default function CTASection() {
           href="https://the-recipe-app.uptodown.com/android"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-orange-600 text-white font-semibold text-lg transition-all duration-300 hover:bg-orange-700 hover:-translate-y-1 hover:shadow-lg"
+          className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-orange-600 text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-700 dark:hover:bg-orange-700 select-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ export default function CTASection() {
           href="https://github.com/francids/the_recipes"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-zinc-800 dark:border-zinc-200 text-zinc-800 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-200 dark:hover:text-zinc-900 hover:-translate-y-1 hover:shadow-lg"
+          className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ export default function CTASection() {
 
         <a
           href="#features"
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-zinc-800 dark:border-zinc-200 text-zinc-800 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-200 dark:hover:text-zinc-900 hover:-translate-y-1 hover:shadow-lg"
+          className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
         >
           {t("discover_features")}
         </a>
