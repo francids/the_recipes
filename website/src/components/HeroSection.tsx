@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
-  const [isDarkMode, setIsDarkMode] = useState<boolean | undefined>();
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [image1Loaded, setImage1Loaded] = useState(false);
   const [image2Loaded, setImage2Loaded] = useState(false);
 
