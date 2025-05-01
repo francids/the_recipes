@@ -86,24 +86,24 @@ export default function LanguageSelect() {
         </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="16px"
+          height="16px"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={`transition-transform duration-200 text-orange-500 dark:text-orange-400 ${
+          className={`ml-1.5 transition-transform duration-200 text-orange-500 dark:text-orange-400 ${
             isOpen ? "rotate-180" : ""
           }`}
         >
-          <polyline points="6 9 12 15 18 9"></polyline>
+          <path d="M12 5v14m-7-7l7 7 7-7" />
         </svg>
       </button>
 
       {isOpen && (
-        <div className="absolute mt-1 right-0 bg-white dark:bg-zinc-800 border border-orange-200 dark:border-orange-800/30 rounded-md shadow-lg z-50 min-w-[150px] overflow-hidden">
+        <div className="absolute mt-1 left-0 bg-white dark:bg-zinc-800 border border-orange-200 dark:border-orange-800/30 rounded-md shadow-lg z-50 min-w-[150px] overflow-hidden">
           <ul className="py-1">
             {languageOptions.map((language) => (
               <li key={language.code}>
