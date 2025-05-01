@@ -87,7 +87,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
       <div
         ref={menuRef}
         className={`
-          fixed top-[72px] left-0 right-0 flex flex-col gap-4 p-6 shadow-lg rounded-b-lg md:hidden
+          fixed top-[70px] left-0 right-0 flex flex-col gap-4 m-0 p-6 shadow-lg rounded-b-lg md:hidden
           transition-opacity duration-300 ease-in-out
           ${
             isMenuOpen
