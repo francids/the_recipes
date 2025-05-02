@@ -38,7 +38,10 @@
     "title": "Configuración",
     "appearance_section": "Apariencia",
     "dark_theme": "Tema oscuro",
-    "dark_theme_description": "Cambia entre tema claro y oscuro",
+    "dark_theme_description": "Cambiar tema claro/oscuro",
+    "language_section": "Idioma",
+    "language": "Idioma",
+    "language_description": "Selecciona el idioma",
     "about_section": "Acerca de la aplicación",
     "version": "Versión"
   },

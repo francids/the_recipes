@@ -38,7 +38,10 @@
     "title": "Settings",
     "appearance_section": "Appearance",
     "dark_theme": "Dark theme",
-    "dark_theme_description": "Toggle between light and dark theme",
+    "dark_theme_description": "Toggle light/dark theme",
+    "language_section": "Language",
+    "language": "Language",
+    "language_description": "Select the app language",
     "about_section": "About the app",
     "version": "Version"
   },

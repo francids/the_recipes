@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:the_recipes/controllers/theme_controller.dart';
 import 'package:the_recipes/env/env.dart';
+import 'package:the_recipes/views/screens/settings/language_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -32,6 +33,13 @@ class SettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildThemeCard(context),
+            const SizedBox(height: 32),
+            Text(
+              "settings_screen.language_section".tr,
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+            const SizedBox(height: 16),
+            _buildLanguageCard(context),
             // const SizedBox(height: 32),
             // Text(
             //   "Cuenta",
@@ -102,6 +110,36 @@ class SettingsScreen extends StatelessWidget {
             controller.isDarkMode ? Icons.dark_mode : Icons.light_mode,
             color: Theme.of(context).colorScheme.primary,
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageCard(BuildContext context) {
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          Get.to(const LanguageScreen());
+        },
+        child: ListTile(
+          title: Text(
+            "settings_screen.language".tr,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          subtitle: Text(
+            "settings_screen.language_description".tr,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.outline,
+                ),
+          ),
+          leading: Icon(
+            Icons.language,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          trailing: const Icon(Icons.chevron_right),
         ),
       ),
     );
