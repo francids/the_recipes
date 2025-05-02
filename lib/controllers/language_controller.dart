@@ -22,7 +22,10 @@ class LanguageController extends GetxController {
       }
 
       final box = Hive.box(languageBox);
-      final language = box.get(languageKey, defaultValue: "en");
+      final language = box.get(
+        languageKey,
+        defaultValue: Get.deviceLocale?.languageCode ?? "en",
+      );
 
       _currentLanguage = language;
 
