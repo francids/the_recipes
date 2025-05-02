@@ -1,0 +1,97 @@
+{
+  "inicial_screen": {
+    "title": "Receitas",
+    "menu_tooltip": "Opções",
+    "menu_item_reload": "Recarregar receitas",
+    "menu_item_settings": "Configurações",
+    "fab_tooltip_ai": "Recursos de IA",
+    "snackbar_title_not_available": "Recurso não disponível",
+    "snackbar_message_not_available": "Este recurso não está disponível nesta versão",
+    "fab_tooltip_add": "Adicionar receita",
+    "empty_list": "Nenhuma receita disponível"
+  },
+  "recipe_screen": {
+    "delete_confirmation_title": "Excluir receita",
+    "delete_confirmation_message": "Tem certeza de que deseja excluir esta receita? Esta ação não pode ser desfeita.",
+    "cancel_button": "Cancelar",
+    "delete_button": "Excluir",
+    "ingredients_title": "Ingredientes",
+    "instructions_title": "Instruções"
+  },
+  "add_recipe_screen": {
+    "title": "Adicionar Receita",
+    "step_image": "Imagem",
+    "step_details": "Detalhes",
+    "step_ingredients": "Ingredientes",
+    "step_instructions": "Instruções",
+    "step_counter": "(Passo {0} de {1})",
+    "error_complete_fields": "Complete os campos.",
+    "error_complete_all": "Complete todos os campos.",
+    "exit_title": "Sair",
+    "exit_without_saving": "Sair sem salvar?",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "ingredient": "Ingrediente",
+    "step": "Passo"
+  },
+  "settings_screen": {
+    "title": "Configurações",
+    "appearance_section": "Aparência",
+    "dark_theme": "Tema escuro",
+    "dark_theme_description": "Alternar tema claro/escuro",
+    "language_section": "Idioma",
+    "language": "Idioma",
+    "language_description": "Selecione o idioma do aplicativo",
+    "about_section": "Sobre o aplicativo",
+    "version": "Versão"
+  },
+  "dynamic_list": {
+    "add_item": "Adicionar {0}",
+    "no_items_yet": "Nenhum {0} adicionado ainda"
+  },
+  "image_step": {
+    "tap_to_select": "Toque na imagem para selecionar uma foto da receita",
+    "analyzing_image_title": "Analisando imagem",
+    "analyzing_image_message": "Aguarde enquanto processamos a imagem",
+    "recipe_generated_success": "As informações da receita foram geradas",
+    "recipe_generated_error": "Não foi possível gerar a receita: {0}",
+    "generate_recipe_info": "Gerar informações da receita",
+    "feature_not_available": "A função para gerar receitas automaticamente a partir de imagens não está disponível atualmente. Este recurso estará disponível em versões futuras."
+  },
+  "text_fields_step": {
+    "title_label": "Título da receita",
+    "title_hint": "Exemplo: Salada Caesar",
+    "description_label": "Descrição da receita",
+    "description_hint": "Exemplo: Uma salada deliciosa com frango e molho Caesar"
+  },
+  "ui_helpers": {
+    "error": "Erro",
+    "success": "Sucesso",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "recipe_controller": {
+    "loading_recipes": "Carregando receitas...",
+    "recipes_loaded": "Receitas carregadas",
+    "adding_recipe": "Adicionando receita...",
+    "recipe_added": "Receita adicionada",
+    "deleting_recipe": "Excluindo receita...",
+    "recipe_not_found": "A receita não existe",
+    "recipe_deleted": "Receita excluída",
+    "delete_error": "Erro ao excluir a receita"
+  },
+  "auth_controller": {
+    "signing_in": "Fazendo login...",
+    "sign_in_success": "Login realizado com sucesso",
+    "sign_in_error": "Erro ao fazer login",
+    "signing_out": "Saindo...",
+    "sign_out_success": "Saída realizada com sucesso",
+    "sign_out_error": "Erro ao sair: {0}"
+  },
+  "add_recipe_controller": {
+    "saving_image": "Salvando imagem...",
+    "image_saved": "Imagem salva",
+    "adding_recipe": "Adicionando receita...",
+    "recipe_added": "Receita adicionada"
+  }
+}

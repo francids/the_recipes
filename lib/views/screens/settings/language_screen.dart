@@ -6,14 +6,15 @@ class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
 
   static const List<Map<String, String>> _languages = [
-    {
-      "code": "es",
-      "name": "Español",
-    },
-    {
-      "code": "en",
-      "name": "English",
-    },
+    {"code": "es", "name": "Español"},
+    {"code": "en", "name": "English"},
+    {"code": "de", "name": "Deutsch"},
+    {"code": "it", "name": "Italiano"},
+    {"code": "fr", "name": "Français"},
+    {"code": "pt", "name": "Português"},
+    {"code": "zh", "name": "中文"},
+    {"code": "ja", "name": "日本語"},
+    {"code": "ko", "name": "한국어"},
   ];
 
   @override

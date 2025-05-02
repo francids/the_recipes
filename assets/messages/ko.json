@@ -1,0 +1,97 @@
+{
+  "inicial_screen": {
+    "title": "레시피",
+    "menu_tooltip": "옵션",
+    "menu_item_reload": "레시피 새로고침",
+    "menu_item_settings": "설정",
+    "fab_tooltip_ai": "AI 기능",
+    "snackbar_title_not_available": "기능 사용 불가",
+    "snackbar_message_not_available": "이 기능은 현재 버전에서 사용할 수 없습니다",
+    "fab_tooltip_add": "레시피 추가",
+    "empty_list": "사용 가능한 레시피가 없습니다"
+  },
+  "recipe_screen": {
+    "delete_confirmation_title": "레시피 삭제",
+    "delete_confirmation_message": "이 레시피를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "cancel_button": "취소",
+    "delete_button": "삭제",
+    "ingredients_title": "재료",
+    "instructions_title": "조리 방법"
+  },
+  "add_recipe_screen": {
+    "title": "레시피 추가",
+    "step_image": "이미지",
+    "step_details": "상세 정보",
+    "step_ingredients": "재료",
+    "step_instructions": "조리 방법",
+    "step_counter": "(단계 {0}/{1})",
+    "error_complete_fields": "필드를 완성하세요.",
+    "error_complete_all": "모든 필드를 완성하세요.",
+    "exit_title": "종료",
+    "exit_without_saving": "저장하지 않고 종료하시겠습니까?",
+    "previous": "이전",
+    "next": "다음",
+    "ingredient": "재료",
+    "step": "단계"
+  },
+  "settings_screen": {
+    "title": "설정",
+    "appearance_section": "외관",
+    "dark_theme": "다크 테마",
+    "dark_theme_description": "라이트/다크 테마 전환",
+    "language_section": "언어",
+    "language": "언어",
+    "language_description": "앱 언어 선택",
+    "about_section": "앱 정보",
+    "version": "버전"
+  },
+  "dynamic_list": {
+    "add_item": "{0} 추가",
+    "no_items_yet": "아직 추가된 {0}이(가) 없습니다"
+  },
+  "image_step": {
+    "tap_to_select": "이미지를 탭하여 레시피 사진 선택",
+    "analyzing_image_title": "이미지 분석 중",
+    "analyzing_image_message": "이미지를 처리하는 동안 잠시 기다려주세요",
+    "recipe_generated_success": "레시피 정보가 생성되었습니다",
+    "recipe_generated_error": "레시피를 생성할 수 없습니다: {0}",
+    "generate_recipe_info": "레시피 정보 생성",
+    "feature_not_available": "이미지에서 자동으로 레시피를 생성하는 기능은 현재 사용할 수 없습니다. 이 기능은 향후 버전에서 사용할 수 있습니다."
+  },
+  "text_fields_step": {
+    "title_label": "레시피 제목",
+    "title_hint": "예: 시저 샐러드",
+    "description_label": "레시피 설명",
+    "description_hint": "예: 닭고기와 시저 드레싱이 들어간 맛있는 샐러드"
+  },
+  "ui_helpers": {
+    "error": "오류",
+    "success": "성공",
+    "cancel": "취소",
+    "confirm": "확인"
+  },
+  "recipe_controller": {
+    "loading_recipes": "레시피 로딩 중...",
+    "recipes_loaded": "레시피 로딩 완료",
+    "adding_recipe": "레시피 추가 중...",
+    "recipe_added": "레시피 추가됨",
+    "deleting_recipe": "레시피 삭제 중...",
+    "recipe_not_found": "레시피가 존재하지 않습니다",
+    "recipe_deleted": "레시피 삭제됨",
+    "delete_error": "레시피 삭제 중 오류 발생"
+  },
+  "auth_controller": {
+    "signing_in": "로그인 중...",
+    "sign_in_success": "로그인 성공",
+    "sign_in_error": "로그인 오류",
+    "signing_out": "로그아웃 중...",
+    "sign_out_success": "로그아웃 성공",
+    "sign_out_error": "로그아웃 오류: {0}"
+  },
+  "add_recipe_controller": {
+    "saving_image": "이미지 저장 중...",
+    "image_saved": "이미지 저장됨",
+    "adding_recipe": "레시피 추가 중...",
+    "recipe_added": "레시피 추가됨"
+  }
+}

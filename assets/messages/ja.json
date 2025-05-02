@@ -1,0 +1,97 @@
+{
+  "inicial_screen": {
+    "title": "レシピ",
+    "menu_tooltip": "オプション",
+    "menu_item_reload": "レシピを再読み込み",
+    "menu_item_settings": "設定",
+    "fab_tooltip_ai": "AI機能",
+    "snackbar_title_not_available": "機能は利用できません",
+    "snackbar_message_not_available": "この機能はこのバージョンでは利用できません",
+    "fab_tooltip_add": "レシピを追加",
+    "empty_list": "レシピがありません"
+  },
+  "recipe_screen": {
+    "delete_confirmation_title": "レシピを削除",
+    "delete_confirmation_message": "このレシピを削除してもよろしいですか？この操作は元に戻せません。",
+    "cancel_button": "キャンセル",
+    "delete_button": "削除",
+    "ingredients_title": "材料",
+    "instructions_title": "調理手順"
+  },
+  "add_recipe_screen": {
+    "title": "レシピを追加",
+    "step_image": "画像",
+    "step_details": "詳細",
+    "step_ingredients": "材料",
+    "step_instructions": "調理手順",
+    "step_counter": "(ステップ {0}/{1})",
+    "error_complete_fields": "フィールドを入力してください。",
+    "error_complete_all": "すべてのフィールドを入力してください。",
+    "exit_title": "終了",
+    "exit_without_saving": "保存せずに終了しますか？",
+    "previous": "前へ",
+    "next": "次へ",
+    "ingredient": "材料",
+    "step": "ステップ"
+  },
+  "settings_screen": {
+    "title": "設定",
+    "appearance_section": "外観",
+    "dark_theme": "ダークテーマ",
+    "dark_theme_description": "ライト/ダークテーマを切り替え",
+    "language_section": "言語",
+    "language": "言語",
+    "language_description": "アプリの言語を選択",
+    "about_section": "アプリについて",
+    "version": "バージョン"
+  },
+  "dynamic_list": {
+    "add_item": "{0}を追加",
+    "no_items_yet": "{0}はまだ追加されていません"
+  },
+  "image_step": {
+    "tap_to_select": "画像をタップしてレシピの写真を選択",
+    "analyzing_image_title": "画像を分析中",
+    "analyzing_image_message": "画像を処理している間お待ちください",
+    "recipe_generated_success": "レシピ情報が生成されました",
+    "recipe_generated_error": "レシピを生成できませんでした：{0}",
+    "generate_recipe_info": "レシピ情報を生成",
+    "feature_not_available": "画像から自動的にレシピを生成する機能は現在利用できません。この機能は将来のバージョンで利用可能になります。"
+  },
+  "text_fields_step": {
+    "title_label": "レシピのタイトル",
+    "title_hint": "例：シーザーサラダ",
+    "description_label": "レシピの説明",
+    "description_hint": "例：鶏肉とシーザードレッシングを使ったおいしいサラダ"
+  },
+  "ui_helpers": {
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "confirm": "確認"
+  },
+  "recipe_controller": {
+    "loading_recipes": "レシピを読み込み中...",
+    "recipes_loaded": "レシピが読み込まれました",
+    "adding_recipe": "レシピを追加中...",
+    "recipe_added": "レシピが追加されました",
+    "deleting_recipe": "レシピを削除中...",
+    "recipe_not_found": "レシピが存在しません",
+    "recipe_deleted": "レシピが削除されました",
+    "delete_error": "レシピの削除中にエラーが発生しました"
+  },
+  "auth_controller": {
+    "signing_in": "サインイン中...",
+    "sign_in_success": "サインインに成功しました",
+    "sign_in_error": "サインイン中にエラーが発生しました",
+    "signing_out": "サインアウト中...",
+    "sign_out_success": "サインアウトに成功しました",
+    "sign_out_error": "サインアウト中にエラーが発生しました：{0}"
+  },
+  "add_recipe_controller": {
+    "saving_image": "画像を保存中...",
+    "image_saved": "画像が保存されました",
+    "adding_recipe": "レシピを追加中...",
+    "recipe_added": "レシピが追加されました"
+  }
+}

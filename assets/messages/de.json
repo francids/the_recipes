@@ -1,0 +1,97 @@
+{
+  "inicial_screen": {
+    "title": "Rezepte",
+    "menu_tooltip": "Optionen",
+    "menu_item_reload": "Rezepte neu laden",
+    "menu_item_settings": "Einstellungen",
+    "fab_tooltip_ai": "KI-Funktionen",
+    "snackbar_title_not_available": "Funktion nicht verfügbar",
+    "snackbar_message_not_available": "Diese Funktion ist in dieser Version nicht verfügbar",
+    "fab_tooltip_add": "Rezept hinzufügen",
+    "empty_list": "Keine Rezepte verfügbar"
+  },
+  "recipe_screen": {
+    "delete_confirmation_title": "Rezept löschen",
+    "delete_confirmation_message": "Sind Sie sicher, dass Sie dieses Rezept löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "cancel_button": "Abbrechen",
+    "delete_button": "Löschen",
+    "ingredients_title": "Zutaten",
+    "instructions_title": "Anweisungen"
+  },
+  "add_recipe_screen": {
+    "title": "Rezept hinzufügen",
+    "step_image": "Bild",
+    "step_details": "Details",
+    "step_ingredients": "Zutaten",
+    "step_instructions": "Anweisungen",
+    "step_counter": "(Schritt {0} von {1})",
+    "error_complete_fields": "Felder ausfüllen.",
+    "error_complete_all": "Bitte alle Felder ausfüllen.",
+    "exit_title": "Beenden",
+    "exit_without_saving": "Ohne Speichern beenden?",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "ingredient": "Zutat",
+    "step": "Schritt"
+  },
+  "settings_screen": {
+    "title": "Einstellungen",
+    "appearance_section": "Erscheinungsbild",
+    "dark_theme": "Dunkles Design",
+    "dark_theme_description": "Zwischen hellen/dunklen Designs wechseln",
+    "language_section": "Sprache",
+    "language": "Sprache",
+    "language_description": "App-Sprache auswählen",
+    "about_section": "Über die App",
+    "version": "Version"
+  },
+  "dynamic_list": {
+    "add_item": "{0} hinzufügen",
+    "no_items_yet": "Noch keine {0} hinzugefügt"
+  },
+  "image_step": {
+    "tap_to_select": "Tippe auf das Bild, um ein Rezeptfoto auszuwählen",
+    "analyzing_image_title": "Bild wird analysiert",
+    "analyzing_image_message": "Bitte warten Sie, während wir das Bild verarbeiten",
+    "recipe_generated_success": "Rezeptinformationen wurden generiert",
+    "recipe_generated_error": "Rezept konnte nicht generiert werden: {0}",
+    "generate_recipe_info": "Rezeptinformationen generieren",
+    "feature_not_available": "Die Funktion zur automatischen Generierung von Rezepten aus Bildern ist derzeit nicht verfügbar. Diese Funktion wird in zukünftigen Versionen verfügbar sein."
+  },
+  "text_fields_step": {
+    "title_label": "Rezepttitel",
+    "title_hint": "Beispiel: Caesar Salat",
+    "description_label": "Rezeptbeschreibung",
+    "description_hint": "Beispiel: Ein köstlicher Salat mit Hähnchen und Caesar-Dressing"
+  },
+  "ui_helpers": {
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen"
+  },
+  "recipe_controller": {
+    "loading_recipes": "Rezepte werden geladen...",
+    "recipes_loaded": "Rezepte geladen",
+    "adding_recipe": "Rezept wird hinzugefügt...",
+    "recipe_added": "Rezept hinzugefügt",
+    "deleting_recipe": "Rezept wird gelöscht...",
+    "recipe_not_found": "Das Rezept existiert nicht",
+    "recipe_deleted": "Rezept gelöscht",
+    "delete_error": "Fehler beim Löschen des Rezepts"
+  },
+  "auth_controller": {
+    "signing_in": "Anmeldung läuft...",
+    "sign_in_success": "Erfolgreich angemeldet",
+    "sign_in_error": "Fehler bei der Anmeldung",
+    "signing_out": "Abmeldung läuft...",
+    "sign_out_success": "Erfolgreich abgemeldet",
+    "sign_out_error": "Fehler bei der Abmeldung: {0}"
+  },
+  "add_recipe_controller": {
+    "saving_image": "Bild wird gespeichert...",
+    "image_saved": "Bild gespeichert",
+    "adding_recipe": "Rezept wird hinzugefügt...",
+    "recipe_added": "Rezept hinzugefügt"
+  }
+}

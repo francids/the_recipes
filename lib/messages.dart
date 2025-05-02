@@ -7,23 +7,58 @@ class Messages extends Translations {
   Map<String, Map<String, String>> get keys => _keys;
 
   static Map<String, Map<String, String>> _keys = {
-    "en": {},
     "es": {},
+    "en": {},
+    "de": {},
+    "it": {},
+    "fr": {},
+    "pt": {},
+    "zh": {},
+    "ja": {},
+    "ko": {},
   };
 
   static Future<void> init() async {
-    final en = await rootBundle.loadString("assets/messages/en.json");
     final es = await rootBundle.loadString("assets/messages/es.json");
+    final en = await rootBundle.loadString("assets/messages/en.json");
+    final de = await rootBundle.loadString("assets/messages/de.json");
+    final it = await rootBundle.loadString("assets/messages/it.json");
+    final fr = await rootBundle.loadString("assets/messages/fr.json");
+    final pt = await rootBundle.loadString("assets/messages/pt.json");
+    final zh = await rootBundle.loadString("assets/messages/zh.json");
+    final ja = await rootBundle.loadString("assets/messages/ja.json");
+    final ko = await rootBundle.loadString("assets/messages/ko.json");
 
-    final enMap = _flattenTranslations(json.decode(en));
     final esMap = _flattenTranslations(json.decode(es));
+    final enMap = _flattenTranslations(json.decode(en));
+    final deMap = _flattenTranslations(json.decode(de));
+    final itMap = _flattenTranslations(json.decode(it));
+    final frMap = _flattenTranslations(json.decode(fr));
+    final ptMap = _flattenTranslations(json.decode(pt));
+    final zhMap = _flattenTranslations(json.decode(zh));
+    final jaMap = _flattenTranslations(json.decode(ja));
+    final koMap = _flattenTranslations(json.decode(ko));
 
-    _convertParamsFormat(enMap);
     _convertParamsFormat(esMap);
+    _convertParamsFormat(enMap);
+    _convertParamsFormat(deMap);
+    _convertParamsFormat(itMap);
+    _convertParamsFormat(frMap);
+    _convertParamsFormat(ptMap);
+    _convertParamsFormat(zhMap);
+    _convertParamsFormat(jaMap);
+    _convertParamsFormat(koMap);
 
     _keys = {
-      "en": enMap,
       "es": esMap,
+      "en": enMap,
+      "de": deMap,
+      "it": itMap,
+      "fr": frMap,
+      "pt": ptMap,
+      "zh": zhMap,
+      "ja": jaMap,
+      "ko": koMap,
     };
   }
 

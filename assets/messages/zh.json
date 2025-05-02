@@ -1,0 +1,97 @@
+{
+  "inicial_screen": {
+    "title": "食谱",
+    "menu_tooltip": "选项",
+    "menu_item_reload": "重新加载食谱",
+    "menu_item_settings": "设置",
+    "fab_tooltip_ai": "人工智能功能",
+    "snackbar_title_not_available": "功能不可用",
+    "snackbar_message_not_available": "此功能在此版本中不可用",
+    "fab_tooltip_add": "添加食谱",
+    "empty_list": "没有可用的食谱"
+  },
+  "recipe_screen": {
+    "delete_confirmation_title": "删除食谱",
+    "delete_confirmation_message": "您确定要删除此食谱吗？此操作无法撤消。",
+    "cancel_button": "取消",
+    "delete_button": "删除",
+    "ingredients_title": "配料",
+    "instructions_title": "烹饪步骤"
+  },
+  "add_recipe_screen": {
+    "title": "添加食谱",
+    "step_image": "图片",
+    "step_details": "详情",
+    "step_ingredients": "配料",
+    "step_instructions": "烹饪步骤",
+    "step_counter": "(步骤 {0}/{1})",
+    "error_complete_fields": "请完成所有字段。",
+    "error_complete_all": "请完成所有字段。",
+    "exit_title": "退出",
+    "exit_without_saving": "不保存就退出？",
+    "previous": "上一步",
+    "next": "下一步",
+    "ingredient": "配料",
+    "step": "步骤"
+  },
+  "settings_screen": {
+    "title": "设置",
+    "appearance_section": "外观",
+    "dark_theme": "深色主题",
+    "dark_theme_description": "切换浅色/深色主题",
+    "language_section": "语言",
+    "language": "语言",
+    "language_description": "选择应用语言",
+    "about_section": "关于应用",
+    "version": "版本"
+  },
+  "dynamic_list": {
+    "add_item": "添加{0}",
+    "no_items_yet": "尚未添加{0}"
+  },
+  "image_step": {
+    "tap_to_select": "点击图片选择食谱照片",
+    "analyzing_image_title": "正在分析图片",
+    "analyzing_image_message": "请稍候，我们正在处理图片",
+    "recipe_generated_success": "已生成食谱信息",
+    "recipe_generated_error": "无法生成食谱：{0}",
+    "generate_recipe_info": "生成食谱信息",
+    "feature_not_available": "从图片自动生成食谱的功能目前不可用。此功能将在未来版本中提供。"
+  },
+  "text_fields_step": {
+    "title_label": "食谱标题",
+    "title_hint": "示例：凯撒沙拉",
+    "description_label": "食谱描述",
+    "description_hint": "示例：一份美味的鸡肉凯撒沙拉"
+  },
+  "ui_helpers": {
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认"
+  },
+  "recipe_controller": {
+    "loading_recipes": "正在加载食谱...",
+    "recipes_loaded": "食谱已加载",
+    "adding_recipe": "正在添加食谱...",
+    "recipe_added": "食谱已添加",
+    "deleting_recipe": "正在删除食谱...",
+    "recipe_not_found": "该食谱不存在",
+    "recipe_deleted": "食谱已删除",
+    "delete_error": "删除食谱时出错"
+  },
+  "auth_controller": {
+    "signing_in": "正在登录...",
+    "sign_in_success": "登录成功",
+    "sign_in_error": "登录错误",
+    "signing_out": "正在退出...",
+    "sign_out_success": "退出成功",
+    "sign_out_error": "退出错误：{0}"
+  },
+  "add_recipe_controller": {
+    "saving_image": "正在保存图片...",
+    "image_saved": "图片已保存",
+    "adding_recipe": "正在添加食谱...",
+    "recipe_added": "食谱已添加"
+  }
+}
