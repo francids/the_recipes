@@ -19,7 +19,9 @@
     "feature4_title": "Bientôt disponible : Partager",
     "feature4_description": "Bientôt, vous pourrez partager vos créations culinaires avec vos amis et votre famille.",
     "feature5_title": "Bientôt disponible : IA pour les recettes",
-    "feature5_description": "Génération automatique de recettes à partir d'images grâce à l'IA."
+    "feature5_description": "Génération automatique de recettes à partir d'images grâce à l'IA.",
+    "feature6_title": "Support Multilingue",
+    "feature6_description": "L'application est disponible en plusieurs langues pour répondre à un public mondial."
   },
   "CTASection": {
     "title": "Disponible maintenant !",

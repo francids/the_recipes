@@ -29,6 +29,11 @@ export default function FeaturesSection() {
       title: t("feature5_title"),
       description: t("feature5_description"),
     },
+    {
+      icon: "🌐",
+      title: t("feature6_title"),
+      description: t("feature6_description"),
+    },
   ];
 
   return (

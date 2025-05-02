@@ -19,7 +19,9 @@
     "feature4_title": "Coming soon: Share",
     "feature4_description": "Soon you'll be able to share your culinary creations with friends and family.",
     "feature5_title": "Coming soon: AI for recipes",
-    "feature5_description": "Automatic recipe generation from images using AI."
+    "feature5_description": "Automatic recipe generation from images using AI.",
+    "feature6_title": "Multi-language Support",
+    "feature6_description": "The app is available in multiple languages to cater to a global audience."
   },
   "CTASection": {
     "title": "Available now!",
