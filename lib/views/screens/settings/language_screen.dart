@@ -19,34 +19,43 @@ class LanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "settings_screen.language".tr,
-          style: Theme.of(context).textTheme.displayMedium,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Center(
+          child: Container(
+            margin: const EdgeInsets.only(top: 12, bottom: 8),
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.arrow_back),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            "settings_screen.language".tr,
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Card(
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
               elevation: 0,
               margin: EdgeInsets.zero,
               clipBehavior: Clip.antiAlias,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: List.generate(
                   _languages.length,
                   (index) {
                     final language = _languages[index];
                     return Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         RadioListTile<String>(
                           title: Text(language["name"]!),
@@ -57,6 +66,7 @@ class LanguageScreen extends StatelessWidget {
                               Get.find<LanguageController>().changeLanguage(
                                 Locale(value),
                               );
+                              Get.back();
                             }
                           },
                         ),
@@ -68,9 +78,10 @@ class LanguageScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+        const SizedBox(height: 16),
+      ],
     );
   }
 }

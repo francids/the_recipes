@@ -122,7 +122,19 @@ class SettingsScreen extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          Get.to(const LanguageScreen());
+          Get.bottomSheet(
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16.0),
+                  topRight: Radius.circular(16.0),
+                ),
+              ),
+              child: const LanguageScreen(),
+            ),
+            isScrollControlled: true,
+          );
         },
         child: ListTile(
           title: Text(
@@ -139,7 +151,7 @@ class SettingsScreen extends StatelessWidget {
             Icons.language,
             color: Theme.of(context).colorScheme.primary,
           ),
-          trailing: const Icon(Icons.chevron_right),
+          trailing: const Icon(Icons.expand_more),
         ),
       ),
     );
