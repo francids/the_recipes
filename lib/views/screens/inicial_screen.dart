@@ -48,23 +48,23 @@ class InicialScreen extends StatelessWidget {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Tooltip(
-            message: "inicial_screen.fab_tooltip_ai".tr,
-            preferBelow: false,
-            child: FloatingActionButton.small(
-              onPressed: () {
-                Get.showSnackbar(
-                  GetSnackBar(
-                    title: "inicial_screen.snackbar_title_not_available".tr,
-                    message: "inicial_screen.snackbar_message_not_available".tr,
-                    duration: Duration(seconds: 1),
-                    snackPosition: SnackPosition.TOP,
-                  ),
-                );
-              },
-              child: const Icon(Icons.hexagon_outlined),
-            ),
-          ),
+          // Tooltip(
+          //   message: "inicial_screen.fab_tooltip_ai".tr,
+          //   preferBelow: false,
+          //   child: FloatingActionButton.small(
+          //     onPressed: () {
+          //       Get.showSnackbar(
+          //         GetSnackBar(
+          //           title: "inicial_screen.snackbar_title_not_available".tr,
+          //           message: "inicial_screen.snackbar_message_not_available".tr,
+          //           duration: Duration(seconds: 1),
+          //           snackPosition: SnackPosition.TOP,
+          //         ),
+          //       );
+          //     },
+          //     child: const Icon(Icons.hexagon_outlined),
+          //   ),
+          // ),
           const SizedBox(height: 10),
           Tooltip(
             message: "inicial_screen.fab_tooltip_add".tr,
