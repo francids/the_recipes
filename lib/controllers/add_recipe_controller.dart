@@ -5,7 +5,6 @@ import "package:image_picker/image_picker.dart";
 import "package:path_provider/path_provider.dart";
 import "package:path/path.dart" as path;
 import "package:the_recipes/controllers/recipe_controller.dart";
-import "package:easy_localization/easy_localization.dart";
 
 class AddRecipeController extends GetxController {
   final RecipeController recipeController = RecipeController();
@@ -30,7 +29,7 @@ class AddRecipeController extends GetxController {
 
   Future<void> saveImageLocally() async {
     if (image == null) return;
-    EasyLoading.show(status: tr("add_recipe_controller.saving_image"));
+    EasyLoading.show(status: "add_recipe_controller.saving_image".tr);
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String imagesPath = path.join(appDocDir.path, "recipe-images");
     Directory imagesDir = Directory(imagesPath);
@@ -40,11 +39,11 @@ class AddRecipeController extends GetxController {
     String finalImagePath = path.join(imagesPath, fileName!);
     await image!.copy(finalImagePath);
     fullPath.value = finalImagePath;
-    EasyLoading.showSuccess(tr("add_recipe_controller.image_saved"));
+    EasyLoading.showSuccess("add_recipe_controller.image_saved".tr);
   }
 
   Future<void> addRecipe() async {
-    EasyLoading.show(status: tr("add_recipe_controller.adding_recipe"));
+    EasyLoading.show(status: "add_recipe_controller.adding_recipe".tr);
     await saveImageLocally();
 
     await recipeController.addRecipe(
@@ -55,6 +54,6 @@ class AddRecipeController extends GetxController {
       List<String>.from(directionsList),
     );
 
-    EasyLoading.showSuccess(tr("add_recipe_controller.recipe_added"));
+    EasyLoading.showSuccess("add_recipe_controller.recipe_added".tr);
   }
 }

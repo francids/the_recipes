@@ -6,7 +6,6 @@ import "package:lottie/lottie.dart";
 import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/models/recipe.dart";
-import "package:easy_localization/easy_localization.dart";
 
 class RecipeScreen extends StatelessWidget {
   RecipeScreen({
@@ -41,8 +40,8 @@ class RecipeScreen extends StatelessWidget {
             onPressed: () {
               Dialogs.materialDialog(
                 context: context,
-                msg: tr("recipe_screen.delete_confirmation_message"),
-                title: tr("recipe_screen.delete_confirmation_title"),
+                msg: "recipe_screen.delete_confirmation_message".tr,
+                title: "recipe_screen.delete_confirmation_title".tr,
                 lottieBuilder: LottieBuilder.asset(
                   "assets/lottie/delete.json",
                   fit: BoxFit.contain,
@@ -62,7 +61,7 @@ class RecipeScreen extends StatelessWidget {
                         onPressed: () {
                           Get.back();
                         },
-                        child: Text(tr("recipe_screen.cancel_button")),
+                        child: Text("recipe_screen.cancel_button".tr),
                       ),
                     ),
                     SizedBox(
@@ -77,7 +76,7 @@ class RecipeScreen extends StatelessWidget {
                           Get.back();
                           recipeController.refreshRecipes();
                         },
-                        child: Text(tr("recipe_screen.delete_button")),
+                        child: Text("recipe_screen.delete_button".tr),
                       ),
                     ),
                   ];
@@ -133,7 +132,7 @@ class RecipeScreen extends StatelessWidget {
                       color: Colors.black12,
                     ),
                     Text(
-                      tr("recipe_screen.ingredients_title"),
+                      "recipe_screen.ingredients_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(height: 8),
@@ -161,7 +160,7 @@ class RecipeScreen extends StatelessWidget {
                       color: Colors.black12,
                     ),
                     Text(
-                      tr("recipe_screen.instructions_title"),
+                      "recipe_screen.instructions_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(height: 8),

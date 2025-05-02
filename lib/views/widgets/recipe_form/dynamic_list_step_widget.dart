@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:the_recipes/gestures/drag_start_listener.dart';
-import 'package:the_recipes/views/widgets/form_field.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:the_recipes/gestures/drag_start_listener.dart";
+import "package:the_recipes/views/widgets/form_field.dart";
 
 class DynamicListStepWidget extends StatefulWidget {
   final RxList<String> list;
@@ -27,7 +26,13 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
       children: [
         FilledButton(
           onPressed: () => widget.list.add(""),
-          child: Text(tr("dynamic_list.add_item", args: [widget.label])),
+          child: Text(
+            "dynamic_list.add_item".trParams(
+              {
+                "0": widget.label,
+              },
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         Obx(() => _buildListContent()),
@@ -39,7 +44,11 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
     if (widget.list.isEmpty) {
       return Center(
         child: Text(
-          tr("dynamic_list.no_items_yet", args: [widget.label.toLowerCase()]),
+          "dynamic_list.no_items_yet".trParams(
+            {
+              "0": widget.label.toLowerCase(),
+            },
+          ),
           style: const TextStyle(
             color: Colors.grey,
             fontStyle: FontStyle.italic,
@@ -71,7 +80,7 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
 
   Widget _buildListItem(int index) {
     return Container(
-      key: ValueKey('item-$index-${_rebuildTrigger.value}'),
+      key: ValueKey("item-$index-${_rebuildTrigger.value}"),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),

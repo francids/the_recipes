@@ -1,4 +1,3 @@
-import "package:easy_localization/easy_localization.dart";
 import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
@@ -10,6 +9,7 @@ import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/firebase_options.dart";
 import "package:the_recipes/hive/hive_adapters.dart";
 import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/views/screens/inicial_screen.dart";
 import "package:the_recipes/the_recipe_app_theme.dart";
@@ -17,7 +17,7 @@ import "package:the_recipes/the_recipe_app_theme.dart";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await EasyLocalization.ensureInitialized();
+  await Messages.init();
 
   await Hive.initFlutter();
   Hive..registerAdapter(RecipeAdapter());
@@ -40,12 +40,7 @@ void main() async {
   Get.put(ThemeController());
 
   runApp(
-    EasyLocalization(
-      supportedLocales: [Locale("en"), Locale("es")],
-      path: "assets/messages",
-      fallbackLocale: Locale("en"),
-      child: const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
@@ -64,9 +59,9 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       home: const InicialScreen(),
       builder: EasyLoading.init(),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+      translations: Messages(),
+      locale: Get.deviceLocale,
+      fallbackLocale: Locale("en"),
     );
   }
 }

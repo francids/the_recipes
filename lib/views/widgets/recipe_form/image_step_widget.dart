@@ -1,12 +1,11 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:the_recipes/controllers/add_recipe_controller.dart';
-import 'package:the_recipes/controllers/ai_recipe_controller.dart';
-import 'package:the_recipes/controllers/auth_controller.dart';
-import 'package:the_recipes/views/widgets/ui_helpers.dart';
+import "dart:io";
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:image_picker/image_picker.dart";
+import "package:the_recipes/controllers/add_recipe_controller.dart";
+import "package:the_recipes/controllers/ai_recipe_controller.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class ImageStepWidget extends StatelessWidget {
   final AddRecipeController controller;
@@ -24,9 +23,9 @@ class ImageStepWidget extends StatelessWidget {
 
   void _generateRecipeFromImage(BuildContext context) async {
     UIHelpers.showLoadingDialog(
-      context, 
-      tr("image_step.analyzing_image_title"), 
-      tr("image_step.analyzing_image_message")
+      context,
+      "image_step.analyzing_image_title".tr,
+      "image_step.analyzing_image_message".tr,
     );
 
     try {
@@ -40,11 +39,18 @@ class ImageStepWidget extends StatelessWidget {
       controller.directionsList.value = recipe.directions;
 
       Get.back();
-      UIHelpers.showSuccessSnackbar(tr("image_step.recipe_generated_success"));
+      UIHelpers.showSuccessSnackbar(
+        "image_step.recipe_generated_success".tr,
+      );
     } catch (e) {
       Get.back();
       UIHelpers.showErrorSnackbar(
-          tr("image_step.recipe_generated_error", args: [e.toString()]));
+        "image_step.recipe_generated_error".trParams(
+          {
+            "0": e.toString(),
+          },
+        ),
+      );
     }
   }
 
@@ -64,7 +70,7 @@ class ImageStepWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
-              tr("image_step.tap_to_select"),
+              "image_step.tap_to_select".tr,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -120,8 +126,11 @@ class ImageStepWidget extends StatelessWidget {
           onPressed: () => _generateRecipeFromImage(context),
           icon: const Icon(Icons.auto_awesome, color: Colors.white),
           label: Text(
-            tr("image_step.generate_recipe_info"),
-            style: const TextStyle(fontSize: 16, color: Colors.white),
+            "image_step.generate_recipe_info".tr,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+            ),
           ),
         ),
       );
@@ -131,7 +140,7 @@ class ImageStepWidget extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Text(
-        tr("image_step.feature_not_available"),
+        "image_step.feature_not_available".tr,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 14,

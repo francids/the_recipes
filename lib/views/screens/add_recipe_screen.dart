@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:the_recipes/controllers/add_recipe_controller.dart';
 import 'package:the_recipes/views/widgets/recipe_form/image_step_widget.dart';
 import 'package:the_recipes/views/widgets/recipe_form/text_fields_step_widget.dart';
@@ -21,10 +20,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   final RxBool _isCurrentStepValid = false.obs;
   static const _animationDuration = Duration(milliseconds: 300);
   final _stepTitles = [
-    tr("add_recipe_screen.step_image"),
-    tr("add_recipe_screen.step_details"),
-    tr("add_recipe_screen.step_ingredients"),
-    tr("add_recipe_screen.step_instructions"),
+    "add_recipe_screen.step_image".tr,
+    "add_recipe_screen.step_details".tr,
+    "add_recipe_screen.step_ingredients".tr,
+    "add_recipe_screen.step_instructions".tr,
   ];
 
   @override
@@ -74,7 +73,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         _currentStep.value++;
       } else if (!_isCurrentStepValid.value) {
         UIHelpers.showErrorSnackbar(
-            tr("add_recipe_screen.error_complete_fields"));
+          "add_recipe_screen.error_complete_fields".tr,
+        );
       }
     } else if (_currentStep.value > 0) {
       _pageController.previousPage(
@@ -85,7 +85,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   Future<void> _handleSaveRecipe() async {
     if (!_isCurrentStepValid.value) {
-      UIHelpers.showErrorSnackbar(tr("add_recipe_screen.error_complete_all"));
+      UIHelpers.showErrorSnackbar("add_recipe_screen.error_complete_all".tr);
       return;
     }
     await controller.addRecipe();
@@ -102,8 +102,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     if (hasData) {
       UIHelpers.showConfirmationDialog(
         context: context,
-        title: tr("add_recipe_screen.exit_title"),
-        message: tr("add_recipe_screen.exit_without_saving"),
+        title: "add_recipe_screen.exit_title".tr,
+        message: "add_recipe_screen.exit_without_saving".tr,
         lottieAsset: "assets/lottie/back.json",
         confirmAction: () {
           Get.back();
@@ -119,7 +119,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tr("add_recipe_screen.title")),
+        title: Text("add_recipe_screen.title".tr),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: _handleBackButton,
@@ -148,8 +148,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     ),
                   ),
                   Text(
-                    tr("add_recipe_screen.step_counter",
-                        args: [(_currentStep.value + 1).toString(), "4"]),
+                    "add_recipe_screen.step_counter".trParams(
+                      {
+                        "0": (_currentStep.value + 1).toString(),
+                        "1": "4",
+                      },
+                    ),
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey.shade700,
@@ -174,13 +178,13 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 _wrapInScrollView(
                   DynamicListStepWidget(
                     list: controller.ingredientsList,
-                    label: tr("add_recipe_screen.ingredient"),
+                    label: "add_recipe_screen.ingredient".tr,
                   ),
                 ),
                 _wrapInScrollView(
                   DynamicListStepWidget(
                     list: controller.directionsList,
-                    label: tr("add_recipe_screen.step"),
+                    label: "add_recipe_screen.step".tr,
                   ),
                 ),
               ],
@@ -205,12 +209,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   _currentStep.value > 0
                       ? TextButton(
                           onPressed: () => _handleNavigation(false),
-                          child: Text(tr("add_recipe_screen.previous")))
+                          child: Text("add_recipe_screen.previous".tr))
                       : const SizedBox(),
                   _currentStep.value < 3 && _isCurrentStepValid.value
                       ? FilledButton(
                           onPressed: () => _handleNavigation(true),
-                          child: Text(tr("add_recipe_screen.next")))
+                          child: Text("add_recipe_screen.next".tr))
                       : const SizedBox(),
                 ],
               ),

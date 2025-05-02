@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:the_recipes/controllers/add_recipe_controller.dart';
-import 'package:the_recipes/views/widgets/form_field.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:the_recipes/controllers/add_recipe_controller.dart";
+import "package:the_recipes/views/widgets/form_field.dart";
 
 class TextFieldsStepWidget extends StatelessWidget {
   final AddRecipeController controller;
@@ -19,14 +18,14 @@ class TextFieldsStepWidget extends StatelessWidget {
       child: Column(
         children: [
           _buildTextField(
-            tr("text_fields_step.title_label"),
+            "text_fields_step.title_label".tr,
             controller.title,
-            tr("text_fields_step.title_hint"),
+            "text_fields_step.title_hint".tr,
           ),
           _buildTextField(
-            tr("text_fields_step.description_label"),
+            "text_fields_step.description_label".tr,
             controller.description,
-            tr("text_fields_step.description_hint"),
+            "text_fields_step.description_hint".tr,
           ),
         ],
       ),
