@@ -6,16 +6,22 @@ class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
 
   static const List<Map<String, String>> _languages = [
-    {"code": "es", "name": "Español"},
-    {"code": "en", "name": "English"},
-    {"code": "de", "name": "Deutsch"},
-    {"code": "it", "name": "Italiano"},
-    {"code": "fr", "name": "Français"},
-    {"code": "pt", "name": "Português"},
-    {"code": "zh", "name": "中文"},
-    {"code": "ja", "name": "日本語"},
-    {"code": "ko", "name": "한국어"},
+    {"code": "es", "name": "Español", "flagCode": "ES"},
+    {"code": "en", "name": "English", "flagCode": "GB"},
+    {"code": "de", "name": "Deutsch", "flagCode": "DE"},
+    {"code": "it", "name": "Italiano", "flagCode": "IT"},
+    {"code": "fr", "name": "Français", "flagCode": "FR"},
+    {"code": "pt", "name": "Português", "flagCode": "PT"},
+    {"code": "zh", "name": "中文", "flagCode": "CN"},
+    {"code": "ja", "name": "日本語", "flagCode": "JP"},
+    {"code": "ko", "name": "한국어", "flagCode": "KR"},
   ];
+
+  String _getFlagEmoji(String countryCode) {
+    final int firstLetter = countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6;
+    final int secondLetter = countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6;
+    return String.fromCharCode(firstLetter) + String.fromCharCode(secondLetter);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +64,13 @@ class LanguageScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         RadioListTile<String>(
-                          title: Text(language["name"]!),
+                          title: Row(
+                            children: [
+                              Text(_getFlagEmoji(language["flagCode"]!)),
+                              const SizedBox(width: 8),
+                              Text(language["name"]!),
+                            ],
+                          ),
                           value: language["code"]!,
                           groupValue: Get.locale?.languageCode,
                           onChanged: (value) {
