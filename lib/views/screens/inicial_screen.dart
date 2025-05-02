@@ -1,3 +1,4 @@
+import "package:easy_localization/easy_localization.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/views/screens/add_recipe_screen.dart";
@@ -15,26 +16,26 @@ class InicialScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "The Recipes App",
+          tr("inicial_screen.title"),
           style: Theme.of(context).textTheme.displayLarge,
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),
-            tooltip: "Menu",
+            tooltip: tr("inicial_screen.menu_tooltip"),
             onPressed: () {
               showMenu(
                 context: context,
                 position: const RelativeRect.fromLTRB(100, 100, 0, 0),
                 items: [
                   PopupMenuItem(
-                    child: const Text("Recargar recetas"),
+                    child: Text(tr("inicial_screen.menu_item_reload")),
                     onTap: () {
                       recipeController.refreshRecipes();
                     },
                   ),
                   PopupMenuItem(
-                    child: const Text("Configuración"),
+                    child: Text(tr("inicial_screen.menu_item_settings")),
                     onTap: () {
                       Get.to(() => const SettingsScreen());
                     },
@@ -49,14 +50,15 @@ class InicialScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Tooltip(
-            message: "Funciones de IA",
+            message: tr("inicial_screen.fab_tooltip_ai"),
             preferBelow: false,
             child: FloatingActionButton.small(
               onPressed: () {
                 Get.showSnackbar(
-                  const GetSnackBar(
-                    title: "Función no disponible",
-                    message: "Esta función no está disponible en esta versión",
+                  GetSnackBar(
+                    title: tr("inicial_screen.snackbar_title_not_available"),
+                    message:
+                        tr("inicial_screen.snackbar_message_not_available"),
                     duration: Duration(seconds: 1),
                     snackPosition: SnackPosition.TOP,
                   ),
@@ -67,7 +69,7 @@ class InicialScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Tooltip(
-            message: "Agregar receta",
+            message: tr("inicial_screen.fab_tooltip_add"),
             preferBelow: false,
             child: FloatingActionButton(
               onPressed: () async {
@@ -88,8 +90,8 @@ class InicialScreen extends StatelessWidget {
             builder: (controller) {
               return Expanded(
                 child: controller.recipes.isEmpty
-                    ? const Center(
-                        child: Text("No hay recetas disponibles"),
+                    ? Center(
+                        child: Text(tr("inicial_screen.empty_list")),
                       )
                     : ListView.builder(
                         itemCount: controller.recipes.length,

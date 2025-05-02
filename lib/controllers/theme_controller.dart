@@ -27,19 +27,19 @@ class ThemeController extends GetxController {
 
       _isDarkMode = isDark;
 
-      update(); // Notify listeners
+      update();
       applyTheme();
     } catch (e) {
-      print("Error al cargar el tema: $e");
+      print("Error loading theme: $e");
       _isDarkMode = Get.isPlatformDarkMode;
-      update(); // Notify listeners
+      update();
       applyTheme();
     }
   }
 
   void toggleTheme() async {
     _isDarkMode = !_isDarkMode;
-    update(); // Notify listeners
+    update();
 
     try {
       if (!Hive.isBoxOpen(themeBox)) {
@@ -51,7 +51,7 @@ class ThemeController extends GetxController {
 
       applyTheme();
     } catch (e) {
-      print("Error al guardar el tema: $e");
+      print("Error saving theme: $e");
     }
   }
 

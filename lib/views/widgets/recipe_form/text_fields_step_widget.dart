@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:the_recipes/controllers/add_recipe_controller.dart';
 import 'package:the_recipes/views/widgets/form_field.dart';
 
@@ -18,14 +19,14 @@ class TextFieldsStepWidget extends StatelessWidget {
       child: Column(
         children: [
           _buildTextField(
-            "Título de la receta",
+            tr("text_fields_step.title_label"),
             controller.title,
-            "Ejemplo: Ensalada César",
+            tr("text_fields_step.title_hint"),
           ),
           _buildTextField(
-            "Descripción de la receta",
+            tr("text_fields_step.description_label"),
             controller.description,
-            "Ejemplo: Una deliciosa ensalada con pollo y aderezo César",
+            tr("text_fields_step.description_hint"),
           ),
         ],
       ),

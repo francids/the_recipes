@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:the_recipes/gestures/drag_start_listener.dart';
 import 'package:the_recipes/views/widgets/form_field.dart';
 
@@ -26,7 +27,7 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
       children: [
         FilledButton(
           onPressed: () => widget.list.add(""),
-          child: Text("Agregar ${widget.label}"),
+          child: Text(tr("dynamic_list.add_item", args: [widget.label])),
         ),
         const SizedBox(height: 16),
         Obx(() => _buildListContent()),
@@ -38,7 +39,7 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
     if (widget.list.isEmpty) {
       return Center(
         child: Text(
-          "Ningún ${widget.label.toLowerCase()} agregado todavía",
+          tr("dynamic_list.no_items_yet", args: [widget.label.toLowerCase()]),
           style: const TextStyle(
             color: Colors.grey,
             fontStyle: FontStyle.italic,

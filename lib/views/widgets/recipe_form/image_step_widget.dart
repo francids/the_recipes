@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:the_recipes/controllers/add_recipe_controller.dart';
 import 'package:the_recipes/controllers/ai_recipe_controller.dart';
@@ -22,8 +23,11 @@ class ImageStepWidget extends StatelessWidget {
   }
 
   void _generateRecipeFromImage(BuildContext context) async {
-    UIHelpers.showLoadingDialog(context, "Analizando imagen",
-        "Por favor espera mientras procesamos la imagen");
+    UIHelpers.showLoadingDialog(
+      context, 
+      tr("image_step.analyzing_image_title"), 
+      tr("image_step.analyzing_image_message")
+    );
 
     try {
       final aiController = Get.put(AIRecipeController());
@@ -36,11 +40,11 @@ class ImageStepWidget extends StatelessWidget {
       controller.directionsList.value = recipe.directions;
 
       Get.back();
-      UIHelpers.showSuccessSnackbar("Se ha generado información de la receta");
+      UIHelpers.showSuccessSnackbar(tr("image_step.recipe_generated_success"));
     } catch (e) {
       Get.back();
       UIHelpers.showErrorSnackbar(
-          "No se pudo generar la receta: ${e.toString()}");
+          tr("image_step.recipe_generated_error", args: [e.toString()]));
     }
   }
 
@@ -60,7 +64,7 @@ class ImageStepWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
-              "Toca la imagen para seleccionar una foto de la receta",
+              tr("image_step.tap_to_select"),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -115,9 +119,9 @@ class ImageStepWidget extends StatelessWidget {
         child: FilledButton.icon(
           onPressed: () => _generateRecipeFromImage(context),
           icon: const Icon(Icons.auto_awesome, color: Colors.white),
-          label: const Text(
-            "Generar información de la receta",
-            style: TextStyle(fontSize: 16, color: Colors.white),
+          label: Text(
+            tr("image_step.generate_recipe_info"),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
       );
@@ -127,7 +131,7 @@ class ImageStepWidget extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Text(
-        "La función de generar recetas automáticamente a partir de imágenes no está disponible actualmente. Esta característica estará disponible en futuras versiones.",
+        tr("image_step.feature_not_available"),
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 14,

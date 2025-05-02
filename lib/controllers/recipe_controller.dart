@@ -6,6 +6,7 @@ import "package:hive_ce_flutter/adapters.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:uuid/uuid.dart";
+import "package:easy_localization/easy_localization.dart";
 
 class RecipeController extends GetxController {
   final uuid = Uuid();
@@ -24,12 +25,12 @@ class RecipeController extends GetxController {
   }
 
   void getRecipes() async {
-    EasyLoading.show(status: "Cargando recetas...");
+    EasyLoading.show(status: tr("recipe_controller.loading_recipes"));
     recipes.clear();
     recipes.addAll(Hive.box<Recipe>(recipesBox).values);
     EasyLoading.dismiss();
     await Future.delayed(const Duration(milliseconds: 300));
-    EasyLoading.showSuccess("Recetas cargadas");
+    EasyLoading.showSuccess(tr("recipe_controller.recipes_loaded"));
   }
 
   Future<void> addRecipe(
@@ -39,7 +40,7 @@ class RecipeController extends GetxController {
     List<String> ingredients,
     List<String> directions,
   ) async {
-    EasyLoading.show(status: "Agregando receta...");
+    EasyLoading.show(status: tr("recipe_controller.adding_recipe"));
 
     String id = uuid.v4();
 
@@ -55,11 +56,11 @@ class RecipeController extends GetxController {
     await Hive.box<Recipe>(recipesBox).put(id, recipe);
 
     update();
-    EasyLoading.showSuccess("Receta agregada");
+    EasyLoading.showSuccess(tr("recipe_controller.recipe_added"));
   }
 
   Future<void> deleteRecipe(String id, String image) async {
-    EasyLoading.show(status: "Eliminando receta...");
+    EasyLoading.show(status: tr("recipe_controller.deleting_recipe"));
 
     try {
       var box = Hive.box<Recipe>(recipesBox);
@@ -69,7 +70,7 @@ class RecipeController extends GetxController {
         print("Receta con ID $id eliminada correctamente");
       } else {
         print("Error: No se encontró la receta con ID $id");
-        EasyLoading.showError("La receta no existe");
+        EasyLoading.showError(tr("recipe_controller.recipe_not_found"));
         return;
       }
 
@@ -86,10 +87,10 @@ class RecipeController extends GetxController {
       }
 
       update();
-      EasyLoading.showSuccess("Receta eliminada");
+      EasyLoading.showSuccess(tr("recipe_controller.recipe_deleted"));
     } catch (e) {
       print("Error eliminando receta: $e");
-      EasyLoading.showError("Error al eliminar la receta");
+      EasyLoading.showError(tr("recipe_controller.delete_error"));
     }
   }
 }

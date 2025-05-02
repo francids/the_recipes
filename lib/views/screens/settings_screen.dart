@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:material_dialogs/material_dialogs.dart';
-// import 'package:the_recipes/controllers/auth_controller.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:the_recipes/controllers/theme_controller.dart';
 import 'package:the_recipes/env/env.dart';
 
@@ -13,7 +12,7 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Configuración",
+          tr("settings_screen.title"),
           style: Theme.of(context).textTheme.displayMedium,
         ),
         leading: IconButton(
@@ -29,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Apariencia",
+              tr("settings_screen.appearance_section"),
               style: Theme.of(context).textTheme.displayMedium,
             ),
             const SizedBox(height: 16),
@@ -43,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
             // _buildAuthCard(context),
             const SizedBox(height: 32),
             Text(
-              "Acerca de la aplicación",
+              tr("settings_screen.about_section"),
               style: Theme.of(context).textTheme.displayMedium,
             ),
             const SizedBox(height: 16),
@@ -55,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                      "Versión",
+                      tr("settings_screen.version"),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     subtitle: Text(
@@ -85,11 +84,11 @@ class SettingsScreen extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: SwitchListTile(
         title: Text(
-          "Tema oscuro",
+          tr("settings_screen.dark_theme"),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         subtitle: Text(
-          "Cambia entre tema claro y oscuro",
+          tr("settings_screen.dark_theme_description"),
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.outline,
               ),

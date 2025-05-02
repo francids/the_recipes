@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
 class UIHelpers {
   static void showErrorSnackbar(String message) {
     Get.snackbar(
-      "Error",
+      tr("ui_helpers.error"),
       message,
       backgroundColor: Colors.red,
       colorText: Colors.white,
@@ -15,7 +16,7 @@ class UIHelpers {
 
   static void showSuccessSnackbar(String message) {
     Get.snackbar(
-      "Éxito",
+      tr("ui_helpers.success"),
       message,
       backgroundColor: Colors.green,
       colorText: Colors.white,
@@ -49,11 +50,11 @@ class UIHelpers {
         return [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text("Cancelar"),
+            child: Text(tr("ui_helpers.cancel")),
           ),
           FilledButton(
             onPressed: confirmAction,
-            child: const Text("Confirmar"),
+            child: Text(tr("ui_helpers.confirm")),
           ),
         ];
       },
