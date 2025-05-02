@@ -39,6 +39,8 @@
     "appearance_section": "外观",
     "dark_theme": "深色主题",
     "dark_theme_description": "切换浅色/深色主题",
+    "system_theme": "使用系统主题",
+    "system_theme_description": "跟随系统浅色/深色模式",
     "language_section": "语言",
     "language": "语言",
     "language_description": "选择应用语言",

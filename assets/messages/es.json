@@ -39,6 +39,8 @@
     "appearance_section": "Apariencia",
     "dark_theme": "Tema oscuro",
     "dark_theme_description": "Cambiar tema claro/oscuro",
+    "system_theme": "Usar tema del sistema",
+    "system_theme_description": "Seguir el tema del sistema",
     "language_section": "Idioma",
     "language": "Idioma",
     "language_description": "Selecciona el idioma",

@@ -39,6 +39,8 @@
     "appearance_section": "外観",
     "dark_theme": "ダークテーマ",
     "dark_theme_description": "ライト/ダークテーマを切り替え",
+    "system_theme": "システムテーマを使用",
+    "system_theme_description": "システムのライト/ダークモードに従う",
     "language_section": "言語",
     "language": "言語",
     "language_description": "アプリの言語を選択",

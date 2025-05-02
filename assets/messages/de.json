@@ -39,6 +39,8 @@
     "appearance_section": "Erscheinungsbild",
     "dark_theme": "Dunkles Design",
     "dark_theme_description": "Zwischen hellen/dunklen Designs wechseln",
+    "system_theme": "Systemthema verwenden",
+    "system_theme_description": "Dem hellen/dunklen Modus des Systems folgen",
     "language_section": "Sprache",
     "language": "Sprache",
     "language_description": "App-Sprache auswählen",

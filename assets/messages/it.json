@@ -39,6 +39,8 @@
     "appearance_section": "Aspetto",
     "dark_theme": "Tema scuro",
     "dark_theme_description": "Cambia tema chiaro/scuro",
+    "system_theme": "Usa tema di sistema",
+    "system_theme_description": "Segui la modalità chiara/scura del sistema",
     "language_section": "Lingua",
     "language": "Lingua",
     "language_description": "Seleziona la lingua dell'app",

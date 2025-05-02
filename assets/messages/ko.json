@@ -39,6 +39,8 @@
     "appearance_section": "외관",
     "dark_theme": "다크 테마",
     "dark_theme_description": "라이트/다크 테마 전환",
+    "system_theme": "시스템 테마 사용",
+    "system_theme_description": "시스템 라이트/다크 모드 따르기",
     "language_section": "언어",
     "language": "언어",
     "language_description": "앱 언어 선택",

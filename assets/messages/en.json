@@ -39,6 +39,8 @@
     "appearance_section": "Appearance",
     "dark_theme": "Dark theme",
     "dark_theme_description": "Toggle light/dark theme",
+    "system_theme": "Use system theme",
+    "system_theme_description": "Follow system light/dark mode",
     "language_section": "Language",
     "language": "Language",
     "language_description": "Select the app language",

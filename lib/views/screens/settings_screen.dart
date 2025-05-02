@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:the_recipes/controllers/theme_controller.dart';
-import 'package:the_recipes/env/env.dart';
-import 'package:the_recipes/views/screens/settings/language_screen.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:the_recipes/controllers/theme_controller.dart";
+import "package:the_recipes/env/env.dart";
+import "package:the_recipes/views/screens/settings/language_screen.dart";
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -85,32 +85,70 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildThemeCard(BuildContext context) {
+    final themeController = Get.find<ThemeController>();
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      child: SwitchListTile(
-        title: Text(
-          "settings_screen.dark_theme".tr,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        subtitle: Text(
-          "settings_screen.dark_theme_description".tr,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.outline,
+      child: GetBuilder<ThemeController>(
+        builder: (controller) {
+          return Column(
+            children: [
+              SwitchListTile(
+                title: Text(
+                  "settings_screen.dark_theme".tr,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: controller.followSystemTheme
+                            ? Theme.of(context).colorScheme.outline
+                            : null,
+                      ),
+                ),
+                subtitle: Text(
+                  "settings_screen.dark_theme_description".tr,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                ),
+                value: controller.isDarkMode,
+                onChanged: controller.followSystemTheme
+                    ? null
+                    : (value) {
+                        controller.toggleTheme();
+                      },
+                secondary: Icon(
+                  controller.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                  color: controller.followSystemTheme
+                      ? Theme.of(context).colorScheme.outline
+                      : Theme.of(context).colorScheme.primary,
+                ),
+                activeColor: controller.followSystemTheme
+                    ? Theme.of(context).colorScheme.outline
+                    : null,
               ),
-        ),
-        value: Get.find<ThemeController>().isDarkMode,
-        onChanged: (value) {
-          final themeController = Get.find<ThemeController>();
-          themeController.toggleTheme();
+              const Divider(height: 1, indent: 16, endIndent: 16),
+              SwitchListTile(
+                title: Text(
+                  "settings_screen.system_theme".tr,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                subtitle: Text(
+                  "settings_screen.system_theme_description".tr,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                ),
+                value: controller.followSystemTheme,
+                onChanged: (value) {
+                  controller.setFollowSystemTheme(value);
+                },
+                secondary: Icon(
+                  Icons.brightness_auto,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ],
+          );
         },
-        secondary: GetBuilder<ThemeController>(
-          builder: (controller) => Icon(
-            controller.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
       ),
     );
   }

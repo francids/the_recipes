@@ -39,6 +39,8 @@
     "appearance_section": "Apparence",
     "dark_theme": "Thème sombre",
     "dark_theme_description": "Basculer entre thème clair/sombre",
+    "system_theme": "Utiliser le thème système",
+    "system_theme_description": "Suivre le mode clair/sombre du système",
     "language_section": "Langue",
     "language": "Langue",
     "language_description": "Sélectionnez la langue de l'application",

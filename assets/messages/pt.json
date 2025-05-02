@@ -39,6 +39,8 @@
     "appearance_section": "Aparência",
     "dark_theme": "Tema escuro",
     "dark_theme_description": "Alternar tema claro/escuro",
+    "system_theme": "Usar tema do sistema",
+    "system_theme_description": "Seguir o modo claro/escuro do sistema",
     "language_section": "Idioma",
     "language": "Idioma",
     "language_description": "Selecione o idioma do aplicativo",
