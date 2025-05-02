@@ -15,26 +15,26 @@ class InicialScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "The Recipes App",
+          "inicial_screen.title".tr,
           style: Theme.of(context).textTheme.displayLarge,
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),
-            tooltip: "Menu",
+            tooltip: "inicial_screen.menu_tooltip".tr,
             onPressed: () {
               showMenu(
                 context: context,
                 position: const RelativeRect.fromLTRB(100, 100, 0, 0),
                 items: [
                   PopupMenuItem(
-                    child: const Text("Recargar recetas"),
+                    child: Text("inicial_screen.menu_item_reload".tr),
                     onTap: () {
                       recipeController.refreshRecipes();
                     },
                   ),
                   PopupMenuItem(
-                    child: const Text("Configuración"),
+                    child: Text("inicial_screen.menu_item_settings".tr),
                     onTap: () {
                       Get.to(() => const SettingsScreen());
                     },
@@ -45,15 +45,41 @@ class InicialScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var upd = await Get.to(const AddRecipeScreen());
-          if (upd == true) {
-            recipeController.refreshRecipes();
-          }
-        },
-        tooltip: "Agregar receta",
-        child: const Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Tooltip(
+          //   message: "inicial_screen.fab_tooltip_ai".tr,
+          //   preferBelow: false,
+          //   child: FloatingActionButton.small(
+          //     onPressed: () {
+          //       Get.showSnackbar(
+          //         GetSnackBar(
+          //           title: "inicial_screen.snackbar_title_not_available".tr,
+          //           message: "inicial_screen.snackbar_message_not_available".tr,
+          //           duration: Duration(seconds: 1),
+          //           snackPosition: SnackPosition.TOP,
+          //         ),
+          //       );
+          //     },
+          //     child: const Icon(Icons.hexagon_outlined),
+          //   ),
+          // ),
+          const SizedBox(height: 10),
+          Tooltip(
+            message: "inicial_screen.fab_tooltip_add".tr,
+            preferBelow: false,
+            child: FloatingActionButton(
+              onPressed: () async {
+                var upd = await Get.to(const AddRecipeScreen());
+                if (upd == true) {
+                  recipeController.refreshRecipes();
+                }
+              },
+              child: const Icon(Icons.add),
+            ),
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -62,8 +88,8 @@ class InicialScreen extends StatelessWidget {
             builder: (controller) {
               return Expanded(
                 child: controller.recipes.isEmpty
-                    ? const Center(
-                        child: Text("No hay recetas disponibles"),
+                    ? Center(
+                        child: Text("inicial_screen.empty_list".tr),
                       )
                     : ListView.builder(
                         itemCount: controller.recipes.length,

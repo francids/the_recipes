@@ -24,7 +24,7 @@ class AuthController extends GetxController {
 
   Future<void> signInWithGoogle() async {
     try {
-      EasyLoading.show(status: "Iniciando sesión...");
+      EasyLoading.show(status: "auth_controller.signing_in".tr);
 
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
@@ -42,21 +42,27 @@ class AuthController extends GetxController {
 
       await _auth.signInWithCredential(credential);
       update();
-      EasyLoading.showSuccess("Sesión iniciada correctamente");
+      EasyLoading.showSuccess("auth_controller.sign_in_success".tr);
     } catch (e) {
-      EasyLoading.showError("Error al iniciar sesión");
+      EasyLoading.showError("auth_controller.sign_in_error".tr);
     }
   }
 
   Future<void> signOut() async {
     try {
-      EasyLoading.show(status: "Cerrando sesión...");
+      EasyLoading.show(status: "auth_controller.signing_out".tr);
       await _auth.signOut();
       await _googleSignIn.signOut();
       update();
-      EasyLoading.showSuccess("Sesión cerrada correctamente");
+      EasyLoading.showSuccess("auth_controller.sign_out_success".tr);
     } catch (e) {
-      EasyLoading.showError("Error al cerrar sesión: ${e.toString()}");
+      EasyLoading.showError(
+        "auth_controller.sign_out_error".trParams(
+          {
+            "0": e.toString(),
+          },
+        ),
+      );
     }
   }
 }

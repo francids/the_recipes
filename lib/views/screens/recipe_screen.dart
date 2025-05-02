@@ -40,9 +40,8 @@ class RecipeScreen extends StatelessWidget {
             onPressed: () {
               Dialogs.materialDialog(
                 context: context,
-                msg:
-                    "¿Estás seguro de que quieres eliminar esta receta? Esta acción no se puede deshacer.",
-                title: "Eliminar receta",
+                msg: "recipe_screen.delete_confirmation_message".tr,
+                title: "recipe_screen.delete_confirmation_title".tr,
                 lottieBuilder: LottieBuilder.asset(
                   "assets/lottie/delete.json",
                   fit: BoxFit.contain,
@@ -62,7 +61,7 @@ class RecipeScreen extends StatelessWidget {
                         onPressed: () {
                           Get.back();
                         },
-                        child: const Text("Cancelar"),
+                        child: Text("recipe_screen.cancel_button".tr),
                       ),
                     ),
                     SizedBox(
@@ -77,9 +76,7 @@ class RecipeScreen extends StatelessWidget {
                           Get.back();
                           recipeController.refreshRecipes();
                         },
-                        child: const Text(
-                          "Eliminar",
-                        ),
+                        child: Text("recipe_screen.delete_button".tr),
                       ),
                     ),
                   ];
@@ -135,7 +132,7 @@ class RecipeScreen extends StatelessWidget {
                       color: Colors.black12,
                     ),
                     Text(
-                      "Ingredientes",
+                      "recipe_screen.ingredients_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(height: 8),
@@ -163,7 +160,7 @@ class RecipeScreen extends StatelessWidget {
                       color: Colors.black12,
                     ),
                     Text(
-                      "Instrucciones",
+                      "recipe_screen.instructions_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     const SizedBox(height: 8),

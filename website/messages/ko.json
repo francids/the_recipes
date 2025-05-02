@@ -19,7 +19,9 @@
     "feature4_title": "출시 예정: 공유",
     "feature4_description": "곧 친구 및 가족과 요리 창작물을 공유할 수 있게 됩니다.",
     "feature5_title": "출시 예정: 레시피용 AI",
-    "feature5_description": "AI를 사용하여 이미지에서 레시피를 자동으로 생성합니다."
+    "feature5_description": "AI를 사용하여 이미지에서 레시피를 자동으로 생성합니다.",
+    "feature6_title": "다국어 지원",
+    "feature6_description": "이 앱은 전 세계 사용자를 위해 여러 언어로 제공됩니다."
   },
   "CTASection": {
     "title": "지금 이용 가능!",

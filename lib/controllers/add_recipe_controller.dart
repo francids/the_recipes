@@ -29,7 +29,7 @@ class AddRecipeController extends GetxController {
 
   Future<void> saveImageLocally() async {
     if (image == null) return;
-    EasyLoading.show(status: "Guardando imagen...");
+    EasyLoading.show(status: "add_recipe_controller.saving_image".tr);
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String imagesPath = path.join(appDocDir.path, "recipe-images");
     Directory imagesDir = Directory(imagesPath);
@@ -39,11 +39,11 @@ class AddRecipeController extends GetxController {
     String finalImagePath = path.join(imagesPath, fileName!);
     await image!.copy(finalImagePath);
     fullPath.value = finalImagePath;
-    EasyLoading.showSuccess("Imagen guardada");
+    EasyLoading.showSuccess("add_recipe_controller.image_saved".tr);
   }
 
   Future<void> addRecipe() async {
-    EasyLoading.show(status: "Agregando receta...");
+    EasyLoading.show(status: "add_recipe_controller.adding_recipe".tr);
     await saveImageLocally();
 
     await recipeController.addRecipe(
@@ -54,6 +54,6 @@ class AddRecipeController extends GetxController {
       List<String>.from(directionsList),
     );
 
-    EasyLoading.showSuccess("Receta agregada");
+    EasyLoading.showSuccess("add_recipe_controller.recipe_added".tr);
   }
 }

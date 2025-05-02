@@ -1,4 +1,4 @@
-package com.francids.the_recipes
+package com.francids.recipes
 
 import io.flutter.embedding.android.FlutterActivity
 

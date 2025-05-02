@@ -24,12 +24,12 @@ class RecipeController extends GetxController {
   }
 
   void getRecipes() async {
-    EasyLoading.show(status: "Cargando recetas...");
+    EasyLoading.show(status: "recipe_controller.loading_recipes".tr);
     recipes.clear();
     recipes.addAll(Hive.box<Recipe>(recipesBox).values);
     EasyLoading.dismiss();
     await Future.delayed(const Duration(milliseconds: 300));
-    EasyLoading.showSuccess("Recetas cargadas");
+    EasyLoading.showSuccess("recipe_controller.recipes_loaded".tr);
   }
 
   Future<void> addRecipe(
@@ -39,7 +39,7 @@ class RecipeController extends GetxController {
     List<String> ingredients,
     List<String> directions,
   ) async {
-    EasyLoading.show(status: "Agregando receta...");
+    EasyLoading.show(status: "recipe_controller.adding_recipe".tr);
 
     String id = uuid.v4();
 
@@ -55,21 +55,19 @@ class RecipeController extends GetxController {
     await Hive.box<Recipe>(recipesBox).put(id, recipe);
 
     update();
-    EasyLoading.showSuccess("Receta agregada");
+    EasyLoading.showSuccess("recipe_controller.recipe_added".tr);
   }
 
   Future<void> deleteRecipe(String id, String image) async {
-    EasyLoading.show(status: "Eliminando receta...");
+    EasyLoading.show(status: "recipe_controller.deleting_recipe".tr);
 
     try {
       var box = Hive.box<Recipe>(recipesBox);
 
       if (box.containsKey(id)) {
         await box.delete(id);
-        print("Receta con ID $id eliminada correctamente");
       } else {
-        print("Error: No se encontró la receta con ID $id");
-        EasyLoading.showError("La receta no existe");
+        EasyLoading.showError("recipe_controller.recipe_not_found".tr);
         return;
       }
 
@@ -78,18 +76,17 @@ class RecipeController extends GetxController {
           File imageFile = File(image);
           if (await imageFile.exists()) {
             await imageFile.delete();
-            print("Imagen eliminada correctamente: $image");
           }
         } catch (e) {
-          print("Error eliminando imagen: $e");
+          print("Error deleting image: $e");
         }
       }
 
       update();
-      EasyLoading.showSuccess("Receta eliminada");
+      EasyLoading.showSuccess("recipe_controller.recipe_deleted".tr);
     } catch (e) {
       print("Error eliminando receta: $e");
-      EasyLoading.showError("Error al eliminar la receta");
+      EasyLoading.showError("recipe_controller.delete_error".tr);
     }
   }
 }

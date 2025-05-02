@@ -39,7 +39,7 @@ export default function HeroSection() {
             {t("description")}
           </p>
           <a
-            href="https://the-recipe-app.uptodown.com/android"
+            href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-white text-orange-600 dark:bg-orange-600 dark:text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-50 dark:hover:bg-orange-700 hover:text-orange-600 dark:hover:text-white select-none"
