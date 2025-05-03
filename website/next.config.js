@@ -9,11 +9,6 @@ const nextConfig = {
         hostname: 'firebasestorage.googleapis.com',
         pathname: '/v0/b/the-recipes-90baa.appspot.com/o/recipe-images**',
       },
-      {
-        protocol: 'https',
-        hostname: 'flag.vercel.app',
-        pathname: '/s/**',
-      },
     ],
   },
 };

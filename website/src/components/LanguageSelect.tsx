@@ -74,7 +74,7 @@ export default function LanguageSelect() {
         aria-expanded={isOpen}
       >
         <Image
-          src={`https://flag.vercel.app/s/${getCurrentLanguageFlag()}.svg`}
+          src={`flags/${getCurrentLanguageFlag()}.svg`}
           alt={getCurrentLanguageName()}
           width={16}
           height={16}
@@ -116,7 +116,7 @@ export default function LanguageSelect() {
                   }`}
                 >
                   <Image
-                    src={`https://flag.vercel.app/s/${language.flagCode}.svg`}
+                    src={`flags/${language.flagCode}.svg`}
                     alt={language.name}
                     width={16}
                     height={16}
