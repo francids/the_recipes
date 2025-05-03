@@ -119,7 +119,6 @@ export default function Footer() {
             <Image
               src="/Logo.svg"
               alt="The Recipes App Logo"
-              className="invert dark:invert"
               width={100}
               height={24}
               priority
