@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import Logotype from "./Logotype";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
@@ -32,6 +33,9 @@ export default function HeroSection() {
     <section className="bg-gradient-to-b from-orange-600 to-amber-500 dark:from-orange-950 dark:to-zinc-900 text-white pt-20 md:pt-20 pb-16 px-8 text-center md:text-left relative overflow-hidden">
       <div className="max-w-7xl mx-auto flex xl:flex-row flex-col lg:items-center xl:justify-between gap-8">
         <div className="lg:w-2/5 mb-4 xl:mb-24 text-center xl:text-left">
+          <div className="flex items-center justify-center xl:justify-start mb-4 w-full">
+            <Logotype className="w-20 h-8 dark:text-amber-500" />
+          </div>
           <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold mb-4 drop-shadow-md">
             {t("title")}
           </h1>
