@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Open_Sans } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
@@ -8,7 +8,10 @@ import { getLocale } from "next-intl/server";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
-const openSans = Open_Sans({ subsets: ["latin"] });
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const themeScript = `
 (function() {
@@ -62,7 +65,7 @@ export default async function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className={openSans.className}>
+      <body className={montserrat.className}>
         <NextIntlClientProvider>
           {children}
           <SpeedInsights />
