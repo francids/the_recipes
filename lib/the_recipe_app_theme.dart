@@ -92,7 +92,7 @@ class TheRecipeAppTheme {
   );
 
   static TextTheme _getTextTheme(bool isDark) {
-    return GoogleFonts.openSansTextTheme(
+    return GoogleFonts.montserratTextTheme(
       TextTheme(
         displayLarge: TextStyle(
           color: isDark ? Colors.white : Colors.black,
