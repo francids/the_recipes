@@ -30,8 +30,22 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-orange-600 to-amber-500 dark:from-orange-950 dark:to-zinc-900 text-white pt-20 md:pt-20 pb-16 px-8 text-center md:text-left relative overflow-hidden">
-      <div className="max-w-7xl mx-auto flex xl:flex-row flex-col lg:items-center xl:justify-between gap-8">
+    <section className="bg-gradient-to-b from-orange-600 to-amber-500 dark:from-yellow-950 dark:to-zinc-900 text-white pt-20 md:pt-20 pb-16 px-8 text-center md:text-left relative overflow-hidden">
+      <div
+        className={`absolute bottom-0 left-0 right-0 top-0 ${
+          isDarkMode
+            ? "bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)]"
+            : "bg-[linear-gradient(to_right,#fed7aa40_1px,transparent_1px),linear-gradient(to_bottom,#fed7aa40_1px,transparent_1px)]"
+        } bg-[size:28px_28px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]`}
+      ></div>
+      <div
+        className={`opacity-0 absolute inset-0 -z-10 h-full w-full ${
+          isDarkMode
+            ? "bg-zinc-900 [background:radial-gradient(125%_125%_at_50%_10%,#18181b_40%,#713f12_100%)]"
+            : "bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#fed7aa_100%)]"
+        }`}
+      ></div>
+      <div className="max-w-7xl mx-auto flex xl:flex-row flex-col lg:items-center xl:justify-between gap-8 relative z-10">
         <div className="lg:w-2/5 mb-4 xl:mb-24 text-center xl:text-left">
           <div className="flex items-center justify-center xl:justify-start mb-4 w-full">
             <Logotype className="w-20 h-8 dark:text-amber-500" />
