@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:the_recipes/env/env.dart';
 import 'package:the_recipes/models/recipe.dart';
 
 class AIRecipeController extends GetConnect {
@@ -11,21 +13,26 @@ class AIRecipeController extends GetConnect {
 
   Future<Recipe> generateRecipeFromImage(String imagePath) async {
     try {
-      final formData = FormData({
-        'image': MultipartFile(
-          File(imagePath),
-          filename: imagePath.split('/').last,
-        ),
-      });
+      final imageBytes = await File(imagePath).readAsBytes();
+      final base64Image = base64Encode(imageBytes);
+
+      final body = {
+        "image": base64Image,
+      };
 
       final response = await post(
-        "http://10.0.0.173:3000/generate-recipe",
-        formData,
+        "https://recipes.francids.com/api/ai/generate-recipe",
+        body,
+        contentType: "application/json",
+        headers: {
+          "TRA-SECRET-KEY": Env.TRA_SECRET_KEY,
+        },
       );
 
       if (response.statusCode == 200) {
         return Recipe.fromMap(response.body);
       } else {
+        response.printInfo();
         throw Exception("Failed to generate recipe: ${response.statusText}");
       }
     } catch (error) {
