@@ -16,7 +16,8 @@
     "cancel_button": "取消",
     "delete_button": "删除",
     "ingredients_title": "配料",
-    "instructions_title": "烹饪步骤"
+    "instructions_title": "烹饪步骤",
+    "menu_item_delete": "删除食谱"
   },
   "add_recipe_screen": {
     "title": "添加食谱",

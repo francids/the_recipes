@@ -16,7 +16,8 @@
     "cancel_button": "Annulla",
     "delete_button": "Elimina",
     "ingredients_title": "Ingredienti",
-    "instructions_title": "Istruzioni"
+    "instructions_title": "Istruzioni",
+    "menu_item_delete": "Elimina ricetta"
   },
   "add_recipe_screen": {
     "title": "Aggiungi ricetta",
