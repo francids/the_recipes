@@ -48,6 +48,7 @@ class RecipeScreen extends StatelessWidget {
                     child: ListTile(
                       leading: Icon(Icons.delete_outline),
                       title: Text("recipe_screen.menu_item_delete".tr),
+                      horizontalTitleGap: 8,
                     ),
                     onTap: () {
                       Dialogs.materialDialog(

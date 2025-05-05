@@ -28,13 +28,21 @@ class InicialScreen extends StatelessWidget {
                 position: const RelativeRect.fromLTRB(100, 100, 0, 0),
                 items: [
                   PopupMenuItem(
-                    child: Text("inicial_screen.menu_item_reload".tr),
+                    child: ListTile(
+                      leading: Icon(Icons.sync_rounded),
+                      title: Text("inicial_screen.menu_item_reload".tr),
+                      horizontalTitleGap: 8,
+                    ),
                     onTap: () {
                       recipeController.refreshRecipes();
                     },
                   ),
                   PopupMenuItem(
-                    child: Text("inicial_screen.menu_item_settings".tr),
+                    child: ListTile(
+                      leading: Icon(Icons.settings_outlined),
+                      title: Text("inicial_screen.menu_item_settings".tr),
+                      horizontalTitleGap: 8,
+                    ),
                     onTap: () {
                       Get.to(() => const SettingsScreen());
                     },
