@@ -30,7 +30,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-orange-600 to-amber-500 dark:from-yellow-950 dark:to-zinc-900 text-white pt-20 md:pt-20 pb-16 px-8 text-center md:text-left relative overflow-hidden">
+    <section className="bg-gradient-to-b from-orange-600 to-amber-500 dark:from-yellow-950 dark:to-zinc-900 text-white pt-20 md:pt-20 pb-16 px-8 text-center md:text-left relative overflow-hidden selection:bg-white/25">
       <div
         className={`absolute bottom-0 left-0 right-0 top-0 ${
           isDarkMode

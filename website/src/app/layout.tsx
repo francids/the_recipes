@@ -65,7 +65,9 @@ export default async function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className={montserrat.className}>
+      <body
+        className={`${montserrat.className} selection:bg-yellow-600/25 dark:selection:bg-yellow-800/25`}
+      >
         <NextIntlClientProvider>
           {children}
           <SpeedInsights />
