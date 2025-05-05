@@ -85,7 +85,6 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildThemeCard(BuildContext context) {
-    final themeController = Get.find<ThemeController>();
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
