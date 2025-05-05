@@ -73,7 +73,7 @@ class RecipeCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: Text(
                       recipe.description,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodySmall,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),

@@ -16,7 +16,8 @@
     "cancel_button": "취소",
     "delete_button": "삭제",
     "ingredients_title": "재료",
-    "instructions_title": "조리 방법"
+    "instructions_title": "조리 방법",
+    "menu_item_delete": "레시피 삭제"
   },
   "add_recipe_screen": {
     "title": "레시피 추가",

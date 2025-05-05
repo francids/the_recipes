@@ -105,8 +105,12 @@ class TheRecipeAppTheme {
           fontWeight: FontWeight.w500,
         ),
         bodyMedium: TextStyle(
-          color: isDark ? Colors.white70 : Colors.black54,
+          color: isDark ? Colors.white70 : Colors.black87,
           fontSize: 13,
+        ),
+        bodySmall: TextStyle(
+          color: isDark ? Colors.white60 : Colors.black54,
+          fontSize: 12,
         ),
       ),
     );

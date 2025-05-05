@@ -16,7 +16,8 @@
     "cancel_button": "キャンセル",
     "delete_button": "削除",
     "ingredients_title": "材料",
-    "instructions_title": "調理手順"
+    "instructions_title": "調理手順",
+    "menu_item_delete": "レシピを削除"
   },
   "add_recipe_screen": {
     "title": "レシピを追加",
