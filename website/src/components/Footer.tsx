@@ -142,9 +142,9 @@ export default function Footer() {
         </div>
         <div className="flex gap-10 flex-wrap">
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">
+            <h3 className="text-orange-500 mb-5 text-lg font-semibold">
               {t("section_recipes")}
-            </h3>{" "}
+            </h3>
             <Link
               href="/#features"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
@@ -159,9 +159,9 @@ export default function Footer() {
             </Link>
           </div>
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">
+            <h3 className="text-orange-500 mb-5 text-lg font-semibold">
               {t("section_contact")}
-            </h3>{" "}
+            </h3>
             <a
               href="https://github.com/francids/the_recipes"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
@@ -170,9 +170,9 @@ export default function Footer() {
             </a>
           </div>
           <div className="min-w-[150px]">
-            <h3 className="text-orange-500 mb-5 text-lg">
+            <h3 className="text-orange-500 mb-5 text-lg font-semibold">
               {t("section_preferences")}
-            </h3>{" "}
+            </h3>
             <div className="flex items-center justify-start gap-2.5 mt-2.5">
               <span className="text-neutral-400 dark:text-neutral-300 text-base">
                 {t("theme_label")} {themeLabel()}
