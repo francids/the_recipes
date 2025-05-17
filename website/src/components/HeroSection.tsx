@@ -4,12 +4,30 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Logotype from "./Logotype";
+import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 
 export default function HeroSection() {
   const t = useTranslations("HeroSection");
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [image1Loaded, setImage1Loaded] = useState(false);
   const [image2Loaded, setImage2Loaded] = useState(false);
+
+  const [h1Ref, h1IsVisible] = useElementOnScreen<HTMLHeadingElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [pRef, pIsVisible] = useElementOnScreen<HTMLParagraphElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [buttonRef, buttonIsVisible] = useElementOnScreen<HTMLAnchorElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [logotypeRef, logotypeIsVisible] = useElementOnScreen<HTMLDivElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -47,20 +65,41 @@ export default function HeroSection() {
       ></div>
       <div className="max-w-7xl mx-auto flex xl:flex-row flex-col lg:items-center xl:justify-between gap-8 relative z-10">
         <div className="lg:w-2/5 mb-4 xl:mb-24 text-center xl:text-left">
-          <div className="flex items-center justify-center xl:justify-start mb-4 w-full">
+          <div
+            ref={logotypeRef}
+            className={`flex items-center justify-center xl:justify-start mb-4 w-full opacity-0 ${
+              logotypeIsVisible ? "animate-fadeInUp" : ""
+            }`}
+          >
             <Logotype className="w-20 h-8 dark:text-amber-500" />
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold mb-4 drop-shadow-md">
+          <h1
+            ref={h1Ref}
+            className={`text-4xl md:text-5xl lg:text-5xl font-bold mb-4 drop-shadow-md opacity-0 ${
+              h1IsVisible ? "animate-fadeInUp" : ""
+            }`}
+            style={{ animationDelay: "0.2s" }}
+          >
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl opacity-90 mb-8">
+          <p
+            ref={pRef}
+            className={`text-lg md:text-xl mb-8 opacity-0 ${
+              pIsVisible ? "animate-fadeInUp" : ""
+            }`}
+            style={{ animationDelay: "0.4s" }}
+          >
             {t("description")}
           </p>
           <a
+            ref={buttonRef}
             href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-white text-orange-600 dark:bg-orange-600 dark:text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-50 dark:hover:bg-orange-700 hover:text-orange-600 dark:hover:text-white select-none"
+            className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-white text-orange-600 dark:bg-orange-600 dark:text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-50 dark:hover:bg-orange-700 hover:text-orange-600 dark:hover:text-white select-none opacity-0 ${
+              buttonIsVisible ? "animate-fadeInUp" : ""
+            }`}
+            style={{ animationDelay: "0.6s" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
