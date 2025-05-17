@@ -1,26 +1,61 @@
 import { useTranslations } from "next-intl";
+import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 
 export default function CTASection() {
   const t = useTranslations("CTASection");
+
+  const [h2Ref, h2IsVisible] = useElementOnScreen<HTMLHeadingElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [pRef, pIsVisible] = useElementOnScreen<HTMLParagraphElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [button1Ref, button1IsVisible] = useElementOnScreen<HTMLAnchorElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [button2Ref, button2IsVisible] = useElementOnScreen<HTMLAnchorElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [button3Ref, button3IsVisible] = useElementOnScreen<HTMLAnchorElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   return (
     <section
       id="cta"
       className="py-20 px-5 bg-white dark:bg-zinc-900 text-center"
     >
-      <h2 className="text-4xl font-bold mb-5 text-zinc-800 dark:text-zinc-100">
+      <h2
+        ref={h2Ref}
+        className={`text-4xl font-bold mb-5 text-zinc-800 dark:text-zinc-100 ${
+          h2IsVisible ? "animate-fadeInUp" : "opacity-0"
+        }`}
+      >
         {t("title")}
       </h2>
-      <p className="max-w-2xl mx-auto mb-10 text-lg text-zinc-600 dark:text-zinc-400">
+      <p
+        ref={pRef}
+        className={`max-w-2xl mx-auto mb-10 text-lg text-zinc-600 dark:text-zinc-400 ${
+          pIsVisible ? "animate-fadeInUp" : "opacity-0"
+        } style="animation-delay: 0.2s"`}
+      >
         {t("description")}
       </p>
 
       <div className="flex flex-wrap justify-center gap-5 select-none">
         <a
+          ref={button1Ref}
           href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-orange-600 text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-700 dark:hover:bg-orange-700 select-none"
+          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-orange-600 text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-700 dark:hover:bg-orange-700 select-none ${
+            button1IsVisible ? "animate-fadeInUp" : "opacity-0"
+          } style="animation-delay: 0.4s"`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,10 +70,13 @@ export default function CTASection() {
         </a>
 
         <a
+          ref={button2Ref}
           href="https://github.com/francids/the_recipes"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
+          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none ${
+            button2IsVisible ? "animate-fadeInUp" : "opacity-0"
+          } style="animation-delay: 0.5s"`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,8 +91,11 @@ export default function CTASection() {
         </a>
 
         <a
+          ref={button3Ref}
           href="#features"
-          className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
+          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none ${
+            button3IsVisible ? "animate-fadeInUp" : "opacity-0"
+          } style="animation-delay: 0.6s"`}
         >
           {t("discover_features")}
         </a>
