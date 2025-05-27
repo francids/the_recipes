@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/add_recipe_controller.dart";
@@ -122,14 +123,15 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       appBar: AppBar(
         title: Text("add_recipe_screen.title".tr),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(CupertinoIcons.back),
           onPressed: _handleBackButton,
         ),
         actions: [
           Obx(
-            () => _currentStep.value == 3
+            () => _currentStep.value == 3 && _isCurrentStepValid.value
                 ? IconButton(
-                    icon: const Icon(Icons.save), onPressed: _handleSaveRecipe)
+                    icon: const Icon(CupertinoIcons.checkmark_alt_circle_fill),
+                    onPressed: _handleSaveRecipe)
                 : const SizedBox(),
           ),
         ],
