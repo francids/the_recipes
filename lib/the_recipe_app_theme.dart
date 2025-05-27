@@ -9,6 +9,7 @@ class TheRecipeAppTheme {
   static ThemeData getTheme(bool isDark) {
     return ThemeData(
       textTheme: _getTextTheme(isDark),
+      dividerTheme: _dividerTheme(isDark),
       colorScheme: isDark ? _darkColorScheme : _colorScheme,
       appBarTheme: _getAppBarTheme(isDark),
       floatingActionButtonTheme: _floatingActionButtonThemeData(isDark),
@@ -21,6 +22,12 @@ class TheRecipeAppTheme {
       popupMenuTheme: _popupMenuTheme(isDark),
     );
   }
+
+  static DividerThemeData _dividerTheme(bool isDark) => DividerThemeData(
+        color: isDark ? Colors.white30 : Colors.black26,
+        thickness: 0.5,
+        space: 0.5,
+      );
 
   static FilledButtonThemeData _filledButtonTheme = const FilledButtonThemeData(
     style: ButtonStyle(
@@ -96,7 +103,7 @@ class TheRecipeAppTheme {
       TextTheme(
         displayLarge: TextStyle(
           color: isDark ? Colors.white : Colors.black,
-          fontSize: 23,
+          fontSize: 28,
           fontWeight: FontWeight.w600,
         ),
         displayMedium: TextStyle(

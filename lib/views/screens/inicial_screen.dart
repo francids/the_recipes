@@ -87,7 +87,10 @@ class InicialScreen extends StatelessWidget {
               },
               child: const Icon(Icons.add),
             ).animate().scale(
-                delay: 300.ms, duration: 400.ms, curve: Curves.easeOutBack),
+                  delay: 300.ms,
+                  duration: 400.ms,
+                  curve: Curves.easeOutBack,
+                ),
           ),
         ],
       ),

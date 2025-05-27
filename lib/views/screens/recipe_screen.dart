@@ -1,5 +1,6 @@
 import "dart:io";
 
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:lottie/lottie.dart";
@@ -23,22 +24,15 @@ class RecipeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Hero(
-          tag: "recipe_title_${recipe.id}",
-          child: Text(
-            recipe.title,
-            style: Theme.of(context).textTheme.displayMedium,
-          ),
-        ),
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(CupertinoIcons.back),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(CupertinoIcons.ellipsis_vertical),
             tooltip: "inicial_screen.menu_tooltip".tr,
             onPressed: () {
               showMenu(
@@ -47,7 +41,7 @@ class RecipeScreen extends StatelessWidget {
                 items: [
                   PopupMenuItem(
                     child: ListTile(
-                      leading: Icon(Icons.delete_outline),
+                      leading: Icon(CupertinoIcons.delete),
                       title: Text("recipe_screen.menu_item_delete".tr),
                       horizontalTitleGap: 8,
                     ),
@@ -141,22 +135,27 @@ class RecipeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ).animate().fadeIn(duration: 500.ms).scaleXY(
-                        begin: 0.9,
-                        end: 1.0,
-                        duration: 400.ms,
-                        curve: Curves.easeOutCubic),
+                    ),
+                    const SizedBox(height: 24),
+                    Hero(
+                      tag: "recipe_title_${recipe.id}",
+                      child: Text(
+                        recipe.title,
+                        style: Theme.of(context).textTheme.displayLarge,
+                      ),
+                    ),
                     const SizedBox(height: 16),
                     Text(
                       recipe.description,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ).animate().fadeIn(delay: 200.ms, duration: 500.ms).slideY(
-                        begin: 0.2,
-                        duration: 400.ms,
-                        curve: Curves.easeOutCubic),
+                          begin: 0.2,
+                          duration: 400.ms,
+                          curve: Curves.easeOutCubic,
+                        ),
                     const Divider(
                       thickness: 0.3,
-                      height: 16,
+                      height: 32,
                       color: Colors.black12,
                     ),
                     Text(
@@ -187,7 +186,7 @@ class RecipeScreen extends StatelessWidget {
                     ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
                     const Divider(
                       thickness: 0.3,
-                      height: 16,
+                      height: 32,
                       color: Colors.black12,
                     ),
                     Text(
