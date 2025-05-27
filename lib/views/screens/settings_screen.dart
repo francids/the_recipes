@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
@@ -78,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                     ),
                     leading: Icon(
-                      Icons.info_outline,
+                      CupertinoIcons.info_circle,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
@@ -125,7 +126,9 @@ class SettingsScreen extends StatelessWidget {
                         controller.toggleTheme();
                       },
                 secondary: Icon(
-                  controller.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                  controller.isDarkMode
+                      ? CupertinoIcons.moon_fill
+                      : CupertinoIcons.sun_max_fill,
                   color: controller.followSystemTheme
                       ? Theme.of(context).colorScheme.outline
                       : Theme.of(context).colorScheme.primary,
@@ -151,7 +154,7 @@ class SettingsScreen extends StatelessWidget {
                   controller.setFollowSystemTheme(value);
                 },
                 secondary: Icon(
-                  Icons.brightness_auto,
+                  CupertinoIcons.circle_lefthalf_fill,
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
@@ -195,7 +198,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
           ),
           leading: Icon(
-            Icons.language,
+            CupertinoIcons.globe,
             color: Theme.of(context).colorScheme.primary,
           ),
           trailing: const Icon(Icons.expand_more),

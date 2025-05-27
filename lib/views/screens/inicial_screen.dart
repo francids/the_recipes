@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/views/screens/add_recipe_screen.dart";
@@ -17,11 +18,15 @@ class InicialScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "inicial_screen.title".tr,
-          style: Theme.of(context).textTheme.displayLarge,
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(
+              CupertinoIcons.ellipsis_vertical,
+            ),
             tooltip: "inicial_screen.menu_tooltip".tr,
             onPressed: () {
               showMenu(
@@ -30,7 +35,7 @@ class InicialScreen extends StatelessWidget {
                 items: [
                   PopupMenuItem(
                     child: ListTile(
-                      leading: Icon(Icons.sync_rounded),
+                      leading: Icon(CupertinoIcons.refresh),
                       title: Text("inicial_screen.menu_item_reload".tr),
                       horizontalTitleGap: 8,
                     ),
@@ -40,7 +45,7 @@ class InicialScreen extends StatelessWidget {
                   ),
                   PopupMenuItem(
                     child: ListTile(
-                      leading: Icon(Icons.settings_outlined),
+                      leading: Icon(CupertinoIcons.settings),
                       title: Text("inicial_screen.menu_item_settings".tr),
                       horizontalTitleGap: 8,
                     ),
@@ -85,7 +90,7 @@ class InicialScreen extends StatelessWidget {
                   recipeController.refreshRecipes();
                 }
               },
-              child: const Icon(Icons.add),
+              child: const Icon(CupertinoIcons.add),
             ).animate().scale(
                   delay: 300.ms,
                   duration: 400.ms,
