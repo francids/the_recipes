@@ -6,6 +6,7 @@ import "package:the_recipes/controllers/add_recipe_controller.dart";
 import "package:the_recipes/controllers/ai_recipe_controller.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class ImageStepWidget extends StatelessWidget {
   final AddRecipeController controller;
@@ -65,7 +66,10 @@ class ImageStepWidget extends StatelessWidget {
           GestureDetector(
             onTap: _pickImage,
             child: Obx(() => _buildImageContainer()),
-          ),
+          )
+              .animate()
+              .fadeIn(duration: 400.ms)
+              .scaleXY(begin: 0.8, curve: Curves.easeOutBack),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -77,9 +81,11 @@ class ImageStepWidget extends StatelessWidget {
                 color: isDarkMode ? Colors.white70 : Colors.black54,
               ),
             ),
-          ),
+          ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
           const SizedBox(height: 24),
-          Obx(() => _buildAISection(context, authController, isDarkMode)),
+          Obx(() => _buildAISection(context, authController, isDarkMode))
+              .animate()
+              .fadeIn(delay: 400.ms, duration: 400.ms),
         ],
       ),
     );

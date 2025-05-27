@@ -6,6 +6,7 @@ import "package:lottie/lottie.dart";
 import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/models/recipe.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class RecipeScreen extends StatelessWidget {
   RecipeScreen({
@@ -140,12 +141,19 @@ class RecipeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
+                    ).animate().fadeIn(duration: 500.ms).scaleXY(
+                        begin: 0.9,
+                        end: 1.0,
+                        duration: 400.ms,
+                        curve: Curves.easeOutCubic),
                     const SizedBox(height: 16),
                     Text(
                       recipe.description,
                       style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                    ).animate().fadeIn(delay: 200.ms, duration: 500.ms).slideY(
+                        begin: 0.2,
+                        duration: 400.ms,
+                        curve: Curves.easeOutCubic),
                     const Divider(
                       thickness: 0.3,
                       height: 16,
@@ -154,7 +162,10 @@ class RecipeScreen extends StatelessWidget {
                     Text(
                       "recipe_screen.ingredients_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
-                    ),
+                    ).animate().fadeIn(delay: 300.ms, duration: 500.ms).slideY(
+                        begin: 0.2,
+                        duration: 400.ms,
+                        curve: Curves.easeOutCubic),
                     const SizedBox(height: 8),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
@@ -173,7 +184,7 @@ class RecipeScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.symmetric(vertical: 3),
                       ),
-                    ),
+                    ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
                     const Divider(
                       thickness: 0.3,
                       height: 16,
@@ -182,7 +193,10 @@ class RecipeScreen extends StatelessWidget {
                     Text(
                       "recipe_screen.instructions_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
-                    ),
+                    ).animate().fadeIn(delay: 500.ms, duration: 500.ms).slideY(
+                        begin: 0.2,
+                        duration: 400.ms,
+                        curve: Curves.easeOutCubic),
                     const SizedBox(height: 8),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
@@ -201,7 +215,7 @@ class RecipeScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.symmetric(vertical: 3),
                       ),
-                    ),
+                    ).animate().fadeIn(delay: 600.ms, duration: 500.ms),
                   ],
                 ),
               ),

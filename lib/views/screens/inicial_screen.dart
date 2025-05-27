@@ -4,6 +4,7 @@ import "package:the_recipes/views/screens/add_recipe_screen.dart";
 import "package:the_recipes/views/screens/settings_screen.dart";
 import "package:the_recipes/views/widgets/recipe_card.dart";
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class InicialScreen extends StatelessWidget {
   const InicialScreen({super.key});
@@ -85,7 +86,8 @@ class InicialScreen extends StatelessWidget {
                 }
               },
               child: const Icon(Icons.add),
-            ),
+            ).animate().scale(
+                delay: 300.ms, duration: 400.ms, curve: Curves.easeOutBack),
           ),
         ],
       ),
@@ -112,7 +114,7 @@ class InicialScreen extends StatelessWidget {
                             ),
                           );
                         },
-                      ),
+                      ).animate().fadeIn(duration: 300.ms),
               );
             },
           ),

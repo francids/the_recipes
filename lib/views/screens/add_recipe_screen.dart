@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:the_recipes/controllers/add_recipe_controller.dart';
-import 'package:the_recipes/views/widgets/recipe_form/image_step_widget.dart';
-import 'package:the_recipes/views/widgets/recipe_form/text_fields_step_widget.dart';
-import 'package:the_recipes/views/widgets/recipe_form/dynamic_list_step_widget.dart';
-import 'package:the_recipes/views/widgets/ui_helpers.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:the_recipes/controllers/add_recipe_controller.dart";
+import "package:the_recipes/views/widgets/recipe_form/image_step_widget.dart";
+import "package:the_recipes/views/widgets/recipe_form/text_fields_step_widget.dart";
+import "package:the_recipes/views/widgets/recipe_form/dynamic_list_step_widget.dart";
+import "package:the_recipes/views/widgets/ui_helpers.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class AddRecipeScreen extends StatefulWidget {
   const AddRecipeScreen({super.key});
@@ -161,7 +162,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   ),
                 ],
               ),
-            ),
+            ).animate().fadeIn(duration: 300.ms),
           ),
           Expanded(
             child: PageView(
@@ -209,12 +210,20 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   _currentStep.value > 0
                       ? TextButton(
                           onPressed: () => _handleNavigation(false),
-                          child: Text("add_recipe_screen.previous".tr))
+                          child: Text("add_recipe_screen.previous".tr),
+                        )
+                          .animate()
+                          .fadeIn(duration: 200.ms)
+                          .slideX(begin: -0.5, curve: Curves.easeOutCubic)
                       : const SizedBox(),
                   _currentStep.value < 3 && _isCurrentStepValid.value
                       ? FilledButton(
                           onPressed: () => _handleNavigation(true),
-                          child: Text("add_recipe_screen.next".tr))
+                          child: Text("add_recipe_screen.next".tr),
+                        )
+                          .animate()
+                          .fadeIn(duration: 200.ms)
+                          .slideX(begin: 0.5, curve: Curves.easeOutCubic)
                       : const SizedBox(),
                 ],
               ),
@@ -228,7 +237,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   Widget _wrapInScrollView(Widget child) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: child,
+      child: child.animate().fadeIn(duration: 400.ms, delay: 100.ms),
     );
   }
 }

@@ -4,6 +4,7 @@ import "package:the_recipes/models/recipe.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/views/screens/recipe_screen.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class RecipeCard extends StatelessWidget {
   const RecipeCard({
@@ -84,6 +85,9 @@ class RecipeCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(duration: 500.ms)
+        .slideX(begin: -0.2, duration: 400.ms, curve: Curves.easeOutCubic);
   }
 }
