@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/language_controller.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
@@ -85,7 +86,10 @@ class LanguageScreen extends StatelessWidget {
                         if (index < _languages.length - 1)
                           const Divider(height: 1, indent: 16, endIndent: 16),
                       ],
-                    );
+                    )
+                        .animate(delay: (index * 70).ms)
+                        .fadeIn(duration: 400.ms)
+                        .slideX(begin: 0.2, curve: Curves.easeOutCubic);
                   },
                 ),
               ),

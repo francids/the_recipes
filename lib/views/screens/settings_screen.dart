@@ -3,6 +3,7 @@ import "package:get/get.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/env/env.dart";
 import "package:the_recipes/views/screens/settings/language_screen.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -32,14 +33,20 @@ class SettingsScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.displayMedium,
             ),
             const SizedBox(height: 16),
-            _buildThemeCard(context),
+            _buildThemeCard(context)
+                .animate()
+                .fadeIn(duration: 300.ms)
+                .slideX(begin: -0.1, curve: Curves.easeOutCubic),
             const SizedBox(height: 32),
             Text(
               "settings_screen.language_section".tr,
               style: Theme.of(context).textTheme.displayMedium,
             ),
             const SizedBox(height: 16),
-            _buildLanguageCard(context),
+            _buildLanguageCard(context)
+                .animate()
+                .fadeIn(delay: 150.ms, duration: 300.ms)
+                .slideX(begin: -0.1, curve: Curves.easeOutCubic),
             // const SizedBox(height: 32),
             // Text(
             //   "Cuenta",
@@ -77,7 +84,10 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            )
+                .animate()
+                .fadeIn(delay: 300.ms, duration: 300.ms)
+                .slideX(begin: -0.1, curve: Curves.easeOutCubic),
           ],
         ),
       ),

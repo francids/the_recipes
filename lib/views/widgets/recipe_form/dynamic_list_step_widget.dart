@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/gestures/drag_start_listener.dart";
 import "package:the_recipes/views/widgets/form_field.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class DynamicListStepWidget extends StatefulWidget {
   final RxList<String> list;
@@ -33,7 +34,10 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
               },
             ),
           ),
-        ),
+        )
+            .animate()
+            .fadeIn(duration: 400.ms)
+            .slideY(begin: -0.2, curve: Curves.easeOutCubic),
         const SizedBox(height: 16),
         Obx(() => _buildListContent()),
       ],
@@ -54,7 +58,7 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
             fontStyle: FontStyle.italic,
           ),
         ),
-      );
+      ).animate().fadeIn(delay: 100.ms, duration: 300.ms);
     }
 
     _rebuildTrigger.value;
@@ -75,12 +79,13 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
       },
       itemCount: widget.list.length,
       itemBuilder: (context, i) => _buildListItem(i),
-    );
+    ).animate().fadeIn(delay: 200.ms, duration: 400.ms);
   }
 
   Widget _buildListItem(int index) {
-    return Container(
-      key: ValueKey("item-$index-${_rebuildTrigger.value}"),
+    final itemKey = ValueKey("item-$index-${_rebuildTrigger.value}");
+
+    Widget itemContent = Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -113,6 +118,19 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
           ],
         ),
       ),
+    );
+
+    return Animate(
+      key: itemKey,
+      delay: (index * 50).ms,
+      effects: [
+        FadeEffect(duration: 300.ms),
+        SlideEffect(
+          begin: const Offset(0.1, 0),
+          curve: Curves.easeOutCubic,
+        ),
+      ],
+      child: itemContent,
     );
   }
 }
