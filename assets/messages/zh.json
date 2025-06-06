@@ -11,7 +11,23 @@
     "empty_list": "没有可用的食谱"
   },
   "profile_page": {
-    "title": "个人资料"
+    "title": "个人资料",
+    "sign_in_required": "需要登录",
+    "sign_in_description": "登录以访问您的个人资料并在所有设备上同步您的食谱",
+    "sign_in_with_google": "使用Google登录",
+    "unknown_user": "未知用户",
+    "account_section": "账户",
+    "account_info": "账户信息",
+    "account_info_description": "查看您的账户详情",
+    "data_section": "数据和存储",
+    "backup_recipes": "同步食谱",
+    "backup_recipes_description": "自动在云端同步您的食谱",
+    "export_recipes": "导出食谱",
+    "export_recipes_description": "将您的食谱下载为文件",
+    "sign_out": "退出",
+    "sign_out_description": "从您的账户注销",
+    "sign_out_confirmation_title": "退出",
+    "sign_out_confirmation_message": "您确定要从账户注销吗？"
   },
   "recipe_screen": {
     "title": "食谱",

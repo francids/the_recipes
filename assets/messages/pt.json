@@ -11,7 +11,23 @@
     "empty_list": "Nenhuma receita disponível"
   },
   "profile_page": {
-    "title": "Perfil"
+    "title": "Perfil",
+    "sign_in_required": "Login necessário",
+    "sign_in_description": "Faça login para acessar seu perfil e sincronizar suas receitas em todos os dispositivos",
+    "sign_in_with_google": "Entrar com Google",
+    "unknown_user": "Usuário desconhecido",
+    "account_section": "Conta",
+    "account_info": "Informações da conta",
+    "account_info_description": "Ver detalhes da sua conta",
+    "data_section": "Dados e armazenamento",
+    "backup_recipes": "Sincronizar receitas",
+    "backup_recipes_description": "Sincronizar automaticamente suas receitas na nuvem",
+    "export_recipes": "Exportar receitas",
+    "export_recipes_description": "Baixe suas receitas como arquivo",
+    "sign_out": "Sair",
+    "sign_out_description": "Desconectar da sua conta",
+    "sign_out_confirmation_title": "Sair",
+    "sign_out_confirmation_message": "Tem certeza de que deseja sair da sua conta?"
   },
   "recipe_screen": {
     "title": "Receita",

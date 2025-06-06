@@ -11,7 +11,23 @@
     "empty_list": "No recipes available"
   },
   "profile_page": {
-    "title": "Profile"
+    "title": "Profile",
+    "sign_in_required": "Sign In Required",
+    "sign_in_description": "Sign in to access your profile and sync your recipes across devices",
+    "sign_in_with_google": "Sign In with Google",
+    "unknown_user": "Unknown User",
+    "account_section": "Account",
+    "account_info": "Account Information",
+    "account_info_description": "View your account details",
+    "data_section": "Data & Storage",
+    "backup_recipes": "Sync Recipes",
+    "backup_recipes_description": "Automatically sync your recipes to the cloud",
+    "export_recipes": "Export Recipes",
+    "export_recipes_description": "Download your recipes as a file",
+    "sign_out": "Sign Out",
+    "sign_out_description": "Log out of your account",
+    "sign_out_confirmation_title": "Sign Out",
+    "sign_out_confirmation_message": "Are you sure you want to sign out of your account?"
   },
   "recipe_screen": {
     "title": "Recipe",

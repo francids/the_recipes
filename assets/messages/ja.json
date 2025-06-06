@@ -11,7 +11,23 @@
     "empty_list": "レシピがありません"
   },
   "profile_page": {
-    "title": "プロフィール"
+    "title": "プロフィール",
+    "sign_in_required": "サインインが必要です",
+    "sign_in_description": "プロフィールにアクセスし、すべてのデバイスでレシピを同期するにはサインインしてください",
+    "sign_in_with_google": "Googleでサインイン",
+    "unknown_user": "未知のユーザー",
+    "account_section": "アカウント",
+    "account_info": "アカウント情報",
+    "account_info_description": "アカウントの詳細を表示",
+    "data_section": "データとストレージ",
+    "backup_recipes": "レシピの同期",
+    "backup_recipes_description": "レシピをクラウドで自動的に同期",
+    "export_recipes": "レシピのエクスポート",
+    "export_recipes_description": "レシピをファイルとしてダウンロード",
+    "sign_out": "サインアウト",
+    "sign_out_description": "アカウントからログアウト",
+    "sign_out_confirmation_title": "サインアウト",
+    "sign_out_confirmation_message": "アカウントからサインアウトしてもよろしいですか？"
   },
   "recipe_screen": {
     "title": "レシピ",

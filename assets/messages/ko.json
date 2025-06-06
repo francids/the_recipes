@@ -11,7 +11,23 @@
     "empty_list": "사용 가능한 레시피가 없습니다"
   },
   "profile_page": {
-    "title": "프로필"
+    "title": "프로필",
+    "sign_in_required": "로그인이 필요합니다",
+    "sign_in_description": "프로필에 액세스하고 모든 기기에서 레시피를 동기화하려면 로그인하세요",
+    "sign_in_with_google": "Google로 로그인",
+    "unknown_user": "알 수 없는 사용자",
+    "account_section": "계정",
+    "account_info": "계정 정보",
+    "account_info_description": "계정 세부 정보 보기",
+    "data_section": "데이터 및 저장소",
+    "backup_recipes": "레시피 동기화",
+    "backup_recipes_description": "클라우드에서 레시피를 자동으로 동기화",
+    "export_recipes": "레시피 내보내기",
+    "export_recipes_description": "레시피를 파일로 다운로드",
+    "sign_out": "로그아웃",
+    "sign_out_description": "계정에서 로그아웃",
+    "sign_out_confirmation_title": "로그아웃",
+    "sign_out_confirmation_message": "계정에서 로그아웃하시겠습니까?"
   },
   "recipe_screen": {
     "title": "레시피",
