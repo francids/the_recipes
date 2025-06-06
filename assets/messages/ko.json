@@ -10,6 +10,9 @@
     "fab_tooltip_add": "레시피 추가",
     "empty_list": "사용 가능한 레시피가 없습니다"
   },
+  "profile_page": {
+    "title": "프로필"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "레시피 삭제",
     "delete_confirmation_message": "이 레시피를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",

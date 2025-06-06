@@ -10,6 +10,9 @@
     "fab_tooltip_add": "Rezept hinzufügen",
     "empty_list": "Keine Rezepte verfügbar"
   },
+  "profile_page": {
+    "title": "Profil"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "Rezept löschen",
     "delete_confirmation_message": "Sind Sie sicher, dass Sie dieses Rezept löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",

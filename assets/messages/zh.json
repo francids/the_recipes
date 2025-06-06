@@ -10,6 +10,9 @@
     "fab_tooltip_add": "添加食谱",
     "empty_list": "没有可用的食谱"
   },
+  "profile_page": {
+    "title": "个人资料"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "删除食谱",
     "delete_confirmation_message": "您确定要删除此食谱吗？此操作无法撤消。",

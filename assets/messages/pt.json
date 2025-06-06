@@ -10,6 +10,9 @@
     "fab_tooltip_add": "Adicionar receita",
     "empty_list": "Nenhuma receita disponível"
   },
+  "profile_page": {
+    "title": "Perfil"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "Excluir receita",
     "delete_confirmation_message": "Tem certeza de que deseja excluir esta receita? Esta ação não pode ser desfeita.",

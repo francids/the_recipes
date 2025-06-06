@@ -10,6 +10,9 @@
     "fab_tooltip_add": "Add recipe",
     "empty_list": "No recipes available"
   },
+  "profile_page": {
+    "title": "Profile"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "Delete recipe",
     "delete_confirmation_message": "Are you sure you want to delete this recipe? This action cannot be undone.",

@@ -10,6 +10,9 @@
     "fab_tooltip_add": "レシピを追加",
     "empty_list": "レシピがありません"
   },
+  "profile_page": {
+    "title": "プロフィール"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "レシピを削除",
     "delete_confirmation_message": "このレシピを削除してもよろしいですか？この操作は元に戻せません。",

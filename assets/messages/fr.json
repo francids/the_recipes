@@ -10,6 +10,9 @@
     "fab_tooltip_add": "Ajouter une recette",
     "empty_list": "Aucune recette disponible"
   },
+  "profile_page": {
+    "title": "Profil"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "Supprimer la recette",
     "delete_confirmation_message": "Êtes-vous sûr de vouloir supprimer cette recette ? Cette action ne peut pas être annulée.",

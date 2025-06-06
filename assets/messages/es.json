@@ -10,6 +10,9 @@
     "fab_tooltip_add": "Añadir receta",
     "empty_list": "No hay recetas disponibles"
   },
+  "profile_page": {
+    "title": "Perfil"
+  },
   "recipe_screen": {
     "delete_confirmation_title": "Eliminar receta",
     "delete_confirmation_message": "¿Estás seguro de que quieres eliminar esta receta? Esta acción no se puede deshacer.",

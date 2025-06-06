@@ -14,10 +14,11 @@ class TheRecipeAppTheme {
       appBarTheme: _getAppBarTheme(isDark),
       floatingActionButtonTheme: _floatingActionButtonThemeData(isDark),
       filledButtonTheme: _filledButtonTheme,
+      bottomNavigationBarTheme: _bottomNavigationBarTheme(isDark),
       brightness: isDark ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: isDark ? const Color(0xFF121212) : Colors.white,
-      splashColor: Colors.deepOrange.withAlpha(32),
-      highlightColor: Colors.deepOrange.withAlpha(32),
+      splashColor: Colors.deepOrange.withAlpha(8),
+      highlightColor: Colors.deepOrange.withAlpha(8),
       useMaterial3: true,
       popupMenuTheme: _popupMenuTheme(isDark),
     );
@@ -50,7 +51,9 @@ class TheRecipeAppTheme {
 
   static AppBarTheme _getAppBarTheme(bool isDark) {
     return AppBarTheme(
-      centerTitle: true,
+      centerTitle: false,
+      toolbarHeight: 64,
+      titleSpacing: 16,
       systemOverlayStyle: isDark
           ? const SystemUiOverlayStyle(
               statusBarIconBrightness: Brightness.light,
@@ -62,8 +65,15 @@ class TheRecipeAppTheme {
             ),
       backgroundColor: Colors.transparent,
       foregroundColor: isDark ? Colors.white : Colors.black,
+      titleTextStyle: _getTextTheme(isDark).displayMedium!,
       shadowColor: Colors.transparent,
       elevation: 0,
+      shape: Border(
+        bottom: BorderSide(
+          color: isDark ? Colors.white30 : Colors.black26,
+          width: 0.5,
+        ),
+      ),
     );
   }
 
@@ -140,6 +150,35 @@ class TheRecipeAppTheme {
         ),
       ),
       elevation: 2,
+    );
+  }
+
+  static BottomNavigationBarThemeData _bottomNavigationBarTheme(bool isDark) {
+    return BottomNavigationBarThemeData(
+      backgroundColor: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+      selectedItemColor: Colors.deepOrange,
+      unselectedItemColor: isDark ? Colors.white54 : Colors.black54,
+      selectedLabelStyle: const TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelStyle: const TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
+      type: BottomNavigationBarType.fixed,
+      elevation: 0,
+      enableFeedback: true,
+      mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
+      selectedIconTheme: const IconThemeData(
+        size: 20,
+      ),
+      unselectedIconTheme: const IconThemeData(
+        size: 20,
+      ),
+      landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
     );
   }
 }
