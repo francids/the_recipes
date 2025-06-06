@@ -39,22 +39,27 @@ class RecipesPage extends StatelessWidget {
                     child: Text("inicial_screen.empty_list".tr),
                   ),
                 )
-              : ListView.separated(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top + 16.0,
-                    bottom: MediaQuery.of(context).padding.bottom + 16.0,
-                    left: 16,
-                    right: 16,
-                  ),
-                  itemCount: controller.recipes.length,
-                  itemBuilder: (context, index) {
-                    return RecipeCard(
-                      recipe: controller.recipes[index],
-                    );
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    controller.refreshRecipes();
                   },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 12),
-                ).animate().fadeIn(duration: 300.ms);
+                  child: ListView.separated(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).padding.top + 16.0,
+                      bottom: MediaQuery.of(context).padding.bottom + 16.0,
+                      left: 16,
+                      right: 16,
+                    ),
+                    itemCount: controller.recipes.length,
+                    itemBuilder: (context, index) {
+                      return RecipeCard(
+                        recipe: controller.recipes[index],
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 12),
+                  ).animate().fadeIn(duration: 300.ms),
+                );
         },
       ),
     );
