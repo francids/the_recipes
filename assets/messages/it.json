@@ -14,6 +14,7 @@
     "title": "Profilo"
   },
   "recipe_screen": {
+    "title": "Ricetta",
     "delete_confirmation_title": "Elimina ricetta",
     "delete_confirmation_message": "Sei sicuro di voler eliminare questa ricetta? Questa azione non può essere annullata.",
     "cancel_button": "Annulla",

@@ -14,6 +14,7 @@
     "title": "プロフィール"
   },
   "recipe_screen": {
+    "title": "レシピ",
     "delete_confirmation_title": "レシピを削除",
     "delete_confirmation_message": "このレシピを削除してもよろしいですか？この操作は元に戻せません。",
     "cancel_button": "キャンセル",
