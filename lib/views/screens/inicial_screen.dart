@@ -16,10 +16,10 @@ class InicialScreen extends StatefulWidget {
 class _InicialScreenState extends State<InicialScreen> {
   int _currentIndex = 0;
 
-  final List<String> _titles = [
-    "inicial_screen.title".tr,
-    "profile_page.title".tr,
-  ];
+  List<String> get _titles => [
+        "inicial_screen.title".tr,
+        "profile_page.title".tr,
+      ];
 
   final List<Widget> _pages = [
     const RecipesPage(),
