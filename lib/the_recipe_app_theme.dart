@@ -13,6 +13,8 @@ class TheRecipeAppTheme {
       colorScheme: isDark ? _darkColorScheme : _colorScheme,
       appBarTheme: _getAppBarTheme(isDark),
       floatingActionButtonTheme: _floatingActionButtonThemeData(isDark),
+      textButtonTheme: _textButtonTheme,
+      outlinedButtonTheme: _outlinedButtonTheme,
       filledButtonTheme: _filledButtonTheme,
       bottomNavigationBarTheme: _bottomNavigationBarTheme(isDark),
       chipTheme: _chipTheme(isDark),
@@ -32,7 +34,51 @@ class TheRecipeAppTheme {
         space: 0.5,
       );
 
-  static FilledButtonThemeData _filledButtonTheme = const FilledButtonThemeData(
+  static const TextButtonThemeData _textButtonTheme = TextButtonThemeData(
+    style: ButtonStyle(
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      foregroundColor: WidgetStatePropertyAll(Colors.deepOrange),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  static const OutlinedButtonThemeData _outlinedButtonTheme =
+      OutlinedButtonThemeData(
+    style: ButtonStyle(
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      foregroundColor: WidgetStatePropertyAll(Colors.deepOrange),
+      side: WidgetStatePropertyAll(
+        BorderSide(
+          color: Colors.deepOrange,
+          width: 1.5,
+        ),
+      ),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  static const FilledButtonThemeData _filledButtonTheme =
+      const FilledButtonThemeData(
     style: ButtonStyle(
       textStyle: WidgetStatePropertyAll(
         TextStyle(

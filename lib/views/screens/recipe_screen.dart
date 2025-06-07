@@ -3,11 +3,10 @@ import "dart:io";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:lottie/lottie.dart";
-import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class RecipeScreen extends StatelessWidget {
   RecipeScreen({
@@ -78,48 +77,19 @@ class RecipeScreen extends StatelessWidget {
                       horizontalTitleGap: 8,
                     ),
                     onTap: () {
-                      Dialogs.materialDialog(
+                      UIHelpers.showConfirmationDialog(
                         context: context,
-                        msg: "recipe_screen.delete_confirmation_message".tr,
                         title: "recipe_screen.delete_confirmation_title".tr,
-                        lottieBuilder: LottieBuilder.asset(
-                          "assets/lottie/delete.json",
-                          fit: BoxFit.contain,
-                        ),
-                        msgAlign: TextAlign.center,
-                        titleStyle: Theme.of(context).textTheme.displayMedium!,
-                        msgStyle: Theme.of(context).textTheme.bodyMedium,
-                        color: Theme.of(context).colorScheme.surface,
-                        dialogWidth: MediaQuery.of(context).size.width * 0.8,
-                        useRootNavigator: true,
-                        useSafeArea: true,
-                        actionsBuilder: (context) {
-                          return [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: TextButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: Text("recipe_screen.cancel_button".tr),
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: FilledButton(
-                                onPressed: () {
-                                  recipeController.deleteRecipe(
-                                    recipe.id,
-                                    recipe.image,
-                                  );
-                                  Get.back();
-                                  Get.back();
-                                  recipeController.refreshRecipes();
-                                },
-                                child: Text("recipe_screen.delete_button".tr),
-                              ),
-                            ),
-                          ];
+                        message: "recipe_screen.delete_confirmation_message".tr,
+                        lottieAsset: "assets/lottie/delete.json",
+                        confirmAction: () {
+                          recipeController.deleteRecipe(
+                            recipe.id,
+                            recipe.image,
+                          );
+                          Get.back();
+                          Get.back();
+                          recipeController.refreshRecipes();
                         },
                       );
                     },
