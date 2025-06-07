@@ -24,6 +24,16 @@
     "backup_recipes_description": "Sincronizza automaticamente le tue ricette nel cloud",
     "export_recipes": "Esporta ricette",
     "export_recipes_description": "Scarica le tue ricette come file",
+    "import_recipes": "Importa ricette",
+    "import_recipes_description": "Importa ricette da un file di backup",
+    "import_confirmation_title": "Importa ricette",
+    "import_confirmation_message": "Seleziona un file di backup delle ricette da importare. Le ricette duplicate verranno saltate.",
+    "export_confirmation_title": "Esporta ricette",
+    "export_confirmation_message": "Questo creerà un file di backup con tutte le tue ricette e immagini.",
+    "import_success_title": "Importazione completata",
+    "import_success_message": "Importate con successo {0} ricette. {1} duplicati sono stati saltati.",
+    "import_error_title": "Importazione fallita",
+    "import_error_message": "Impossibile importare le ricette: {0}",
     "sign_out": "Esci",
     "sign_out_description": "Disconnettiti dal tuo account",
     "sign_out_confirmation_title": "Esci",
@@ -165,5 +175,25 @@
     "server_error": "Errore del server. Riprova più tardi.",
     "network_error": "Errore di rete. Controlla la tua connessione e riprova.",
     "unknown_error": "Si è verificato un errore imprevisto. Riprova."
+  },
+  "export_service": {
+    "no_recipes_to_export": "Nessuna ricetta da esportare",
+    "save_file": "Salva file",
+    "save_cancelled": "Salvataggio annullato",
+    "saved_successfully": "Salvato con successo",
+    "save_failed": "Errore nel salvataggio"
+  },
+  "import_service": {
+    "select_file": "Seleziona file",
+    "processing_import": "Elaborazione importazione...",
+    "extracting_files": "Estrazione file...",
+    "file_not_found": "File non trovato",
+    "invalid_format": "Formato file non valido",
+    "encoding_error": "Errore di codifica",
+    "no_recipes_found": "Nessuna ricetta trovata nel file",
+    "unexpected_error": "Errore imprevisto: {0}",
+    "invalid_recipe_format": "Formato ricetta non valido trovato",
+    "incomplete_recipe": "La ricetta '{0}' è incompleta ed è stata saltata",
+    "recipe_import_error": "Errore nell'importazione della ricetta: {0}"
   }
 }

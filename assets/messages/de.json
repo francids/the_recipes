@@ -24,6 +24,16 @@
     "backup_recipes_description": "Ihre Rezepte automatisch in der Cloud synchronisieren",
     "export_recipes": "Rezepte exportieren",
     "export_recipes_description": "Laden Sie Ihre Rezepte als Datei herunter",
+    "import_recipes": "Rezepte importieren",
+    "import_recipes_description": "Rezepte aus einer Sicherungsdatei importieren",
+    "import_confirmation_title": "Rezepte importieren",
+    "import_confirmation_message": "Wählen Sie eine Rezept-Sicherungsdatei zum Importieren aus. Doppelte Rezepte werden übersprungen.",
+    "export_confirmation_title": "Rezepte exportieren",
+    "export_confirmation_message": "Dies erstellt eine Sicherungsdatei mit all Ihren Rezepten und Bildern.",
+    "import_success_title": "Import abgeschlossen",
+    "import_success_message": "Erfolgreich {0} Rezepte importiert. {1} Duplikate wurden übersprungen.",
+    "import_error_title": "Import fehlgeschlagen",
+    "import_error_message": "Fehler beim Importieren der Rezepte: {0}",
     "sign_out": "Abmelden",
     "sign_out_description": "Von Ihrem Konto abmelden",
     "sign_out_confirmation_title": "Abmelden",
@@ -165,5 +175,25 @@
     "server_error": "Serverfehler. Bitte versuchen Sie es später erneut.",
     "network_error": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
     "unknown_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+  },
+  "export_service": {
+    "no_recipes_to_export": "Keine Rezepte zum Exportieren",
+    "save_file": "Datei speichern",
+    "save_cancelled": "Speichern abgebrochen",
+    "saved_successfully": "Erfolgreich gespeichert",
+    "save_failed": "Speichern fehlgeschlagen"
+  },
+  "import_service": {
+    "select_file": "Datei auswählen",
+    "processing_import": "Import wird verarbeitet...",
+    "extracting_files": "Dateien werden extrahiert...",
+    "file_not_found": "Datei nicht gefunden",
+    "invalid_format": "Ungültiges Dateiformat",
+    "encoding_error": "Kodierungsfehler",
+    "no_recipes_found": "Keine Rezepte in der Datei gefunden",
+    "unexpected_error": "Unerwarteter Fehler: {0}",
+    "invalid_recipe_format": "Ungültiges Rezeptformat gefunden",
+    "incomplete_recipe": "Rezept '{0}' ist unvollständig und wurde übersprungen",
+    "recipe_import_error": "Fehler beim Importieren des Rezepts: {0}"
   }
 }

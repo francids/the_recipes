@@ -24,6 +24,16 @@
     "backup_recipes_description": "클라우드에서 레시피를 자동으로 동기화",
     "export_recipes": "레시피 내보내기",
     "export_recipes_description": "레시피를 파일로 다운로드",
+    "import_recipes": "레시피 가져오기",
+    "import_recipes_description": "백업 파일에서 레시피 가져오기",
+    "import_confirmation_title": "레시피 가져오기",
+    "import_confirmation_message": "가져올 레시피 백업 파일을 선택하세요. 중복된 레시피는 건너뜁니다.",
+    "export_confirmation_title": "레시피 내보내기",
+    "export_confirmation_message": "모든 레시피와 이미지가 포함된 백업 파일을 생성합니다.",
+    "import_success_title": "가져오기 완료",
+    "import_success_message": "{0}개의 레시피를 성공적으로 가져왔습니다. {1}개의 중복이 건너뛰었습니다.",
+    "import_error_title": "가져오기 실패",
+    "import_error_message": "레시피 가져오기 실패: {0}",
     "sign_out": "로그아웃",
     "sign_out_description": "계정에서 로그아웃",
     "sign_out_confirmation_title": "로그아웃",
@@ -56,6 +66,7 @@
     "confirm_delete_title": "계정 삭제",
     "confirm_delete_message": "계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없으며 모든 데이터가 영구적으로 손실됩니다.",
     "confirm_delete_enhanced_message": "계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없으며 다음을 영구적으로 잃게 됩니다:\n\n• 모든 레시피와 데이터\n• 레시피 백업 및 동기화 기능\n• AI 기능에 대한 액세스\n• 레시피 공유 기능\n\n모든 데이터가 영구적으로 손실됩니다.",
+    "confirm_delete_enhanced_message_with_reauth": "계정을 삭제하시겠습니까? 이 작업은 영구적이며 되돌릴 수 없습니다. 보안 확인을 위해 다시 로그인해야 할 수 있습니다.\n\n영구적으로 잃게 되는 것:\n• 모든 레시피와 데이터\n• 백업 및 동기화 기능\n• AI 기능에 대한 액세스\n• 공유 기능",
     "cancel": "취소",
     "delete": "삭제"
   },
@@ -145,7 +156,10 @@
     "sign_out_error": "로그아웃 오류: {0}",
     "deleting_account": "계정 삭제 중...",
     "delete_account_success": "계정이 삭제되었습니다",
-    "delete_account_error": "계정 삭제 중 오류 발생: {0}"
+    "delete_account_error": "계정 삭제 중 오류 발생: {0}",
+    "requires_recent_login": "보안상의 이유로 이 작업에는 최근 인증이 필요합니다. 다시 로그인해주세요.",
+    "reauthenticating": "재인증 중...",
+    "reauthentication_failed": "재인증 실패: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "이미지 저장 중...",
@@ -161,5 +175,25 @@
     "server_error": "서버 오류입니다. 나중에 다시 시도해주세요.",
     "network_error": "네트워크 오류입니다. 연결을 확인하고 다시 시도해주세요.",
     "unknown_error": "예상치 못한 오류가 발생했습니다. 다시 시도해주세요."
+  },
+  "export_service": {
+    "no_recipes_to_export": "내보낼 레시피가 없습니다",
+    "save_file": "파일 저장",
+    "save_cancelled": "저장이 취소되었습니다",
+    "saved_successfully": "성공적으로 저장되었습니다",
+    "save_failed": "저장에 실패했습니다"
+  },
+  "import_service": {
+    "select_file": "파일 선택",
+    "extracting_files": "파일 추출 중...",
+    "processing_import": "가져오기 처리 중...",
+    "file_not_found": "파일을 찾을 수 없습니다",
+    "invalid_format": "잘못된 파일 형식",
+    "no_recipes_found": "파일에서 레시피를 찾을 수 없습니다",
+    "encoding_error": "파일 인코딩 오류",
+    "invalid_recipe_format": "잘못된 레시피 형식을 발견했습니다",
+    "incomplete_recipe": "레시피 '{0}'가 불완전하여 건너뛰었습니다",
+    "recipe_import_error": "레시피 가져오기 오류: {0}",
+    "unexpected_error": "예상치 못한 오류가 발생했습니다: {0}"
   }
 }

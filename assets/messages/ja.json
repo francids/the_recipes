@@ -24,6 +24,16 @@
     "backup_recipes_description": "レシピをクラウドで自動的に同期",
     "export_recipes": "レシピのエクスポート",
     "export_recipes_description": "レシピをファイルとしてダウンロード",
+    "import_recipes": "レシピのインポート",
+    "import_recipes_description": "バックアップファイルからレシピをインポート",
+    "import_confirmation_title": "レシピのインポート",
+    "import_confirmation_message": "インポートするレシピのバックアップファイルを選択してください。重複するレシピはスキップされます。",
+    "export_confirmation_title": "レシピのエクスポート",
+    "export_confirmation_message": "すべてのレシピと画像を含むバックアップファイルを作成します。",
+    "import_success_title": "インポート完了",
+    "import_success_message": "{0}個のレシピのインポートに成功しました。{1}個の重複がスキップされました。",
+    "import_error_title": "インポート失敗",
+    "import_error_message": "レシピのインポートに失敗しました：{0}",
     "sign_out": "サインアウト",
     "sign_out_description": "アカウントからログアウト",
     "sign_out_confirmation_title": "サインアウト",
@@ -165,5 +175,25 @@
     "server_error": "サーバーエラーです。後でもう一度お試しください。",
     "network_error": "ネットワークエラーです。接続を確認して再試行してください。",
     "unknown_error": "予期しないエラーが発生しました。再試行してください。"
+  },
+  "export_service": {
+    "no_recipes_to_export": "エクスポートするレシピがありません",
+    "save_file": "ファイルを保存",
+    "save_cancelled": "保存がキャンセルされました",
+    "saved_successfully": "正常に保存されました",
+    "save_failed": "保存に失敗しました"
+  },
+  "import_service": {
+    "select_file": "ファイルを選択",
+    "extracting_files": "ファイルを展開中...",
+    "processing_import": "インポート処理中...",
+    "file_not_found": "ファイルが見つかりません",
+    "invalid_format": "無効なファイル形式",
+    "no_recipes_found": "ファイルにレシピが見つかりません",
+    "encoding_error": "ファイルのエンコードエラー",
+    "invalid_recipe_format": "無効なレシピ形式が見つかりました",
+    "incomplete_recipe": "レシピ '{0}' は不完全でスキップされました",
+    "recipe_import_error": "レシピインポートエラー: {0}",
+    "unexpected_error": "予期しないエラーが発生しました: {0}"
   }
 }

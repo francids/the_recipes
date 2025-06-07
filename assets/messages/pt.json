@@ -4,11 +4,11 @@
     "menu_tooltip": "Opções",
     "menu_item_reload": "Recarregar receitas",
     "menu_item_settings": "Configurações",
-    "fab_tooltip_ai": "Recursos de IA",
-    "snackbar_title_not_available": "Recurso não disponível",
-    "snackbar_message_not_available": "Este recurso não está disponível nesta versão",
+    "fab_tooltip_ai": "Funções de IA",
+    "snackbar_title_not_available": "Função não disponível",
+    "snackbar_message_not_available": "Esta função não está disponível nesta versão",
     "fab_tooltip_add": "Adicionar receita",
-    "empty_list": "Nenhuma receita disponível"
+    "empty_list": "Não há receitas disponíveis"
   },
   "profile_page": {
     "title": "Perfil",
@@ -24,6 +24,16 @@
     "backup_recipes_description": "Sincronizar automaticamente suas receitas na nuvem",
     "export_recipes": "Exportar receitas",
     "export_recipes_description": "Baixe suas receitas como arquivo",
+    "import_recipes": "Importar receitas",
+    "import_recipes_description": "Importar receitas de um arquivo de backup",
+    "import_confirmation_title": "Importar receitas",
+    "import_confirmation_message": "Selecione um arquivo de backup de receitas para importar. Receitas duplicadas serão ignoradas.",
+    "export_confirmation_title": "Exportar receitas",
+    "export_confirmation_message": "Isso criará um arquivo de backup com todas as suas receitas e imagens.",
+    "import_success_title": "Importação concluída",
+    "import_success_message": "Importadas com sucesso {0} receitas. {1} duplicatas foram ignoradas.",
+    "import_error_title": "Falha na importação",
+    "import_error_message": "Falha ao importar receitas: {0}",
     "sign_out": "Sair",
     "sign_out_description": "Desconectar da sua conta",
     "sign_out_confirmation_title": "Sair",
@@ -165,5 +175,25 @@
     "server_error": "Erro do servidor. Por favor tente mais tarde.",
     "network_error": "Erro de rede. Por favor verifique sua conexão e tente novamente.",
     "unknown_error": "Ocorreu um erro inesperado. Por favor tente novamente."
+  },
+  "export_service": {
+    "no_recipes_to_export": "Nenhuma receita para exportar",
+    "save_file": "Salvar arquivo",
+    "save_cancelled": "Salvamento cancelado",
+    "saved_successfully": "Salvo com sucesso",
+    "save_failed": "Erro ao salvar"
+  },
+  "import_service": {
+    "select_file": "Selecionar arquivo",
+    "processing_import": "Processando importação...",
+    "extracting_files": "Extraindo arquivos...",
+    "file_not_found": "Arquivo não encontrado",
+    "invalid_format": "Formato de arquivo inválido",
+    "encoding_error": "Erro de codificação",
+    "no_recipes_found": "Nenhuma receita encontrada no arquivo",
+    "unexpected_error": "Erro inesperado: {0}",
+    "invalid_recipe_format": "Formato de receita inválido encontrado",
+    "incomplete_recipe": "A receita '{0}' está incompleta e foi ignorada",
+    "recipe_import_error": "Erro ao importar receita: {0}"
   }
 }

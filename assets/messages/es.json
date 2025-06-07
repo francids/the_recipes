@@ -24,6 +24,16 @@
     "backup_recipes_description": "Sincronizar recetas en la nube",
     "export_recipes": "Exportar recetas",
     "export_recipes_description": "Descarga tus recetas como archivo",
+    "import_recipes": "Importar Recetas",
+    "import_recipes_description": "Importar desde un archivo de respaldo",
+    "import_confirmation_title": "Importar Recetas",
+    "import_confirmation_message": "Selecciona un archivo de respaldo de recetas para importar. Las recetas duplicadas serán omitidas.",
+    "export_confirmation_title": "Exportar Recetas",
+    "export_confirmation_message": "Esto creará un archivo de respaldo con todas tus recetas e imágenes.",
+    "import_success_title": "Importación Completada",
+    "import_success_message": "Se importaron exitosamente {0} recetas. Se omitieron {1} duplicados.",
+    "import_error_title": "Error de Importación",
+    "import_error_message": "Error al importar recetas: {0}",
     "sign_out": "Cerrar sesión",
     "sign_out_description": "Salir de tu cuenta",
     "sign_out_confirmation_title": "Cerrar sesión",
@@ -51,7 +61,7 @@
     "minutes_ago": "Hace {0} minuto(s)",
     "danger_zone": "Zona Peligrosa",
     "delete_account": "Eliminar Cuenta",
-    "delete_account_warning": "Eliminar permanentemente tu cuenta y todos los datos",
+    "delete_account_warning": "Eliminar tu cuenta y todos los datos",
     "delete_account_enhanced_warning": "Eliminar permanentemente tu cuenta y todos los datos. También perderás acceso a:\n• Respaldos de recetas y sincronización en la nube\n• Funciones de IA para generar recetas\n• Capacidades para compartir recetas",
     "confirm_delete_title": "Eliminar Cuenta",
     "confirm_delete_message": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos los datos se perderán permanentemente.",
@@ -165,5 +175,25 @@
     "server_error": "Error del servidor. Por favor intenta más tarde.",
     "network_error": "Error de conexión. Por favor verifica tu conexión e intenta de nuevo.",
     "unknown_error": "Ocurrió un error inesperado. Por favor intenta de nuevo."
+  },
+  "export_service": {
+    "no_recipes_to_export": "No hay recetas para exportar",
+    "save_file": "Guardar archivo",
+    "save_cancelled": "Guardado cancelado",
+    "saved_successfully": "Guardado exitosamente",
+    "save_failed": "Error al guardar"
+  },
+  "import_service": {
+    "select_file": "Seleccionar archivo",
+    "processing_import": "Procesando importación...",
+    "extracting_files": "Extrayendo archivos...",
+    "file_not_found": "Archivo no encontrado",
+    "invalid_format": "Formato de archivo inválido",
+    "encoding_error": "Error de codificación",
+    "no_recipes_found": "No se encontraron recetas en el archivo",
+    "unexpected_error": "Error inesperado: {0}",
+    "invalid_recipe_format": "Formato de receta inválido encontrado",
+    "incomplete_recipe": "La receta '{0}' está incompleta y fue omitida",
+    "recipe_import_error": "Error al importar receta: {0}"
   }
 }

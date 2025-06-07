@@ -91,4 +91,8 @@ class RecipeController extends GetxController {
       EasyLoading.showError("recipe_controller.delete_error".tr);
     }
   }
+
+  List<Recipe> getAllRecipesForExport() {
+    return Hive.box<Recipe>(recipesBox).values.toList();
+  }
 }

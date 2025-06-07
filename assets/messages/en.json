@@ -24,6 +24,16 @@
     "backup_recipes_description": "Automatically sync your recipes to the cloud",
     "export_recipes": "Export Recipes",
     "export_recipes_description": "Download your recipes as a file",
+    "import_recipes": "Import Recipes",
+    "import_recipes_description": "Import recipes from a backup file",
+    "import_confirmation_title": "Import Recipes",
+    "import_confirmation_message": "Select a recipe backup file to import. Duplicate recipes will be skipped.",
+    "export_confirmation_title": "Export Recipes",
+    "export_confirmation_message": "This will create a backup file with all your recipes and images.",
+    "import_success_title": "Import Completed",
+    "import_success_message": "Successfully imported {0} recipes. {1} duplicates were skipped.",
+    "import_error_title": "Import Failed",
+    "import_error_message": "Failed to import recipes: {0}",
     "sign_out": "Sign Out",
     "sign_out_description": "Log out of your account",
     "sign_out_confirmation_title": "Sign Out",
@@ -56,6 +66,7 @@
     "confirm_delete_title": "Delete Account",
     "confirm_delete_message": "Are you sure you want to delete your account? This action cannot be undone and all data will be permanently lost.",
     "confirm_delete_enhanced_message": "Are you sure you want to delete your account? This action cannot be undone and you will permanently lose:\n\n• All your recipes and data\n• Recipe backup and sync capabilities\n• Access to AI features\n• Recipe sharing functions\n\nAll data will be permanently lost.",
+    "confirm_delete_enhanced_message_with_reauth": "Are you sure you want to delete your account? This action is permanent and cannot be undone. You may need to sign in again for security verification.\n\nYou will permanently lose:\n• All your recipes and data\n• Backup and sync capabilities\n• Access to AI features\n• Sharing functions",
     "cancel": "Cancel",
     "delete": "Delete"
   },
@@ -142,7 +153,13 @@
     "sign_in_error": "Error signing in",
     "signing_out": "Signing out...",
     "sign_out_success": "Successfully signed out",
-    "sign_out_error": "Error signing out: {0}"
+    "sign_out_error": "Error signing out: {0}",
+    "deleting_account": "Deleting account...",
+    "delete_account_success": "Account deleted successfully",
+    "delete_account_error": "Error deleting account: {0}",
+    "requires_recent_login": "For security reasons, this action requires recent authentication. Please sign in again.",
+    "reauthenticating": "Reauthenticating...",
+    "reauthentication_failed": "Reauthentication failed: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "Saving image...",
@@ -158,5 +175,25 @@
     "server_error": "Server error. Please try again later.",
     "network_error": "Network error. Please check your connection and try again.",
     "unknown_error": "An unexpected error occurred. Please try again."
+  },
+  "export_service": {
+    "no_recipes_to_export": "No recipes to export",
+    "save_file": "Save file",
+    "save_cancelled": "Save was cancelled",
+    "saved_successfully": "Saved successfully",
+    "save_failed": "Save failed"
+  },
+  "import_service": {
+    "select_file": "Select file",
+    "extracting_files": "Extracting files...",
+    "processing_import": "Processing import...",
+    "file_not_found": "File not found",
+    "invalid_format": "Invalid file format",
+    "no_recipes_found": "No recipes found in file",
+    "encoding_error": "File encoding error",
+    "invalid_recipe_format": "Invalid recipe format found",
+    "incomplete_recipe": "Recipe '{0}' is incomplete and was skipped",
+    "recipe_import_error": "Error importing recipe: {0}",
+    "unexpected_error": "Unexpected error occurred: {0}"
   }
 }

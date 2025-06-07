@@ -2,9 +2,13 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/services/export_service.dart";
+import "package:the_recipes/services/import_service.dart";
 import "package:the_recipes/views/screens/profile_info_screen.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:file_picker/file_picker.dart";
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -243,11 +247,95 @@ class ProfilePage extends StatelessWidget {
               CupertinoIcons.chevron_forward,
               color: Theme.of(context).colorScheme.outline,
             ),
-            onTap: () {},
+            onTap: () => _handleExportRecipes(context),
+          ),
+          const Divider(height: 1, indent: 16, endIndent: 16),
+          ListTile(
+            title: Text(
+              "profile_page.import_recipes".tr,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            subtitle: Text(
+              "profile_page.import_recipes_description".tr,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+            ),
+            leading: Icon(
+              CupertinoIcons.tray_arrow_down,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            trailing: Icon(
+              CupertinoIcons.chevron_forward,
+              color: Theme.of(context).colorScheme.outline,
+            ),
+            onTap: () => _handleImportRecipes(context),
           ),
         ],
       ),
     );
+  }
+
+  void _handleExportRecipes(BuildContext context) {
+    UIHelpers.showConfirmationDialog(
+      context: context,
+      title: "profile_page.export_confirmation_title".tr,
+      message: "profile_page.export_confirmation_message".tr,
+      lottieAsset: "assets/lottie/save_file.json",
+      confirmAction: () async {
+        Get.back();
+        final recipeController = Get.find<RecipeController>();
+        final recipes = recipeController.getAllRecipesForExport();
+        await ExportService.exportRecipes(recipes, context);
+      },
+    );
+  }
+
+  void _handleImportRecipes(BuildContext context) {
+    UIHelpers.showConfirmationDialog(
+      context: context,
+      title: "profile_page.import_confirmation_title".tr,
+      message: "profile_page.import_confirmation_message".tr,
+      lottieAsset: "assets/lottie/load_file.json",
+      confirmAction: () async {
+        Get.back();
+        await _performImport(context);
+      },
+    );
+  }
+
+  Future<void> _performImport(BuildContext context) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['zip'],
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.single.path != null) {
+        final filePath = result.files.single.path!;
+        final importResult =
+            await ImportService.importRecipes(filePath, context);
+
+        UIHelpers.showSuccessSnackbar(
+          "profile_page.import_success_message".trParams({
+            "0": importResult.importedCount.toString(),
+            "1": importResult.skippedCount.toString(),
+          }),
+          context,
+        );
+
+        final recipeController = Get.find<RecipeController>();
+        recipeController.refreshRecipes();
+      }
+    } catch (e) {
+      UIHelpers.showErrorSnackbar(
+        "profile_page.import_error_message".trParams({
+          "0": e.toString(),
+        }),
+        context,
+      );
+    }
   }
 
   Widget _buildSignOutCard(BuildContext context, AuthController controller) {

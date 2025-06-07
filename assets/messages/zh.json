@@ -4,11 +4,11 @@
     "menu_tooltip": "选项",
     "menu_item_reload": "重新加载食谱",
     "menu_item_settings": "设置",
-    "fab_tooltip_ai": "人工智能功能",
+    "fab_tooltip_ai": "AI功能",
     "snackbar_title_not_available": "功能不可用",
-    "snackbar_message_not_available": "此功能在此版本中不可用",
+    "snackbar_message_not_available": "此功能在当前版本中不可用",
     "fab_tooltip_add": "添加食谱",
-    "empty_list": "没有可用的食谱"
+    "empty_list": "暂无食谱"
   },
   "profile_page": {
     "title": "个人资料",
@@ -24,6 +24,16 @@
     "backup_recipes_description": "自动在云端同步您的食谱",
     "export_recipes": "导出食谱",
     "export_recipes_description": "将您的食谱下载为文件",
+    "import_recipes": "导入食谱",
+    "import_recipes_description": "从备份文件导入食谱",
+    "import_confirmation_title": "导入食谱",
+    "import_confirmation_message": "选择要导入的食谱备份文件。重复的食谱将被跳过。",
+    "export_confirmation_title": "导出食谱",
+    "export_confirmation_message": "这将创建一个包含所有食谱和图片的备份文件。",
+    "import_success_title": "导入完成",
+    "import_success_message": "成功导入{0}个食谱。{1}个重复项被跳过。",
+    "import_error_title": "导入失败",
+    "import_error_message": "导入食谱失败：{0}",
     "sign_out": "退出",
     "sign_out_description": "从您的账户注销",
     "sign_out_confirmation_title": "退出",
@@ -165,5 +175,25 @@
     "server_error": "服务器错误。请稍后重试。",
     "network_error": "网络错误。请检查您的连接并重试。",
     "unknown_error": "发生意外错误。请重试。"
+  },
+  "export_service": {
+    "no_recipes_to_export": "没有食谱可导出",
+    "save_file": "保存文件",
+    "save_cancelled": "保存已取消",
+    "saved_successfully": "保存成功",
+    "save_failed": "保存失败"
+  },
+  "import_service": {
+    "select_file": "选择文件",
+    "processing_import": "正在处理导入...",
+    "extracting_files": "正在提取文件...",
+    "file_not_found": "文件未找到",
+    "invalid_format": "无效的文件格式",
+    "encoding_error": "编码错误",
+    "no_recipes_found": "文件中未找到食谱",
+    "unexpected_error": "意外错误：{0}",
+    "invalid_recipe_format": "发现无效的食谱格式",
+    "incomplete_recipe": "食谱'{0}'不完整，已跳过",
+    "recipe_import_error": "导入食谱时出错：{0}"
   }
 }
