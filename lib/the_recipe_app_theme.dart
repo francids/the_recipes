@@ -15,6 +15,7 @@ class TheRecipeAppTheme {
       floatingActionButtonTheme: _floatingActionButtonThemeData(isDark),
       filledButtonTheme: _filledButtonTheme,
       bottomNavigationBarTheme: _bottomNavigationBarTheme(isDark),
+      chipTheme: _chipTheme(isDark),
       brightness: isDark ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: isDark ? const Color(0xFF121212) : Colors.white,
       splashColor: Colors.deepOrange.withAlpha(8),
@@ -122,6 +123,11 @@ class TheRecipeAppTheme {
           fontSize: 20,
           fontWeight: FontWeight.w500,
         ),
+        bodyLarge: TextStyle(
+          color: isDark ? Colors.white : Colors.black87,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
         bodyMedium: TextStyle(
           color: isDark ? Colors.white70 : Colors.black87,
           fontSize: 13,
@@ -198,6 +204,38 @@ class TheRecipeAppTheme {
       ),
       behavior: SnackBarBehavior.floating,
       elevation: 6,
+    );
+  }
+
+  static ChipThemeData _chipTheme(bool isDark) {
+    return ChipThemeData(
+      backgroundColor:
+          isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+      selectedColor: Colors.deepOrange.withAlpha(50),
+      disabledColor: isDark ? Colors.white12 : Colors.black12,
+      deleteIconColor: isDark ? Colors.white70 : Colors.black54,
+      labelStyle: _getTextTheme(isDark).bodyLarge!.copyWith(
+            fontWeight: FontWeight.w500,
+            color: isDark ? Colors.white70 : Colors.black54,
+          ),
+      secondaryLabelStyle: _getTextTheme(isDark).bodyMedium!.copyWith(
+            fontWeight: FontWeight.w400,
+            color: isDark ? Colors.white70 : Colors.black54,
+          ),
+      side: BorderSide(
+        color: isDark ? Colors.white30 : Colors.black26,
+        width: 0.5,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 0,
+      pressElevation: 2,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      iconTheme: IconThemeData(
+        color: isDark ? Colors.white70 : Colors.black54,
+        size: 18,
+      ),
     );
   }
 }

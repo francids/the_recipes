@@ -85,7 +85,10 @@
     "title_label": "레시피 제목",
     "title_hint": "예: 시저 샐러드",
     "description_label": "레시피 설명",
-    "description_hint": "예: 닭고기와 시저 드레싱이 들어간 맛있는 샐러드"
+    "description_hint": "예: 닭고기와 시저 드레싱이 들어간 맛있는 샐러드",
+    "preparation_time_label": "조리 시간",
+    "preparation_time_hint": "예: 30",
+    "minutes": "분"
   },
   "ui_helpers": {
     "error": "오류",

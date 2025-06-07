@@ -85,7 +85,10 @@
     "title_label": "Recipe title",
     "title_hint": "Example: Caesar Salad",
     "description_label": "Recipe description",
-    "description_hint": "Example: A delicious salad with chicken and Caesar dressing"
+    "description_hint": "Example: A delicious salad with chicken and Caesar dressing",
+    "preparation_time_label": "Preparation time",
+    "preparation_time_hint": "Example: 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Error",

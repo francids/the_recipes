@@ -85,7 +85,10 @@
     "title_label": "Título de la receta",
     "title_hint": "Ejemplo: Ensalada César",
     "description_label": "Descripción de la receta",
-    "description_hint": "Ejemplo: Una deliciosa ensalada con pollo y aderezo César"
+    "description_hint": "Ejemplo: Una deliciosa ensalada con pollo y aderezo César",
+    "preparation_time_label": "Tiempo de preparación",
+    "preparation_time_hint": "Ejemplo: 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Error",

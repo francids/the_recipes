@@ -85,7 +85,10 @@
     "title_label": "Título da receita",
     "title_hint": "Exemplo: Salada Caesar",
     "description_label": "Descrição da receita",
-    "description_hint": "Exemplo: Uma salada deliciosa com frango e molho Caesar"
+    "description_hint": "Exemplo: Uma salada deliciosa com frango e molho Caesar",
+    "preparation_time_label": "Tempo de preparo",
+    "preparation_time_hint": "Exemplo: 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Erro",

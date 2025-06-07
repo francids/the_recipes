@@ -14,6 +14,7 @@ class AddRecipeController extends GetxController {
   final RxList<String> ingredientsList = <String>[].obs;
   final RxList<String> directionsList = <String>[].obs;
   final RxString fullPath = "".obs;
+  final RxInt preparationTime = 0.obs; // in seconds
 
   final RxBool isRecipeGenerated = false.obs;
   final RxString generationError = ''.obs;
@@ -52,6 +53,7 @@ class AddRecipeController extends GetxController {
       fullPath.value,
       List<String>.from(ingredientsList),
       List<String>.from(directionsList),
+      preparationTime.value, // already in seconds
     );
 
     EasyLoading.showSuccess("add_recipe_controller.recipe_added".tr);

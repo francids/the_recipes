@@ -18,6 +18,21 @@ class RecipeScreen extends StatelessWidget {
   final Recipe recipe;
   final RecipeController recipeController = Get.find();
 
+  String _formatPreparationTime(int seconds) {
+    if (seconds == 0) return "";
+
+    final hours = seconds ~/ 3600;
+    final minutes = (seconds % 3600) ~/ 60;
+    final remainingSeconds = seconds % 60;
+
+    List<String> parts = [];
+    if (hours > 0) parts.add("${hours}h");
+    if (minutes > 0) parts.add("${minutes}m");
+    if (remainingSeconds > 0 && hours == 0) parts.add("${remainingSeconds}s");
+
+    return parts.join(" ");
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -145,7 +160,22 @@ class RecipeScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
+                    if (recipe.preparationTime > 0)
+                      Chip(
+                        avatar: Icon(CupertinoIcons.time),
+                        label: Text(
+                          _formatPreparationTime(recipe.preparationTime),
+                        ),
+                      )
+                          .animate()
+                          .fadeIn(delay: 100.ms, duration: 500.ms)
+                          .slideY(
+                            begin: 0.2,
+                            duration: 400.ms,
+                            curve: Curves.easeOutCubic,
+                          ),
+                    const SizedBox(height: 8),
                     Text(
                       recipe.description,
                       style: Theme.of(context).textTheme.bodyMedium,

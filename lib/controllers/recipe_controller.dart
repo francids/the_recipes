@@ -35,9 +35,10 @@ class RecipeController extends GetxController {
   Future<void> addRecipe(
     String title,
     String description,
-    String image,
+    String imagePath,
     List<String> ingredients,
     List<String> directions,
+    int preparationTime,
   ) async {
     EasyLoading.show(status: "recipe_controller.adding_recipe".tr);
 
@@ -47,9 +48,10 @@ class RecipeController extends GetxController {
       id: id,
       title: title,
       description: description,
-      image: image,
+      image: imagePath,
       ingredients: ingredients,
       directions: directions,
+      preparationTime: preparationTime,
     );
 
     await Hive.box<Recipe>(recipesBox).put(id, recipe);

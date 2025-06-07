@@ -85,7 +85,10 @@
     "title_label": "食谱标题",
     "title_hint": "示例：凯撒沙拉",
     "description_label": "食谱描述",
-    "description_hint": "示例：一份美味的鸡肉凯撒沙拉"
+    "description_hint": "示例：一份美味的鸡肉凯撒沙拉",
+    "preparation_time_label": "准备时间",
+    "preparation_time_hint": "示例：30",
+    "minutes": "分钟"
   },
   "ui_helpers": {
     "error": "错误",

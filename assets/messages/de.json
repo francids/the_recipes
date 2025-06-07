@@ -85,7 +85,10 @@
     "title_label": "Rezepttitel",
     "title_hint": "Beispiel: Caesar Salat",
     "description_label": "Rezeptbeschreibung",
-    "description_hint": "Beispiel: Ein köstlicher Salat mit Hähnchen und Caesar-Dressing"
+    "description_hint": "Beispiel: Ein köstlicher Salat mit Hähnchen und Caesar-Dressing",
+    "preparation_time_label": "Zubereitungszeit",
+    "preparation_time_hint": "Beispiel: 30",
+    "minutes": "Min"
   },
   "ui_helpers": {
     "error": "Fehler",

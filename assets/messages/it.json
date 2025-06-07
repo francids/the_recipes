@@ -85,7 +85,10 @@
     "title_label": "Titolo della ricetta",
     "title_hint": "Esempio: Insalata Caesar",
     "description_label": "Descrizione della ricetta",
-    "description_hint": "Esempio: Un'insalata deliziosa con pollo e condimento Caesar"
+    "description_hint": "Esempio: Un'insalata deliziosa con pollo e condimento Caesar",
+    "preparation_time_label": "Tempo di preparazione",
+    "preparation_time_hint": "Esempio: 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Errore",

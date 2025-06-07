@@ -39,6 +39,7 @@ class ImageStepWidget extends StatelessWidget {
       controller.description.value = recipe.description;
       controller.ingredientsList.value = recipe.ingredients;
       controller.directionsList.value = recipe.directions;
+      controller.preparationTime.value = recipe.preparationTime;
 
       Get.back();
       UIHelpers.showSuccessSnackbar(

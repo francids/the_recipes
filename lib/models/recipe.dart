@@ -7,6 +7,7 @@ class Recipe extends HiveObject {
   String image;
   List<String> ingredients;
   List<String> directions;
+  int preparationTime; // in seconds
 
   Recipe({
     required this.id,
@@ -15,6 +16,7 @@ class Recipe extends HiveObject {
     required this.image,
     required this.ingredients,
     required this.directions,
+    this.preparationTime = 0,
   })  : assert(ingredients.isNotEmpty),
         assert(directions.isNotEmpty);
 
@@ -24,7 +26,8 @@ class Recipe extends HiveObject {
         description = map["description"] ?? "",
         image = map["image"] ?? "",
         ingredients = List<String>.from(map["ingredients"] ?? []),
-        directions = List<String>.from(map["directions"] ?? []) {
+        directions = List<String>.from(map["directions"] ?? []),
+        preparationTime = map["preparationTime"] ?? 0 {
     assert(ingredients.isNotEmpty);
     assert(directions.isNotEmpty);
   }
@@ -37,6 +40,7 @@ class Recipe extends HiveObject {
       "image": image,
       "ingredients": ingredients,
       "directions": directions,
+      "preparationTime": preparationTime,
     };
   }
 }

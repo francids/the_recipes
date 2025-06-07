@@ -85,7 +85,10 @@
     "title_label": "Titre de la recette",
     "title_hint": "Exemple : Salade César",
     "description_label": "Description de la recette",
-    "description_hint": "Exemple : Une délicieuse salade avec du poulet et de la sauce César"
+    "description_hint": "Exemple : Une délicieuse salade avec du poulet et de la sauce César",
+    "preparation_time_label": "Temps de préparation",
+    "preparation_time_hint": "Exemple : 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Erreur",

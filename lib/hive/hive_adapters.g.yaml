@@ -5,7 +5,7 @@ nextTypeId: 1
 types:
   Recipe:
     typeId: 0
-    nextIndex: 6
+    nextIndex: 7
     fields:
       id:
         index: 0
@@ -19,3 +19,5 @@ types:
         index: 4
       directions:
         index: 5
+      preparationTime:
+        index: 6

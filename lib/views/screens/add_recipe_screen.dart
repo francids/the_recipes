@@ -39,6 +39,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     controller.fullPath.listen((_) => _validateStep());
     controller.title.listen((_) => _validateStep());
     controller.description.listen((_) => _validateStep());
+    controller.preparationTime.listen((_) => _validateStep());
     ever(controller.ingredientsList, (_) => _validateStep());
     ever(controller.directionsList, (_) => _validateStep());
     _currentStep.listen((_) => _validateStep());
@@ -54,7 +55,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         return controller.fullPath.value.isNotEmpty;
       case 1:
         return controller.title.value.isNotEmpty &&
-            controller.description.value.isNotEmpty;
+            controller.description.value.isNotEmpty &&
+            controller.preparationTime.value > 0;
       case 2:
         return _isListValid(controller.ingredientsList);
       case 3:
@@ -102,6 +104,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     final hasData = controller.fullPath.value.isNotEmpty ||
         controller.title.value.isNotEmpty ||
         controller.description.value.isNotEmpty ||
+        controller.preparationTime.value > 0 ||
         controller.ingredientsList.isNotEmpty ||
         controller.directionsList.isNotEmpty;
 

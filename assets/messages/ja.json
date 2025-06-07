@@ -85,7 +85,10 @@
     "title_label": "レシピのタイトル",
     "title_hint": "例：シーザーサラダ",
     "description_label": "レシピの説明",
-    "description_hint": "例：鶏肉とシーザードレッシングを使ったおいしいサラダ"
+    "description_hint": "例：鶏肉とシーザードレッシングを使ったおいしいサラダ",
+    "preparation_time_label": "調理時間",
+    "preparation_time_hint": "例：30",
+    "minutes": "分"
   },
   "ui_helpers": {
     "error": "エラー",

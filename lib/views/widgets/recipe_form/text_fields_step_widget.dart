@@ -34,6 +34,10 @@ class TextFieldsStepWidget extends StatelessWidget {
               .animate()
               .fadeIn(delay: 200.ms, duration: 400.ms)
               .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+          _buildTimeField()
+              .animate()
+              .fadeIn(delay: 300.ms, duration: 400.ms)
+              .slideX(begin: -0.1, curve: Curves.easeOutCubic),
         ],
       ),
     );
@@ -47,6 +51,38 @@ class TextFieldsStepWidget extends StatelessWidget {
         onChanged: (text) => value.value = text,
         keyboardType: TextInputType.text,
         hintText: hint,
+      ),
+    );
+  }
+
+  Widget _buildTimeField() {
+    return Obx(
+      () => ModernFormField(
+        topLabel: "text_fields_step.preparation_time_label".tr,
+        initialValue: controller.preparationTime.value > 0
+            ? (controller.preparationTime.value / 60).round().toString()
+            : "",
+        onChanged: (text) {
+          final minutes = int.tryParse(text) ?? 0;
+          controller.preparationTime.value = minutes * 60; // convert to seconds
+        },
+        keyboardType: TextInputType.number,
+        hintText: "text_fields_step.preparation_time_hint".tr,
+        decoration: ModernFormFieldDecoration(
+          suffixIcon: Container(
+            alignment: Alignment.center,
+            width: 40,
+            height: 40,
+            child: Text(
+              "text_fields_step.minutes".tr,
+              style: TextStyle(
+                color:
+                    Theme.of(Get.context!).colorScheme.onSurface.withAlpha(153),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
