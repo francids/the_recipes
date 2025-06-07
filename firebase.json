@@ -4,7 +4,7 @@
       "android": {
         "default": {
           "projectId": "the-recipes-90baa",
-          "appId": "1:1015134789101:android:9d0f0255643b6bc68a9be4",
+          "appId": "1:1015134789101:android:d6e7df405dbfeac68a9be4",
           "fileOutput": "android/app/google-services.json"
         }
       },
@@ -12,7 +12,7 @@
         "lib/firebase_options.dart": {
           "projectId": "the-recipes-90baa",
           "configurations": {
-            "android": "1:1015134789101:android:9d0f0255643b6bc68a9be4",
+            "android": "1:1015134789101:android:d6e7df405dbfeac68a9be4",
             "web": "1:1015134789101:web:2d445f8b82a25d9d8a9be4"
           }
         }

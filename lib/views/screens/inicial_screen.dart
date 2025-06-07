@@ -1,13 +1,30 @@
+import "package:flutter/cupertino.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
-import "package:the_recipes/views/screens/add_recipe_screen.dart";
+import "package:the_recipes/views/screens/profile_page.dart";
 import "package:the_recipes/views/screens/settings_screen.dart";
-import "package:the_recipes/views/widgets/recipe_card.dart";
+import "package:the_recipes/views/screens/recipes_page.dart";
 import "package:flutter/material.dart";
-import "package:flutter_animate/flutter_animate.dart";
 
-class InicialScreen extends StatelessWidget {
+class InicialScreen extends StatefulWidget {
   const InicialScreen({super.key});
+
+  @override
+  State<InicialScreen> createState() => _InicialScreenState();
+}
+
+class _InicialScreenState extends State<InicialScreen> {
+  int _currentIndex = 0;
+
+  List<String> get _titles => [
+        "inicial_screen.title".tr,
+        "profile_page.title".tr,
+      ];
+
+  final List<Widget> _pages = [
+    const RecipesPage(),
+    const ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +33,17 @@ class InicialScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "inicial_screen.title".tr,
-          style: Theme.of(context).textTheme.displayLarge,
+          _titles[_currentIndex],
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(
+              CupertinoIcons.ellipsis_vertical,
+            ),
             tooltip: "inicial_screen.menu_tooltip".tr,
             onPressed: () {
               showMenu(
@@ -30,7 +52,7 @@ class InicialScreen extends StatelessWidget {
                 items: [
                   PopupMenuItem(
                     child: ListTile(
-                      leading: Icon(Icons.sync_rounded),
+                      leading: Icon(CupertinoIcons.refresh),
                       title: Text("inicial_screen.menu_item_reload".tr),
                       horizontalTitleGap: 8,
                     ),
@@ -40,7 +62,7 @@ class InicialScreen extends StatelessWidget {
                   ),
                   PopupMenuItem(
                     child: ListTile(
-                      leading: Icon(Icons.settings_outlined),
+                      leading: Icon(CupertinoIcons.settings),
                       title: Text("inicial_screen.menu_item_settings".tr),
                       horizontalTitleGap: 8,
                     ),
@@ -54,71 +76,42 @@ class InicialScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // Tooltip(
-          //   message: "inicial_screen.fab_tooltip_ai".tr,
-          //   preferBelow: false,
-          //   child: FloatingActionButton.small(
-          //     onPressed: () {
-          //       Get.showSnackbar(
-          //         GetSnackBar(
-          //           title: "inicial_screen.snackbar_title_not_available".tr,
-          //           message: "inicial_screen.snackbar_message_not_available".tr,
-          //           duration: Duration(seconds: 1),
-          //           snackPosition: SnackPosition.TOP,
-          //         ),
-          //       );
-          //     },
-          //     child: const Icon(Icons.hexagon_outlined),
-          //   ),
-          // ),
-          const SizedBox(height: 10),
-          Tooltip(
-            message: "inicial_screen.fab_tooltip_add".tr,
-            preferBelow: false,
-            child: FloatingActionButton(
-              onPressed: () async {
-                var upd = await Get.to(const AddRecipeScreen());
-                if (upd == true) {
-                  recipeController.refreshRecipes();
-                }
-              },
-              child: const Icon(Icons.add),
-            ).animate().scale(
-                delay: 300.ms, duration: 400.ms, curve: Curves.easeOutBack),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white30
+                  : Colors.black26,
+              width: 0.5,
+            ),
           ),
-        ],
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          GetX<RecipeController>(
-            builder: (controller) {
-              return Expanded(
-                child: controller.recipes.isEmpty
-                    ? Center(
-                        child: Text("inicial_screen.empty_list".tr),
-                      )
-                    : ListView.builder(
-                        itemCount: controller.recipes.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              left: 16,
-                              right: 16,
-                            ),
-                            child: RecipeCard(
-                              recipe: controller.recipes[index],
-                            ),
-                          );
-                        },
-                      ).animate().fadeIn(duration: 300.ms),
-              );
-            },
-          ),
-        ],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Icon(CupertinoIcons.home),
+              ),
+              label: _titles[0],
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Icon(CupertinoIcons.person),
+              ),
+              label: _titles[1],
+            ),
+          ],
+        ),
       ),
     );
   }

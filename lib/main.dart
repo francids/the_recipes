@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "The Recipes App",
       transitionDuration: const Duration(milliseconds: 350),
-      defaultTransition: Transition.downToUp,
+      defaultTransition: Transition.rightToLeft,
       debugShowCheckedModeBanner: false,
       theme: TheRecipeAppTheme.theme,
       darkTheme: TheRecipeAppTheme.darkTheme,

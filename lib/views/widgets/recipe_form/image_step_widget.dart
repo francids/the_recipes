@@ -1,4 +1,5 @@
 import "dart:io";
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:image_picker/image_picker.dart";
@@ -92,28 +93,32 @@ class ImageStepWidget extends StatelessWidget {
   }
 
   Widget _buildImageContainer() {
-    return ClipRRect(
+    return Material(
       borderRadius: BorderRadius.circular(10),
-      child: Container(
-        width: 200,
-        height: 200,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.deepOrange, width: 3),
-          borderRadius: BorderRadius.circular(10),
-          image: controller.fullPath.value.isNotEmpty
-              ? DecorationImage(
-                  image: FileImage(File(controller.fullPath.value)),
-                  fit: BoxFit.cover,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(10),
+        onTap: _pickImage,
+        child: Container(
+          width: 200,
+          height: 200,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.deepOrange, width: 3),
+            borderRadius: BorderRadius.circular(10),
+            image: controller.fullPath.value.isNotEmpty
+                ? DecorationImage(
+                    image: FileImage(File(controller.fullPath.value)),
+                    fit: BoxFit.cover,
+                  )
+                : null,
+          ),
+          child: controller.fullPath.value.isEmpty
+              ? const Icon(
+                  CupertinoIcons.photo_on_rectangle,
+                  color: Colors.deepOrange,
+                  size: 40,
                 )
               : null,
         ),
-        child: controller.fullPath.value.isEmpty
-            ? const Icon(
-                Icons.add_a_photo,
-                color: Colors.deepOrange,
-                size: 40,
-              )
-            : null,
       ),
     );
   }
