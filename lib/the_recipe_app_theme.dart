@@ -136,6 +136,16 @@ class TheRecipeAppTheme {
           color: isDark ? Colors.white60 : Colors.black54,
           fontSize: 12,
         ),
+        labelLarge: TextStyle(
+          color: isDark ? Colors.white : Colors.black87,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        labelMedium: TextStyle(
+          color: isDark ? Colors.white70 : Colors.black87,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
@@ -214,11 +224,11 @@ class TheRecipeAppTheme {
       selectedColor: Colors.deepOrange.withAlpha(50),
       disabledColor: isDark ? Colors.white12 : Colors.black12,
       deleteIconColor: isDark ? Colors.white70 : Colors.black54,
-      labelStyle: _getTextTheme(isDark).bodyLarge!.copyWith(
+      labelStyle: _getTextTheme(isDark).labelLarge!.copyWith(
             fontWeight: FontWeight.w500,
             color: isDark ? Colors.white70 : Colors.black54,
           ),
-      secondaryLabelStyle: _getTextTheme(isDark).bodyMedium!.copyWith(
+      secondaryLabelStyle: _getTextTheme(isDark).labelMedium!.copyWith(
             fontWeight: FontWeight.w400,
             color: isDark ? Colors.white70 : Colors.black54,
           ),
@@ -227,7 +237,7 @@ class TheRecipeAppTheme {
         width: 0.5,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
       ),
       elevation: 0,
       pressElevation: 2,
