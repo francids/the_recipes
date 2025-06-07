@@ -18,6 +18,7 @@ class AIRecipeController extends GetConnect {
 
       final body = {
         "image": base64Image,
+        "language": Get.locale?.languageCode ?? "en",
       };
 
       final response = await post(
