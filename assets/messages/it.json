@@ -48,7 +48,14 @@
     "months_ago": "{0} mese/i fa",
     "days_ago": "{0} giorno/i fa",
     "hours_ago": "{0} ora/e fa",
-    "minutes_ago": "{0} minuto/i fa"
+    "minutes_ago": "{0} minuto/i fa",
+    "danger_zone": "Zona Pericolosa",
+    "delete_account": "Elimina Account",
+    "delete_account_warning": "Elimina definitivamente il tuo account e tutti i dati",
+    "confirm_delete_title": "Elimina Account",
+    "confirm_delete_message": "Sei sicuro di voler eliminare il tuo account? Questa azione non può essere annullata e tutti i dati saranno persi definitivamente.",
+    "cancel": "Annulla",
+    "delete": "Elimina"
   },
   "recipe_screen": {
     "title": "Ricetta",
@@ -133,7 +140,10 @@
     "sign_in_error": "Errore durante l'accesso",
     "signing_out": "Disconnessione in corso...",
     "sign_out_success": "Disconnessione effettuata con successo",
-    "sign_out_error": "Errore durante la disconnessione: {0}"
+    "sign_out_error": "Errore durante la disconnessione: {0}",
+    "deleting_account": "Eliminazione account in corso...",
+    "delete_account_success": "Account eliminato con successo",
+    "delete_account_error": "Errore durante l'eliminazione dell'account: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "Salvataggio immagine...",

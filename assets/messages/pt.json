@@ -48,7 +48,14 @@
     "months_ago": "Há {0} mês(es)",
     "days_ago": "Há {0} dia(s)",
     "hours_ago": "Há {0} hora(s)",
-    "minutes_ago": "Há {0} minuto(s)"
+    "minutes_ago": "Há {0} minuto(s)",
+    "danger_zone": "Zona de Perigo",
+    "delete_account": "Excluir Conta",
+    "delete_account_warning": "Excluir permanentemente sua conta e todos os dados",
+    "confirm_delete_title": "Excluir Conta",
+    "confirm_delete_message": "Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita e todos os dados serão perdidos permanentemente.",
+    "cancel": "Cancelar",
+    "delete": "Excluir"
   },
   "recipe_screen": {
     "title": "Receita",
@@ -133,7 +140,10 @@
     "sign_in_error": "Erro ao fazer login",
     "signing_out": "Saindo...",
     "sign_out_success": "Saída realizada com sucesso",
-    "sign_out_error": "Erro ao sair: {0}"
+    "sign_out_error": "Erro ao sair: {0}",
+    "deleting_account": "Excluindo conta...",
+    "delete_account_success": "Conta excluída com sucesso",
+    "delete_account_error": "Erro ao excluir conta: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "Salvando imagem...",

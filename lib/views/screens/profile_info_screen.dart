@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class ProfileInfoScreen extends StatelessWidget {
   const ProfileInfoScreen({super.key});
@@ -135,11 +136,73 @@ class ProfileInfoScreen extends StatelessWidget {
                     .fadeIn(delay: 350.ms, duration: 250.ms)
                     .slideX(begin: -0.1, curve: Curves.easeOutCubic),
                 const SizedBox(height: 32),
+                Text(
+                  "profile_info_screen.danger_zone".tr,
+                  style: textTheme.displayMedium?.copyWith(
+                    color: Colors.red,
+                  ),
+                )
+                    .animate()
+                    .fadeIn(delay: 400.ms, duration: 250.ms)
+                    .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                const SizedBox(height: 16),
+                Card(
+                  elevation: 0,
+                  margin: EdgeInsets.zero,
+                  clipBehavior: Clip.antiAlias,
+                  color: Colors.red.withAlpha(25),
+                  child: ListTile(
+                    title: Text(
+                      "profile_info_screen.delete_account".tr,
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: Colors.red,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "profile_info_screen.delete_account_warning".tr,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: Colors.red.withAlpha(179),
+                      ),
+                    ),
+                    leading: const Icon(
+                      CupertinoIcons.delete,
+                      color: Colors.red,
+                    ),
+                    trailing: const Icon(
+                      CupertinoIcons.chevron_right,
+                      color: Colors.red,
+                    ),
+                    onTap: () => _showDeleteAccountDialog(context, controller),
+                  ),
+                )
+                    .animate()
+                    .fadeIn(delay: 450.ms, duration: 250.ms)
+                    .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                const SizedBox(height: 32),
               ],
             ),
           );
         },
       ),
+    );
+  }
+
+  void _showDeleteAccountDialog(
+      BuildContext context, AuthController controller) {
+    UIHelpers.showConfirmationDialog(
+      context: context,
+      title: "profile_info_screen.confirm_delete_title".tr,
+      message: "profile_info_screen.confirm_delete_message".tr,
+      lottieAsset: "assets/lottie/delete.json",
+      confirmAction: () {
+        Get.back();
+        controller.deleteAccount().then((_) {
+          if (!controller.isLoggedIn) {
+            Get.back();
+          }
+        });
+      },
     );
   }
 

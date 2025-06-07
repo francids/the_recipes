@@ -65,4 +65,25 @@ class AuthController extends GetxController {
       );
     }
   }
+
+  Future<void> deleteAccount() async {
+    try {
+      EasyLoading.show(status: "auth_controller.deleting_account".tr);
+
+      if (_user != null) {
+        await _user!.delete();
+        await _googleSignIn.signOut();
+        update();
+        EasyLoading.showSuccess("auth_controller.delete_account_success".tr);
+      }
+    } catch (e) {
+      EasyLoading.showError(
+        "auth_controller.delete_account_error".trParams(
+          {
+            "0": e.toString(),
+          },
+        ),
+      );
+    }
+  }
 }

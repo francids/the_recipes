@@ -48,7 +48,14 @@
     "months_ago": "Vor {0} Monat(en)",
     "days_ago": "Vor {0} Tag(en)",
     "hours_ago": "Vor {0} Stunde(n)",
-    "minutes_ago": "Vor {0} Minute(n)"
+    "minutes_ago": "Vor {0} Minute(n)",
+    "danger_zone": "Gefahrenbereich",
+    "delete_account": "Konto Löschen",
+    "delete_account_warning": "Ihr Konto und alle Daten dauerhaft löschen",
+    "confirm_delete_title": "Konto Löschen",
+    "confirm_delete_message": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden und alle Daten gehen dauerhaft verloren.",
+    "cancel": "Abbrechen",
+    "delete": "Löschen"
   },
   "recipe_screen": {
     "title": "Rezept",
@@ -133,7 +140,10 @@
     "sign_in_error": "Fehler bei der Anmeldung",
     "signing_out": "Abmeldung läuft...",
     "sign_out_success": "Erfolgreich abgemeldet",
-    "sign_out_error": "Fehler bei der Abmeldung: {0}"
+    "sign_out_error": "Fehler bei der Abmeldung: {0}",
+    "deleting_account": "Konto wird gelöscht...",
+    "delete_account_success": "Konto erfolgreich gelöscht",
+    "delete_account_error": "Fehler beim Löschen des Kontos: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "Bild wird gespeichert...",

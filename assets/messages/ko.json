@@ -48,7 +48,14 @@
     "months_ago": "{0}개월 전",
     "days_ago": "{0}일 전",
     "hours_ago": "{0}시간 전",
-    "minutes_ago": "{0}분 전"
+    "minutes_ago": "{0}분 전",
+    "danger_zone": "위험 구역",
+    "delete_account": "계정 삭제",
+    "delete_account_warning": "계정과 모든 데이터를 영구적으로 삭제합니다",
+    "confirm_delete_title": "계정 삭제",
+    "confirm_delete_message": "계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없으며 모든 데이터가 영구적으로 손실됩니다.",
+    "cancel": "취소",
+    "delete": "삭제"
   },
   "recipe_screen": {
     "title": "레시피",
@@ -133,7 +140,10 @@
     "sign_in_error": "로그인 오류",
     "signing_out": "로그아웃 중...",
     "sign_out_success": "로그아웃 성공",
-    "sign_out_error": "로그아웃 오류: {0}"
+    "sign_out_error": "로그아웃 오류: {0}",
+    "deleting_account": "계정 삭제 중...",
+    "delete_account_success": "계정이 삭제되었습니다",
+    "delete_account_error": "계정 삭제 중 오류 발생: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "이미지 저장 중...",

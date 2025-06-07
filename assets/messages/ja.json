@@ -48,7 +48,14 @@
     "months_ago": "{0}ヶ月前",
     "days_ago": "{0}日前",
     "hours_ago": "{0}時間前",
-    "minutes_ago": "{0}分前"
+    "minutes_ago": "{0}分前",
+    "danger_zone": "危険ゾーン",
+    "delete_account": "アカウントを削除",
+    "delete_account_warning": "アカウントとすべてのデータを完全に削除します",
+    "confirm_delete_title": "アカウントを削除",
+    "confirm_delete_message": "アカウントを削除してもよろしいですか？この操作は元に戻せず、すべてのデータが完全に失われます。",
+    "cancel": "キャンセル",
+    "delete": "削除"
   },
   "recipe_screen": {
     "title": "レシピ",
@@ -133,7 +140,10 @@
     "sign_in_error": "サインイン中にエラーが発生しました",
     "signing_out": "サインアウト中...",
     "sign_out_success": "サインアウトに成功しました",
-    "sign_out_error": "サインアウト中にエラーが発生しました：{0}"
+    "sign_out_error": "サインアウト中にエラーが発生しました：{0}",
+    "deleting_account": "アカウントを削除中...",
+    "delete_account_success": "アカウントが削除されました",
+    "delete_account_error": "アカウント削除中にエラーが発生しました：{0}"
   },
   "add_recipe_controller": {
     "saving_image": "画像を保存中...",

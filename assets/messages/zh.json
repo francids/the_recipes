@@ -48,7 +48,14 @@
     "months_ago": "{0}个月前",
     "days_ago": "{0}天前",
     "hours_ago": "{0}小时前",
-    "minutes_ago": "{0}分钟前"
+    "minutes_ago": "{0}分钟前",
+    "danger_zone": "危险区域",
+    "delete_account": "删除账户",
+    "delete_account_warning": "永久删除您的账户和所有数据",
+    "confirm_delete_title": "删除账户",
+    "confirm_delete_message": "您确定要删除您的账户吗？此操作无法撤消，所有数据将永久丢失。",
+    "cancel": "取消",
+    "delete": "删除"
   },
   "recipe_screen": {
     "title": "食谱",
@@ -133,7 +140,10 @@
     "sign_in_error": "登录错误",
     "signing_out": "正在退出...",
     "sign_out_success": "退出成功",
-    "sign_out_error": "退出错误：{0}"
+    "sign_out_error": "退出错误：{0}",
+    "deleting_account": "正在删除账户...",
+    "delete_account_success": "账户已删除",
+    "delete_account_error": "删除账户时出错：{0}"
   },
   "add_recipe_controller": {
     "saving_image": "正在保存图片...",
