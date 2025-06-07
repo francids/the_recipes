@@ -23,38 +23,47 @@ class ProfilePage extends StatelessWidget {
               children: [
                 _buildProfileHeader(context, controller)
                     .animate()
-                    .fadeIn(duration: 300.ms)
-                    .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                    .fadeIn(duration: 400.ms)
+                    .slideX(begin: -0.2, curve: Curves.easeOutCubic),
                 const SizedBox(height: 32),
                 Text(
                   "profile_page.account_section".tr,
                   style: Theme.of(context).textTheme.displayMedium,
-                ),
+                )
+                    .animate()
+                    .fadeIn(delay: 100.ms, duration: 350.ms)
+                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
                 const SizedBox(height: 16),
                 _buildAccountCard(context)
                     .animate()
-                    .fadeIn(delay: 150.ms, duration: 300.ms)
-                    .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                    .fadeIn(delay: 200.ms, duration: 350.ms)
+                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
                 const SizedBox(height: 32),
                 Text(
                   "profile_page.data_section".tr,
                   style: Theme.of(context).textTheme.displayMedium,
-                ),
+                )
+                    .animate()
+                    .fadeIn(delay: 300.ms, duration: 350.ms)
+                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
                 const SizedBox(height: 16),
                 _buildDataCard(context)
                     .animate()
-                    .fadeIn(delay: 300.ms, duration: 300.ms)
-                    .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                    .fadeIn(delay: 400.ms, duration: 350.ms)
+                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
                 const SizedBox(height: 16),
                 const Divider(
                   indent: 16,
                   endIndent: 16,
-                ),
+                )
+                    .animate()
+                    .fadeIn(delay: 500.ms, duration: 300.ms)
+                    .slideX(begin: -0.1, curve: Curves.easeOutCubic),
                 const SizedBox(height: 16),
                 _buildSignOutCard(context, controller)
                     .animate()
-                    .fadeIn(delay: 450.ms, duration: 300.ms)
-                    .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                    .fadeIn(delay: 600.ms, duration: 350.ms)
+                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
                 const SizedBox(height: 16),
               ],
             ),
