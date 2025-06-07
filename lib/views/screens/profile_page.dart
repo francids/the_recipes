@@ -2,6 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/views/screens/profile_info_screen.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
@@ -188,7 +189,9 @@ class ProfilePage extends StatelessWidget {
               CupertinoIcons.chevron_forward,
               color: Theme.of(context).colorScheme.outline,
             ),
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const ProfileInfoScreen());
+            },
           ),
         ],
       ),

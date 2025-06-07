@@ -29,6 +29,27 @@
     "sign_out_confirmation_title": "Sign Out",
     "sign_out_confirmation_message": "Are you sure you want to sign out of your account?"
   },
+  "profile_info_screen": {
+    "title": "Account Information",
+    "personal_info": "Personal Information",
+    "display_name": "Display Name",
+    "email": "Email",
+    "user_id": "User ID",
+    "account_details": "Account Details",
+    "email_verified": "Email Verification",
+    "verified": "Verified",
+    "not_verified": "Not Verified",
+    "account_created": "Account Created",
+    "last_sign_in": "Last Sign In",
+    "not_available": "Not Available",
+    "not_signed_in": "Not Signed In",
+    "sign_in_to_view": "Please sign in to view your account information",
+    "years_ago": "{0} year(s) ago",
+    "months_ago": "{0} month(s) ago",
+    "days_ago": "{0} day(s) ago",
+    "hours_ago": "{0} hour(s) ago",
+    "minutes_ago": "{0} minute(s) ago"
+  },
   "recipe_screen": {
     "title": "Recipe",
     "delete_confirmation_title": "Delete recipe",

@@ -29,6 +29,27 @@
     "sign_out_confirmation_title": "로그아웃",
     "sign_out_confirmation_message": "계정에서 로그아웃하시겠습니까?"
   },
+  "profile_info_screen": {
+    "title": "계정 정보",
+    "personal_info": "개인 정보",
+    "display_name": "표시 이름",
+    "email": "이메일",
+    "user_id": "사용자 ID",
+    "account_details": "계정 세부정보",
+    "email_verified": "이메일 인증",
+    "verified": "인증됨",
+    "not_verified": "인증되지 않음",
+    "account_created": "계정 생성일",
+    "last_sign_in": "마지막 로그인",
+    "not_available": "사용 불가",
+    "not_signed_in": "로그인하지 않음",
+    "sign_in_to_view": "계정 정보를 보려면 로그인하세요",
+    "years_ago": "{0}년 전",
+    "months_ago": "{0}개월 전",
+    "days_ago": "{0}일 전",
+    "hours_ago": "{0}시간 전",
+    "minutes_ago": "{0}분 전"
+  },
   "recipe_screen": {
     "title": "레시피",
     "delete_confirmation_title": "레시피 삭제",

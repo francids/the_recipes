@@ -29,6 +29,27 @@
     "sign_out_confirmation_title": "退出",
     "sign_out_confirmation_message": "您确定要从账户注销吗？"
   },
+  "profile_info_screen": {
+    "title": "账户信息",
+    "personal_info": "个人信息",
+    "display_name": "显示名称",
+    "email": "电子邮箱",
+    "user_id": "用户ID",
+    "account_details": "账户详情",
+    "email_verified": "邮箱验证",
+    "verified": "已验证",
+    "not_verified": "未验证",
+    "account_created": "账户创建时间",
+    "last_sign_in": "最后登录",
+    "not_available": "不可用",
+    "not_signed_in": "未登录",
+    "sign_in_to_view": "请登录以查看您的账户信息",
+    "years_ago": "{0}年前",
+    "months_ago": "{0}个月前",
+    "days_ago": "{0}天前",
+    "hours_ago": "{0}小时前",
+    "minutes_ago": "{0}分钟前"
+  },
   "recipe_screen": {
     "title": "食谱",
     "delete_confirmation_title": "删除食谱",

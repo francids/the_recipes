@@ -29,6 +29,27 @@
     "sign_out_confirmation_title": "Abmelden",
     "sign_out_confirmation_message": "Sind Sie sicher, dass Sie sich von Ihrem Konto abmelden möchten?"
   },
+  "profile_info_screen": {
+    "title": "Kontoinformationen",
+    "personal_info": "Persönliche Informationen",
+    "display_name": "Anzeigename",
+    "email": "E-Mail",
+    "user_id": "Benutzer-ID",
+    "account_details": "Kontodetails",
+    "email_verified": "E-Mail-Verifizierung",
+    "verified": "Verifiziert",
+    "not_verified": "Nicht Verifiziert",
+    "account_created": "Konto Erstellt",
+    "last_sign_in": "Letzte Anmeldung",
+    "not_available": "Nicht Verfügbar",
+    "not_signed_in": "Nicht Angemeldet",
+    "sign_in_to_view": "Bitte melden Sie sich an, um Ihre Kontoinformationen anzuzeigen",
+    "years_ago": "Vor {0} Jahr(en)",
+    "months_ago": "Vor {0} Monat(en)",
+    "days_ago": "Vor {0} Tag(en)",
+    "hours_ago": "Vor {0} Stunde(n)",
+    "minutes_ago": "Vor {0} Minute(n)"
+  },
   "recipe_screen": {
     "title": "Rezept",
     "delete_confirmation_title": "Rezept löschen",

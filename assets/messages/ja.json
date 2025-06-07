@@ -29,6 +29,27 @@
     "sign_out_confirmation_title": "サインアウト",
     "sign_out_confirmation_message": "アカウントからサインアウトしてもよろしいですか？"
   },
+  "profile_info_screen": {
+    "title": "アカウント情報",
+    "personal_info": "個人情報",
+    "display_name": "表示名",
+    "email": "メールアドレス",
+    "user_id": "ユーザーID",
+    "account_details": "アカウント詳細",
+    "email_verified": "メール認証",
+    "verified": "認証済み",
+    "not_verified": "未認証",
+    "account_created": "アカウント作成日",
+    "last_sign_in": "最終サインイン",
+    "not_available": "利用不可",
+    "not_signed_in": "サインインしていません",
+    "sign_in_to_view": "アカウント情報を表示するにはサインインしてください",
+    "years_ago": "{0}年前",
+    "months_ago": "{0}ヶ月前",
+    "days_ago": "{0}日前",
+    "hours_ago": "{0}時間前",
+    "minutes_ago": "{0}分前"
+  },
   "recipe_screen": {
     "title": "レシピ",
     "delete_confirmation_title": "レシピを削除",

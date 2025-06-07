@@ -29,6 +29,27 @@
     "sign_out_confirmation_title": "Esci",
     "sign_out_confirmation_message": "Sei sicuro di voler uscire dal tuo account?"
   },
+  "profile_info_screen": {
+    "title": "Informazioni Account",
+    "personal_info": "Informazioni Personali",
+    "display_name": "Nome da Visualizzare",
+    "email": "E-mail",
+    "user_id": "ID Utente",
+    "account_details": "Dettagli Account",
+    "email_verified": "Verifica E-mail",
+    "verified": "Verificato",
+    "not_verified": "Non Verificato",
+    "account_created": "Account Creato",
+    "last_sign_in": "Ultimo Accesso",
+    "not_available": "Non Disponibile",
+    "not_signed_in": "Non Connesso",
+    "sign_in_to_view": "Accedi per visualizzare le informazioni del tuo account",
+    "years_ago": "{0} anno/i fa",
+    "months_ago": "{0} mese/i fa",
+    "days_ago": "{0} giorno/i fa",
+    "hours_ago": "{0} ora/e fa",
+    "minutes_ago": "{0} minuto/i fa"
+  },
   "recipe_screen": {
     "title": "Ricetta",
     "delete_confirmation_title": "Elimina ricetta",
