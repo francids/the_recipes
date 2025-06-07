@@ -21,6 +21,7 @@ class TheRecipeAppTheme {
       highlightColor: Colors.deepOrange.withAlpha(8),
       useMaterial3: true,
       popupMenuTheme: _popupMenuTheme(isDark),
+      snackBarTheme: _snackBarTheme(isDark),
     );
   }
 
@@ -179,6 +180,24 @@ class TheRecipeAppTheme {
       landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
       showSelectedLabels: true,
       showUnselectedLabels: true,
+    );
+  }
+
+  static SnackBarThemeData _snackBarTheme(bool isDark) {
+    return SnackBarThemeData(
+      backgroundColor:
+          isDark ? const Color(0xFF2A2A2A) : const Color(0xFF323232),
+      contentTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      actionTextColor: Colors.deepOrange,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      behavior: SnackBarBehavior.floating,
+      elevation: 6,
     );
   }
 }

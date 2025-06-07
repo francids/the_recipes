@@ -116,5 +116,14 @@
     "image_saved": "Image saved",
     "adding_recipe": "Adding recipe...",
     "recipe_added": "Recipe added"
+  },
+  "ai_errors": {
+    "authentication_failed": "Authentication failed. You may need to update the app to continue using this feature.",
+    "rate_limit_exceeded": "Too many requests. Please wait a moment before trying again.",
+    "image_too_large": "The image is too large. Please select a smaller image.",
+    "invalid_request": "Invalid request. Please check your image and try again.",
+    "server_error": "Server error. Please try again later.",
+    "network_error": "Network error. Please check your connection and try again.",
+    "unknown_error": "An unexpected error occurred. Please try again."
   }
 }

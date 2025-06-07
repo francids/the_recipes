@@ -1,25 +1,44 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:lottie/lottie.dart";
+import "package:material_dialogs/material_dialogs.dart";
 
 class UIHelpers {
-  static void showErrorSnackbar(String message) {
-    Get.snackbar(
-      "ui_helpers.error".tr,
-      message,
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
+  static void showErrorSnackbar(String message, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(
+              CupertinoIcons.exclamationmark_circle,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            const SizedBox(width: 8),
+            Expanded(child: Text(message)),
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+      ),
     );
   }
 
-  static void showSuccessSnackbar(String message) {
-    Get.snackbar(
-      "ui_helpers.success".tr,
-      message,
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-      duration: const Duration(seconds: 3),
+  static void showSuccessSnackbar(String message, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(
+              CupertinoIcons.check_mark_circled,
+              color: Colors.green,
+            ),
+            const SizedBox(width: 8),
+            Expanded(child: Text(message)),
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 3),
+      ),
     );
   }
 

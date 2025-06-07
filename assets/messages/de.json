@@ -116,5 +116,14 @@
     "image_saved": "Bild gespeichert",
     "adding_recipe": "Rezept wird hinzugefügt...",
     "recipe_added": "Rezept hinzugefügt"
+  },
+  "ai_errors": {
+    "authentication_failed": "Authentifizierung fehlgeschlagen. Möglicherweise müssen Sie die App aktualisieren, um diese Funktion weiterhin zu nutzen.",
+    "rate_limit_exceeded": "Zu viele Anfragen. Bitte warten Sie einen Moment, bevor Sie es erneut versuchen.",
+    "image_too_large": "Das Bild ist zu groß. Bitte wählen Sie ein kleineres Bild aus.",
+    "invalid_request": "Ungültige Anfrage. Bitte überprüfen Sie Ihr Bild und versuchen Sie es erneut.",
+    "server_error": "Serverfehler. Bitte versuchen Sie es später erneut.",
+    "network_error": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+    "unknown_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
   }
 }

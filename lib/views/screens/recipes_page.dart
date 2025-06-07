@@ -26,8 +26,8 @@ class RecipesPage extends StatelessWidget {
           },
           child: const Icon(CupertinoIcons.add),
         ).animate().scale(
-              delay: 300.ms,
-              duration: 400.ms,
+              delay: 150.ms,
+              duration: 300.ms,
               curve: Curves.easeOutBack,
             ),
       ),
@@ -54,11 +54,22 @@ class RecipesPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return RecipeCard(
                         recipe: controller.recipes[index],
-                      );
+                      )
+                          .animate()
+                          .fadeIn(
+                            delay: (50 * index).ms,
+                            duration: 300.ms,
+                          )
+                          .slideX(
+                            begin: -0.1,
+                            delay: (50 * index).ms,
+                            duration: 300.ms,
+                            curve: Curves.easeOutCubic,
+                          );
                     },
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 12),
-                  ).animate().fadeIn(duration: 300.ms),
+                  ),
                 );
         },
       ),
