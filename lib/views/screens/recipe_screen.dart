@@ -25,10 +25,26 @@ class RecipeScreen extends StatelessWidget {
     final minutes = (seconds % 3600) ~/ 60;
     final remainingSeconds = seconds % 60;
 
+    Map<String, Map<String, String>> localizedStrings = {
+      "de": {"h": "Std", "m": "Min", "s": "Sek"},
+      "en": {"h": "h", "m": "m", "s": "s"},
+      "es": {"h": "h", "m": "m", "s": "s"},
+      "fr": {"h": "h", "m": "m", "s": "s"},
+      "it": {"h": "h", "m": "m", "s": "s"},
+      "ja": {"h": "時間", "m": "分", "s": "秒"},
+      "ko": {"h": "시간", "m": "분", "s": "초"},
+      "pt": {"h": "h", "m": "m", "s": "s"},
+      "zh": {"h": "小时", "m": "分钟", "s": "秒"},
+    };
+
+    Map<String, String> currentStrings =
+        localizedStrings[Get.locale] ?? localizedStrings["en"]!;
+
     List<String> parts = [];
-    if (hours > 0) parts.add("${hours}h");
-    if (minutes > 0) parts.add("${minutes}m");
-    if (remainingSeconds > 0 && hours == 0) parts.add("${remainingSeconds}s");
+    if (hours > 0) parts.add("$hours${currentStrings["h"]}");
+    if (minutes > 0) parts.add("$minutes${currentStrings["m"]}");
+    if (remainingSeconds > 0 && hours == 0)
+      parts.add("$remainingSeconds${currentStrings["s"]}");
 
     return parts.join(" ");
   }
