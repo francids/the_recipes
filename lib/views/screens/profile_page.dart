@@ -33,19 +33,6 @@ class ProfilePage extends StatelessWidget {
                     .slideX(begin: -0.2, curve: Curves.easeOutCubic),
                 const SizedBox(height: 32),
                 Text(
-                  "profile_page.account_section".tr,
-                  style: Theme.of(context).textTheme.displayMedium,
-                )
-                    .animate()
-                    .fadeIn(delay: 50.ms, duration: 250.ms)
-                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-                const SizedBox(height: 16),
-                _buildAccountCard(context)
-                    .animate()
-                    .fadeIn(delay: 100.ms, duration: 250.ms)
-                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-                const SizedBox(height: 32),
-                Text(
                   "profile_page.data_section".tr,
                   style: Theme.of(context).textTheme.displayMedium,
                 )
@@ -129,77 +116,46 @@ class ProfilePage extends StatelessWidget {
       elevation: 0,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 32,
-              backgroundColor: theme.colorScheme.primary.withAlpha(25),
-              backgroundImage:
-                  user?.photoURL != null ? NetworkImage(user!.photoURL!) : null,
-              child: user?.photoURL == null
-                  ? Icon(
-                      CupertinoIcons.person,
-                      size: 32,
-                      color: theme.colorScheme.primary,
-                    )
-                  : null,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    user?.displayName ?? "profile_page.unknown_user".tr,
-                    style: textTheme.displayMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    user?.email ?? "",
-                    style: textTheme.bodyMedium,
-                  ),
-                ],
+      child: InkWell(
+        onTap: () => Get.to(() => ProfileInfoScreen()),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 32,
+                backgroundColor: theme.colorScheme.primary.withAlpha(25),
+                backgroundImage: user?.photoURL != null
+                    ? NetworkImage(user!.photoURL!)
+                    : null,
+                child: user?.photoURL == null
+                    ? Icon(
+                        CupertinoIcons.person,
+                        size: 32,
+                        color: theme.colorScheme.primary,
+                      )
+                    : null,
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAccountCard(BuildContext context) {
-    return Card(
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(
-              "profile_page.account_info".tr,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            subtitle: Text(
-              "profile_page.account_info_description".tr,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-            ),
-            leading: Icon(
-              CupertinoIcons.person_circle,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            trailing: Icon(
-              CupertinoIcons.chevron_forward,
-              color: Theme.of(context).colorScheme.outline,
-            ),
-            onTap: () {
-              Get.to(() => const ProfileInfoScreen());
-            },
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user?.displayName ?? "profile_page.unknown_user".tr,
+                      style: textTheme.displayMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      user?.email ?? "",
+                      style: textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

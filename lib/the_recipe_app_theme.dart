@@ -9,6 +9,7 @@ class TheRecipeAppTheme {
   static ThemeData getTheme(bool isDark) {
     return ThemeData(
       textTheme: _getTextTheme(isDark),
+      cardTheme: cardTheme(isDark),
       dividerTheme: _dividerTheme(isDark),
       colorScheme: isDark ? _darkColorScheme : _colorScheme,
       appBarTheme: _getAppBarTheme(isDark),
@@ -28,8 +29,27 @@ class TheRecipeAppTheme {
     );
   }
 
+  static CardThemeData cardTheme(bool isDark) {
+    return CardThemeData(
+      color: isDark ? const Color(0xFF2A2A2A) : const Color(0xFFFAFAFA),
+      shadowColor: isDark ? Colors.black26 : Colors.black12,
+      surfaceTintColor: isDark ? Colors.black26 : Colors.black12,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: isDark ? Colors.white30 : Colors.black26,
+          width: 0.5,
+          strokeAlign: BorderSide.strokeAlignInside,
+        ),
+      ),
+    );
+  }
+
   static DividerThemeData _dividerTheme(bool isDark) => DividerThemeData(
-        color: isDark ? Colors.white30 : Colors.black26,
+        color: isDark
+            ? Colors.white30.withAlpha(100)
+            : Colors.black26.withAlpha(100),
         thickness: 0.5,
         space: 0.5,
       );
