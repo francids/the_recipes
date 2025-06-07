@@ -28,8 +28,6 @@ class RecipeController extends GetxController {
     recipes.clear();
     recipes.addAll(Hive.box<Recipe>(recipesBox).values);
     EasyLoading.dismiss();
-    await Future.delayed(const Duration(milliseconds: 300));
-    EasyLoading.showSuccess("recipe_controller.recipes_loaded".tr);
   }
 
   Future<void> addRecipe(
@@ -40,8 +38,6 @@ class RecipeController extends GetxController {
     List<String> directions,
     int preparationTime,
   ) async {
-    EasyLoading.show(status: "recipe_controller.adding_recipe".tr);
-
     String id = uuid.v4();
 
     Recipe recipe = Recipe(
@@ -55,9 +51,7 @@ class RecipeController extends GetxController {
     );
 
     await Hive.box<Recipe>(recipesBox).put(id, recipe);
-
     update();
-    EasyLoading.showSuccess("recipe_controller.recipe_added".tr);
   }
 
   Future<void> deleteRecipe(String id, String image) async {

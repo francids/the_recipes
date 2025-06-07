@@ -139,9 +139,6 @@
   },
   "recipe_controller": {
     "loading_recipes": "レシピを読み込み中...",
-    "recipes_loaded": "レシピが読み込まれました",
-    "adding_recipe": "レシピを追加中...",
-    "recipe_added": "レシピが追加されました",
     "deleting_recipe": "レシピを削除中...",
     "recipe_not_found": "レシピが存在しません",
     "recipe_deleted": "レシピが削除されました",
@@ -149,21 +146,14 @@
   },
   "auth_controller": {
     "signing_in": "サインイン中...",
-    "sign_in_success": "サインインに成功しました",
     "sign_in_error": "サインイン中にエラーが発生しました",
-    "signing_out": "サインアウト中...",
-    "sign_out_success": "サインアウトに成功しました",
     "sign_out_error": "サインアウト中にエラーが発生しました：{0}",
-    "deleting_account": "アカウントを削除中...",
-    "delete_account_success": "アカウントが削除されました",
     "delete_account_error": "アカウント削除中にエラーが発生しました：{0}",
     "requires_recent_login": "セキュリティ上の理由により、この操作には最近の認証が必要です。再度サインインしてください。",
     "reauthenticating": "再認証中...",
     "reauthentication_failed": "再認証に失敗しました：{0}"
   },
   "add_recipe_controller": {
-    "saving_image": "画像を保存中...",
-    "image_saved": "画像が保存されました",
     "adding_recipe": "レシピを追加中...",
     "recipe_added": "レシピが追加されました"
   },

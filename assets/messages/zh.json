@@ -139,9 +139,6 @@
   },
   "recipe_controller": {
     "loading_recipes": "正在加载食谱...",
-    "recipes_loaded": "食谱已加载",
-    "adding_recipe": "正在添加食谱...",
-    "recipe_added": "食谱已添加",
     "deleting_recipe": "正在删除食谱...",
     "recipe_not_found": "该食谱不存在",
     "recipe_deleted": "食谱已删除",
@@ -149,21 +146,14 @@
   },
   "auth_controller": {
     "signing_in": "正在登录...",
-    "sign_in_success": "登录成功",
     "sign_in_error": "登录错误",
-    "signing_out": "正在退出...",
-    "sign_out_success": "退出成功",
     "sign_out_error": "退出错误：{0}",
-    "deleting_account": "正在删除账户...",
-    "delete_account_success": "账户已删除",
     "delete_account_error": "删除账户时出错：{0}",
     "requires_recent_login": "出于安全考虑，此操作需要近期身份验证。请重新登录。",
     "reauthenticating": "正在重新验证身份...",
     "reauthentication_failed": "重新验证失败：{0}"
   },
   "add_recipe_controller": {
-    "saving_image": "正在保存图片...",
-    "image_saved": "图片已保存",
     "adding_recipe": "正在添加食谱...",
     "recipe_added": "食谱已添加"
   },

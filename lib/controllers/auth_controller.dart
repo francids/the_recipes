@@ -42,7 +42,7 @@ class AuthController extends GetxController {
 
       await _auth.signInWithCredential(credential);
       update();
-      EasyLoading.showSuccess("auth_controller.sign_in_success".tr);
+      EasyLoading.dismiss();
     } catch (e) {
       EasyLoading.showError("auth_controller.sign_in_error".tr);
     }
@@ -50,11 +50,9 @@ class AuthController extends GetxController {
 
   Future<void> signOut() async {
     try {
-      EasyLoading.show(status: "auth_controller.signing_out".tr);
       await _auth.signOut();
       await _googleSignIn.signOut();
       update();
-      EasyLoading.showSuccess("auth_controller.sign_out_success".tr);
     } catch (e) {
       EasyLoading.showError(
         "auth_controller.sign_out_error".trParams(
@@ -74,7 +72,7 @@ class AuthController extends GetxController {
         await _user!.delete();
         await _googleSignIn.signOut();
         update();
-        EasyLoading.showSuccess("auth_controller.delete_account_success".tr);
+        EasyLoading.dismiss();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
@@ -116,12 +114,10 @@ class AuthController extends GetxController {
 
       await _user!.reauthenticateWithCredential(credential);
 
-      EasyLoading.show(status: "auth_controller.deleting_account".tr);
-
       await _user!.delete();
       await _googleSignIn.signOut();
       update();
-      EasyLoading.showSuccess("auth_controller.delete_account_success".tr);
+      EasyLoading.dismiss();
     } catch (e) {
       EasyLoading.showError(
         "auth_controller.reauthentication_failed".trParams({

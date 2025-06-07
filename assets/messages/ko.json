@@ -139,9 +139,6 @@
   },
   "recipe_controller": {
     "loading_recipes": "레시피 로딩 중...",
-    "recipes_loaded": "레시피 로딩 완료",
-    "adding_recipe": "레시피 추가 중...",
-    "recipe_added": "레시피 추가됨",
     "deleting_recipe": "레시피 삭제 중...",
     "recipe_not_found": "레시피가 존재하지 않습니다",
     "recipe_deleted": "레시피 삭제됨",
@@ -149,21 +146,14 @@
   },
   "auth_controller": {
     "signing_in": "로그인 중...",
-    "sign_in_success": "로그인 성공",
     "sign_in_error": "로그인 오류",
-    "signing_out": "로그아웃 중...",
-    "sign_out_success": "로그아웃 성공",
     "sign_out_error": "로그아웃 오류: {0}",
-    "deleting_account": "계정 삭제 중...",
-    "delete_account_success": "계정이 삭제되었습니다",
     "delete_account_error": "계정 삭제 중 오류 발생: {0}",
     "requires_recent_login": "보안상의 이유로 이 작업에는 최근 인증이 필요합니다. 다시 로그인해주세요.",
     "reauthenticating": "재인증 중...",
     "reauthentication_failed": "재인증 실패: {0}"
   },
   "add_recipe_controller": {
-    "saving_image": "이미지 저장 중...",
-    "image_saved": "이미지 저장됨",
     "adding_recipe": "레시피 추가 중...",
     "recipe_added": "레시피 추가됨"
   },

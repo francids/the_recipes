@@ -139,9 +139,6 @@
   },
   "recipe_controller": {
     "loading_recipes": "Caricamento ricette...",
-    "recipes_loaded": "Ricette caricate",
-    "adding_recipe": "Aggiunta ricetta...",
-    "recipe_added": "Ricetta aggiunta",
     "deleting_recipe": "Eliminazione ricetta...",
     "recipe_not_found": "La ricetta non esiste",
     "recipe_deleted": "Ricetta eliminata",
@@ -149,21 +146,14 @@
   },
   "auth_controller": {
     "signing_in": "Accesso in corso...",
-    "sign_in_success": "Accesso effettuato con successo",
     "sign_in_error": "Errore durante l'accesso",
-    "signing_out": "Disconnessione in corso...",
-    "sign_out_success": "Disconnessione effettuata con successo",
     "sign_out_error": "Errore durante la disconnessione: {0}",
-    "deleting_account": "Eliminazione account in corso...",
-    "delete_account_success": "Account eliminato con successo",
     "delete_account_error": "Errore durante l'eliminazione dell'account: {0}",
     "requires_recent_login": "Per motivi di sicurezza, questa azione richiede un'autenticazione recente. Accedi nuovamente.",
     "reauthenticating": "Riautenticazione in corso...",
     "reauthentication_failed": "Riautenticazione fallita: {0}"
   },
   "add_recipe_controller": {
-    "saving_image": "Salvataggio immagine...",
-    "image_saved": "Immagine salvata",
     "adding_recipe": "Aggiunta ricetta...",
     "recipe_added": "Ricetta aggiunta"
   },
