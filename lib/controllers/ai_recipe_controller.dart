@@ -54,10 +54,46 @@ class AIRecipeController extends GetConnect {
         return Recipe.fromMap(response.body);
       } else {
         response.printInfo();
-        throw Exception("Failed to generate recipe: ${response.statusText}");
+        String errorMessage =
+            _getErrorMessage(response.statusCode, response.body);
+        throw AIRecipeException(errorMessage, response.statusCode!);
       }
     } catch (error) {
-      throw Exception("Error: $error");
+      if (error is AIRecipeException) {
+        rethrow;
+      }
+      throw AIRecipeException("ai_errors.network_error".tr, 0);
     }
   }
+
+  String _getErrorMessage(int? statusCode, dynamic responseBody) {
+    switch (statusCode) {
+      case 401:
+        return "ai_errors.authentication_failed".tr;
+      case 429:
+        return "ai_errors.rate_limit_exceeded".tr;
+      case 400:
+        if (responseBody != null && responseBody['error'] != null) {
+          String error = responseBody['error'].toString();
+          if (error.contains("Image too large")) {
+            return "ai_errors.image_too_large".tr;
+          }
+        }
+        return "ai_errors.invalid_request".tr;
+      case 500:
+        return "ai_errors.server_error".tr;
+      default:
+        return "ai_errors.unknown_error".tr;
+    }
+  }
+}
+
+class AIRecipeException implements Exception {
+  final String message;
+  final int statusCode;
+
+  AIRecipeException(this.message, this.statusCode);
+
+  @override
+  String toString() => message;
 }

@@ -116,5 +116,14 @@
     "image_saved": "图片已保存",
     "adding_recipe": "正在添加食谱...",
     "recipe_added": "食谱已添加"
+  },
+  "ai_errors": {
+    "authentication_failed": "身份验证失败。您可能需要更新应用程序才能继续使用此功能。",
+    "rate_limit_exceeded": "请求过多。请稍候再试。",
+    "image_too_large": "图片太大。请选择更小的图片。",
+    "invalid_request": "无效请求。请检查您的图片并重试。",
+    "server_error": "服务器错误。请稍后重试。",
+    "network_error": "网络错误。请检查您的连接并重试。",
+    "unknown_error": "发生意外错误。请重试。"
   }
 }

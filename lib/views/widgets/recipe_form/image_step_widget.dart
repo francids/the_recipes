@@ -43,15 +43,21 @@ class ImageStepWidget extends StatelessWidget {
       Get.back();
       UIHelpers.showSuccessSnackbar(
         "image_step.recipe_generated_success".tr,
+        context,
+      );
+    } on AIRecipeException catch (e) {
+      Get.back();
+      UIHelpers.showErrorSnackbar(
+        e.message,
+        context,
       );
     } catch (e) {
       Get.back();
       UIHelpers.showErrorSnackbar(
-        "image_step.recipe_generated_error".trParams(
-          {
-            "0": e.toString(),
-          },
-        ),
+        "image_step.recipe_generated_error".trParams({
+          "0": e.toString(),
+        }),
+        context,
       );
     }
   }

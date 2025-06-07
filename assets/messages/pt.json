@@ -116,5 +116,14 @@
     "image_saved": "Imagem salva",
     "adding_recipe": "Adicionando receita...",
     "recipe_added": "Receita adicionada"
+  },
+  "ai_errors": {
+    "authentication_failed": "Falha na autenticação. Você pode precisar atualizar o aplicativo para continuar usando esta função.",
+    "rate_limit_exceeded": "Muitas solicitações. Por favor aguarde um momento antes de tentar novamente.",
+    "image_too_large": "A imagem é muito grande. Por favor selecione uma imagem menor.",
+    "invalid_request": "Solicitação inválida. Por favor verifique sua imagem e tente novamente.",
+    "server_error": "Erro do servidor. Por favor tente mais tarde.",
+    "network_error": "Erro de rede. Por favor verifique sua conexão e tente novamente.",
+    "unknown_error": "Ocorreu um erro inesperado. Por favor tente novamente."
   }
 }

@@ -76,6 +76,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       } else if (!_isCurrentStepValid.value) {
         UIHelpers.showErrorSnackbar(
           "add_recipe_screen.error_complete_fields".tr,
+          context,
         );
       }
     } else if (_currentStep.value > 0) {
@@ -87,7 +88,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   Future<void> _handleSaveRecipe() async {
     if (!_isCurrentStepValid.value) {
-      UIHelpers.showErrorSnackbar("add_recipe_screen.error_complete_all".tr);
+      UIHelpers.showErrorSnackbar(
+        "add_recipe_screen.error_complete_all".tr,
+        context,
+      );
       return;
     }
     await controller.addRecipe();
