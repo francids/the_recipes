@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
     if (Buffer.byteLength(image, "base64") > 5 * 1024 * 1024) {
       return NextResponse.json(
-        { error: "Imagen demasiado grande (>5 MB)" },
+        { error: "Image too large (>5 MB)" },
         { status: 400 },
       );
     }
@@ -87,7 +87,7 @@ export async function POST(req: Request) {
     console.error("Error processing recipe:", error);
     const errorMessage = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Error al procesar la receta", details: errorMessage },
+      { error: "Error processing recipe", details: errorMessage },
       { status: 500, }
     );
   }
