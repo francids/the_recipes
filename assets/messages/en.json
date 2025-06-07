@@ -48,7 +48,16 @@
     "months_ago": "{0} month(s) ago",
     "days_ago": "{0} day(s) ago",
     "hours_ago": "{0} hour(s) ago",
-    "minutes_ago": "{0} minute(s) ago"
+    "minutes_ago": "{0} minute(s) ago",
+    "danger_zone": "Danger Zone",
+    "delete_account": "Delete Account",
+    "delete_account_warning": "Permanently delete your account and all data",
+    "delete_account_enhanced_warning": "Permanently delete your account and all data. You will also lose access to:\n• Recipe backups and cloud sync\n• AI features for recipe generation\n• Recipe sharing capabilities",
+    "confirm_delete_title": "Delete Account",
+    "confirm_delete_message": "Are you sure you want to delete your account? This action cannot be undone and all data will be permanently lost.",
+    "confirm_delete_enhanced_message": "Are you sure you want to delete your account? This action cannot be undone and you will permanently lose:\n\n• All your recipes and data\n• Recipe backup and sync capabilities\n• Access to AI features\n• Recipe sharing functions\n\nAll data will be permanently lost.",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
   "recipe_screen": {
     "title": "Recipe",

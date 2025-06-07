@@ -52,8 +52,10 @@
     "danger_zone": "Zona de Perigo",
     "delete_account": "Excluir Conta",
     "delete_account_warning": "Excluir permanentemente sua conta e todos os dados",
+    "delete_account_enhanced_warning": "Excluir permanentemente sua conta e todos os dados. Você também perderá acesso a:\n• Backups de receitas e sincronização na nuvem\n• Recursos de IA para gerar receitas\n• Capacidades de compartilhar receitas",
     "confirm_delete_title": "Excluir Conta",
     "confirm_delete_message": "Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita e todos os dados serão perdidos permanentemente.",
+    "confirm_delete_enhanced_message": "Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita e você perderá permanentemente:\n\n• Todas as suas receitas e dados\n• Capacidades de backup e sincronização de receitas\n• Acesso a recursos de IA\n• Funções de compartilhar receitas\n\nTodos os dados serão perdidos permanentemente.",
     "cancel": "Cancelar",
     "delete": "Excluir"
   },

@@ -193,7 +193,7 @@ class ProfileInfoScreen extends StatelessWidget {
     UIHelpers.showConfirmationDialog(
       context: context,
       title: "profile_info_screen.confirm_delete_title".tr,
-      message: "profile_info_screen.confirm_delete_message".tr,
+      message: "profile_info_screen.confirm_delete_enhanced_message".tr,
       lottieAsset: "assets/lottie/delete.json",
       confirmAction: () {
         Get.back();

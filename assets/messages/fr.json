@@ -52,8 +52,10 @@
     "danger_zone": "Zone Dangereuse",
     "delete_account": "Supprimer le Compte",
     "delete_account_warning": "Supprimer définitivement votre compte et toutes les données",
+    "delete_account_enhanced_warning": "Supprimer définitivement votre compte et toutes les données. Vous perdrez également l'accès à :\n• Sauvegardes de recettes et synchronisation cloud\n• Fonctionnalités IA pour générer des recettes\n• Capacités de partage de recettes",
     "confirm_delete_title": "Supprimer le Compte",
     "confirm_delete_message": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action ne peut pas être annulée et toutes les données seront perdues définitivement.",
+    "confirm_delete_enhanced_message": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action ne peut pas être annulée et vous perdrez définitivement :\n\n• Toutes vos recettes et données\n• Capacités de sauvegarde et synchronisation des recettes\n• Accès aux fonctionnalités IA\n• Fonctions de partage de recettes\n\nToutes les données seront perdues définitivement.",
     "cancel": "Annuler",
     "delete": "Supprimer"
   },

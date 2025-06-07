@@ -52,8 +52,10 @@
     "danger_zone": "Zona Peligrosa",
     "delete_account": "Eliminar Cuenta",
     "delete_account_warning": "Eliminar permanentemente tu cuenta y todos los datos",
+    "delete_account_enhanced_warning": "Eliminar permanentemente tu cuenta y todos los datos. También perderás acceso a:\n• Respaldos de recetas y sincronización en la nube\n• Funciones de IA para generar recetas\n• Capacidades para compartir recetas",
     "confirm_delete_title": "Eliminar Cuenta",
     "confirm_delete_message": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos los datos se perderán permanentemente.",
+    "confirm_delete_enhanced_message": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás permanentemente:\n\n• Todas tus recetas y datos\n• Capacidades de respaldo y sincronización de recetas\n• Acceso a funciones de IA\n• Funciones para compartir recetas\n\nTodos los datos se perderán permanentemente.",
     "cancel": "Cancelar",
     "delete": "Eliminar"
   },

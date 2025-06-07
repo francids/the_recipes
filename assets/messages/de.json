@@ -52,8 +52,10 @@
     "danger_zone": "Gefahrenbereich",
     "delete_account": "Konto Löschen",
     "delete_account_warning": "Ihr Konto und alle Daten dauerhaft löschen",
+    "delete_account_enhanced_warning": "Ihr Konto und alle Daten dauerhaft löschen. Sie verlieren auch den Zugang zu:\n• Rezept-Backups und Cloud-Synchronisation\n• KI-Funktionen für Rezepterstellung\n• Rezept-Sharing-Funktionen",
     "confirm_delete_title": "Konto Löschen",
     "confirm_delete_message": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden und alle Daten gehen dauerhaft verloren.",
+    "confirm_delete_enhanced_message": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden und Sie verlieren dauerhaft:\n\n• Alle Ihre Rezepte und Daten\n• Rezept-Backup- und Synchronisationsfunktionen\n• Zugang zu KI-Funktionen\n• Rezept-Sharing-Funktionen\n\nAlle Daten gehen dauerhaft verloren.",
     "cancel": "Abbrechen",
     "delete": "Löschen"
   },

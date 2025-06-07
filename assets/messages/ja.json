@@ -52,8 +52,10 @@
     "danger_zone": "危険ゾーン",
     "delete_account": "アカウントを削除",
     "delete_account_warning": "アカウントとすべてのデータを完全に削除します",
+    "delete_account_enhanced_warning": "アカウントとすべてのデータを完全に削除します。また、以下へのアクセスも失います：\n• レシピのバックアップとクラウド同期\n• レシピ生成のAI機能\n• レシピ共有機能",
     "confirm_delete_title": "アカウントを削除",
     "confirm_delete_message": "アカウントを削除してもよろしいですか？この操作は元に戻せず、すべてのデータが完全に失われます。",
+    "confirm_delete_enhanced_message": "アカウントを削除してもよろしいですか？この操作は元に戻せず、以下を完全に失います：\n\n• すべてのレシピとデータ\n• レシピのバックアップと同期機能\n• AI機能へのアクセス\n• レシピ共有機能\n\nすべてのデータが完全に失われます。",
     "cancel": "キャンセル",
     "delete": "削除"
   },

@@ -52,8 +52,10 @@
     "danger_zone": "危险区域",
     "delete_account": "删除账户",
     "delete_account_warning": "永久删除您的账户和所有数据",
+    "delete_account_enhanced_warning": "永久删除您的账户和所有数据。您还将失去以下功能的访问权限：\n• 食谱备份和云端同步\n• 用于生成食谱的AI功能\n• 食谱分享功能",
     "confirm_delete_title": "删除账户",
     "confirm_delete_message": "您确定要删除您的账户吗？此操作无法撤消，所有数据将永久丢失。",
+    "confirm_delete_enhanced_message": "您确定要删除您的账户吗？此操作无法撤消，您将永久失去：\n\n• 所有食谱和数据\n• 食谱备份和同步功能\n• AI功能的访问权限\n• 食谱分享功能\n\n所有数据将永久丢失。",
     "cancel": "取消",
     "delete": "删除"
   },
