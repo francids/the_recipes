@@ -1,6 +1,7 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:lottie/lottie.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/services/export_service.dart";
@@ -89,10 +90,11 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              CupertinoIcons.person_circle,
-              size: 80,
-              color: theme.colorScheme.primary.withAlpha(153),
+            LottieBuilder.asset(
+              "assets/lottie/profile.json",
+              width: 80,
+              height: 80,
+              fit: BoxFit.contain,
             ),
             const SizedBox(height: 24),
             Text(
@@ -106,7 +108,7 @@ class ProfilePage extends StatelessWidget {
               style: textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 16),
             FilledButton.icon(
               onPressed: () => authController.signInWithGoogle(),
               icon: const Icon(CupertinoIcons.person_add),
