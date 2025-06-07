@@ -56,6 +56,7 @@
     "confirm_delete_title": "Eliminar Cuenta",
     "confirm_delete_message": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos los datos se perderán permanentemente.",
     "confirm_delete_enhanced_message": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás permanentemente:\n\n• Todas tus recetas y datos\n• Capacidades de respaldo y sincronización de recetas\n• Acceso a funciones de IA\n• Funciones para compartir recetas\n\nTodos los datos se perderán permanentemente.",
+    "confirm_delete_enhanced_message_with_reauth": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es permanente y no se puede deshacer. Es posible que necesites iniciar sesión nuevamente para verificación de seguridad.\n\nPerderás permanentemente:\n• Todas tus recetas y datos\n• Capacidades de respaldo y sincronización\n• Acceso a funciones de IA\n• Funciones de compartir",
     "cancel": "Cancelar",
     "delete": "Eliminar"
   },
@@ -145,7 +146,10 @@
     "sign_out_error": "Error al cerrar sesión: {0}",
     "deleting_account": "Eliminando cuenta...",
     "delete_account_success": "Cuenta eliminada correctamente",
-    "delete_account_error": "Error al eliminar la cuenta: {0}"
+    "delete_account_error": "Error al eliminar la cuenta: {0}",
+    "requires_recent_login": "Por motivos de seguridad, esta acción requiere autenticación reciente. Por favor, inicia sesión nuevamente.",
+    "reauthenticating": "Reautenticando...",
+    "reauthentication_failed": "Falló la reautenticación: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "Guardando imagen...",

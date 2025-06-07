@@ -56,6 +56,7 @@
     "confirm_delete_title": "Excluir Conta",
     "confirm_delete_message": "Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita e todos os dados serão perdidos permanentemente.",
     "confirm_delete_enhanced_message": "Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita e você perderá permanentemente:\n\n• Todas as suas receitas e dados\n• Capacidades de backup e sincronização de receitas\n• Acesso a recursos de IA\n• Funções de compartilhar receitas\n\nTodos os dados serão perdidos permanentemente.",
+    "confirm_delete_enhanced_message_with_reauth": "Tem certeza de que deseja excluir sua conta? Esta ação é permanente e não pode ser desfeita. Você pode precisar fazer login novamente para verificação de segurança.\n\nVocê perderá permanentemente:\n• Todas as suas receitas e dados\n• Capacidades de backup e sincronização\n• Acesso a recursos de IA\n• Funções de compartilhamento",
     "cancel": "Cancelar",
     "delete": "Excluir"
   },
@@ -145,7 +146,10 @@
     "sign_out_error": "Erro ao sair: {0}",
     "deleting_account": "Excluindo conta...",
     "delete_account_success": "Conta excluída com sucesso",
-    "delete_account_error": "Erro ao excluir conta: {0}"
+    "delete_account_error": "Erro ao excluir conta: {0}",
+    "requires_recent_login": "Por motivos de segurança, esta ação requer autenticação recente. Por favor, faça login novamente.",
+    "reauthenticating": "Reautenticando...",
+    "reauthentication_failed": "Falha na reautenticação: {0}"
   },
   "add_recipe_controller": {
     "saving_image": "Salvando imagem...",

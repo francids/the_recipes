@@ -56,6 +56,7 @@
     "confirm_delete_title": "Supprimer le Compte",
     "confirm_delete_message": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action ne peut pas être annulée et toutes les données seront perdues définitivement.",
     "confirm_delete_enhanced_message": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action ne peut pas être annulée et vous perdrez définitivement :\n\n• Toutes vos recettes et données\n• Capacités de sauvegarde et synchronisation des recettes\n• Accès aux fonctionnalités IA\n• Fonctions de partage de recettes\n\nToutes les données seront perdues définitivement.",
+    "confirm_delete_enhanced_message_with_reauth": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est permanente et ne peut pas être annulée. Vous devrez peut-être vous reconnecter pour vérification de sécurité.\n\nVous perdrez définitivement :\n• Toutes vos recettes et données\n• Capacités de sauvegarde et synchronisation\n• Accès aux fonctionnalités IA\n• Fonctions de partage",
     "cancel": "Annuler",
     "delete": "Supprimer"
   },
@@ -145,7 +146,10 @@
     "sign_out_error": "Erreur de déconnexion : {0}",
     "deleting_account": "Suppression du compte en cours...",
     "delete_account_success": "Compte supprimé avec succès",
-    "delete_account_error": "Erreur lors de la suppression du compte : {0}"
+    "delete_account_error": "Erreur lors de la suppression du compte : {0}",
+    "requires_recent_login": "Pour des raisons de sécurité, cette action nécessite une authentification récente. Veuillez vous reconnecter.",
+    "reauthenticating": "Réauthentification en cours...",
+    "reauthentication_failed": "Échec de la réauthentification : {0}"
   },
   "add_recipe_controller": {
     "saving_image": "Enregistrement de l'image...",

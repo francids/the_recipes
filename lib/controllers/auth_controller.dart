@@ -76,13 +76,57 @@ class AuthController extends GetxController {
         update();
         EasyLoading.showSuccess("auth_controller.delete_account_success".tr);
       }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        EasyLoading.dismiss();
+        EasyLoading.showError("auth_controller.requires_recent_login".tr);
+        await _reauthenticateAndDelete();
+      } else {
+        EasyLoading.showError(
+          "auth_controller.delete_account_error".trParams({
+            "0": e.message ?? e.toString(),
+          }),
+        );
+      }
     } catch (e) {
       EasyLoading.showError(
-        "auth_controller.delete_account_error".trParams(
-          {
-            "0": e.toString(),
-          },
-        ),
+        "auth_controller.delete_account_error".trParams({
+          "0": e.toString(),
+        }),
+      );
+    }
+  }
+
+  Future<void> _reauthenticateAndDelete() async {
+    try {
+      EasyLoading.show(status: "auth_controller.reauthenticating".tr);
+
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        EasyLoading.dismiss();
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _user!.reauthenticateWithCredential(credential);
+
+      EasyLoading.show(status: "auth_controller.deleting_account".tr);
+
+      await _user!.delete();
+      await _googleSignIn.signOut();
+      update();
+      EasyLoading.showSuccess("auth_controller.delete_account_success".tr);
+    } catch (e) {
+      EasyLoading.showError(
+        "auth_controller.reauthentication_failed".trParams({
+          "0": e.toString(),
+        }),
       );
     }
   }

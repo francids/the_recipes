@@ -56,6 +56,7 @@
     "confirm_delete_title": "アカウントを削除",
     "confirm_delete_message": "アカウントを削除してもよろしいですか？この操作は元に戻せず、すべてのデータが完全に失われます。",
     "confirm_delete_enhanced_message": "アカウントを削除してもよろしいですか？この操作は元に戻せず、以下を完全に失います：\n\n• すべてのレシピとデータ\n• レシピのバックアップと同期機能\n• AI機能へのアクセス\n• レシピ共有機能\n\nすべてのデータが完全に失われます。",
+    "confirm_delete_enhanced_message_with_reauth": "アカウントを削除してもよろしいですか？この操作は永続的で元に戻すことはできません。セキュリティ確認のため再ログインが必要になる場合があります。\n\n完全に失うもの：\n• すべてのレシピとデータ\n• バックアップと同期機能\n• AI機能へのアクセス\n• 共有機能",
     "cancel": "キャンセル",
     "delete": "削除"
   },
@@ -145,7 +146,10 @@
     "sign_out_error": "サインアウト中にエラーが発生しました：{0}",
     "deleting_account": "アカウントを削除中...",
     "delete_account_success": "アカウントが削除されました",
-    "delete_account_error": "アカウント削除中にエラーが発生しました：{0}"
+    "delete_account_error": "アカウント削除中にエラーが発生しました：{0}",
+    "requires_recent_login": "セキュリティ上の理由により、この操作には最近の認証が必要です。再度サインインしてください。",
+    "reauthenticating": "再認証中...",
+    "reauthentication_failed": "再認証に失敗しました：{0}"
   },
   "add_recipe_controller": {
     "saving_image": "画像を保存中...",
