@@ -126,118 +126,147 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("add_recipe_screen.title".tr),
-        leading: IconButton(
-          icon: const Icon(CupertinoIcons.back),
-          onPressed: _handleBackButton,
-        ),
-        actions: [
-          Obx(
-            () => _currentStep.value == 3 && _isCurrentStepValid.value
-                ? IconButton(
-                    icon: const Icon(CupertinoIcons.checkmark_alt_circle_fill),
-                    onPressed: _handleSaveRecipe)
-                : const SizedBox(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, dynamic) {
+        if (didPop) return;
+
+        final hasData = controller.fullPath.value.isNotEmpty ||
+            controller.title.value.isNotEmpty ||
+            controller.description.value.isNotEmpty ||
+            controller.preparationTime.value > 0 ||
+            controller.ingredientsList.isNotEmpty ||
+            controller.directionsList.isNotEmpty;
+
+        if (hasData) {
+          UIHelpers.showConfirmationDialog(
+            context: context,
+            title: "add_recipe_screen.exit_title".tr,
+            message: "add_recipe_screen.exit_without_saving".tr,
+            lottieAsset: "assets/lottie/back.json",
+            confirmAction: () {
+              Get.back();
+              Get.back(result: false);
+            },
+          );
+        } else {
+          Get.back(result: false);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("add_recipe_screen.title".tr),
+          leading: IconButton(
+            icon: const Icon(CupertinoIcons.back),
+            onPressed: _handleBackButton,
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Obx(
-            () => Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Text(
-                    _stepTitles[_currentStep.value],
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "add_recipe_screen.step_counter".trParams(
-                      {
-                        "0": (_currentStep.value + 1).toString(),
-                        "1": "4",
-                      },
-                    ),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ],
-              ),
-            ).animate().fadeIn(duration: 300.ms),
-          ),
-          Expanded(
-            child: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: _pageController,
-              onPageChanged: (index) => _currentStep.value = index,
-              children: [
-                _wrapInScrollView(
-                  ImageStepWidget(controller: controller),
-                ),
-                _wrapInScrollView(
-                  TextFieldsStepWidget(controller: controller),
-                ),
-                _wrapInScrollView(
-                  DynamicListStepWidget(
-                    list: controller.ingredientsList,
-                    label: "add_recipe_screen.ingredient".tr,
-                  ),
-                ),
-                _wrapInScrollView(
-                  DynamicListStepWidget(
-                    list: controller.directionsList,
-                    label: "add_recipe_screen.step".tr,
-                  ),
-                ),
-              ],
+          actions: [
+            Obx(
+              () => _currentStep.value == 3 && _isCurrentStepValid.value
+                  ? IconButton(
+                      icon:
+                          const Icon(CupertinoIcons.checkmark_alt_circle_fill),
+                      onPressed: _handleSaveRecipe)
+                  : const SizedBox(),
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: Obx(
-        () => Column(
-          mainAxisSize: MainAxisSize.min,
+          ],
+        ),
+        body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 24,
-                right: 24,
-                top: 8,
-                bottom: 32,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text(
+                      _stepTitles[_currentStep.value],
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "add_recipe_screen.step_counter".trParams(
+                        {
+                          "0": (_currentStep.value + 1).toString(),
+                          "1": "4",
+                        },
+                      ),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ],
+                ),
+              ).animate().fadeIn(duration: 300.ms),
+            ),
+            Expanded(
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: _pageController,
+                onPageChanged: (index) => _currentStep.value = index,
                 children: [
-                  _currentStep.value > 0
-                      ? TextButton(
-                          onPressed: () => _handleNavigation(false),
-                          child: Text("add_recipe_screen.previous".tr),
-                        )
-                          .animate()
-                          .fadeIn(duration: 200.ms)
-                          .slideX(begin: -0.5, curve: Curves.easeOutCubic)
-                      : const SizedBox(),
-                  _currentStep.value < 3 && _isCurrentStepValid.value
-                      ? FilledButton(
-                          onPressed: () => _handleNavigation(true),
-                          child: Text("add_recipe_screen.next".tr),
-                        )
-                          .animate()
-                          .fadeIn(duration: 200.ms)
-                          .slideX(begin: 0.5, curve: Curves.easeOutCubic)
-                      : const SizedBox(),
+                  _wrapInScrollView(
+                    ImageStepWidget(controller: controller),
+                  ),
+                  _wrapInScrollView(
+                    TextFieldsStepWidget(controller: controller),
+                  ),
+                  _wrapInScrollView(
+                    DynamicListStepWidget(
+                      list: controller.ingredientsList,
+                      label: "add_recipe_screen.ingredient".tr,
+                    ),
+                  ),
+                  _wrapInScrollView(
+                    DynamicListStepWidget(
+                      list: controller.directionsList,
+                      label: "add_recipe_screen.step".tr,
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
+        ),
+        bottomNavigationBar: Obx(
+          () => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                  top: 8,
+                  bottom: 32,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _currentStep.value > 0
+                        ? TextButton(
+                            onPressed: () => _handleNavigation(false),
+                            child: Text("add_recipe_screen.previous".tr),
+                          )
+                            .animate()
+                            .fadeIn(duration: 200.ms)
+                            .slideX(begin: -0.5, curve: Curves.easeOutCubic)
+                        : const SizedBox(),
+                    _currentStep.value < 3 && _isCurrentStepValid.value
+                        ? FilledButton(
+                            onPressed: () => _handleNavigation(true),
+                            child: Text("add_recipe_screen.next".tr),
+                          )
+                            .animate()
+                            .fadeIn(duration: 200.ms)
+                            .slideX(begin: 0.5, curve: Curves.easeOutCubic)
+                        : const SizedBox(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
