@@ -126,7 +126,7 @@
     "recipe_generated_success": "已生成食谱信息",
     "recipe_generated_error": "无法生成食谱：{0}",
     "generate_recipe_info": "生成食谱信息",
-    "feature_not_available": "从图片自动生成食谱的功能目前不可用。此功能将在未来版本中提供。"
+    "feature_not_available": "从图片自动生成食谱的功能需要您登录。请登录以使用此功能。"
   },
   "text_fields_step": {
     "title_label": "食谱标题",

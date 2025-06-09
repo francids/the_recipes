@@ -126,7 +126,7 @@
     "recipe_generated_success": "Les informations de la recette ont été générées",
     "recipe_generated_error": "Impossible de générer la recette : {0}",
     "generate_recipe_info": "Générer les informations de la recette",
-    "feature_not_available": "La fonction de génération automatique de recettes à partir d'images n'est pas disponible actuellement. Cette fonctionnalité sera disponible dans les versions futures."
+    "feature_not_available": "La fonction de génération automatique de recettes à partir d'images nécessite que vous soyez connecté. Veuillez vous connecter pour utiliser cette fonctionnalité."
   },
   "text_fields_step": {
     "title_label": "Titre de la recette",

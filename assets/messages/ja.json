@@ -126,7 +126,7 @@
     "recipe_generated_success": "レシピ情報が生成されました",
     "recipe_generated_error": "レシピを生成できませんでした：{0}",
     "generate_recipe_info": "レシピ情報を生成",
-    "feature_not_available": "画像から自動的にレシピを生成する機能は現在利用できません。この機能は将来のバージョンで利用可能になります。"
+    "feature_not_available": "画像から自動的にレシピを生成する機能を使用するには、サインインが必要です。この機能をご利用になるにはサインインしてください。"
   },
   "text_fields_step": {
     "title_label": "レシピのタイトル",

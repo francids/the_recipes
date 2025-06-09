@@ -126,7 +126,7 @@
     "recipe_generated_success": "레시피 정보가 생성되었습니다",
     "recipe_generated_error": "레시피를 생성할 수 없습니다: {0}",
     "generate_recipe_info": "레시피 정보 생성",
-    "feature_not_available": "이미지에서 자동으로 레시피를 생성하는 기능은 현재 사용할 수 없습니다. 이 기능은 향후 버전에서 사용할 수 있습니다."
+    "feature_not_available": "이미지에서 자동으로 레시피를 생성하는 기능을 사용하려면 로그인이 필요합니다. 이 기능을 사용하려면 로그인해주세요."
   },
   "text_fields_step": {
     "title_label": "레시피 제목",

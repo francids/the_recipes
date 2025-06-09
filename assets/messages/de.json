@@ -126,7 +126,7 @@
     "recipe_generated_success": "Rezeptinformationen wurden generiert",
     "recipe_generated_error": "Rezept konnte nicht generiert werden: {0}",
     "generate_recipe_info": "Rezeptinformationen generieren",
-    "feature_not_available": "Die Funktion zur automatischen Generierung von Rezepten aus Bildern ist derzeit nicht verfügbar. Diese Funktion wird in zukünftigen Versionen verfügbar sein."
+    "feature_not_available": "Die Funktion zur automatischen Generierung von Rezepten aus Bildern erfordert eine Anmeldung. Bitte melden Sie sich an, um diese Funktion zu nutzen."
   },
   "text_fields_step": {
     "title_label": "Rezepttitel",
