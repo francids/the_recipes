@@ -84,7 +84,10 @@
   },
   "recipes_page": {
     "no_favorites": "Nessuna ricetta preferita",
-    "favorites_filter": "Preferiti"
+    "favorites_filter": "Preferiti",
+    "sort_title": "Titolo",
+    "sort_duration": "Durata",
+    "sort_by_label": "Ordina per"
   },
   "add_recipe_screen": {
     "title": "Aggiungi ricetta",

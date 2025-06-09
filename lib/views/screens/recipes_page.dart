@@ -7,6 +7,8 @@ import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/views/widgets/recipe_card.dart";
 import "package:the_recipes/views/screens/add_recipe_screen.dart";
 
+enum SortOption { none, title, duration }
+
 class RecipesPage extends StatelessWidget {
   const RecipesPage({super.key});
 
@@ -14,6 +16,7 @@ class RecipesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final recipeController = Get.find<RecipeController>();
     final favoritesController = Get.find<FavoritesController>();
+    final currentSortOption = SortOption.none.obs;
 
     return Scaffold(
       floatingActionButton: Tooltip(
@@ -32,22 +35,33 @@ class RecipesPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          if (recipeController.recipes.isNotEmpty)
-            Obx(() => _buildFilterChip(favoritesController))
+          Obx(() {
+            if (recipeController.recipes.isEmpty) {
+              return const SizedBox.shrink();
+            }
+            return _buildFilterChip(favoritesController, currentSortOption)
                 .animate()
                 .fadeIn(duration: 300.ms)
-                .slideY(begin: -0.2, curve: Curves.easeOutCubic),
+                .slideY(begin: -0.2, curve: Curves.easeOutCubic);
+          }),
           Expanded(
             child: Obx(() {
-              final filteredRecipes = favoritesController
-                      .showFavoritesOnly.value
+              var displayedRecipes = favoritesController.showFavoritesOnly.value
                   ? recipeController.recipes
                       .where(
                           (recipe) => favoritesController.isFavorite(recipe.id))
                       .toList()
-                  : recipeController.recipes;
+                  : recipeController.recipes.toList();
 
-              return filteredRecipes.isEmpty
+              if (currentSortOption.value == SortOption.title) {
+                displayedRecipes.sort((a, b) =>
+                    a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+              } else if (currentSortOption.value == SortOption.duration) {
+                displayedRecipes.sort(
+                    (a, b) => a.preparationTime.compareTo(b.preparationTime));
+              }
+
+              return displayedRecipes.isEmpty
                   ? Center(
                       child: Text(
                         favoritesController.showFavoritesOnly.value
@@ -66,10 +80,10 @@ class RecipesPage extends StatelessWidget {
                           left: 16,
                           right: 16,
                         ),
-                        itemCount: filteredRecipes.length,
+                        itemCount: displayedRecipes.length,
                         itemBuilder: (context, index) {
                           return RecipeCard(
-                            recipe: filteredRecipes[index],
+                            recipe: displayedRecipes[index],
                           )
                               .animate()
                               .fadeIn(
@@ -94,14 +108,21 @@ class RecipesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildFilterChip(FavoritesController favoritesController) {
-    return Container(
-      padding: const EdgeInsets.only(
-        top: 8.0,
-        left: 16.0,
-        right: 16.0,
+  Widget _buildFilterChip(
+    FavoritesController favoritesController,
+    Rx<SortOption> currentSortOption,
+  ) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxHeight: 60,
       ),
-      child: Row(
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.only(
+          top: 8.0,
+          left: 16.0,
+          right: 16.0,
+        ),
         children: [
           FilterChip(
             showCheckmark: false,
@@ -115,6 +136,40 @@ class RecipesPage extends StatelessWidget {
               size: 18,
             ),
           ),
+          const SizedBox(width: 8),
+          Obx(() {
+            String sortLabel;
+            IconData sortIcon;
+            switch (currentSortOption.value) {
+              case SortOption.title:
+                sortLabel = "recipes_page.sort_title".tr;
+                sortIcon = CupertinoIcons.sort_up;
+                break;
+              case SortOption.duration:
+                sortLabel = "recipes_page.sort_duration".tr;
+                sortIcon = CupertinoIcons.clock;
+                break;
+              case SortOption.none:
+                sortLabel = "recipes_page.sort_by_label".tr;
+                sortIcon = CupertinoIcons.sort_down;
+                break;
+            }
+            return FilterChip(
+              showCheckmark: false,
+              selected: currentSortOption.value != SortOption.none,
+              avatar: Icon(sortIcon, size: 18),
+              label: Text(sortLabel),
+              onSelected: (_) {
+                if (currentSortOption.value == SortOption.none) {
+                  currentSortOption.value = SortOption.title;
+                } else if (currentSortOption.value == SortOption.title) {
+                  currentSortOption.value = SortOption.duration;
+                } else if (currentSortOption.value == SortOption.duration) {
+                  currentSortOption.value = SortOption.none;
+                }
+              },
+            );
+          }),
         ],
       ),
     );

@@ -84,7 +84,10 @@
   },
   "recipes_page": {
     "no_favorites": "즐겨찾기 레시피가 없습니다",
-    "favorites_filter": "즐겨찾기"
+    "favorites_filter": "즐겨찾기",
+    "sort_title": "제목",
+    "sort_duration": "시간",
+    "sort_by_label": "정렬 기준"
   },
   "add_recipe_screen": {
     "title": "레시피 추가",

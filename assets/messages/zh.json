@@ -84,7 +84,10 @@
   },
   "recipes_page": {
     "no_favorites": "暂无收藏的食谱",
-    "favorites_filter": "收藏"
+    "favorites_filter": "收藏",
+    "sort_title": "标题",
+    "sort_duration": "时长",
+    "sort_by_label": "排序方式"
   },
   "add_recipe_screen": {
     "title": "添加食谱",
