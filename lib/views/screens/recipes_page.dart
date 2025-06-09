@@ -29,10 +29,8 @@ class RecipesPage extends StatelessWidget {
       body: GetX<RecipeController>(
         builder: (controller) {
           return controller.recipes.isEmpty
-              ? Expanded(
-                  child: Center(
-                    child: Text("inicial_screen.empty_list".tr),
-                  ),
+              ? Center(
+                  child: Text("inicial_screen.empty_list".tr),
                 )
               : RefreshIndicator(
                   onRefresh: () async {
