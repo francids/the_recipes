@@ -34,7 +34,12 @@
     "sign_out": "Cerrar sesión",
     "sign_out_description": "Salir de tu cuenta",
     "sign_out_confirmation_title": "Cerrar sesión",
-    "sign_out_confirmation_message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?"
+    "sign_out_confirmation_message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?",
+    "syncing_recipes": "Sincronizando recetas...",
+    "syncing_recipes_description": "Por favor, espera mientras tus recetas se sincronizan con la nube.",
+    "sync_success_message": "¡Recetas sincronizadas con éxito!",
+    "sync_error_message": "Error al sincronizar recetas: {0}",
+    "auto_sync_disabled": "Sincronización automática desactivada."
   },
   "profile_info_screen": {
     "title": "Información de la Cuenta",
@@ -139,7 +144,11 @@
     "deleting_recipe": "Eliminando receta...",
     "recipe_not_found": "La receta no existe",
     "recipe_deleted": "Receta eliminada",
-    "delete_error": "Error al eliminar la receta"
+    "delete_error": "Error al eliminar receta: {0}",
+    "load_error": "Error al cargar recetas: {0}",
+    "sync_error": "Error de sincronización: {0}",
+    "add_error": "Error al añadir receta: {0}",
+    "image_delete_error": "Error al eliminar imagen: {0}"
   },
   "auth_controller": {
     "signing_in": "Iniciando sesión...",
@@ -148,7 +157,12 @@
     "delete_account_error": "Error al eliminar la cuenta: {0}",
     "requires_recent_login": "Por motivos de seguridad, esta acción requiere autenticación reciente. Por favor, inicia sesión nuevamente.",
     "reauthenticating": "Reautenticando...",
-    "reauthentication_failed": "Falló la reautenticación: {0}"
+    "reauthentication_failed": "Falló la reautenticación: {0}",
+    "syncing_recipes": "Sincronizando recetas...",
+    "sync_completed": "Sincronización completada",
+    "sync_error": "Error de sincronización: {0}",
+    "assign_owner_id_error": "Error al asignar ID de propietario: {0}",
+    "deleting_account": "Eliminando cuenta..."
   },
   "add_recipe_controller": {
     "adding_recipe": "Agregando receta...",
@@ -182,5 +196,10 @@
     "invalid_recipe_format": "Formato de receta inválido encontrado",
     "incomplete_recipe": "La receta '{0}' está incompleta y fue omitida",
     "recipe_import_error": "Error al importar receta: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "El usuario debe iniciar sesión para realizar esta acción.",
+    "image_file_does_not_exist": "El archivo de imagen no existe: {0}",
+    "failed_to_download_image": "Error al descargar la imagen de {0}. Código de estado: {1}"
   }
 }

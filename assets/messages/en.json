@@ -34,7 +34,12 @@
     "sign_out": "Sign Out",
     "sign_out_description": "Log out of your account",
     "sign_out_confirmation_title": "Sign Out",
-    "sign_out_confirmation_message": "Are you sure you want to sign out of your account?"
+    "sign_out_confirmation_message": "Are you sure you want to sign out of your account?",
+    "syncing_recipes": "Syncing recipes...",
+    "syncing_recipes_description": "Please wait while your recipes are being synced with the cloud.",
+    "sync_success_message": "Recipes synced successfully!",
+    "sync_error_message": "Error syncing recipes: {0}",
+    "auto_sync_disabled": "Auto-sync disabled."
   },
   "profile_info_screen": {
     "title": "Account Information",
@@ -139,7 +144,11 @@
     "deleting_recipe": "Deleting recipe...",
     "recipe_not_found": "The recipe does not exist",
     "recipe_deleted": "Recipe deleted",
-    "delete_error": "Error deleting the recipe"
+    "delete_error": "Error deleting recipe: {0}",
+    "load_error": "Error loading recipes: {0}",
+    "sync_error": "Sync error: {0}",
+    "add_error": "Error adding recipe: {0}",
+    "image_delete_error": "Error deleting image: {0}"
   },
   "auth_controller": {
     "signing_in": "Signing in...",
@@ -148,7 +157,12 @@
     "delete_account_error": "Error deleting account: {0}",
     "requires_recent_login": "For security reasons, this action requires recent authentication. Please sign in again.",
     "reauthenticating": "Reauthenticating...",
-    "reauthentication_failed": "Reauthentication failed: {0}"
+    "reauthentication_failed": "Reauthentication failed: {0}",
+    "syncing_recipes": "Syncing recipes...",
+    "sync_completed": "Sync completed",
+    "sync_error": "Sync error: {0}",
+    "assign_owner_id_error": "Error assigning owner ID: {0}",
+    "deleting_account": "Deleting account..."
   },
   "add_recipe_controller": {
     "adding_recipe": "Adding recipe...",
@@ -182,5 +196,10 @@
     "incomplete_recipe": "Recipe '{0}' is incomplete and was skipped",
     "recipe_import_error": "Error importing recipe: {0}",
     "unexpected_error": "Unexpected error occurred: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "User must be logged in to perform this action.",
+    "image_file_does_not_exist": "Image file does not exist: {0}",
+    "failed_to_download_image": "Failed to download image from {0}. Status code: {1}"
   }
 }

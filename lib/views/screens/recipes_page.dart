@@ -11,18 +11,13 @@ class RecipesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RecipeController recipeController = Get.find<RecipeController>();
-
     return Scaffold(
       floatingActionButton: Tooltip(
         message: "inicial_screen.fab_tooltip_add".tr,
         preferBelow: false,
         child: FloatingActionButton(
           onPressed: () async {
-            var upd = await Get.to(const AddRecipeScreen());
-            if (upd == true) {
-              recipeController.refreshRecipes();
-            }
+            await Get.to(const AddRecipeScreen());
           },
           child: const Icon(CupertinoIcons.add),
         ).animate().scale(

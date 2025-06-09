@@ -34,7 +34,12 @@
     "sign_out": "Esci",
     "sign_out_description": "Disconnettiti dal tuo account",
     "sign_out_confirmation_title": "Esci",
-    "sign_out_confirmation_message": "Sei sicuro di voler uscire dal tuo account?"
+    "sign_out_confirmation_message": "Sei sicuro di voler uscire dal tuo account?",
+    "syncing_recipes": "Sincronizzazione ricette...",
+    "syncing_recipes_description": "Attendere prego mentre le ricette vengono sincronizzate con il cloud.",
+    "sync_success_message": "Ricette sincronizzate con successo!",
+    "sync_error_message": "Errore durante la sincronizzazione delle ricette: {0}",
+    "auto_sync_disabled": "Sincronizzazione automatica disabilitata."
   },
   "profile_info_screen": {
     "title": "Informazioni Account",
@@ -139,7 +144,11 @@
     "deleting_recipe": "Eliminazione ricetta...",
     "recipe_not_found": "La ricetta non esiste",
     "recipe_deleted": "Ricetta eliminata",
-    "delete_error": "Errore durante l'eliminazione della ricetta"
+    "delete_error": "Errore durante l'eliminazione della ricetta: {0}",
+    "load_error": "Errore nel caricamento delle ricette: {0}",
+    "sync_error": "Errore di sincronizzazione: {0}",
+    "add_error": "Errore nell'aggiunta della ricetta: {0}",
+    "image_delete_error": "Errore nell'eliminazione dell'immagine: {0}"
   },
   "auth_controller": {
     "signing_in": "Accesso in corso...",
@@ -148,7 +157,12 @@
     "delete_account_error": "Errore durante l'eliminazione dell'account: {0}",
     "requires_recent_login": "Per motivi di sicurezza, questa azione richiede un'autenticazione recente. Accedi nuovamente.",
     "reauthenticating": "Riautenticazione in corso...",
-    "reauthentication_failed": "Riautenticazione fallita: {0}"
+    "reauthentication_failed": "Riautenticazione fallita: {0}",
+    "syncing_recipes": "Sincronizzazione ricette...",
+    "sync_completed": "Sincronizzazione completata",
+    "sync_error": "Errore di sincronizzazione: {0}",
+    "assign_owner_id_error": "Errore nell'assegnazione dell'ID proprietario: {0}",
+    "deleting_account": "Eliminazione account in corso..."
   },
   "add_recipe_controller": {
     "adding_recipe": "Aggiunta ricetta...",
@@ -182,5 +196,10 @@
     "invalid_recipe_format": "Formato ricetta non valido trovato",
     "incomplete_recipe": "La ricetta '{0}' è incompleta ed è stata saltata",
     "recipe_import_error": "Errore nell'importazione della ricetta: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "L'utente deve aver effettuato l'accesso per eseguire questa azione.",
+    "image_file_does_not_exist": "Il file immagine non esiste: {0}",
+    "failed_to_download_image": "Impossibile scaricare l'immagine da {0}. Codice di stato: {1}"
   }
 }

@@ -34,7 +34,12 @@
     "sign_out": "退出",
     "sign_out_description": "从您的账户注销",
     "sign_out_confirmation_title": "退出",
-    "sign_out_confirmation_message": "您确定要从账户注销吗？"
+    "sign_out_confirmation_message": "您确定要从账户注销吗？",
+    "syncing_recipes": "正在同步食谱...",
+    "syncing_recipes_description": "请稍候，您的食谱正在与云端同步。",
+    "sync_success_message": "食谱同步成功！",
+    "sync_error_message": "同步食谱错误：{0}",
+    "auto_sync_disabled": "自动同步已禁用。"
   },
   "profile_info_screen": {
     "title": "账户信息",
@@ -135,20 +140,29 @@
     "confirm": "确认"
   },
   "recipe_controller": {
-    "loading_recipes": "正在加载食谱...",
-    "deleting_recipe": "正在删除食谱...",
-    "recipe_not_found": "该食谱不存在",
+    "loading_recipes": "食谱加载中...",
+    "deleting_recipe": "食谱删除中...",
+    "recipe_not_found": "食谱不存在",
     "recipe_deleted": "食谱已删除",
-    "delete_error": "删除食谱时出错"
+    "delete_error": "删除食谱错误：{0}",
+    "load_error": "加载食谱错误：{0}",
+    "sync_error": "同步错误：{0}",
+    "add_error": "添加食谱错误：{0}",
+    "image_delete_error": "删除图片错误：{0}"
   },
   "auth_controller": {
-    "signing_in": "正在登录...",
+    "signing_in": "登录中...",
     "sign_in_error": "登录错误",
-    "sign_out_error": "退出错误：{0}",
-    "delete_account_error": "删除账户时出错：{0}",
-    "requires_recent_login": "出于安全考虑，此操作需要近期身份验证。请重新登录。",
-    "reauthenticating": "正在重新验证身份...",
-    "reauthentication_failed": "重新验证失败：{0}"
+    "sign_out_error": "注销错误：{0}",
+    "delete_account_error": "删除账户错误：{0}",
+    "requires_recent_login": "出于安全原因，此操作需要最近的身份验证。请重新登录。",
+    "reauthenticating": "重新认证中...",
+    "reauthentication_failed": "重新认证失败：{0}",
+    "syncing_recipes": "正在同步食谱...",
+    "sync_completed": "同步完成",
+    "sync_error": "同步错误：{0}",
+    "assign_owner_id_error": "分配所有者ID错误：{0}",
+    "deleting_account": "正在删除账户..."
   },
   "add_recipe_controller": {
     "adding_recipe": "正在添加食谱...",
@@ -182,5 +196,10 @@
     "invalid_recipe_format": "发现无效的食谱格式",
     "incomplete_recipe": "食谱'{0}'不完整，已跳过",
     "recipe_import_error": "导入食谱时出错：{0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "用户必须登录才能执行此操作。",
+    "image_file_does_not_exist": "图片文件不存在：{0}",
+    "failed_to_download_image": "从 {0} 下载图片失败。状态码：{1}"
   }
 }

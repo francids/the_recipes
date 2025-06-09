@@ -7,7 +7,7 @@ import "package:path/path.dart" as path;
 import "package:the_recipes/controllers/recipe_controller.dart";
 
 class AddRecipeController extends GetxController {
-  final RecipeController recipeController = RecipeController();
+  final RecipeController recipeController = Get.find<RecipeController>();
 
   final RxString title = "".obs;
   final RxString description = "".obs;

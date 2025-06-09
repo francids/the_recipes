@@ -14,13 +14,69 @@ class RecipeCard extends StatelessWidget {
 
   final Recipe recipe;
 
+  Widget _buildImage() {
+    if (recipe.image.startsWith("http://") ||
+        recipe.image.startsWith("https://")) {
+      return Image.network(
+        recipe.image,
+        width: 80,
+        height: 80,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            width: 80,
+            height: 80,
+            color: Colors.grey[300],
+            child: Icon(
+              Icons.image_not_supported,
+              color: Colors.grey[600],
+            ),
+          );
+        },
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Container(
+            width: 80,
+            height: 80,
+            color: Colors.grey[200],
+            child: Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Image.file(
+        File(recipe.image),
+        width: 80,
+        height: 80,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            width: 80,
+            height: 80,
+            color: Colors.grey[300],
+            child: Icon(
+              Icons.image_not_supported,
+              color: Colors.grey[600],
+            ),
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Card(
       margin: const EdgeInsets.all(0),
-      // margin: const EdgeInsets.only(top: 8, bottom: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(
@@ -45,12 +101,7 @@ class RecipeCard extends StatelessWidget {
               tag: "recipe_image_${recipe.id}",
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.file(
-                  File(recipe.image),
-                  width: 80,
-                  height: 80,
-                  fit: BoxFit.cover,
-                ),
+                child: _buildImage(),
               ),
             ),
             Padding(

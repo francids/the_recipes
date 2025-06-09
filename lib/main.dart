@@ -25,6 +25,7 @@ void main() async {
   await Hive.openBox<Recipe>(recipesBox);
   await Hive.openBox(ThemeController.themeBox);
   await Hive.openBox(LanguageController.languageBox);
+  await Hive.openBox(settingsBox);
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

@@ -1,4 +1,5 @@
 import "package:hive_ce_flutter/hive_flutter.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 
 class Recipe extends HiveObject {
   String id;
@@ -8,6 +9,8 @@ class Recipe extends HiveObject {
   List<String> ingredients;
   List<String> directions;
   int preparationTime; // in seconds
+  String? ownerId;
+  bool? isPublic;
 
   Recipe({
     required this.id,
@@ -17,7 +20,11 @@ class Recipe extends HiveObject {
     required this.ingredients,
     required this.directions,
     this.preparationTime = 0,
-  })  : assert(ingredients.isNotEmpty),
+    String? ownerId,
+    this.isPublic = false,
+  })  : ownerId = ownerId ??
+            (AuthController().isLoggedIn ? AuthController().user!.uid : ""),
+        assert(ingredients.isNotEmpty),
         assert(directions.isNotEmpty);
 
   Recipe.fromMap(Map<String, dynamic> map)
@@ -27,7 +34,9 @@ class Recipe extends HiveObject {
         image = map["image"] ?? "",
         ingredients = List<String>.from(map["ingredients"] ?? []),
         directions = List<String>.from(map["directions"] ?? []),
-        preparationTime = map["preparationTime"] ?? 0 {
+        preparationTime = map["preparationTime"] ?? 0,
+        ownerId = map["ownerId"] ?? "",
+        isPublic = map["isPublic"] ?? false {
     assert(ingredients.isNotEmpty);
     assert(directions.isNotEmpty);
   }
@@ -41,6 +50,8 @@ class Recipe extends HiveObject {
       "ingredients": ingredients,
       "directions": directions,
       "preparationTime": preparationTime,
+      "ownerId": ownerId,
+      "isPublic": isPublic,
     };
   }
 }

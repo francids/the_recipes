@@ -34,7 +34,12 @@
     "sign_out": "로그아웃",
     "sign_out_description": "계정에서 로그아웃",
     "sign_out_confirmation_title": "로그아웃",
-    "sign_out_confirmation_message": "계정에서 로그아웃하시겠습니까?"
+    "sign_out_confirmation_message": "계정에서 로그아웃하시겠습니까?",
+    "syncing_recipes": "레시피 동기화 중...",
+    "syncing_recipes_description": "레시피를 클라우드와 동기화하는 동안 잠시 기다려 주십시오.",
+    "sync_success_message": "레시피가 성공적으로 동기화되었습니다!",
+    "sync_error_message": "레시피 동기화 오류: {0}",
+    "auto_sync_disabled": "자동 동기화 비활성화됨."
   },
   "profile_info_screen": {
     "title": "계정 정보",
@@ -139,7 +144,11 @@
     "deleting_recipe": "레시피 삭제 중...",
     "recipe_not_found": "레시피가 존재하지 않습니다",
     "recipe_deleted": "레시피 삭제됨",
-    "delete_error": "레시피 삭제 중 오류 발생"
+    "delete_error": "레시피 삭제 중 오류 발생: {0}",
+    "load_error": "레시피 로드 오류: {0}",
+    "sync_error": "동기화 오류: {0}",
+    "add_error": "레시피 추가 오류: {0}",
+    "image_delete_error": "이미지 삭제 오류: {0}"
   },
   "auth_controller": {
     "signing_in": "로그인 중...",
@@ -148,7 +157,12 @@
     "delete_account_error": "계정 삭제 중 오류 발생: {0}",
     "requires_recent_login": "보안상의 이유로 이 작업에는 최근 인증이 필요합니다. 다시 로그인해주세요.",
     "reauthenticating": "재인증 중...",
-    "reauthentication_failed": "재인증 실패: {0}"
+    "reauthentication_failed": "재인증 실패: {0}",
+    "syncing_recipes": "레시피 동기화 중...",
+    "sync_completed": "동기화 완료",
+    "sync_error": "동기화 오류: {0}",
+    "assign_owner_id_error": "소유자 ID 할당 오류: {0}",
+    "deleting_account": "계정 삭제 중..."
   },
   "add_recipe_controller": {
     "adding_recipe": "레시피 추가 중...",
@@ -182,5 +196,10 @@
     "incomplete_recipe": "레시피 '{0}'가 불완전하여 건너뛰었습니다",
     "recipe_import_error": "레시피 가져오기 오류: {0}",
     "unexpected_error": "예상치 못한 오류가 발생했습니다: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "이 작업을 수행하려면 사용자가 로그인해야 합니다.",
+    "image_file_does_not_exist": "이미지 파일이 존재하지 않습니다: {0}",
+    "failed_to_download_image": "{0}에서 이미지 다운로드 실패. 상태 코드: {1}"
   }
 }

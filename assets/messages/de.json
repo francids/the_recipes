@@ -34,7 +34,12 @@
     "sign_out": "Abmelden",
     "sign_out_description": "Von Ihrem Konto abmelden",
     "sign_out_confirmation_title": "Abmelden",
-    "sign_out_confirmation_message": "Sind Sie sicher, dass Sie sich von Ihrem Konto abmelden möchten?"
+    "sign_out_confirmation_message": "Sind Sie sicher, dass Sie sich von Ihrem Konto abmelden möchten?",
+    "syncing_recipes": "Rezepte werden synchronisiert...",
+    "syncing_recipes_description": "Bitte warten Sie, während Ihre Rezepte mit der Cloud synchronisiert werden.",
+    "sync_success_message": "Rezepte erfolgreich synchronisiert!",
+    "sync_error_message": "Fehler beim Synchronisieren der Rezepte: {0}",
+    "auto_sync_disabled": "Automatische Synchronisierung deaktiviert."
   },
   "profile_info_screen": {
     "title": "Kontoinformationen",
@@ -139,7 +144,11 @@
     "deleting_recipe": "Rezept wird gelöscht...",
     "recipe_not_found": "Das Rezept existiert nicht",
     "recipe_deleted": "Rezept gelöscht",
-    "delete_error": "Fehler beim Löschen des Rezepts"
+    "delete_error": "Fehler beim Löschen des Rezepts: {0}",
+    "load_error": "Fehler beim Laden der Rezepte: {0}",
+    "sync_error": "Synchronisierungsfehler: {0}",
+    "add_error": "Fehler beim Hinzufügen des Rezepts: {0}",
+    "image_delete_error": "Fehler beim Löschen des Bildes: {0}"
   },
   "auth_controller": {
     "signing_in": "Anmeldung läuft...",
@@ -148,7 +157,12 @@
     "delete_account_error": "Fehler beim Löschen des Kontos: {0}",
     "requires_recent_login": "Aus Sicherheitsgründen erfordert diese Aktion eine aktuelle Authentifizierung. Bitte melden Sie sich erneut an.",
     "reauthenticating": "Erneute Authentifizierung...",
-    "reauthentication_failed": "Erneute Authentifizierung fehlgeschlagen: {0}"
+    "reauthentication_failed": "Erneute Authentifizierung fehlgeschlagen: {0}",
+    "syncing_recipes": "Rezepte werden synchronisiert...",
+    "sync_completed": "Synchronisierung abgeschlossen",
+    "sync_error": "Synchronisierungsfehler: {0}",
+    "assign_owner_id_error": "Fehler beim Zuweisen der Besitzer-ID: {0}",
+    "deleting_account": "Konto wird gelöscht..."
   },
   "add_recipe_controller": {
     "adding_recipe": "Rezept wird hinzugefügt...",
@@ -182,5 +196,10 @@
     "invalid_recipe_format": "Ungültiges Rezeptformat gefunden",
     "incomplete_recipe": "Rezept '{0}' ist unvollständig und wurde übersprungen",
     "recipe_import_error": "Fehler beim Importieren des Rezepts: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "Der Benutzer muss angemeldet sein, um diese Aktion auszuführen.",
+    "image_file_does_not_exist": "Bilddatei existiert nicht: {0}",
+    "failed_to_download_image": "Fehler beim Herunterladen des Bildes von {0}. Statuscode: {1}"
   }
 }

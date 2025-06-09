@@ -34,7 +34,12 @@
     "sign_out": "Sair",
     "sign_out_description": "Desconectar da sua conta",
     "sign_out_confirmation_title": "Sair",
-    "sign_out_confirmation_message": "Tem certeza de que deseja sair da sua conta?"
+    "sign_out_confirmation_message": "Tem certeza de que deseja sair da sua conta?",
+    "syncing_recipes": "Sincronizando receitas...",
+    "syncing_recipes_description": "Aguarde enquanto suas receitas são sincronizadas com a nuvem.",
+    "sync_success_message": "Receitas sincronizadas com sucesso!",
+    "sync_error_message": "Erro ao sincronizar receitas: {0}",
+    "auto_sync_disabled": "Sincronização automática desativada."
   },
   "profile_info_screen": {
     "title": "Informações da Conta",
@@ -139,16 +144,25 @@
     "deleting_recipe": "Excluindo receita...",
     "recipe_not_found": "A receita não existe",
     "recipe_deleted": "Receita excluída",
-    "delete_error": "Erro ao excluir a receita"
+    "delete_error": "Erro ao excluir receita: {0}",
+    "load_error": "Erro ao carregar receitas: {0}",
+    "sync_error": "Erro de sincronização: {0}",
+    "add_error": "Erro ao adicionar receita: {0}",
+    "image_delete_error": "Erro ao excluir imagem: {0}"
   },
   "auth_controller": {
-    "signing_in": "Fazendo login...",
-    "sign_in_error": "Erro ao fazer login",
+    "signing_in": "Entrando...",
+    "sign_in_error": "Erro ao entrar",
     "sign_out_error": "Erro ao sair: {0}",
     "delete_account_error": "Erro ao excluir conta: {0}",
-    "requires_recent_login": "Por motivos de segurança, esta ação requer autenticação recente. Por favor, faça login novamente.",
+    "requires_recent_login": "Por motivos de segurança, esta ação requer autenticação recente. Por favor, entre novamente.",
     "reauthenticating": "Reautenticando...",
-    "reauthentication_failed": "Falha na reautenticação: {0}"
+    "reauthentication_failed": "Falha na reautenticação: {0}",
+    "syncing_recipes": "Sincronizando receitas...",
+    "sync_completed": "Sincronização concluída",
+    "sync_error": "Erro de sincronização: {0}",
+    "assign_owner_id_error": "Erro ao atribuir ID do proprietário: {0}",
+    "deleting_account": "Excluindo conta..."
   },
   "add_recipe_controller": {
     "adding_recipe": "Adicionando receita...",
@@ -182,5 +196,10 @@
     "invalid_recipe_format": "Formato de receita inválido encontrado",
     "incomplete_recipe": "A receita '{0}' está incompleta e foi ignorada",
     "recipe_import_error": "Erro ao importar receita: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "O usuário deve estar conectado para realizar esta ação.",
+    "image_file_does_not_exist": "Arquivo de imagem não existe: {0}",
+    "failed_to_download_image": "Falha ao baixar imagem de {0}. Código de status: {1}"
   }
 }

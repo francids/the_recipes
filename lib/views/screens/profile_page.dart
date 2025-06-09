@@ -1,11 +1,15 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:lottie/lottie.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/services/export_service.dart";
 import "package:the_recipes/services/import_service.dart";
+import "package:the_recipes/services/sync_service.dart";
 import "package:the_recipes/views/screens/profile_info_screen.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
@@ -167,22 +171,24 @@ class ProfilePage extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          SwitchListTile(
-            title: Text(
-              "profile_page.backup_recipes".tr,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            subtitle: Text(
-              "profile_page.backup_recipes_description".tr,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-            ),
-            value: false,
-            onChanged: (value) {},
-            secondary: Icon(
-              CupertinoIcons.cloud_upload,
-              color: Theme.of(context).colorScheme.primary,
+          GetBuilder<AuthController>(
+            builder: (authController) => SwitchListTile(
+              title: Text(
+                "profile_page.backup_recipes".tr,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              subtitle: Text(
+                "profile_page.backup_recipes_description".tr,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+              ),
+              value: authController.autoSyncEnabled,
+              onChanged: (value) => _handleAutoSyncToggle(value, context),
+              secondary: Icon(
+                CupertinoIcons.cloud_upload,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ),
           const Divider(height: 1, indent: 16, endIndent: 16),
@@ -232,6 +238,80 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _handleAutoSyncToggle(bool enabled, BuildContext context) async {
+    final authController = Get.find<AuthController>();
+    await authController.setAutoSyncEnabled(enabled);
+
+    if (enabled) {
+      UIHelpers.showLoadingDialog(
+        context,
+        "profile_page.syncing_recipes".tr,
+        "profile_page.syncing_recipes_description".tr,
+      );
+
+      try {
+        await _assignOwnerIdToLocalRecipes();
+        await SyncService.fullSync();
+
+        final recipeController = Get.find<RecipeController>();
+        recipeController.refreshRecipes();
+
+        Get.back();
+
+        UIHelpers.showSuccessSnackbar(
+          "profile_page.sync_success_message".tr,
+          context,
+        );
+      } catch (e) {
+        Get.back();
+
+        await authController.setAutoSyncEnabled(false);
+
+        UIHelpers.showErrorSnackbar(
+          "profile_page.sync_error_message".trParams({
+            "0": e.toString(),
+          }),
+          context,
+        );
+      }
+    } else {
+      UIHelpers.showSuccessSnackbar(
+        "profile_page.auto_sync_disabled".tr,
+        context,
+      );
+    }
+  }
+
+  Future<void> _assignOwnerIdToLocalRecipes() async {
+    final authController = Get.find<AuthController>();
+    if (!authController.isLoggedIn) return;
+
+    try {
+      final box = Hive.box<Recipe>(recipesBox);
+
+      for (int i = 0; i < box.length; i++) {
+        final recipe = box.getAt(i);
+        if (recipe != null &&
+            (recipe.ownerId!.isEmpty ||
+                recipe.ownerId != authController.user!.uid)) {
+          final updatedRecipe = Recipe(
+            id: recipe.id,
+            title: recipe.title,
+            description: recipe.description,
+            image: recipe.image,
+            ingredients: recipe.ingredients,
+            directions: recipe.directions,
+            preparationTime: recipe.preparationTime,
+            ownerId: authController.user!.uid,
+          );
+          await box.putAt(i, updatedRecipe);
+        }
+      }
+    } catch (e) {
+      debugPrint("Error assigning ownerId to local recipes: $e");
+    }
   }
 
   void _handleExportRecipes(BuildContext context) {

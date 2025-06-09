@@ -34,7 +34,12 @@
     "sign_out": "Se déconnecter",
     "sign_out_description": "Se déconnecter de votre compte",
     "sign_out_confirmation_title": "Se déconnecter",
-    "sign_out_confirmation_message": "Êtes-vous sûr de vouloir vous déconnecter de votre compte ?"
+    "sign_out_confirmation_message": "Êtes-vous sûr de vouloir vous déconnecter de votre compte ?",
+    "syncing_recipes": "Synchronisation des recettes...",
+    "syncing_recipes_description": "Veuillez patienter pendant la synchronisation de vos recettes avec le cloud.",
+    "sync_success_message": "Recettes synchronisées avec succès !",
+    "sync_error_message": "Erreur lors de la synchronisation des recettes : {0}",
+    "auto_sync_disabled": "Synchronisation automatique désactivée."
   },
   "profile_info_screen": {
     "title": "Informations du Compte",
@@ -139,7 +144,11 @@
     "deleting_recipe": "Suppression de la recette...",
     "recipe_not_found": "La recette n'existe pas",
     "recipe_deleted": "Recette supprimée",
-    "delete_error": "Erreur lors de la suppression de la recette"
+    "delete_error": "Erreur lors de la suppression de la recette : {0}",
+    "load_error": "Erreur de chargement des recettes : {0}",
+    "sync_error": "Erreur de synchronisation : {0}",
+    "add_error": "Erreur d'ajout de la recette : {0}",
+    "image_delete_error": "Erreur de suppression de l'image : {0}"
   },
   "auth_controller": {
     "signing_in": "Connexion en cours...",
@@ -148,7 +157,12 @@
     "delete_account_error": "Erreur lors de la suppression du compte : {0}",
     "requires_recent_login": "Pour des raisons de sécurité, cette action nécessite une authentification récente. Veuillez vous reconnecter.",
     "reauthenticating": "Réauthentification en cours...",
-    "reauthentication_failed": "Échec de la réauthentification : {0}"
+    "reauthentication_failed": "Échec de la réauthentification : {0}",
+    "syncing_recipes": "Synchronisation des recettes...",
+    "sync_completed": "Synchronisation terminée",
+    "sync_error": "Erreur de synchronisation : {0}",
+    "assign_owner_id_error": "Erreur d'assignation de l'ID propriétaire : {0}",
+    "deleting_account": "Suppression du compte..."
   },
   "add_recipe_controller": {
     "adding_recipe": "Ajout d'une recette...",
@@ -182,5 +196,10 @@
     "invalid_recipe_format": "Format de recette invalide trouvé",
     "incomplete_recipe": "La recette '{0}' est incomplète et a été ignorée",
     "recipe_import_error": "Erreur lors de l'importation de la recette : {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "L'utilisateur doit être connecté pour effectuer cette action.",
+    "image_file_does_not_exist": "Le fichier image n'existe pas : {0}",
+    "failed_to_download_image": "Échec du téléchargement de l'image depuis {0}. Code d'état : {1}"
   }
 }

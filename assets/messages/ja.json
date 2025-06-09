@@ -34,7 +34,12 @@
     "sign_out": "サインアウト",
     "sign_out_description": "アカウントからログアウト",
     "sign_out_confirmation_title": "サインアウト",
-    "sign_out_confirmation_message": "アカウントからサインアウトしてもよろしいですか？"
+    "sign_out_confirmation_message": "アカウントからサインアウトしてもよろしいですか？",
+    "syncing_recipes": "レシピを同期中...",
+    "syncing_recipes_description": "レシピをクラウドと同期している間、しばらくお待ちください。",
+    "sync_success_message": "レシピが正常に同期されました！",
+    "sync_error_message": "レシピの同期エラー: {0}",
+    "auto_sync_disabled": "自動同期が無効になっています。"
   },
   "profile_info_screen": {
     "title": "アカウント情報",
@@ -139,7 +144,11 @@
     "deleting_recipe": "レシピを削除中...",
     "recipe_not_found": "レシピが存在しません",
     "recipe_deleted": "レシピが削除されました",
-    "delete_error": "レシピの削除中にエラーが発生しました"
+    "delete_error": "レシピの削除中にエラーが発生しました: {0}",
+    "load_error": "レシピの読み込みエラー: {0}",
+    "sync_error": "同期エラー: {0}",
+    "add_error": "レシピの追加エラー: {0}",
+    "image_delete_error": "画像の削除エラー: {0}"
   },
   "auth_controller": {
     "signing_in": "サインイン中...",
@@ -148,7 +157,12 @@
     "delete_account_error": "アカウント削除中にエラーが発生しました：{0}",
     "requires_recent_login": "セキュリティ上の理由により、この操作には最近の認証が必要です。再度サインインしてください。",
     "reauthenticating": "再認証中...",
-    "reauthentication_failed": "再認証に失敗しました：{0}"
+    "reauthentication_failed": "再認証に失敗しました：{0}",
+    "syncing_recipes": "レシピを同期中...",
+    "sync_completed": "同期完了",
+    "sync_error": "同期エラー: {0}",
+    "assign_owner_id_error": "オーナーIDの割り当てエラー: {0}",
+    "deleting_account": "アカウントを削除中..."
   },
   "add_recipe_controller": {
     "adding_recipe": "レシピを追加中...",
@@ -182,5 +196,10 @@
     "incomplete_recipe": "レシピ '{0}' は不完全でスキップされました",
     "recipe_import_error": "レシピインポートエラー: {0}",
     "unexpected_error": "予期しないエラーが発生しました: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "この操作を実行するには、ユーザーがログインしている必要があります。",
+    "image_file_does_not_exist": "画像ファイルが存在しません: {0}",
+    "failed_to_download_image": "{0}からの画像のダウンロードに失敗しました。ステータスコード: {1}"
   }
 }

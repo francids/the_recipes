@@ -3,14 +3,18 @@ import "dart:io";
 import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/models/recipe.dart";
+import "package:the_recipes/services/sync_service.dart";
 import "package:uuid/uuid.dart";
 
 class RecipeController extends GetxController {
   final uuid = Uuid();
+  final AuthController authController = Get.find<AuthController>();
 
-  List<Recipe> recipes = <Recipe>[].obs;
+  final RxList<Recipe> recipes = <Recipe>[].obs;
+  bool _isLoading = false;
 
   @override
   void onInit() {
@@ -19,15 +23,29 @@ class RecipeController extends GetxController {
   }
 
   void refreshRecipes() async {
-    recipes.clear();
-    getRecipes();
+    if (!_isLoading) {
+      getRecipes();
+    }
   }
 
   void getRecipes() async {
-    EasyLoading.show(status: "recipe_controller.loading_recipes".tr);
-    recipes.clear();
-    recipes.addAll(Hive.box<Recipe>(recipesBox).values);
-    EasyLoading.dismiss();
+    if (_isLoading) return;
+
+    try {
+      _isLoading = true;
+      EasyLoading.show(status: "recipe_controller.loading_recipes".tr);
+
+      final box = Hive.box<Recipe>(recipesBox);
+
+      recipes.assignAll(box.values.toList());
+    } catch (e) {
+      EasyLoading.showError("recipe_controller.load_error".trParams({
+        "0": e.toString(),
+      }));
+    } finally {
+      _isLoading = false;
+      EasyLoading.dismiss();
+    }
   }
 
   Future<void> addRecipe(
@@ -36,22 +54,44 @@ class RecipeController extends GetxController {
     String imagePath,
     List<String> ingredients,
     List<String> directions,
-    int preparationTime,
-  ) async {
-    String id = uuid.v4();
+    int preparationTime, {
+    String? ownerId,
+    bool? isPublic,
+  }) async {
+    try {
+      String id = uuid.v4();
 
-    Recipe recipe = Recipe(
-      id: id,
-      title: title,
-      description: description,
-      image: imagePath,
-      ingredients: ingredients,
-      directions: directions,
-      preparationTime: preparationTime,
-    );
+      Recipe recipe = Recipe(
+        id: id,
+        title: title,
+        description: description,
+        image: imagePath,
+        ingredients: ingredients,
+        directions: directions,
+        preparationTime: preparationTime,
+        ownerId: ownerId ??
+            (authController.isLoggedIn ? authController.user!.uid : null),
+        isPublic: isPublic ?? false,
+      );
 
-    await Hive.box<Recipe>(recipesBox).put(id, recipe);
-    update();
+      await Hive.box<Recipe>(recipesBox).put(id, recipe);
+
+      recipes.add(recipe);
+
+      if (authController.isLoggedIn && authController.autoSyncEnabled) {
+        try {
+          await SyncService.syncRecipesToCloud();
+        } catch (e) {
+          EasyLoading.showError("recipe_controller.sync_error".trParams({
+            "0": e.toString(),
+          }));
+        }
+      }
+    } catch (e) {
+      EasyLoading.showError("recipe_controller.add_error".trParams({
+        "0": e.toString(),
+      }));
+    }
   }
 
   Future<void> deleteRecipe(String id, String image) async {
@@ -74,15 +114,29 @@ class RecipeController extends GetxController {
             await imageFile.delete();
           }
         } catch (e) {
-          print("Error deleting image: $e");
+          EasyLoading.showError(
+              "recipe_controller.image_delete_error".trParams({
+            "0": e.toString(),
+          }));
+        }
+      }
+
+      if (authController.isLoggedIn && authController.autoSyncEnabled) {
+        try {
+          await SyncService.deleteRecipeFromCloud(id);
+        } catch (e) {
+          EasyLoading.showError("recipe_controller.sync_error".trParams({
+            "0": e.toString(),
+          }));
         }
       }
 
       update();
       EasyLoading.showSuccess("recipe_controller.recipe_deleted".tr);
     } catch (e) {
-      print("Error eliminando receta: $e");
-      EasyLoading.showError("recipe_controller.delete_error".tr);
+      EasyLoading.showError("recipe_controller.delete_error".trParams({
+        "0": e.toString(),
+      }));
     }
   }
 
