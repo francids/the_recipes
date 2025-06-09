@@ -21,10 +21,10 @@ class _InicialScreenState extends State<InicialScreen> {
         "profile_page.title".tr,
       ];
 
-  final List<Widget> _pages = [
-    const RecipesPage(),
-    const ProfilePage(),
-  ];
+  List<Widget> get _pages => [
+        const RecipesPage(),
+        const ProfilePage(),
+      ];
 
   @override
   Widget build(BuildContext context) {
