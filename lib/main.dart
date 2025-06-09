@@ -5,6 +5,7 @@ import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/controllers/language_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/firebase_options.dart";
@@ -23,6 +24,7 @@ void main() async {
   await Hive.initFlutter();
   Hive..registerAdapter(RecipeAdapter());
   await Hive.openBox<Recipe>(recipesBox);
+  await Hive.openBox<String>(favoritesBox);
   await Hive.openBox(ThemeController.themeBox);
   await Hive.openBox(LanguageController.languageBox);
   await Hive.openBox(settingsBox);
@@ -42,6 +44,7 @@ void main() async {
   Get.put(AuthController());
   Get.put(ThemeController());
   Get.put(LanguageController());
+  Get.put(FavoritesController());
 
   configureEasyLoading();
 

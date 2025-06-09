@@ -82,6 +82,10 @@
     "instructions_title": "조리 방법",
     "menu_item_delete": "레시피 삭제"
   },
+  "recipes_page": {
+    "no_favorites": "즐겨찾기 레시피가 없습니다",
+    "favorites_filter": "즐겨찾기"
+  },
   "add_recipe_screen": {
     "title": "레시피 추가",
     "step_image": "이미지",

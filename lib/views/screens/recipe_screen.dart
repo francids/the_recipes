@@ -4,6 +4,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
@@ -16,6 +17,7 @@ class RecipeScreen extends StatelessWidget {
 
   final Recipe recipe;
   final RecipeController recipeController = Get.find();
+  final FavoritesController favoritesController = Get.find();
 
   String _formatPreparationTime(int seconds) {
     if (seconds == 0) return "";
@@ -62,6 +64,17 @@ class RecipeScreen extends StatelessWidget {
           icon: const Icon(CupertinoIcons.back),
         ),
         actions: [
+          Obx(() => IconButton(
+                onPressed: () => favoritesController.toggleFavorite(recipe.id),
+                icon: Icon(
+                  favoritesController.isFavorite(recipe.id)
+                      ? CupertinoIcons.heart_fill
+                      : CupertinoIcons.heart,
+                  color: favoritesController.isFavorite(recipe.id)
+                      ? Colors.red
+                      : null,
+                ),
+              )),
           IconButton(
             icon: const Icon(CupertinoIcons.ellipsis_vertical),
             tooltip: "inicial_screen.menu_tooltip".tr,

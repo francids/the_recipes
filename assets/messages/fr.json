@@ -82,6 +82,10 @@
     "instructions_title": "Instructions",
     "menu_item_delete": "Supprimer la recette"
   },
+  "recipes_page": {
+    "no_favorites": "Aucune recette favorite",
+    "favorites_filter": "Favoris"
+  },
   "add_recipe_screen": {
     "title": "Ajouter une recette",
     "step_image": "Image",

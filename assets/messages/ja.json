@@ -82,6 +82,10 @@
     "instructions_title": "調理手順",
     "menu_item_delete": "レシピを削除"
   },
+  "recipes_page": {
+    "no_favorites": "お気に入りのレシピがありません",
+    "favorites_filter": "お気に入り"
+  },
   "add_recipe_screen": {
     "title": "レシピを追加",
     "step_image": "画像",

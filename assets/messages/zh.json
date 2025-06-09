@@ -82,6 +82,10 @@
     "instructions_title": "烹饪步骤",
     "menu_item_delete": "删除食谱"
   },
+  "recipes_page": {
+    "no_favorites": "暂无收藏的食谱",
+    "favorites_filter": "收藏"
+  },
   "add_recipe_screen": {
     "title": "添加食谱",
     "step_image": "图片",
