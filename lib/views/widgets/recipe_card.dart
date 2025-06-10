@@ -97,28 +97,35 @@ class RecipeCard extends StatelessWidget {
         },
         child: Row(
           children: [
-            Hero(
-              tag: "recipe_image_${recipe.id}",
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: _buildImage(),
+            Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
+                border: Border(
+                  right: BorderSide(
+                    width: 0.5,
+                    color: isDarkMode ? Colors.white30 : Colors.black26,
+                  ),
+                ),
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
               ),
+              child: _buildImage(),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
-                    child: Hero(
-                      tag: "recipe_title_${recipe.id}",
-                      child: Text(
-                        recipe.title,
-                        style: Theme.of(context).textTheme.displayMedium,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+                    child: Text(
+                      recipe.title,
+                      style: Theme.of(context).textTheme.displayMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                   const SizedBox(height: 8),

@@ -138,27 +138,30 @@ class RecipeScreen extends StatelessWidget {
                             isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Hero(
-                        tag: "recipe_image_${recipe.id}",
-                        child: ClipRRect(
+                      child: Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(9.5),
-                          child: Image.file(
-                            File(recipe.image),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          ),
+                          color:
+                              Theme.of(context).colorScheme.surfaceContainerLow,
+                        ),
+                        child: Image.file(
+                          File(recipe.image),
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     const SizedBox(height: 24),
-                    Hero(
-                      tag: "recipe_title_${recipe.id}",
-                      child: Text(
-                        recipe.title,
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                    ),
+                    Text(
+                      recipe.title,
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(
+                          begin: 0.2,
+                          duration: 400.ms,
+                          curve: Curves.easeOutCubic,
+                        ),
                     const SizedBox(height: 8),
                     if (recipe.preparationTime > 0)
                       Chip(
