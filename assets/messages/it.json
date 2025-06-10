@@ -39,7 +39,12 @@
     "syncing_recipes_description": "Attendere prego mentre le ricette vengono sincronizzate con il cloud.",
     "sync_success_message": "Ricette sincronizzate con successo!",
     "sync_error_message": "Errore durante la sincronizzazione delle ricette: {0}",
-    "auto_sync_disabled": "Sincronizzazione automatica disabilitata."
+    "auto_sync_disabled": "Sincronizzazione automatica disabilitata.",
+    "disable_sync_confirmation_title": "Disattiva Sincronizzazione Cloud",
+    "disable_sync_confirmation_message": "Sei sicuro di voler disattivare la sincronizzazione cloud? Questo eliminerà definitivamente tutte le tue ricette dal cloud, incluse le ricette condivise. Le tue ricette locali rimarranno su questo dispositivo.",
+    "deleting_cloud_recipes_title": "Eliminazione Ricette Cloud",
+    "deleting_cloud_recipes_description": "Attendere prego mentre eliminiamo tutte le vostre ricette dal cloud.",
+    "delete_cloud_recipes_error": "Errore durante l'eliminazione delle ricette cloud: {0}"
   },
   "profile_info_screen": {
     "title": "Informazioni Account",

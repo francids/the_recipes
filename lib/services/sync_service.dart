@@ -237,4 +237,45 @@ class SyncService {
       rethrow;
     }
   }
+
+  static Future<void> deleteAllUserRecipesFromCloud() async {
+    if (!_authController.isLoggedIn) {
+      throw Exception("sync_service.user_must_be_logged_in".tr);
+    }
+
+    try {
+      final QuerySnapshot snapshot = await _firestore
+          .collection("recipes")
+          .where("ownerId", isEqualTo: _authController.user!.uid)
+          .get();
+
+      for (QueryDocumentSnapshot doc in snapshot.docs) {
+        final recipeData = doc.data() as Map<String, dynamic>;
+        final imageUrl = recipeData["image"] as String?;
+
+        if (imageUrl != null &&
+            (imageUrl.startsWith("https://firebasestorage.googleapis.com") ||
+                imageUrl.startsWith("gs://"))) {
+          try {
+            final Reference imageRef = _storage.refFromURL(imageUrl);
+            await imageRef.delete();
+            debugPrint(
+              "Image deleted from Firebase Storage during mass delete: $imageUrl",
+            );
+          } catch (e) {
+            debugPrint(
+              "Error deleting image from Firebase Storage during mass delete: $e",
+            );
+          }
+        }
+        await _firestore.collection("recipes").doc(doc.id).delete();
+        debugPrint(
+          "Recipe document deleted from Firestore during mass delete: ${doc.id}",
+        );
+      }
+    } catch (e) {
+      debugPrint("Error deleting all user recipes from cloud: $e");
+      rethrow;
+    }
+  }
 }

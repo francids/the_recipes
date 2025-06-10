@@ -39,7 +39,12 @@
     "syncing_recipes_description": "Please wait while your recipes are being synced with the cloud.",
     "sync_success_message": "Recipes synced successfully!",
     "sync_error_message": "Error syncing recipes: {0}",
-    "auto_sync_disabled": "Auto-sync disabled."
+    "auto_sync_disabled": "Auto-sync disabled.",
+    "disable_sync_confirmation_title": "Disable Cloud Sync",
+    "disable_sync_confirmation_message": "Are you sure you want to disable cloud sync? This will permanently delete all your recipes from the cloud, including any shared recipes. Your local recipes will remain on this device.",
+    "deleting_cloud_recipes_title": "Deleting Cloud Recipes",
+    "deleting_cloud_recipes_description": "Please wait while we delete all your recipes from the cloud.",
+    "delete_cloud_recipes_error": "Error deleting cloud recipes: {0}"
   },
   "profile_info_screen": {
     "title": "Account Information",

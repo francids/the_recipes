@@ -39,7 +39,12 @@
     "syncing_recipes_description": "レシピをクラウドと同期している間、しばらくお待ちください。",
     "sync_success_message": "レシピが正常に同期されました！",
     "sync_error_message": "レシピの同期エラー: {0}",
-    "auto_sync_disabled": "自動同期が無効になっています。"
+    "auto_sync_disabled": "自動同期が無効になっています。",
+    "disable_sync_confirmation_title": "クラウド同期を無効にする",
+    "disable_sync_confirmation_message": "クラウド同期を無効にしてもよろしいですか？これにより、共有されたレシピを含む、クラウド上のすべてのレシピが完全に削除されます。ローカルのレシピはこのデバイスに残ります。",
+    "deleting_cloud_recipes_title": "クラウドレシピを削除中",
+    "deleting_cloud_recipes_description": "クラウドからすべてのレシピを削除している間、お待ちください。",
+    "delete_cloud_recipes_error": "クラウドレシピの削除エラー: {0}"
   },
   "profile_info_screen": {
     "title": "アカウント情報",

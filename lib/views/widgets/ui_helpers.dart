@@ -57,6 +57,7 @@ class UIHelpers {
         lottieAsset,
         fit: BoxFit.contain,
       ),
+      titleAlign: TextAlign.center,
       msgAlign: TextAlign.center,
       titleStyle: Theme.of(context).textTheme.displayMedium!,
       msgStyle: Theme.of(context).textTheme.bodyMedium,
@@ -80,18 +81,23 @@ class UIHelpers {
   }
 
   static void showLoadingDialog(
-      BuildContext context, String title, String message) {
+    BuildContext context,
+    String title,
+    String message, {
+    String? lottieAsset,
+  }) {
     Dialogs.materialDialog(
       context: context,
       barrierDismissible: false,
       title: title,
       msg: message,
       lottieBuilder: LottieBuilder.asset(
-        "assets/lottie/loading.json",
+        lottieAsset ?? "assets/lottie/loading.json",
         fit: BoxFit.contain,
       ),
+      titleAlign: TextAlign.center,
       msgAlign: TextAlign.center,
-      titleStyle: Theme.of(context).textTheme.displayMedium!,
+      titleStyle: Theme.of(context).textTheme.displayMedium!.copyWith(),
       msgStyle: Theme.of(context).textTheme.bodyMedium,
       color: Theme.of(context).colorScheme.surface,
       dialogWidth: MediaQuery.of(context).size.width * 0.8,

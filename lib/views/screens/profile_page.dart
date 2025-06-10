@@ -242,13 +242,14 @@ class ProfilePage extends StatelessWidget {
 
   void _handleAutoSyncToggle(bool enabled, BuildContext context) async {
     final authController = Get.find<AuthController>();
-    await authController.setAutoSyncEnabled(enabled);
 
     if (enabled) {
+      await authController.setAutoSyncEnabled(enabled);
       UIHelpers.showLoadingDialog(
         context,
         "profile_page.syncing_recipes".tr,
         "profile_page.syncing_recipes_description".tr,
+        lottieAsset: "assets/lottie/sync.json",
       );
 
       try {
@@ -277,9 +278,42 @@ class ProfilePage extends StatelessWidget {
         );
       }
     } else {
-      UIHelpers.showSuccessSnackbar(
-        "profile_page.auto_sync_disabled".tr,
-        context,
+      UIHelpers.showConfirmationDialog(
+        context: context,
+        title: "profile_page.disable_sync_confirmation_title".tr,
+        message: "profile_page.disable_sync_confirmation_message".tr,
+        lottieAsset: "assets/lottie/alert.json",
+        confirmAction: () async {
+          Get.back();
+          await authController.setAutoSyncEnabled(enabled);
+
+          try {
+            UIHelpers.showLoadingDialog(
+              context,
+              "profile_page.deleting_cloud_recipes_title".tr,
+              "profile_page.deleting_cloud_recipes_description".tr,
+            );
+
+            await SyncService.deleteAllUserRecipesFromCloud();
+            Get.back();
+
+            UIHelpers.showSuccessSnackbar(
+              "profile_page.auto_sync_disabled".tr,
+              context,
+            );
+          } catch (e) {
+            Get.back();
+
+            await authController.setAutoSyncEnabled(true);
+
+            UIHelpers.showErrorSnackbar(
+              "profile_page.delete_cloud_recipes_error".trParams({
+                "0": e.toString(),
+              }),
+              context,
+            );
+          }
+        },
       );
     }
   }

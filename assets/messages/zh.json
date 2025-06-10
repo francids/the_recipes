@@ -39,7 +39,12 @@
     "syncing_recipes_description": "请稍候，您的食谱正在与云端同步。",
     "sync_success_message": "食谱同步成功！",
     "sync_error_message": "同步食谱错误：{0}",
-    "auto_sync_disabled": "自动同步已禁用。"
+    "auto_sync_disabled": "自动同步已禁用。",
+    "disable_sync_confirmation_title": "禁用云端同步",
+    "disable_sync_confirmation_message": "您确定要禁用云端同步吗？这将永久删除云端所有食谱，包括任何已分享的食谱。您的本地食谱将保留在此设备上。",
+    "deleting_cloud_recipes_title": "正在删除云端食谱",
+    "deleting_cloud_recipes_description": "请稍候，我们正在从云端删除您的所有食谱。",
+    "delete_cloud_recipes_error": "删除云端食谱错误：{0}"
   },
   "profile_info_screen": {
     "title": "账户信息",

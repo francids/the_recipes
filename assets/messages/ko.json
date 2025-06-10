@@ -39,7 +39,12 @@
     "syncing_recipes_description": "레시피를 클라우드와 동기화하는 동안 잠시 기다려 주십시오.",
     "sync_success_message": "레시피가 성공적으로 동기화되었습니다!",
     "sync_error_message": "레시피 동기화 오류: {0}",
-    "auto_sync_disabled": "자동 동기화 비활성화됨."
+    "auto_sync_disabled": "자동 동기화 비활성화됨.",
+    "disable_sync_confirmation_title": "클라우드 동기화 비활성화",
+    "disable_sync_confirmation_message": "클라우드 동기화를 비활성화하시겠습니까? 이렇게 하면 공유된 레시피를 포함하여 클라우드의 모든 레시피가 영구적으로 삭제됩니다. 로컬 레시피는 이 기기에 남아 있습니다.",
+    "deleting_cloud_recipes_title": "클라우드 레시피 삭제 중",
+    "deleting_cloud_recipes_description": "클라우드에서 모든 레시피를 삭제하는 동안 잠시 기다려 주십시오.",
+    "delete_cloud_recipes_error": "클라우드 레시피 삭제 오류: {0}"
   },
   "profile_info_screen": {
     "title": "계정 정보",
