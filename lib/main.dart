@@ -92,10 +92,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "The Recipes App",
+      title: "Recipes",
       transitionDuration: const Duration(milliseconds: 350),
-      defaultTransition: Transition.rightToLeft,
+      defaultTransition: Transition.cupertino,
       debugShowCheckedModeBanner: false,
+      color: Colors.deepOrange,
       theme: TheRecipeAppTheme.theme,
       darkTheme: TheRecipeAppTheme.darkTheme,
       themeMode: ThemeMode.system,
