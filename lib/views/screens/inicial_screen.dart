@@ -1,5 +1,3 @@
-import "dart:ui";
-
 import "package:flutter/cupertino.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
@@ -21,23 +19,12 @@ class _InicialScreenState extends State<InicialScreen>
     with TickerProviderStateMixin {
   int _currentIndex = 0;
   late TabController _tabController;
-  late ScrollController _scrollController;
   bool _isScrolledToTop = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _scrollController = ScrollController();
-
-    _scrollController.addListener(() {
-      final isAtTop = _scrollController.offset <= 0;
-      if (isAtTop != _isScrolledToTop) {
-        setState(() {
-          _isScrolledToTop = isAtTop;
-        });
-      }
-    });
 
     _tabController.addListener(() {
       setState(() {
@@ -58,7 +45,6 @@ class _InicialScreenState extends State<InicialScreen>
   @override
   void dispose() {
     _tabController.dispose();
-    _scrollController.dispose();
     super.dispose();
   }
 
@@ -160,11 +146,21 @@ class _InicialScreenState extends State<InicialScreen>
       ),
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
-          final isAtTop = scrollInfo.metrics.pixels <= 0;
-          if (isAtTop != _isScrolledToTop) {
-            setState(() {
-              _isScrolledToTop = isAtTop;
-            });
+          // Solo procesar si es de la pestaña actual de recetas
+          if (_currentIndex == 0) {
+            final isAtTop = scrollInfo.metrics.pixels <= 0;
+            if (isAtTop != _isScrolledToTop) {
+              setState(() {
+                _isScrolledToTop = isAtTop;
+              });
+            }
+          } else {
+            // Si no estamos en la pestaña de recetas, consideramos que estamos en el top
+            if (!_isScrolledToTop) {
+              setState(() {
+                _isScrolledToTop = true;
+              });
+            }
           }
           return false;
         },
