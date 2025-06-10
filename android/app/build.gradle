@@ -28,7 +28,7 @@ if (flutterVersionName == null) {
 android {
     namespace "com.francids.recipes"
     compileSdkVersion 35
-    ndkVersion flutter.ndkVersion
+    ndkVersion "27.2.12479018"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
