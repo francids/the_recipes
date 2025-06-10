@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
+import "package:the_recipes/hive_boxes.dart";
 
 class ThemeController extends GetxController {
-  static const themeBox = "theme_box";
   static const themeKey = "dark_theme";
   static const followSystemThemeKey = "follow_system_theme";
 
   bool _isDarkMode = false;
-  bool _followSystemTheme = false;
+  bool _followSystemTheme = true;
 
   bool get isDarkMode => _isDarkMode;
   bool get followSystemTheme => _followSystemTheme;
@@ -21,13 +21,13 @@ class ThemeController extends GetxController {
 
   void loadTheme() async {
     try {
-      if (!Hive.isBoxOpen(themeBox)) {
-        await Hive.openBox(themeBox);
+      if (!Hive.isBoxOpen(settingsBox)) {
+        await Hive.openBox(settingsBox);
       }
 
-      final box = Hive.box(themeBox);
+      final box = Hive.box(settingsBox);
 
-      _followSystemTheme = box.get(followSystemThemeKey, defaultValue: false);
+      _followSystemTheme = box.get(followSystemThemeKey, defaultValue: true);
       _isDarkMode = box.get(themeKey, defaultValue: false);
 
       if (_followSystemTheme) {
@@ -38,7 +38,7 @@ class ThemeController extends GetxController {
       applyTheme();
     } catch (e) {
       print("Error loading theme: $e");
-      _followSystemTheme = false;
+      _followSystemTheme = true;
       _isDarkMode = Get.isPlatformDarkMode;
       update();
       applyTheme();
@@ -52,11 +52,11 @@ class ThemeController extends GetxController {
     update();
 
     try {
-      if (!Hive.isBoxOpen(themeBox)) {
-        await Hive.openBox(themeBox);
+      if (!Hive.isBoxOpen(settingsBox)) {
+        await Hive.openBox(settingsBox);
       }
 
-      final box = Hive.box(themeBox);
+      final box = Hive.box(settingsBox);
       await box.put(themeKey, _isDarkMode);
 
       applyTheme();
@@ -74,10 +74,10 @@ class ThemeController extends GetxController {
     update();
 
     try {
-      if (!Hive.isBoxOpen(themeBox)) {
-        await Hive.openBox(themeBox);
+      if (!Hive.isBoxOpen(settingsBox)) {
+        await Hive.openBox(settingsBox);
       }
-      final box = Hive.box(themeBox);
+      final box = Hive.box(settingsBox);
       await box.put(followSystemThemeKey, _followSystemTheme);
 
       applyTheme();

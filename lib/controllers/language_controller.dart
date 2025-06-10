@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
+import "package:the_recipes/hive_boxes.dart";
 
 class LanguageController extends GetxController {
-  static const languageBox = "language_box";
   static const languageKey = "language_key";
 
   String _currentLanguage = Get.deviceLocale?.languageCode ?? "en";
@@ -17,11 +17,11 @@ class LanguageController extends GetxController {
 
   void loadLanguage() async {
     try {
-      if (!Hive.isBoxOpen(languageBox)) {
-        await Hive.openBox(languageBox);
+      if (!Hive.isBoxOpen(settingsBox)) {
+        await Hive.openBox(settingsBox);
       }
 
-      final box = Hive.box(languageBox);
+      final box = Hive.box(settingsBox);
       final language = box.get(
         languageKey,
         defaultValue: Get.deviceLocale?.languageCode ?? "en",
@@ -44,11 +44,11 @@ class LanguageController extends GetxController {
     update();
 
     try {
-      if (!Hive.isBoxOpen(languageBox)) {
-        await Hive.openBox(languageBox);
+      if (!Hive.isBoxOpen(settingsBox)) {
+        await Hive.openBox(settingsBox);
       }
 
-      final box = Hive.box(languageBox);
+      final box = Hive.box(settingsBox);
       await box.put(languageKey, _currentLanguage);
 
       applyLanguage();

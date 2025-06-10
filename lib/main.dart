@@ -25,8 +25,6 @@ void main() async {
   Hive..registerAdapter(RecipeAdapter());
   await Hive.openBox<Recipe>(recipesBox);
   await Hive.openBox<String>(favoritesBox);
-  await Hive.openBox(ThemeController.themeBox);
-  await Hive.openBox(LanguageController.languageBox);
   await Hive.openBox(settingsBox);
 
   await Firebase.initializeApp(

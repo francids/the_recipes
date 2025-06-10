@@ -6,6 +6,7 @@ import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:the_recipes/hive_boxes.dart";
 
 class AuthController extends GetxController {
+  static const autoSyncKey = "autoSync";
   static AuthController instance = Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -19,12 +20,12 @@ class AuthController extends GetxController {
 
   bool _getAutoSyncSetting() {
     final box = Hive.box(settingsBox);
-    return box.get("autoSync", defaultValue: false) as bool;
+    return box.get(autoSyncKey, defaultValue: false) as bool;
   }
 
   Future<void> setAutoSyncEnabled(bool value) async {
     final box = Hive.box(settingsBox);
-    await box.put("autoSync", value);
+    await box.put(autoSyncKey, value);
     update();
   }
 
@@ -66,7 +67,7 @@ class AuthController extends GetxController {
   Future<void> signOut() async {
     try {
       final box = Hive.box(settingsBox);
-      await box.delete("autoSync");
+      await box.delete(autoSyncKey);
       await _auth.signOut();
       await _googleSignIn.signOut();
       update();
