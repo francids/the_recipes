@@ -4,7 +4,9 @@ import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/views/screens/profile_page.dart";
 import "package:the_recipes/views/screens/settings_screen.dart";
 import "package:the_recipes/views/screens/recipes_page.dart";
+import "package:the_recipes/views/screens/add_recipe_screen.dart";
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 class InicialScreen extends StatefulWidget {
   const InicialScreen({super.key});
@@ -13,8 +15,36 @@ class InicialScreen extends StatefulWidget {
   State<InicialScreen> createState() => _InicialScreenState();
 }
 
-class _InicialScreenState extends State<InicialScreen> {
+class _InicialScreenState extends State<InicialScreen>
+    with TickerProviderStateMixin {
   int _currentIndex = 0;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _currentIndex = _tabController.index;
+      });
+    });
+    _tabController.animation?.addListener(() {
+      final animationValue = _tabController.animation?.value ?? 0;
+      final newIndex = animationValue.round();
+      if (newIndex != _currentIndex) {
+        setState(() {
+          _currentIndex = newIndex;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   List<String> get _titles => [
         "inicial_screen.title".tr,
@@ -76,43 +106,101 @@ class _InicialScreenState extends State<InicialScreen> {
           ),
         ],
       ),
-      body: _pages[_currentIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white30
-                  : Colors.black26,
-              width: 0.5,
+      body: Stack(
+        children: [
+          TabBarView(
+            controller: _tabController,
+            children: _pages,
+          ),
+          Positioned(
+            bottom: 48,
+            left: 20,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: 56,
+              decoration: BoxDecoration(
+                color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .backgroundColor ??
+                    Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white.withAlpha(25)
+                      : Colors.black.withAlpha(25),
+                  width: 0.5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black.withAlpha(77)
+                        : Colors.black.withAlpha(25),
+                    blurRadius: 10,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: TabBar(
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorPadding: const EdgeInsets.all(4),
+                dividerColor: Colors.transparent,
+                splashFactory: NoSplash.splashFactory,
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
+                labelColor: Colors.white,
+                unselectedLabelColor: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
+                labelStyle: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedLabelStyle ??
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                unselectedLabelStyle: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .unselectedLabelStyle ??
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                tabs: [
+                  Tab(
+                    iconMargin: const EdgeInsets.only(bottom: 4),
+                    icon: Icon(CupertinoIcons.home),
+                    text: _titles[0],
+                  ),
+                  Tab(
+                    iconMargin: const EdgeInsets.only(bottom: 4),
+                    icon: Icon(CupertinoIcons.person),
+                    text: _titles[1],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Icon(CupertinoIcons.home),
+          if (_currentIndex == 0)
+            Positioned(
+              bottom: 48,
+              right: 20,
+              child: Tooltip(
+                message: "inicial_screen.fab_tooltip_add".tr,
+                preferBelow: false,
+                child: FloatingActionButton(
+                  onPressed: () async {
+                    await Get.to(const AddRecipeScreen());
+                  },
+                  child: const Icon(CupertinoIcons.add),
+                ).animate().scale(
+                      delay: 150.ms,
+                      duration: 300.ms,
+                      curve: Curves.easeOutBack,
+                    ),
               ),
-              label: _titles[0],
             ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Icon(CupertinoIcons.person),
-              ),
-              label: _titles[1],
-            ),
-          ],
-        ),
+        ],
       ),
+      floatingActionButton: null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

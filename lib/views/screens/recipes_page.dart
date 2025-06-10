@@ -5,7 +5,6 @@ import "package:flutter_animate/flutter_animate.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/views/widgets/recipe_card.dart";
-import "package:the_recipes/views/screens/add_recipe_screen.dart";
 
 enum SortOption { none, title, duration }
 
@@ -16,95 +15,113 @@ class RecipesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final recipeController = Get.find<RecipeController>();
     final favoritesController = Get.find<FavoritesController>();
-    final currentSortOption = SortOption.none.obs;
+    final _currentSortOption = SortOption.none.obs;
 
-    return Scaffold(
-      floatingActionButton: Tooltip(
-        message: "inicial_screen.fab_tooltip_add".tr,
-        preferBelow: false,
-        child: FloatingActionButton(
-          onPressed: () async {
-            await Get.to(const AddRecipeScreen());
-          },
-          child: const Icon(CupertinoIcons.add),
-        ).animate().scale(
-              delay: 150.ms,
-              duration: 300.ms,
-              curve: Curves.easeOutBack,
-            ),
-      ),
-      body: Column(
-        children: [
-          Obx(() {
-            if (recipeController.recipes.isEmpty) {
-              return const SizedBox.shrink();
-            }
-            return _buildFilterChip(favoritesController, currentSortOption)
-                .animate()
-                .fadeIn(duration: 300.ms)
-                .slideY(begin: -0.2, curve: Curves.easeOutCubic);
-          }),
-          Expanded(
-            child: Obx(() {
-              var displayedRecipes = favoritesController.showFavoritesOnly.value
-                  ? recipeController.recipes
-                      .where(
-                          (recipe) => favoritesController.isFavorite(recipe.id))
-                      .toList()
-                  : recipeController.recipes.toList();
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Obx(() {
+                if (recipeController.recipes.isEmpty) {
+                  return const SizedBox.shrink();
+                }
+                return _buildFilterChip(favoritesController, _currentSortOption)
+                    .animate()
+                    .fadeIn(duration: 300.ms)
+                    .slideY(begin: -0.2, curve: Curves.easeOutCubic);
+              }),
+              Obx(() {
+                var displayedRecipes =
+                    favoritesController.showFavoritesOnly.value
+                        ? recipeController.recipes
+                            .where((recipe) =>
+                                favoritesController.isFavorite(recipe.id))
+                            .toList()
+                        : recipeController.recipes.toList();
 
-              if (currentSortOption.value == SortOption.title) {
-                displayedRecipes.sort((a, b) =>
-                    a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-              } else if (currentSortOption.value == SortOption.duration) {
-                displayedRecipes.sort(
-                    (a, b) => a.preparationTime.compareTo(b.preparationTime));
-              }
+                if (_currentSortOption.value == SortOption.title) {
+                  displayedRecipes.sort((a, b) =>
+                      a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+                } else if (_currentSortOption.value == SortOption.duration) {
+                  displayedRecipes.sort(
+                      (a, b) => a.preparationTime.compareTo(b.preparationTime));
+                }
 
-              return displayedRecipes.isEmpty
-                  ? Center(
-                      child: Text(
-                        favoritesController.showFavoritesOnly.value
-                            ? "recipes_page.no_favorites".tr
-                            : "inicial_screen.empty_list".tr,
-                      ),
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () async {
-                        recipeController.refreshRecipes();
-                      },
-                      child: ListView.separated(
-                        padding: EdgeInsets.only(
-                          top: 8,
-                          bottom: MediaQuery.of(context).padding.bottom + 16.0,
-                          left: 16,
-                          right: 16,
+                return displayedRecipes.isEmpty
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height - 300.0,
+                        child: Center(
+                          child: Text(
+                            favoritesController.showFavoritesOnly.value
+                                ? "recipes_page.no_favorites".tr
+                                : "inicial_screen.empty_list".tr,
+                          ),
                         ),
-                        itemCount: displayedRecipes.length,
-                        itemBuilder: (context, index) {
-                          return RecipeCard(
-                            recipe: displayedRecipes[index],
-                          )
-                              .animate()
-                              .fadeIn(
-                                delay: (50 * index).ms,
-                                duration: 300.ms,
-                              )
-                              .slideX(
-                                begin: -0.1,
-                                delay: (50 * index).ms,
-                                duration: 300.ms,
-                                curve: Curves.easeOutCubic,
-                              );
+                      )
+                    : RefreshIndicator(
+                        onRefresh: () async {
+                          recipeController.refreshRecipes();
                         },
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 12),
-                      ),
-                    );
-            }),
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.only(
+                            top: 8,
+                            bottom: MediaQuery.of(context).padding.bottom +
+                                16.0 +
+                                80.0,
+                            left: 16,
+                            right: 16,
+                          ),
+                          itemCount: displayedRecipes.length,
+                          itemBuilder: (context, index) {
+                            return RecipeCard(
+                              recipe: displayedRecipes[index],
+                            )
+                                .animate()
+                                .fadeIn(
+                                  delay: (50 * index).ms,
+                                  duration: 300.ms,
+                                )
+                                .slideX(
+                                  begin: -0.1,
+                                  delay: (50 * index).ms,
+                                  duration: 300.ms,
+                                  curve: Curves.easeOutCubic,
+                                );
+                          },
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 12),
+                        ),
+                      );
+              }),
+            ],
           ),
-        ],
-      ),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: IgnorePointer(
+            child: Container(
+              height: 80.0,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(0),
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(179),
+                    Theme.of(context).scaffoldBackgroundColor,
+                  ],
+                  stops: const [0.0, 0.4, 1.0],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -112,17 +129,13 @@ class RecipesPage extends StatelessWidget {
     FavoritesController favoritesController,
     Rx<SortOption> currentSortOption,
   ) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxHeight: 60,
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 8,
       ),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.only(
-          top: 8.0,
-          left: 16.0,
-          right: 16.0,
-        ),
+      child: Row(
         children: [
           FilterChip(
             showCheckmark: false,
