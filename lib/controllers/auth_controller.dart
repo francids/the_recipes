@@ -3,10 +3,7 @@ import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:get/get.dart";
 import "package:google_sign_in/google_sign_in.dart";
 import "package:hive_ce_flutter/hive_flutter.dart";
-import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
-import "package:the_recipes/models/recipe.dart";
-import "package:the_recipes/services/sync_service.dart";
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -22,7 +19,7 @@ class AuthController extends GetxController {
 
   bool _getAutoSyncSetting() {
     final box = Hive.box(settingsBox);
-    return box.get("autoSync", defaultValue: true) as bool;
+    return box.get("autoSync", defaultValue: false) as bool;
   }
 
   Future<void> setAutoSyncEnabled(bool value) async {
@@ -37,59 +34,7 @@ class AuthController extends GetxController {
     _auth.authStateChanges().listen((User? user) {
       _user = user;
       update();
-
-      if (user != null && autoSyncEnabled) {
-        _performAutoSync();
-      }
     });
-  }
-
-  Future<void> _performAutoSync() async {
-    try {
-      EasyLoading.show(status: "auth_controller.syncing_recipes".tr);
-
-      await _assignOwnerIdToLocalRecipes();
-      await SyncService.fullSync();
-
-      final recipeController = Get.find<RecipeController>();
-      recipeController.refreshRecipes();
-
-      EasyLoading.showSuccess("auth_controller.sync_completed".tr);
-    } catch (e) {
-      EasyLoading.showError("auth_controller.sync_error".trParams({
-        "0": e.toString(),
-      }));
-    }
-  }
-
-  Future<void> _assignOwnerIdToLocalRecipes() async {
-    if (_user == null) return;
-
-    try {
-      final box = Hive.box<Recipe>(recipesBox);
-
-      for (int i = 0; i < box.length; i++) {
-        final recipe = box.getAt(i);
-        if (recipe != null &&
-            (recipe.ownerId!.isEmpty || recipe.ownerId != _user!.uid)) {
-          final updatedRecipe = Recipe(
-            id: recipe.id,
-            title: recipe.title,
-            description: recipe.description,
-            image: recipe.image,
-            ingredients: recipe.ingredients,
-            directions: recipe.directions,
-            preparationTime: recipe.preparationTime,
-            ownerId: _user!.uid,
-          );
-          await box.putAt(i, updatedRecipe);
-        }
-      }
-    } catch (e) {
-      EasyLoading.showError("auth_controller.assign_owner_id_error".trParams({
-        "0": e.toString(),
-      }));
-    }
   }
 
   Future<void> signInWithGoogle() async {
@@ -120,6 +65,8 @@ class AuthController extends GetxController {
 
   Future<void> signOut() async {
     try {
+      final box = Hive.box(settingsBox);
+      await box.delete("autoSync");
       await _auth.signOut();
       await _googleSignIn.signOut();
       update();
