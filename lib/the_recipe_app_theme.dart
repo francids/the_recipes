@@ -9,6 +9,7 @@ class TheRecipeAppTheme {
   static ThemeData getTheme(bool isDark) {
     return ThemeData(
       textTheme: _getTextTheme(isDark),
+      dialogTheme: _dialogTheme(isDark),
       cardTheme: cardTheme(isDark),
       dividerTheme: _dividerTheme(isDark),
       colorScheme: isDark ? _darkColorScheme : _colorScheme,
@@ -26,6 +27,16 @@ class TheRecipeAppTheme {
       useMaterial3: true,
       popupMenuTheme: _popupMenuTheme(isDark),
       snackBarTheme: _snackBarTheme(isDark),
+    );
+  }
+
+  static DialogThemeData _dialogTheme(bool isDark) {
+    return DialogThemeData(
+      elevation: 8,
+      backgroundColor: isDark ? _darkColorScheme.surface : _colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
     );
   }
 

@@ -2,7 +2,6 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:lottie/lottie.dart";
-import "package:material_dialogs/material_dialogs.dart";
 
 class UIHelpers {
   static void showErrorSnackbar(String message, BuildContext context) {
@@ -49,33 +48,64 @@ class UIHelpers {
     required String lottieAsset,
     required VoidCallback confirmAction,
   }) {
-    Dialogs.materialDialog(
+    showDialog(
       context: context,
-      title: title,
-      msg: message,
-      lottieBuilder: LottieBuilder.asset(
-        lottieAsset,
-        fit: BoxFit.contain,
-      ),
-      titleAlign: TextAlign.center,
-      msgAlign: TextAlign.center,
-      titleStyle: Theme.of(context).textTheme.displayMedium!,
-      msgStyle: Theme.of(context).textTheme.bodyMedium,
-      color: Theme.of(context).colorScheme.surface,
-      dialogWidth: MediaQuery.of(context).size.width * 0.8,
+      barrierDismissible: true,
       useRootNavigator: true,
-      useSafeArea: true,
-      actionsBuilder: (context) {
-        return [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text("ui_helpers.cancel".tr),
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: Lottie.asset(
+                    lottieAsset,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.displayMedium!,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  message,
+                  style: Theme.of(context).textTheme.bodyMedium!,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () => Get.back(),
+                        child: Text("ui_helpers.cancel".tr),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: FilledButton(
+                        onPressed: () {
+                          Get.back();
+                          confirmAction();
+                        },
+                        child: Text("ui_helpers.confirm".tr),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          FilledButton(
-            onPressed: confirmAction,
-            child: Text("ui_helpers.confirm".tr),
-          ),
-        ];
+        );
       },
     );
   }
@@ -86,23 +116,43 @@ class UIHelpers {
     String message, {
     String? lottieAsset,
   }) {
-    Dialogs.materialDialog(
+    showDialog(
       context: context,
       barrierDismissible: false,
-      title: title,
-      msg: message,
-      lottieBuilder: LottieBuilder.asset(
-        lottieAsset ?? "assets/lottie/loading.json",
-        fit: BoxFit.contain,
-      ),
-      titleAlign: TextAlign.center,
-      msgAlign: TextAlign.center,
-      titleStyle: Theme.of(context).textTheme.displayMedium!.copyWith(),
-      msgStyle: Theme.of(context).textTheme.bodyMedium,
-      color: Theme.of(context).colorScheme.surface,
-      dialogWidth: MediaQuery.of(context).size.width * 0.8,
-      useRootNavigator: true,
-      useSafeArea: true,
+      useRootNavigator: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: Lottie.asset(
+                    lottieAsset ?? "assets/lottie/loading.json",
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.displayMedium!,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  message,
+                  style: Theme.of(context).textTheme.bodyMedium!,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
