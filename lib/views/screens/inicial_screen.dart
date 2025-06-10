@@ -92,7 +92,9 @@ class _InicialScreenState extends State<InicialScreen>
             : const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero,
               ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: _currentIndex == 0
+            ? Colors.transparent
+            : Theme.of(context).scaffoldBackgroundColor,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
