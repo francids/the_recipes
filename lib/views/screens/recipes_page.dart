@@ -22,6 +22,9 @@ class RecipesPage extends StatelessWidget {
         SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: MediaQuery.of(context).padding.top,
+              ),
               Obx(() {
                 if (recipeController.recipes.isEmpty) {
                   return const SizedBox.shrink();
@@ -100,6 +103,29 @@ class RecipesPage extends StatelessWidget {
           ),
         ),
         Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: IgnorePointer(
+            child: Container(
+              height: 160,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(0),
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(72),
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(196),
+                    Theme.of(context).scaffoldBackgroundColor,
+                  ],
+                  stops: const [0.0, 0.15, 0.4, 1.0],
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
           bottom: 0,
           left: 0,
           right: 0,
@@ -112,10 +138,11 @@ class RecipesPage extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Theme.of(context).scaffoldBackgroundColor.withAlpha(0),
-                    Theme.of(context).scaffoldBackgroundColor.withAlpha(75),
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(90),
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(180),
                     Theme.of(context).scaffoldBackgroundColor,
                   ],
-                  stops: const [0.0, 0.4, 1.0],
+                  stops: const [0.0, 0.25, 0.6, 1.0],
                 ),
               ),
             ),

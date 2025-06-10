@@ -31,6 +31,9 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: MediaQuery.of(context).padding.top,
+                ),
                 _buildProfileHeader(context, controller)
                     .animate()
                     .fadeIn(duration: 300.ms)
