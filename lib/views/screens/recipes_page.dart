@@ -105,14 +105,14 @@ class RecipesPage extends StatelessWidget {
           right: 0,
           child: IgnorePointer(
             child: Container(
-              height: 80.0,
+              height: 140,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
                     Theme.of(context).scaffoldBackgroundColor.withAlpha(0),
-                    Theme.of(context).scaffoldBackgroundColor.withAlpha(179),
+                    Theme.of(context).scaffoldBackgroundColor.withAlpha(75),
                     Theme.of(context).scaffoldBackgroundColor,
                   ],
                   stops: const [0.0, 0.4, 1.0],
