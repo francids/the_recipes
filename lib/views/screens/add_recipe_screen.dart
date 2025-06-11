@@ -173,64 +173,97 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         ),
         body: Stack(
           children: [
-            Column(
-              children: [
-                Obx(
-                  () => Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          _stepTitles[_currentStep.value],
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "add_recipe_screen.step_counter".trParams(
-                            {
-                              "0": (_currentStep.value + 1).toString(),
-                              "1": "4",
-                            },
-                          ),
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                      ],
+            Expanded(
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: _pageController,
+                onPageChanged: (index) => _currentStep.value = index,
+                children: [
+                  _wrapInScrollView(
+                    ImageStepWidget(controller: controller),
+                  ),
+                  _wrapInScrollView(
+                    TextFieldsStepWidget(controller: controller),
+                  ),
+                  _wrapInScrollView(
+                    DynamicListStepWidget(
+                      list: controller.ingredientsList,
+                      label: "add_recipe_screen.ingredient".tr,
                     ),
-                  ).animate().fadeIn(duration: 300.ms),
-                ),
-                Expanded(
-                  child: PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: _pageController,
-                    onPageChanged: (index) => _currentStep.value = index,
-                    children: [
-                      _wrapInScrollView(
-                        ImageStepWidget(controller: controller),
-                      ),
-                      _wrapInScrollView(
-                        TextFieldsStepWidget(controller: controller),
-                      ),
-                      _wrapInScrollView(
-                        DynamicListStepWidget(
-                          list: controller.ingredientsList,
-                          label: "add_recipe_screen.ingredient".tr,
-                        ),
-                      ),
-                      _wrapInScrollView(
-                        DynamicListStepWidget(
-                          list: controller.directionsList,
-                          label: "add_recipe_screen.step".tr,
-                        ),
-                      ),
-                    ],
+                  ),
+                  _wrapInScrollView(
+                    DynamicListStepWidget(
+                      list: controller.directionsList,
+                      label: "add_recipe_screen.step".tr,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: IgnorePointer(
+                child: Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Theme.of(context).scaffoldBackgroundColor.withAlpha(0),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withAlpha(120),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withAlpha(200),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withAlpha(240),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withAlpha(250),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withAlpha(255),
+                        Theme.of(context).scaffoldBackgroundColor,
+                      ],
+                      stops: const [0.0, 0.05, 0.1, 0.2, 0.4, 0.7, 1.0],
+                    ),
                   ),
                 ),
-              ],
+              ),
+            ),
+            Obx(
+              () => Container(
+                padding: const EdgeInsets.all(16.0),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Text(
+                      _stepTitles[_currentStep.value],
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "add_recipe_screen.step_counter".trParams(
+                        {
+                          "0": (_currentStep.value + 1).toString(),
+                          "1": "4",
+                        },
+                      ),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ],
+                ),
+              ).animate().fadeIn(duration: 300.ms),
             ),
             if (MediaQuery.of(context).viewInsets.bottom == 0)
               Positioned(
@@ -318,7 +351,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   Widget _wrapInScrollView(Widget child) {
     return SingleChildScrollView(
       padding: EdgeInsets.only(
-        top: 16,
+        top: 80,
         bottom: (MediaQuery.of(context).viewInsets.bottom == 0) ? 80 : 16,
       ),
       child: child.animate().fadeIn(duration: 400.ms, delay: 100.ms),
