@@ -4,6 +4,7 @@ import "package:get/get.dart";
 import "package:google_sign_in/google_sign_in.dart";
 import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/services/sync_service.dart";
 
 class AuthController extends GetxController {
   static const autoSyncKey = "autoSync";
@@ -87,6 +88,8 @@ class AuthController extends GetxController {
       EasyLoading.show(status: "auth_controller.deleting_account".tr);
 
       if (_user != null) {
+        await SyncService.deleteAllUserRecipesFromCloud();
+
         await _user!.delete();
         await _googleSignIn.signOut();
         update();
@@ -131,6 +134,8 @@ class AuthController extends GetxController {
       );
 
       await _user!.reauthenticateWithCredential(credential);
+
+      await SyncService.deleteAllUserRecipesFromCloud();
 
       await _user!.delete();
       await _googleSignIn.signOut();
