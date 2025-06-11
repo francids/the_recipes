@@ -78,38 +78,36 @@ class ProfilePage extends StatelessWidget {
     final textTheme = theme.textTheme;
     final authController = Get.find<AuthController>();
 
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LottieBuilder.asset(
-              "assets/lottie/profile.json",
-              width: 80,
-              height: 80,
-              fit: BoxFit.contain,
-            ),
-            const SizedBox(height: 24),
-            Text(
-              "profile_page.sign_in_required".tr,
-              style: textTheme.displayMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "profile_page.sign_in_description".tr,
-              style: textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            FilledButton.icon(
-              onPressed: () => authController.signInWithGoogle(),
-              icon: const Icon(CupertinoIcons.person_add),
-              label: Text("profile_page.sign_in_with_google".tr),
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          LottieBuilder.asset(
+            "assets/lottie/profile.json",
+            width: 80,
+            height: 80,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            "profile_page.sign_in_required".tr,
+            style: textTheme.displayMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "profile_page.sign_in_description".tr,
+            style: textTheme.bodyMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          FilledButton.icon(
+            onPressed: () => authController.signInWithGoogle(),
+            icon: const Icon(CupertinoIcons.person_add),
+            label: Text("profile_page.sign_in_with_google".tr),
+          ),
+        ],
       ),
     );
   }

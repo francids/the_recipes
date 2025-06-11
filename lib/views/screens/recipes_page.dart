@@ -52,14 +52,21 @@ class RecipesPage extends StatelessWidget {
                 }
 
                 return displayedRecipes.isEmpty
-                    ? SizedBox(
-                        height: MediaQuery.of(context).size.height - 300.0,
-                        child: Center(
-                          child: Text(
-                            favoritesController.showFavoritesOnly.value
-                                ? "recipes_page.no_favorites".tr
-                                : "inicial_screen.empty_list".tr,
-                          ),
+                    ? Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height -
+                            MediaQuery.of(context).padding.top -
+                            MediaQuery.of(context).padding.bottom,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              favoritesController.showFavoritesOnly.value
+                                  ? "recipes_page.no_favorites".tr
+                                  : "inicial_screen.empty_list".tr,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       )
                     : RefreshIndicator(

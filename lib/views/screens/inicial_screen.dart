@@ -148,7 +148,6 @@ class _InicialScreenState extends State<InicialScreen>
       ),
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
-          // Solo procesar si es de la pestaña actual de recetas
           if (_currentIndex == 0) {
             final isAtTop = scrollInfo.metrics.pixels <= 0;
             if (isAtTop != _isScrolledToTop) {
@@ -157,7 +156,6 @@ class _InicialScreenState extends State<InicialScreen>
               });
             }
           } else {
-            // Si no estamos en la pestaña de recetas, consideramos que estamos en el top
             if (!_isScrolledToTop) {
               setState(() {
                 _isScrolledToTop = true;
@@ -175,95 +173,117 @@ class _InicialScreenState extends State<InicialScreen>
             Positioned(
               bottom: 48,
               left: 20,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: Theme.of(context)
+              right: 20,
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                              .bottomNavigationBarTheme
+                              .backgroundColor ??
+                          Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white.withAlpha(25)
+                            : Colors.black.withAlpha(25),
+                        width: 0.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black.withAlpha(77)
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer
+                                  .withAlpha(77),
+                          blurRadius: 10,
+                          offset: const Offset(0, -2),
+                        ),
+                      ],
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      splashBorderRadius: BorderRadius.circular(6),
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      indicatorPadding: const EdgeInsets.all(4),
+                      dividerColor: Colors.transparent,
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Theme.of(context)
                           .bottomNavigationBarTheme
-                          .backgroundColor ??
-                      Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white.withAlpha(25)
-                        : Colors.black.withAlpha(25),
-                    width: 0.5,
+                          .unselectedItemColor,
+                      labelStyle: Theme.of(context)
+                              .bottomNavigationBarTheme
+                              .selectedLabelStyle ??
+                          const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w600),
+                      unselectedLabelStyle: Theme.of(context)
+                              .bottomNavigationBarTheme
+                              .unselectedLabelStyle ??
+                          const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w400),
+                      tabs: [
+                        Tab(
+                          iconMargin: const EdgeInsets.only(bottom: 4),
+                          icon: Icon(CupertinoIcons.home),
+                          text: _titles[0],
+                        ),
+                        Tab(
+                          iconMargin: const EdgeInsets.only(bottom: 4),
+                          icon: Icon(CupertinoIcons.person),
+                          text: _titles[1],
+                        ),
+                      ],
+                    ),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black.withAlpha(77)
-                          : Colors.black.withAlpha(25),
-                      blurRadius: 10,
-                      offset: const Offset(0, -2),
+                  if (_currentIndex == 0) ...[
+                    const Spacer(),
+                    Tooltip(
+                      message: "inicial_screen.fab_tooltip_add".tr,
+                      preferBelow: false,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.black.withAlpha(77)
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer
+                                      .withAlpha(77),
+                              blurRadius: 10,
+                              offset: const Offset(0, -2),
+                            ),
+                          ],
+                        ),
+                        child: FloatingActionButton(
+                          elevation: 0,
+                          onPressed: () async {
+                            await Get.to(const AddRecipeScreen());
+                          },
+                          child: const Icon(CupertinoIcons.add),
+                        ),
+                      ).animate().scale(
+                            delay: 150.ms,
+                            duration: 300.ms,
+                            curve: Curves.easeOutBack,
+                          ),
                     ),
                   ],
-                ),
-                child: TabBar(
-                  controller: _tabController,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: const EdgeInsets.all(4),
-                  dividerColor: Colors.transparent,
-                  splashFactory: NoSplash.splashFactory,
-                  overlayColor: WidgetStateProperty.all(Colors.transparent),
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Theme.of(context)
-                      .bottomNavigationBarTheme
-                      .unselectedItemColor,
-                  labelStyle: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .selectedLabelStyle ??
-                      const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.w600),
-                  unselectedLabelStyle: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedLabelStyle ??
-                      const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.w400),
-                  tabs: [
-                    Tab(
-                      iconMargin: const EdgeInsets.only(bottom: 4),
-                      icon: Icon(CupertinoIcons.home),
-                      text: _titles[0],
-                    ),
-                    Tab(
-                      iconMargin: const EdgeInsets.only(bottom: 4),
-                      icon: Icon(CupertinoIcons.person),
-                      text: _titles[1],
-                    ),
-                  ],
-                ),
+                ],
               ),
             ),
-            if (_currentIndex == 0)
-              Positioned(
-                bottom: 48,
-                right: 20,
-                child: Tooltip(
-                  message: "inicial_screen.fab_tooltip_add".tr,
-                  preferBelow: false,
-                  child: FloatingActionButton(
-                    onPressed: () async {
-                      await Get.to(const AddRecipeScreen());
-                    },
-                    child: const Icon(CupertinoIcons.add),
-                  ).animate().scale(
-                        delay: 150.ms,
-                        duration: 300.ms,
-                        curve: Curves.easeOutBack,
-                      ),
-                ),
-              ),
           ],
         ),
       ),
-      floatingActionButton: null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
