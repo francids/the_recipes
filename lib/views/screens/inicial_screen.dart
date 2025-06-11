@@ -149,11 +149,13 @@ class _InicialScreenState extends State<InicialScreen>
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
           if (_currentIndex == 0) {
-            final isAtTop = scrollInfo.metrics.pixels <= 0;
-            if (isAtTop != _isScrolledToTop) {
-              setState(() {
-                _isScrolledToTop = isAtTop;
-              });
+            if (scrollInfo.metrics.axis == Axis.vertical) {
+              final isAtTop = scrollInfo.metrics.pixels <= 0;
+              if (isAtTop != _isScrolledToTop) {
+                setState(() {
+                  _isScrolledToTop = isAtTop;
+                });
+              }
             }
           } else {
             if (!_isScrolledToTop) {

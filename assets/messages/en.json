@@ -92,7 +92,9 @@
     "favorites_filter": "Favorites",
     "sort_title": "Title",
     "sort_duration": "Duration",
-    "sort_by_label": "Sort by"
+    "sort_by_label": "Sort by",
+    "view_list": "List View",
+    "view_grid": "Grid View"
   },
   "add_recipe_screen": {
     "title": "Add Recipe",

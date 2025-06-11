@@ -8,6 +8,7 @@ import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/controllers/language_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
+import "package:the_recipes/controllers/view_option_controller.dart";
 import "package:the_recipes/firebase_options.dart";
 import "package:the_recipes/hive/hive_adapters.dart";
 import "package:the_recipes/hive_boxes.dart";
@@ -43,6 +44,7 @@ void main() async {
   Get.put(ThemeController());
   Get.put(LanguageController());
   Get.put(FavoritesController());
+  Get.put(ViewOptionController());
 
   configureEasyLoading();
 

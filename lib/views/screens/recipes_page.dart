@@ -4,9 +4,12 @@ import "package:get/get.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/controllers/favorites_controller.dart";
+import "package:the_recipes/controllers/view_option_controller.dart";
 import "package:the_recipes/views/widgets/recipe_card.dart";
 
 enum SortOption { none, title, duration }
+
+enum ViewOption { list, grid }
 
 class RecipesPage extends StatelessWidget {
   const RecipesPage({super.key});
@@ -15,6 +18,7 @@ class RecipesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final recipeController = Get.find<RecipeController>();
     final favoritesController = Get.find<FavoritesController>();
+    final viewOptionController = Get.find<ViewOptionController>();
     final _currentSortOption = SortOption.none.obs;
 
     return Stack(
@@ -29,7 +33,8 @@ class RecipesPage extends StatelessWidget {
                 if (recipeController.recipes.isEmpty) {
                   return const SizedBox.shrink();
                 }
-                return _buildFilterChip(favoritesController, _currentSortOption)
+                return _buildFilterChip(favoritesController, _currentSortOption,
+                        viewOptionController)
                     .animate()
                     .fadeIn(duration: 300.ms)
                     .slideY(begin: -0.2, curve: Curves.easeOutCubic);
@@ -73,37 +78,83 @@ class RecipesPage extends StatelessWidget {
                         onRefresh: () async {
                           recipeController.refreshRecipes();
                         },
-                        child: ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          padding: EdgeInsets.only(
-                            top: 8,
-                            bottom: MediaQuery.of(context).padding.bottom +
-                                16.0 +
-                                80.0,
-                            left: 16,
-                            right: 16,
-                          ),
-                          itemCount: displayedRecipes.length,
-                          itemBuilder: (context, index) {
-                            return RecipeCard(
-                              recipe: displayedRecipes[index],
-                            )
-                                .animate()
-                                .fadeIn(
-                                  delay: (50 * index).ms,
-                                  duration: 300.ms,
+                        child: Obx(() {
+                          if (viewOptionController.currentViewOption ==
+                              ViewOption.list) {
+                            return ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(
+                                top: 8,
+                                bottom: MediaQuery.of(context).padding.bottom +
+                                    16.0 +
+                                    80.0,
+                                left: 16,
+                                right: 16,
+                              ),
+                              itemCount: displayedRecipes.length,
+                              itemBuilder: (context, index) {
+                                return RecipeCard(
+                                  recipe: displayedRecipes[index],
+                                  viewOption:
+                                      viewOptionController.currentViewOption,
                                 )
-                                .slideX(
-                                  begin: -0.1,
-                                  delay: (50 * index).ms,
-                                  duration: 300.ms,
-                                  curve: Curves.easeOutCubic,
-                                );
-                          },
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 12),
-                        ),
+                                    .animate()
+                                    .fadeIn(
+                                      delay: (50 * index).ms,
+                                      duration: 300.ms,
+                                    )
+                                    .slideX(
+                                      begin: -0.1,
+                                      delay: (50 * index).ms,
+                                      duration: 300.ms,
+                                      curve: Curves.easeOutCubic,
+                                    );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 12),
+                            );
+                          } else {
+                            return GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(
+                                top: 8,
+                                bottom: MediaQuery.of(context).padding.bottom +
+                                    16.0 +
+                                    80.0,
+                                left: 16,
+                                right: 16,
+                              ),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 12,
+                                childAspectRatio: 1.0,
+                              ),
+                              itemCount: displayedRecipes.length,
+                              itemBuilder: (context, index) {
+                                return RecipeCard(
+                                  recipe: displayedRecipes[index],
+                                  viewOption:
+                                      viewOptionController.currentViewOption,
+                                )
+                                    .animate()
+                                    .fadeIn(
+                                      delay: (50 * index).ms,
+                                      duration: 300.ms,
+                                    )
+                                    .slideX(
+                                      begin: -0.1,
+                                      delay: (50 * index).ms,
+                                      duration: 300.ms,
+                                      curve: Curves.easeOutCubic,
+                                    );
+                              },
+                            );
+                          }
+                        }),
                       );
               }),
             ],
@@ -162,62 +213,82 @@ class RecipesPage extends StatelessWidget {
   Widget _buildFilterChip(
     FavoritesController favoritesController,
     Rx<SortOption> currentSortOption,
+    ViewOptionController viewOptionController,
   ) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 8,
-      ),
-      child: Row(
-        children: [
-          FilterChip(
-            showCheckmark: false,
-            label: Text("recipes_page.favorites_filter".tr),
-            selected: favoritesController.showFavoritesOnly.value,
-            onSelected: (selected) => favoritesController.setFilter(selected),
-            avatar: Icon(
-              favoritesController.showFavoritesOnly.value
-                  ? CupertinoIcons.heart_fill
-                  : CupertinoIcons.heart,
-              size: 18,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Obx(() {
-            String sortLabel;
-            IconData sortIcon;
-            switch (currentSortOption.value) {
-              case SortOption.title:
-                sortLabel = "recipes_page.sort_title".tr;
-                sortIcon = CupertinoIcons.sort_up;
-                break;
-              case SortOption.duration:
-                sortLabel = "recipes_page.sort_duration".tr;
-                sortIcon = CupertinoIcons.clock;
-                break;
-              case SortOption.none:
-                sortLabel = "recipes_page.sort_by_label".tr;
-                sortIcon = CupertinoIcons.sort_down;
-                break;
-            }
-            return FilterChip(
+      padding: const EdgeInsets.only(top: 8),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          spacing: 8,
+          children: [
+            FilterChip(
               showCheckmark: false,
-              selected: currentSortOption.value != SortOption.none,
-              avatar: Icon(sortIcon, size: 18),
-              label: Text(sortLabel),
-              onSelected: (_) {
-                if (currentSortOption.value == SortOption.none) {
-                  currentSortOption.value = SortOption.title;
-                } else if (currentSortOption.value == SortOption.title) {
-                  currentSortOption.value = SortOption.duration;
-                } else if (currentSortOption.value == SortOption.duration) {
-                  currentSortOption.value = SortOption.none;
-                }
-              },
-            );
-          }),
-        ],
+              label: Text("recipes_page.favorites_filter".tr),
+              selected: favoritesController.showFavoritesOnly.value,
+              onSelected: (selected) => favoritesController.setFilter(selected),
+              avatar: Icon(
+                favoritesController.showFavoritesOnly.value
+                    ? CupertinoIcons.heart_fill
+                    : CupertinoIcons.heart,
+                size: 18,
+              ),
+            ),
+            Obx(() {
+              String sortLabel;
+              IconData sortIcon;
+              switch (currentSortOption.value) {
+                case SortOption.title:
+                  sortLabel = "recipes_page.sort_title".tr;
+                  sortIcon = CupertinoIcons.sort_up;
+                  break;
+                case SortOption.duration:
+                  sortLabel = "recipes_page.sort_duration".tr;
+                  sortIcon = CupertinoIcons.clock;
+                  break;
+                case SortOption.none:
+                  sortLabel = "recipes_page.sort_by_label".tr;
+                  sortIcon = CupertinoIcons.sort_down;
+                  break;
+              }
+              return FilterChip(
+                showCheckmark: false,
+                selected: currentSortOption.value != SortOption.none,
+                avatar: Icon(sortIcon, size: 18),
+                label: Text(sortLabel),
+                onSelected: (_) {
+                  if (currentSortOption.value == SortOption.none) {
+                    currentSortOption.value = SortOption.title;
+                  } else if (currentSortOption.value == SortOption.title) {
+                    currentSortOption.value = SortOption.duration;
+                  } else if (currentSortOption.value == SortOption.duration) {
+                    currentSortOption.value = SortOption.none;
+                  }
+                },
+              );
+            }),
+            Obx(() {
+              return FilterChip(
+                showCheckmark: false,
+                label: Text(
+                    viewOptionController.currentViewOption == ViewOption.list
+                        ? "recipes_page.view_list".tr
+                        : "recipes_page.view_grid".tr),
+                selected: true,
+                onSelected: (selected) {
+                  viewOptionController.toggleViewOption();
+                },
+                avatar: Icon(
+                  viewOptionController.currentViewOption == ViewOption.list
+                      ? CupertinoIcons.list_bullet
+                      : CupertinoIcons.square_grid_2x2_fill,
+                  size: 18,
+                ),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }

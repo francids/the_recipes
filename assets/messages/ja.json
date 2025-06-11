@@ -92,7 +92,9 @@
     "favorites_filter": "お気に入り",
     "sort_title": "タイトル",
     "sort_duration": "期間",
-    "sort_by_label": "並び替え"
+    "sort_by_label": "並び替え",
+    "view_list": "リスト表示",
+    "view_grid": "グリッド表示"
   },
   "add_recipe_screen": {
     "title": "レシピを追加",

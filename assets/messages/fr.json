@@ -92,7 +92,9 @@
     "favorites_filter": "Favoris",
     "sort_title": "Titre",
     "sort_duration": "Durée",
-    "sort_by_label": "Trier par"
+    "sort_by_label": "Trier par",
+    "view_list": "Vue Liste",
+    "view_grid": "Vue Grille"
   },
   "add_recipe_screen": {
     "title": "Ajouter une recette",

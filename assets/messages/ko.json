@@ -92,7 +92,9 @@
     "favorites_filter": "즐겨찾기",
     "sort_title": "제목",
     "sort_duration": "시간",
-    "sort_by_label": "정렬 기준"
+    "sort_by_label": "정렬 기준",
+    "view_list": "목록 보기",
+    "view_grid": "그리드 보기"
   },
   "add_recipe_screen": {
     "title": "레시피 추가",
