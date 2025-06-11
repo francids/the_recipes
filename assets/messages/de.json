@@ -111,7 +111,10 @@
     "next": "Weiter",
     "save": "Speichern",
     "ingredient": "Zutat",
-    "step": "Schritt"
+    "step": "Schritt",
+    "saving_recipe": "Rezept wird gespeichert...",
+    "please_wait": "Bitte warten",
+    "recipe_saved": "Rezept gespeichert"
   },
   "settings_screen": {
     "title": "Einstellungen",
@@ -178,10 +181,6 @@
     "sync_error": "Synchronisierungsfehler: {0}",
     "assign_owner_id_error": "Fehler beim Zuweisen der Besitzer-ID: {0}",
     "deleting_account": "Konto wird gelöscht..."
-  },
-  "add_recipe_controller": {
-    "adding_recipe": "Rezept wird hinzugefügt...",
-    "recipe_added": "Rezept hinzugefügt"
   },
   "ai_errors": {
     "authentication_failed": "Authentifizierung fehlgeschlagen. Möglicherweise müssen Sie die App aktualisieren, um diese Funktion weiterhin zu nutzen.",

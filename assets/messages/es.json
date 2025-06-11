@@ -111,7 +111,10 @@
     "next": "Siguiente",
     "save": "Guardar",
     "ingredient": "Ingrediente",
-    "step": "Paso"
+    "step": "Paso",
+    "saving_recipe": "Guardando receta...",
+    "please_wait": "Por favor espera",
+    "recipe_saved": "Receta guardada"
   },
   "settings_screen": {
     "title": "Configuración",
@@ -178,10 +181,6 @@
     "sync_error": "Error de sincronización: {0}",
     "assign_owner_id_error": "Error al asignar ID de propietario: {0}",
     "deleting_account": "Eliminando cuenta..."
-  },
-  "add_recipe_controller": {
-    "adding_recipe": "Agregando receta...",
-    "recipe_added": "Receta agregada"
   },
   "ai_errors": {
     "authentication_failed": "Error de autenticación. Es posible que necesites actualizar la aplicación para continuar usando esta función.",

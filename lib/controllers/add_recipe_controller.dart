@@ -42,7 +42,6 @@ class AddRecipeController extends GetxController {
   }
 
   Future<void> addRecipe() async {
-    EasyLoading.show(status: "add_recipe_controller.adding_recipe".tr);
     await saveImageLocally();
 
     await recipeController.addRecipe(
@@ -53,7 +52,5 @@ class AddRecipeController extends GetxController {
       List<String>.from(directionsList),
       preparationTime.value, // already in seconds
     );
-
-    EasyLoading.showSuccess("add_recipe_controller.recipe_added".tr);
   }
 }

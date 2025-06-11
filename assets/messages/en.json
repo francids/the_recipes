@@ -111,7 +111,10 @@
     "next": "Next",
     "save": "Save",
     "ingredient": "Ingredient",
-    "step": "Step"
+    "step": "Step",
+    "saving_recipe": "Saving recipe...",
+    "please_wait": "Please wait",
+    "recipe_saved": "Recipe saved"
   },
   "settings_screen": {
     "title": "Settings",
@@ -178,10 +181,6 @@
     "sync_error": "Sync error: {0}",
     "assign_owner_id_error": "Error assigning owner ID: {0}",
     "deleting_account": "Deleting account..."
-  },
-  "add_recipe_controller": {
-    "adding_recipe": "Adding recipe...",
-    "recipe_added": "Recipe added"
   },
   "ai_errors": {
     "authentication_failed": "Authentication failed. You may need to update the app to continue using this feature.",

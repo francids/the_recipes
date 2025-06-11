@@ -111,7 +111,10 @@
     "next": "下一步",
     "save": "保存",
     "ingredient": "配料",
-    "step": "步骤"
+    "step": "步骤",
+    "saving_recipe": "正在保存食谱...",
+    "please_wait": "请稍候",
+    "recipe_saved": "食谱已保存"
   },
   "settings_screen": {
     "title": "设置",
@@ -178,10 +181,6 @@
     "sync_error": "同步错误：{0}",
     "assign_owner_id_error": "分配所有者ID错误：{0}",
     "deleting_account": "正在删除账户..."
-  },
-  "add_recipe_controller": {
-    "adding_recipe": "正在添加食谱...",
-    "recipe_added": "食谱已添加"
   },
   "ai_errors": {
     "authentication_failed": "身份验证失败。您可能需要更新应用程序才能继续使用此功能。",

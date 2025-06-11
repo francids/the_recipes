@@ -89,6 +89,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Future<void> _handleSaveRecipe() async {
+    UIHelpers.showLoadingDialog(
+      context,
+      "add_recipe_screen.saving_recipe".tr,
+      "add_recipe_screen.please_wait".tr,
+    );
+
     if (!_isCurrentStepValid.value) {
       UIHelpers.showErrorSnackbar(
         "add_recipe_screen.error_complete_all".tr,
@@ -97,6 +103,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       return;
     }
     await controller.addRecipe();
+    Get.back();
+    UIHelpers.showSuccessSnackbar(
+      "add_recipe_screen.recipe_saved".tr,
+      context,
+    );
     Get.back(result: true);
   }
 

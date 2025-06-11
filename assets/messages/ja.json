@@ -111,7 +111,10 @@
     "next": "次へ",
     "save": "保存",
     "ingredient": "材料",
-    "step": "ステップ"
+    "step": "ステップ",
+    "saving_recipe": "レシピを保存中...",
+    "please_wait": "お待ちください",
+    "recipe_saved": "レシピが保存されました"
   },
   "settings_screen": {
     "title": "設定",
@@ -178,10 +181,6 @@
     "sync_error": "同期エラー: {0}",
     "assign_owner_id_error": "オーナーIDの割り当てエラー: {0}",
     "deleting_account": "アカウントを削除中..."
-  },
-  "add_recipe_controller": {
-    "adding_recipe": "レシピを追加中...",
-    "recipe_added": "レシピが追加されました"
   },
   "ai_errors": {
     "authentication_failed": "認証に失敗しました。この機能を引き続き使用するにはアプリの更新が必要な場合があります。",
