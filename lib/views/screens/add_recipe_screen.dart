@@ -160,16 +160,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
             icon: const Icon(CupertinoIcons.back),
             onPressed: _handleBackButton,
           ),
-          actions: [
-            Obx(
-              () => _currentStep.value == 3 && _isCurrentStepValid.value
-                  ? IconButton(
-                      icon:
-                          const Icon(CupertinoIcons.checkmark_alt_circle_fill),
-                      onPressed: _handleSaveRecipe)
-                  : const SizedBox(),
-            ),
-          ],
         ),
         body: Stack(
           children: [
@@ -337,7 +327,19 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                             .animate()
                             .fadeIn(duration: 200.ms)
                             .slideX(begin: 0.5, curve: Curves.easeOutCubic)
-                        : const SizedBox(),
+                        : _currentStep.value == 3 && _isCurrentStepValid.value
+                            ? FilledButton.icon(
+                                icon: const Icon(
+                                  CupertinoIcons.checkmark_alt,
+                                  size: 20,
+                                ),
+                                onPressed: _handleSaveRecipe,
+                                label: Text("add_recipe_screen.save".tr),
+                              )
+                                .animate()
+                                .fadeIn(duration: 200.ms)
+                                .slideX(begin: 0.5, curve: Curves.easeOutCubic)
+                            : const SizedBox(),
                   ],
                 ),
               ),
