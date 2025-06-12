@@ -174,32 +174,30 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         ),
         body: Stack(
           children: [
-            Expanded(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                onPageChanged: (index) => _currentStep.value = index,
-                children: [
-                  _wrapInScrollView(
-                    ImageStepWidget(controller: controller),
+            PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              onPageChanged: (index) => _currentStep.value = index,
+              children: [
+                _wrapInScrollView(
+                  ImageStepWidget(controller: controller),
+                ),
+                _wrapInScrollView(
+                  TextFieldsStepWidget(controller: controller),
+                ),
+                _wrapInScrollView(
+                  DynamicListStepWidget(
+                    list: controller.ingredientsList,
+                    label: "add_recipe_screen.ingredient".tr,
                   ),
-                  _wrapInScrollView(
-                    TextFieldsStepWidget(controller: controller),
+                ),
+                _wrapInScrollView(
+                  DynamicListStepWidget(
+                    list: controller.directionsList,
+                    label: "add_recipe_screen.step".tr,
                   ),
-                  _wrapInScrollView(
-                    DynamicListStepWidget(
-                      list: controller.ingredientsList,
-                      label: "add_recipe_screen.ingredient".tr,
-                    ),
-                  ),
-                  _wrapInScrollView(
-                    DynamicListStepWidget(
-                      list: controller.directionsList,
-                      label: "add_recipe_screen.step".tr,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             Positioned(
               top: 0,
