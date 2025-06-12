@@ -1,7 +1,6 @@
 import "dart:convert";
 import "dart:io";
 import "package:archive/archive_io.dart";
-import "package:file_picker/file_picker.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
@@ -14,21 +13,6 @@ import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class ImportService {
   static final Uuid _uuid = Uuid();
-
-  static Future<ImportResult?> pickAndImportRecipes(
-      BuildContext context) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ["zip"],
-      dialogTitle: "import_service.select_file".tr,
-    );
-
-    if (result != null && result.files.single.path != null) {
-      String filePath = result.files.single.path!;
-      return await importRecipes(filePath, context);
-    }
-    return null;
-  }
 
   static Future<ImportResult> importRecipes(
       String zipFilePath, BuildContext context) async {

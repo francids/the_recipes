@@ -381,7 +381,7 @@ class ProfilePage extends StatelessWidget {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['zip'],
+        allowedExtensions: ["zip"],
         allowMultiple: false,
       );
 
