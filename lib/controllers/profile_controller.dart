@@ -18,12 +18,14 @@ class ProfileController extends GetxController {
   Future<void> handleAutoSyncToggle(bool enabled, BuildContext context) async {
     if (enabled) {
       await _authController.setAutoSyncEnabled(enabled);
-      UIHelpers.showLoadingDialog(
-        context,
-        "profile_page.syncing_recipes".tr,
-        "profile_page.syncing_recipes_description".tr,
-        lottieAsset: "assets/lottie/sync.json",
-      );
+      if (context.mounted) {
+        UIHelpers.showLoadingDialog(
+          context,
+          "profile_page.syncing_recipes".tr,
+          "profile_page.syncing_recipes_description".tr,
+          lottieAsset: "assets/lottie/sync.json",
+        );
+      }
 
       try {
         await _assignOwnerIdToLocalRecipes();
@@ -31,17 +33,21 @@ class ProfileController extends GetxController {
         _recipeController.refreshRecipes();
         Get.back();
 
-        UIHelpers.showSuccessSnackbar(
-          "profile_page.sync_success_message".tr,
-          context,
-        );
+        if (context.mounted) {
+          UIHelpers.showSuccessSnackbar(
+            "profile_page.sync_success_message".tr,
+            context,
+          );
+        }
       } catch (e) {
         Get.back();
         await _authController.setAutoSyncEnabled(false);
-        UIHelpers.showErrorSnackbar(
-          "profile_page.sync_error_message".trParams({"0": e.toString()}),
-          context,
-        );
+        if (context.mounted) {
+          UIHelpers.showErrorSnackbar(
+            "profile_page.sync_error_message".trParams({"0": e.toString()}),
+            context,
+          );
+        }
       }
     } else {
       await _handleSyncDisable(enabled, context);
@@ -114,28 +120,32 @@ class ProfileController extends GetxController {
     }
   }
 
-  void handleExportRecipes(BuildContext context) {
+  void handleExportRecipes(BuildContext context, {bool fromSettings = false}) {
     UIHelpers.showConfirmationDialog(
       context: context,
       title: "profile_page.export_confirmation_title".tr,
       message: "profile_page.export_confirmation_message".tr,
       lottieAsset: "assets/lottie/save_file.json",
       confirmAction: () async {
-        Get.back();
+        if (!fromSettings) {
+          Get.back();
+        }
         final recipes = _recipeController.getAllRecipesForExport();
         await ExportService.exportRecipes(recipes, context);
       },
     );
   }
 
-  void handleImportRecipes(BuildContext context) {
+  void handleImportRecipes(BuildContext context, {bool fromSettings = false}) {
     UIHelpers.showConfirmationDialog(
       context: context,
       title: "profile_page.import_confirmation_title".tr,
       message: "profile_page.import_confirmation_message".tr,
       lottieAsset: "assets/lottie/load_file.json",
       confirmAction: () async {
-        Get.back();
+        if (!fromSettings) {
+          Get.back();
+        }
         await _performImport(context);
       },
     );
@@ -154,13 +164,15 @@ class ProfileController extends GetxController {
         final importResult =
             await ImportService.importRecipes(filePath, context);
 
-        UIHelpers.showSuccessSnackbar(
-          "profile_page.import_success_message".trParams({
-            "0": importResult.importedCount.toString(),
-            "1": importResult.skippedCount.toString(),
-          }),
-          context,
-        );
+        if (context.mounted) {
+          UIHelpers.showSuccessSnackbar(
+            "profile_page.import_success_message".trParams({
+              "0": importResult.importedCount.toString(),
+              "1": importResult.skippedCount.toString(),
+            }),
+            context,
+          );
+        }
 
         _recipeController.refreshRecipes();
 
@@ -171,28 +183,34 @@ class ProfileController extends GetxController {
         }
       }
     } catch (e) {
-      UIHelpers.showErrorSnackbar(
-        "profile_page.import_error_message".trParams({"0": e.toString()}),
-        context,
-      );
+      if (context.mounted) {
+        UIHelpers.showErrorSnackbar(
+          "profile_page.import_error_message".trParams({"0": e.toString()}),
+          context,
+        );
+      }
     }
   }
 
   Future<void> _syncImportedRecipes(BuildContext context) async {
     try {
-      UIHelpers.showLoadingDialog(
-        context,
-        "profile_page.syncing_recipes".tr,
-        "profile_page.syncing_recipes_description".tr,
-      );
+      if (context.mounted) {
+        UIHelpers.showLoadingDialog(
+          context,
+          "profile_page.syncing_recipes".tr,
+          "profile_page.syncing_recipes_description".tr,
+        );
+      }
       await _assignOwnerIdToImportedRecipes();
       await SyncService.syncRecipesToCloud();
       Get.back();
     } catch (e) {
-      UIHelpers.showErrorSnackbar(
-        "profile_page.sync_error_message".trParams({"0": e.toString()}),
-        context,
-      );
+      if (context.mounted) {
+        UIHelpers.showErrorSnackbar(
+          "profile_page.sync_error_message".trParams({"0": e.toString()}),
+          context,
+        );
+      }
     }
   }
 
