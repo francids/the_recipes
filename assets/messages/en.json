@@ -85,7 +85,9 @@
     "delete_button": "Delete",
     "ingredients_title": "Ingredients",
     "instructions_title": "Instructions",
-    "menu_item_delete": "Delete recipe"
+    "menu_item_delete": "Delete recipe",
+    "deleting_recipe": "Deleting recipe...",
+    "deleting_recipe_message": "Please wait while the recipe is being deleted."
   },
   "recipes_page": {
     "no_favorites": "No favorite recipes",
@@ -159,9 +161,7 @@
   },
   "recipe_controller": {
     "loading_recipes": "Loading recipes...",
-    "deleting_recipe": "Deleting recipe...",
     "recipe_not_found": "The recipe does not exist",
-    "recipe_deleted": "Recipe deleted",
     "delete_error": "Error deleting recipe: {0}",
     "load_error": "Error loading recipes: {0}",
     "sync_error": "Sync error: {0}",

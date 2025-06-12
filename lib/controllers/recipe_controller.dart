@@ -95,8 +95,6 @@ class RecipeController extends GetxController {
   }
 
   Future<void> deleteRecipe(String id, String image) async {
-    EasyLoading.show(status: "recipe_controller.deleting_recipe".tr);
-
     try {
       var box = Hive.box<Recipe>(recipesBox);
 
@@ -132,7 +130,6 @@ class RecipeController extends GetxController {
       }
 
       update();
-      EasyLoading.showSuccess("recipe_controller.recipe_deleted".tr);
     } catch (e) {
       EasyLoading.showError("recipe_controller.delete_error".trParams({
         "0": e.toString(),

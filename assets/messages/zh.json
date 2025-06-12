@@ -85,7 +85,9 @@
     "delete_button": "删除",
     "ingredients_title": "配料",
     "instructions_title": "烹饪步骤",
-    "menu_item_delete": "删除食谱"
+    "menu_item_delete": "删除食谱",
+    "deleting_recipe": "正在删除食谱...",
+    "deleting_recipe_message": "请稍候，正在删除食谱。"
   },
   "recipes_page": {
     "no_favorites": "暂无收藏的食谱",
@@ -159,9 +161,7 @@
   },
   "recipe_controller": {
     "loading_recipes": "食谱加载中...",
-    "deleting_recipe": "食谱删除中...",
     "recipe_not_found": "食谱不存在",
-    "recipe_deleted": "食谱已删除",
     "delete_error": "删除食谱错误：{0}",
     "load_error": "加载食谱错误：{0}",
     "sync_error": "同步错误：{0}",

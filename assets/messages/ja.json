@@ -85,7 +85,9 @@
     "delete_button": "削除",
     "ingredients_title": "材料",
     "instructions_title": "調理手順",
-    "menu_item_delete": "レシピを削除"
+    "menu_item_delete": "レシピを削除",
+    "deleting_recipe": "レシピを削除中...",
+    "deleting_recipe_message": "レシピを削除している間お待ちください。"
   },
   "recipes_page": {
     "no_favorites": "お気に入りのレシピがありません",
@@ -159,9 +161,7 @@
   },
   "recipe_controller": {
     "loading_recipes": "レシピを読み込み中...",
-    "deleting_recipe": "レシピを削除中...",
     "recipe_not_found": "レシピが存在しません",
-    "recipe_deleted": "レシピが削除されました",
     "delete_error": "レシピの削除中にエラーが発生しました: {0}",
     "load_error": "レシピの読み込みエラー: {0}",
     "sync_error": "同期エラー: {0}",

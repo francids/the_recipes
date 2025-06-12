@@ -95,12 +95,17 @@ class RecipeScreen extends StatelessWidget {
                         title: "recipe_screen.delete_confirmation_title".tr,
                         message: "recipe_screen.delete_confirmation_message".tr,
                         lottieAsset: "assets/lottie/delete.json",
-                        confirmAction: () {
-                          recipeController.deleteRecipe(
+                        confirmAction: () async {
+                          Get.back();
+                          UIHelpers.showLoadingDialog(
+                            context,
+                            "recipe_screen.deleting_recipe".tr,
+                            "recipe_screen.deleting_recipe_message".tr,
+                          );
+                          await recipeController.deleteRecipe(
                             recipe.id,
                             recipe.image,
                           );
-                          Get.back();
                           Get.back();
                           recipeController.refreshRecipes();
                         },
