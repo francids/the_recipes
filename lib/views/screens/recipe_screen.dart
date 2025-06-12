@@ -186,11 +186,7 @@ class RecipeScreen extends StatelessWidget {
                           duration: 400.ms,
                           curve: Curves.easeOutCubic,
                         ),
-                    const Divider(
-                      thickness: 0.3,
-                      height: 32,
-                      color: Colors.black12,
-                    ),
+                    const Divider(height: 32),
                     Text(
                       "recipe_screen.ingredients_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
@@ -217,11 +213,7 @@ class RecipeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 3),
                       ),
                     ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
-                    const Divider(
-                      thickness: 0.3,
-                      height: 32,
-                      color: Colors.black12,
-                    ),
+                    const Divider(height: 32),
                     Text(
                       "recipe_screen.instructions_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
