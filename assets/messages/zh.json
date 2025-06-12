@@ -4,11 +4,11 @@
     "menu_tooltip": "选项",
     "menu_item_reload": "重新加载食谱",
     "menu_item_settings": "设置",
-    "fab_tooltip_ai": "人工智能功能",
+    "fab_tooltip_ai": "AI功能",
     "snackbar_title_not_available": "功能不可用",
-    "snackbar_message_not_available": "此功能在此版本中不可用",
+    "snackbar_message_not_available": "此功能在当前版本中不可用",
     "fab_tooltip_add": "添加食谱",
-    "empty_list": "没有可用的食谱"
+    "empty_list": "暂无食谱"
   },
   "profile_page": {
     "title": "个人资料",
@@ -16,18 +16,66 @@
     "sign_in_description": "登录以访问您的个人资料并在所有设备上同步您的食谱",
     "sign_in_with_google": "使用Google登录",
     "unknown_user": "未知用户",
-    "account_section": "账户",
-    "account_info": "账户信息",
-    "account_info_description": "查看您的账户详情",
     "data_section": "数据和存储",
     "backup_recipes": "同步食谱",
     "backup_recipes_description": "自动在云端同步您的食谱",
     "export_recipes": "导出食谱",
     "export_recipes_description": "将您的食谱下载为文件",
+    "import_recipes": "导入食谱",
+    "import_recipes_description": "从备份文件导入食谱",
+    "import_confirmation_title": "导入食谱",
+    "import_confirmation_message": "选择要导入的食谱备份文件。重复的食谱将被跳过。",
+    "export_confirmation_title": "导出食谱",
+    "export_confirmation_message": "这将创建一个包含所有食谱和图片的备份文件。",
+    "import_success_title": "导入完成",
+    "import_success_message": "成功导入{0}个食谱。{1}个重复项被跳过。",
+    "import_error_title": "导入失败",
+    "import_error_message": "导入食谱失败：{0}",
     "sign_out": "退出",
     "sign_out_description": "从您的账户注销",
     "sign_out_confirmation_title": "退出",
-    "sign_out_confirmation_message": "您确定要从账户注销吗？"
+    "sign_out_confirmation_message": "您确定要从账户注销吗？",
+    "syncing_recipes": "正在同步食谱...",
+    "syncing_recipes_description": "请稍候，您的食谱正在与云端同步。",
+    "sync_success_message": "食谱同步成功！",
+    "sync_error_message": "同步食谱错误：{0}",
+    "auto_sync_disabled": "自动同步已禁用。",
+    "disable_sync_confirmation_title": "禁用云端同步",
+    "disable_sync_confirmation_message": "您确定要禁用云端同步吗？这将永久删除云端所有食谱，包括任何已分享的食谱。您的本地食谱将保留在此设备上。",
+    "deleting_cloud_recipes_title": "正在删除云端食谱",
+    "deleting_cloud_recipes_description": "请稍候，我们正在从云端删除您的所有食谱。",
+    "delete_cloud_recipes_error": "删除云端食谱错误：{0}"
+  },
+  "profile_info_screen": {
+    "title": "账户信息",
+    "personal_info": "个人信息",
+    "display_name": "显示名称",
+    "email": "电子邮箱",
+    "user_id": "用户ID",
+    "account_details": "账户详情",
+    "email_verified": "邮箱验证",
+    "verified": "已验证",
+    "not_verified": "未验证",
+    "account_created": "账户创建时间",
+    "last_sign_in": "最后登录",
+    "not_available": "不可用",
+    "not_signed_in": "未登录",
+    "sign_in_to_view": "请登录以查看您的账户信息",
+    "years_ago": "{0}年前",
+    "months_ago": "{0}个月前",
+    "days_ago": "{0}天前",
+    "hours_ago": "{0}小时前",
+    "minutes_ago": "{0}分钟前",
+    "danger_zone": "危险区域",
+    "delete_account": "删除账户",
+    "delete_account_warning": "永久删除您的账户和所有数据",
+    "delete_account_enhanced_warning": "永久删除您的账户和所有数据。您还将失去以下功能的访问权限：\n• 食谱备份和云端同步\n• 用于生成食谱的AI功能\n• 食谱分享功能",
+    "confirm_delete_title": "删除账户",
+    "confirm_delete_message": "您确定要删除您的账户吗？此操作无法撤消，所有数据将永久丢失。",
+    "confirm_delete_enhanced_message": "您确定要删除您的账户吗？此操作无法撤消，您将永久失去：\n\n• 所有食谱和数据\n• 食谱备份和同步功能\n• AI功能的访问权限\n• 食谱分享功能\n\n所有数据将永久丢失。",
+    "confirm_delete_enhanced_message_with_reauth": "您确定要删除您的账户吗？此操作无法撤消且无法恢复。出于安全考虑，您可能需要重新登录进行验证。\n\n您将永久失去：\n• 所有食谱和数据\n• 食谱备份和同步功能\n• AI功能的访问权限\n• 食谱分享功能",
+    "cancel": "取消",
+    "delete": "删除"
   },
   "recipe_screen": {
     "title": "食谱",
@@ -38,6 +86,15 @@
     "ingredients_title": "配料",
     "instructions_title": "烹饪步骤",
     "menu_item_delete": "删除食谱"
+  },
+  "recipes_page": {
+    "no_favorites": "暂无收藏的食谱",
+    "favorites_filter": "收藏",
+    "sort_title": "标题",
+    "sort_duration": "时长",
+    "sort_by_label": "排序方式",
+    "view_list": "列表视图",
+    "view_grid": "网格视图"
   },
   "add_recipe_screen": {
     "title": "添加食谱",
@@ -52,8 +109,12 @@
     "exit_without_saving": "不保存就退出？",
     "previous": "上一步",
     "next": "下一步",
+    "save": "保存",
     "ingredient": "配料",
-    "step": "步骤"
+    "step": "步骤",
+    "saving_recipe": "正在保存食谱...",
+    "please_wait": "请稍候",
+    "recipe_saved": "食谱已保存"
   },
   "settings_screen": {
     "title": "设置",
@@ -79,13 +140,16 @@
     "recipe_generated_success": "已生成食谱信息",
     "recipe_generated_error": "无法生成食谱：{0}",
     "generate_recipe_info": "生成食谱信息",
-    "feature_not_available": "从图片自动生成食谱的功能目前不可用。此功能将在未来版本中提供。"
+    "feature_not_available": "从图片自动生成食谱的功能需要您登录。请登录以使用此功能。"
   },
   "text_fields_step": {
     "title_label": "食谱标题",
     "title_hint": "示例：凯撒沙拉",
     "description_label": "食谱描述",
-    "description_hint": "示例：一份美味的鸡肉凯撒沙拉"
+    "description_hint": "示例：一份美味的鸡肉凯撒沙拉",
+    "preparation_time_label": "准备时间",
+    "preparation_time_hint": "示例：30",
+    "minutes": "分钟"
   },
   "ui_helpers": {
     "error": "错误",
@@ -94,28 +158,29 @@
     "confirm": "确认"
   },
   "recipe_controller": {
-    "loading_recipes": "正在加载食谱...",
-    "recipes_loaded": "食谱已加载",
-    "adding_recipe": "正在添加食谱...",
-    "recipe_added": "食谱已添加",
-    "deleting_recipe": "正在删除食谱...",
-    "recipe_not_found": "该食谱不存在",
+    "loading_recipes": "食谱加载中...",
+    "deleting_recipe": "食谱删除中...",
+    "recipe_not_found": "食谱不存在",
     "recipe_deleted": "食谱已删除",
-    "delete_error": "删除食谱时出错"
+    "delete_error": "删除食谱错误：{0}",
+    "load_error": "加载食谱错误：{0}",
+    "sync_error": "同步错误：{0}",
+    "add_error": "添加食谱错误：{0}",
+    "image_delete_error": "删除图片错误：{0}"
   },
   "auth_controller": {
-    "signing_in": "正在登录...",
-    "sign_in_success": "登录成功",
+    "signing_in": "登录中...",
     "sign_in_error": "登录错误",
-    "signing_out": "正在退出...",
-    "sign_out_success": "退出成功",
-    "sign_out_error": "退出错误：{0}"
-  },
-  "add_recipe_controller": {
-    "saving_image": "正在保存图片...",
-    "image_saved": "图片已保存",
-    "adding_recipe": "正在添加食谱...",
-    "recipe_added": "食谱已添加"
+    "sign_out_error": "注销错误：{0}",
+    "delete_account_error": "删除账户错误：{0}",
+    "requires_recent_login": "出于安全原因，此操作需要最近的身份验证。请重新登录。",
+    "reauthenticating": "重新认证中...",
+    "reauthentication_failed": "重新认证失败：{0}",
+    "syncing_recipes": "正在同步食谱...",
+    "sync_completed": "同步完成",
+    "sync_error": "同步错误：{0}",
+    "assign_owner_id_error": "分配所有者ID错误：{0}",
+    "deleting_account": "正在删除账户..."
   },
   "ai_errors": {
     "authentication_failed": "身份验证失败。您可能需要更新应用程序才能继续使用此功能。",
@@ -125,5 +190,30 @@
     "server_error": "服务器错误。请稍后重试。",
     "network_error": "网络错误。请检查您的连接并重试。",
     "unknown_error": "发生意外错误。请重试。"
+  },
+  "export_service": {
+    "no_recipes_to_export": "没有食谱可导出",
+    "save_file": "保存文件",
+    "save_cancelled": "保存已取消",
+    "saved_successfully": "保存成功",
+    "save_failed": "保存失败"
+  },
+  "import_service": {
+    "select_file": "选择文件",
+    "processing_import": "正在处理导入...",
+    "extracting_files": "正在提取文件...",
+    "file_not_found": "文件未找到",
+    "invalid_format": "无效的文件格式",
+    "encoding_error": "编码错误",
+    "no_recipes_found": "文件中未找到食谱",
+    "unexpected_error": "意外错误：{0}",
+    "invalid_recipe_format": "发现无效的食谱格式",
+    "incomplete_recipe": "食谱'{0}'不完整，已跳过",
+    "recipe_import_error": "导入食谱时出错：{0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "用户必须登录才能执行此操作。",
+    "image_file_does_not_exist": "图片文件不存在：{0}",
+    "failed_to_download_image": "从 {0} 下载图片失败。状态码：{1}"
   }
 }

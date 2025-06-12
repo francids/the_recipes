@@ -16,18 +16,66 @@
     "sign_in_description": "Inicia sesión para acceder a tu perfil y sincronizar tus recetas en todos tus dispositivos",
     "sign_in_with_google": "Iniciar sesión con Google",
     "unknown_user": "Usuario desconocido",
-    "account_section": "Cuenta",
-    "account_info": "Información de la cuenta",
-    "account_info_description": "Ver los detalles de tu cuenta",
     "data_section": "Datos y almacenamiento",
     "backup_recipes": "Sincronizar recetas",
     "backup_recipes_description": "Sincronizar recetas en la nube",
     "export_recipes": "Exportar recetas",
     "export_recipes_description": "Descarga tus recetas como archivo",
+    "import_recipes": "Importar recetas",
+    "import_recipes_description": "Importar desde un archivo de respaldo",
+    "import_confirmation_title": "Importar recetas",
+    "import_confirmation_message": "Selecciona un archivo de respaldo de recetas para importar. Las recetas duplicadas serán omitidas.",
+    "export_confirmation_title": "Exportar recetas",
+    "export_confirmation_message": "Esto creará un archivo de respaldo con todas tus recetas e imágenes.",
+    "import_success_title": "Importación completada",
+    "import_success_message": "Se importaron exitosamente {0} recetas. Se omitieron {1} duplicados.",
+    "import_error_title": "Error de importación",
+    "import_error_message": "Error al importar recetas: {0}",
     "sign_out": "Cerrar sesión",
     "sign_out_description": "Salir de tu cuenta",
     "sign_out_confirmation_title": "Cerrar sesión",
-    "sign_out_confirmation_message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?"
+    "sign_out_confirmation_message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?",
+    "syncing_recipes": "Sincronizando recetas...",
+    "syncing_recipes_description": "Por favor, espera mientras tus recetas se sincronizan con la nube.",
+    "sync_success_message": "¡Recetas sincronizadas con éxito!",
+    "sync_error_message": "Error al sincronizar recetas: {0}",
+    "auto_sync_disabled": "Sincronización automática desactivada.",
+    "disable_sync_confirmation_title": "Desactivar sincronización en la nube",
+    "disable_sync_confirmation_message": "¿Estás seguro de que quieres desactivar la sincronización en la nube? Esto eliminará permanentemente todas tus recetas de la nube, incluyendo cualquier receta compartida. Tus recetas locales permanecerán en este dispositivo.",
+    "deleting_cloud_recipes_title": "Eliminando recetas de la nube",
+    "deleting_cloud_recipes_description": "Por favor espera mientras eliminamos todas tus recetas de la nube.",
+    "delete_cloud_recipes_error": "Error al eliminar recetas de la nube: {0}"
+  },
+  "profile_info_screen": {
+    "title": "Información de la cuenta",
+    "personal_info": "Información personal",
+    "display_name": "Nombre para mostrar",
+    "email": "Correo electrónico",
+    "user_id": "ID de usuario",
+    "account_details": "Detalles de la cuenta",
+    "email_verified": "Verificación de correo",
+    "verified": "Verificado",
+    "not_verified": "No verificado",
+    "account_created": "Cuenta creada",
+    "last_sign_in": "Último inicio de sesión",
+    "not_available": "No disponible",
+    "not_signed_in": "No has iniciado sesión",
+    "sign_in_to_view": "Inicia sesión para ver la información de tu cuenta",
+    "years_ago": "Hace {0} año(s)",
+    "months_ago": "Hace {0} mes(es)",
+    "days_ago": "Hace {0} día(s)",
+    "hours_ago": "Hace {0} hora(s)",
+    "minutes_ago": "Hace {0} minuto(s)",
+    "danger_zone": "Zona peligrosa",
+    "delete_account": "Eliminar cuenta",
+    "delete_account_warning": "Eliminar tu cuenta y todos los datos",
+    "delete_account_enhanced_warning": "Eliminar permanentemente tu cuenta y todos los datos. También perderás acceso a:\n• Respaldos de recetas y sincronización en la nube\n• Funciones de IA para generar recetas\n• Capacidades para compartir recetas",
+    "confirm_delete_title": "Eliminar cuenta",
+    "confirm_delete_message": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos los datos se perderán permanentemente.",
+    "confirm_delete_enhanced_message": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás permanentemente:\n\n• Todas tus recetas y datos\n• Capacidades de respaldo y sincronización de recetas\n• Acceso a funciones de IA\n• Funciones para compartir recetas\n\nTodos los datos se perderán permanentemente.",
+    "confirm_delete_enhanced_message_with_reauth": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es permanente y no se puede deshacer. Es posible que necesites iniciar sesión nuevamente para verificación de seguridad.\n\nPerderás permanentemente:\n• Todas tus recetas y datos\n• Capacidades de respaldo y sincronización\n• Acceso a funciones de IA\n• Funciones de compartir",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
   },
   "recipe_screen": {
     "title": "Receta",
@@ -39,8 +87,17 @@
     "instructions_title": "Instrucciones",
     "menu_item_delete": "Eliminar receta"
   },
+  "recipes_page": {
+    "no_favorites": "No hay recetas favoritas",
+    "favorites_filter": "Favoritos",
+    "sort_title": "Título",
+    "sort_duration": "Duración",
+    "sort_by_label": "Ordenar por",
+    "view_list": "Vista de lista",
+    "view_grid": "Vista de cuadrícula"
+  },
   "add_recipe_screen": {
-    "title": "Agregar Receta",
+    "title": "Agregar receta",
     "step_image": "Imagen",
     "step_details": "Detalles",
     "step_ingredients": "Ingredientes",
@@ -52,8 +109,12 @@
     "exit_without_saving": "¿Salir sin guardar?",
     "previous": "Anterior",
     "next": "Siguiente",
+    "save": "Guardar",
     "ingredient": "Ingrediente",
-    "step": "Paso"
+    "step": "Paso",
+    "saving_recipe": "Guardando receta...",
+    "please_wait": "Por favor espera",
+    "recipe_saved": "Receta guardada"
   },
   "settings_screen": {
     "title": "Configuración",
@@ -79,13 +140,16 @@
     "recipe_generated_success": "Se ha generado información de la receta",
     "recipe_generated_error": "No se pudo generar la receta: {0}",
     "generate_recipe_info": "Generar información de la receta",
-    "feature_not_available": "La función de generar recetas automáticamente a partir de imágenes no está disponible actualmente. Esta característica estará disponible en futuras versiones."
+    "feature_not_available": "La función de generar recetas automáticamente a partir de imágenes requiere que inicies sesión. Por favor, inicia sesión para usar esta característica."
   },
   "text_fields_step": {
     "title_label": "Título de la receta",
     "title_hint": "Ejemplo: Ensalada César",
     "description_label": "Descripción de la receta",
-    "description_hint": "Ejemplo: Una deliciosa ensalada con pollo y aderezo César"
+    "description_hint": "Ejemplo: Una deliciosa ensalada con pollo y aderezo César",
+    "preparation_time_label": "Tiempo de preparación",
+    "preparation_time_hint": "Ejemplo: 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Error",
@@ -95,27 +159,28 @@
   },
   "recipe_controller": {
     "loading_recipes": "Cargando recetas...",
-    "recipes_loaded": "Recetas cargadas",
-    "adding_recipe": "Agregando receta...",
-    "recipe_added": "Receta agregada",
     "deleting_recipe": "Eliminando receta...",
     "recipe_not_found": "La receta no existe",
     "recipe_deleted": "Receta eliminada",
-    "delete_error": "Error al eliminar la receta"
+    "delete_error": "Error al eliminar receta: {0}",
+    "load_error": "Error al cargar recetas: {0}",
+    "sync_error": "Error de sincronización: {0}",
+    "add_error": "Error al añadir receta: {0}",
+    "image_delete_error": "Error al eliminar imagen: {0}"
   },
   "auth_controller": {
     "signing_in": "Iniciando sesión...",
-    "sign_in_success": "Sesión iniciada correctamente",
     "sign_in_error": "Error al iniciar sesión",
-    "signing_out": "Cerrando sesión...",
-    "sign_out_success": "Sesión cerrada correctamente",
-    "sign_out_error": "Error al cerrar sesión: {0}"
-  },
-  "add_recipe_controller": {
-    "saving_image": "Guardando imagen...",
-    "image_saved": "Imagen guardada",
-    "adding_recipe": "Agregando receta...",
-    "recipe_added": "Receta agregada"
+    "sign_out_error": "Error al cerrar sesión: {0}",
+    "delete_account_error": "Error al eliminar la cuenta: {0}",
+    "requires_recent_login": "Por motivos de seguridad, esta acción requiere autenticación reciente. Por favor, inicia sesión nuevamente.",
+    "reauthenticating": "Reautenticando...",
+    "reauthentication_failed": "Falló la reautenticación: {0}",
+    "syncing_recipes": "Sincronizando recetas...",
+    "sync_completed": "Sincronización completada",
+    "sync_error": "Error de sincronización: {0}",
+    "assign_owner_id_error": "Error al asignar ID de propietario: {0}",
+    "deleting_account": "Eliminando cuenta..."
   },
   "ai_errors": {
     "authentication_failed": "Error de autenticación. Es posible que necesites actualizar la aplicación para continuar usando esta función.",
@@ -125,5 +190,30 @@
     "server_error": "Error del servidor. Por favor intenta más tarde.",
     "network_error": "Error de conexión. Por favor verifica tu conexión e intenta de nuevo.",
     "unknown_error": "Ocurrió un error inesperado. Por favor intenta de nuevo."
+  },
+  "export_service": {
+    "no_recipes_to_export": "No hay recetas para exportar",
+    "save_file": "Guardar archivo",
+    "save_cancelled": "Guardado cancelado",
+    "saved_successfully": "Guardado exitosamente",
+    "save_failed": "Error al guardar"
+  },
+  "import_service": {
+    "select_file": "Seleccionar archivo",
+    "processing_import": "Procesando importación...",
+    "extracting_files": "Extrayendo archivos...",
+    "file_not_found": "Archivo no encontrado",
+    "invalid_format": "Formato de archivo inválido",
+    "encoding_error": "Error de codificación",
+    "no_recipes_found": "No se encontraron recetas en el archivo",
+    "unexpected_error": "Error inesperado: {0}",
+    "invalid_recipe_format": "Formato de receta inválido encontrado",
+    "incomplete_recipe": "La receta '{0}' está incompleta y fue omitida",
+    "recipe_import_error": "Error al importar receta: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "El usuario debe iniciar sesión para realizar esta acción.",
+    "image_file_does_not_exist": "El archivo de imagen no existe: {0}",
+    "failed_to_download_image": "Error al descargar la imagen de {0}. Código de estado: {1}"
   }
 }

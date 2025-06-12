@@ -16,18 +16,66 @@
     "sign_in_description": "Sign in to access your profile and sync your recipes across devices",
     "sign_in_with_google": "Sign In with Google",
     "unknown_user": "Unknown User",
-    "account_section": "Account",
-    "account_info": "Account Information",
-    "account_info_description": "View your account details",
     "data_section": "Data & Storage",
     "backup_recipes": "Sync Recipes",
     "backup_recipes_description": "Automatically sync your recipes to the cloud",
     "export_recipes": "Export Recipes",
     "export_recipes_description": "Download your recipes as a file",
+    "import_recipes": "Import Recipes",
+    "import_recipes_description": "Import recipes from a backup file",
+    "import_confirmation_title": "Import Recipes",
+    "import_confirmation_message": "Select a recipe backup file to import. Duplicate recipes will be skipped.",
+    "export_confirmation_title": "Export Recipes",
+    "export_confirmation_message": "This will create a backup file with all your recipes and images.",
+    "import_success_title": "Import Completed",
+    "import_success_message": "Successfully imported {0} recipes. {1} duplicates were skipped.",
+    "import_error_title": "Import Failed",
+    "import_error_message": "Failed to import recipes: {0}",
     "sign_out": "Sign Out",
     "sign_out_description": "Log out of your account",
     "sign_out_confirmation_title": "Sign Out",
-    "sign_out_confirmation_message": "Are you sure you want to sign out of your account?"
+    "sign_out_confirmation_message": "Are you sure you want to sign out of your account?",
+    "syncing_recipes": "Syncing recipes...",
+    "syncing_recipes_description": "Please wait while your recipes are being synced with the cloud.",
+    "sync_success_message": "Recipes synced successfully!",
+    "sync_error_message": "Error syncing recipes: {0}",
+    "auto_sync_disabled": "Auto-sync disabled.",
+    "disable_sync_confirmation_title": "Disable Cloud Sync",
+    "disable_sync_confirmation_message": "Are you sure you want to disable cloud sync? This will permanently delete all your recipes from the cloud, including any shared recipes. Your local recipes will remain on this device.",
+    "deleting_cloud_recipes_title": "Deleting Cloud Recipes",
+    "deleting_cloud_recipes_description": "Please wait while we delete all your recipes from the cloud.",
+    "delete_cloud_recipes_error": "Error deleting cloud recipes: {0}"
+  },
+  "profile_info_screen": {
+    "title": "Account Information",
+    "personal_info": "Personal Information",
+    "display_name": "Display Name",
+    "email": "Email",
+    "user_id": "User ID",
+    "account_details": "Account Details",
+    "email_verified": "Email Verification",
+    "verified": "Verified",
+    "not_verified": "Not Verified",
+    "account_created": "Account Created",
+    "last_sign_in": "Last Sign In",
+    "not_available": "Not Available",
+    "not_signed_in": "Not Signed In",
+    "sign_in_to_view": "Please sign in to view your account information",
+    "years_ago": "{0} year(s) ago",
+    "months_ago": "{0} month(s) ago",
+    "days_ago": "{0} day(s) ago",
+    "hours_ago": "{0} hour(s) ago",
+    "minutes_ago": "{0} minute(s) ago",
+    "danger_zone": "Danger Zone",
+    "delete_account": "Delete Account",
+    "delete_account_warning": "Permanently delete your account and all data",
+    "delete_account_enhanced_warning": "Permanently delete your account and all data. You will also lose access to:\n• Recipe backups and cloud sync\n• AI features for recipe generation\n• Recipe sharing capabilities",
+    "confirm_delete_title": "Delete Account",
+    "confirm_delete_message": "Are you sure you want to delete your account? This action cannot be undone and all data will be permanently lost.",
+    "confirm_delete_enhanced_message": "Are you sure you want to delete your account? This action cannot be undone and you will permanently lose:\n\n• All your recipes and data\n• Recipe backup and sync capabilities\n• Access to AI features\n• Recipe sharing functions\n\nAll data will be permanently lost.",
+    "confirm_delete_enhanced_message_with_reauth": "Are you sure you want to delete your account? This action is permanent and cannot be undone. You may need to sign in again for security verification.\n\nYou will permanently lose:\n• All your recipes and data\n• Backup and sync capabilities\n• Access to AI features\n• Sharing functions",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
   "recipe_screen": {
     "title": "Recipe",
@@ -38,6 +86,15 @@
     "ingredients_title": "Ingredients",
     "instructions_title": "Instructions",
     "menu_item_delete": "Delete recipe"
+  },
+  "recipes_page": {
+    "no_favorites": "No favorite recipes",
+    "favorites_filter": "Favorites",
+    "sort_title": "Title",
+    "sort_duration": "Duration",
+    "sort_by_label": "Sort by",
+    "view_list": "List View",
+    "view_grid": "Grid View"
   },
   "add_recipe_screen": {
     "title": "Add Recipe",
@@ -52,8 +109,12 @@
     "exit_without_saving": "Exit without saving?",
     "previous": "Previous",
     "next": "Next",
+    "save": "Save",
     "ingredient": "Ingredient",
-    "step": "Step"
+    "step": "Step",
+    "saving_recipe": "Saving recipe...",
+    "please_wait": "Please wait",
+    "recipe_saved": "Recipe saved"
   },
   "settings_screen": {
     "title": "Settings",
@@ -79,13 +140,16 @@
     "recipe_generated_success": "Recipe information has been generated",
     "recipe_generated_error": "Could not generate recipe: {0}",
     "generate_recipe_info": "Generate recipe information",
-    "feature_not_available": "The function to automatically generate recipes from images is not currently available. This feature will be available in future versions."
+    "feature_not_available": "The function to automatically generate recipes from images requires you to be signed in. Please sign in to use this feature."
   },
   "text_fields_step": {
     "title_label": "Recipe title",
     "title_hint": "Example: Caesar Salad",
     "description_label": "Recipe description",
-    "description_hint": "Example: A delicious salad with chicken and Caesar dressing"
+    "description_hint": "Example: A delicious salad with chicken and Caesar dressing",
+    "preparation_time_label": "Preparation time",
+    "preparation_time_hint": "Example: 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Error",
@@ -95,27 +159,28 @@
   },
   "recipe_controller": {
     "loading_recipes": "Loading recipes...",
-    "recipes_loaded": "Recipes loaded",
-    "adding_recipe": "Adding recipe...",
-    "recipe_added": "Recipe added",
     "deleting_recipe": "Deleting recipe...",
     "recipe_not_found": "The recipe does not exist",
     "recipe_deleted": "Recipe deleted",
-    "delete_error": "Error deleting the recipe"
+    "delete_error": "Error deleting recipe: {0}",
+    "load_error": "Error loading recipes: {0}",
+    "sync_error": "Sync error: {0}",
+    "add_error": "Error adding recipe: {0}",
+    "image_delete_error": "Error deleting image: {0}"
   },
   "auth_controller": {
     "signing_in": "Signing in...",
-    "sign_in_success": "Successfully signed in",
     "sign_in_error": "Error signing in",
-    "signing_out": "Signing out...",
-    "sign_out_success": "Successfully signed out",
-    "sign_out_error": "Error signing out: {0}"
-  },
-  "add_recipe_controller": {
-    "saving_image": "Saving image...",
-    "image_saved": "Image saved",
-    "adding_recipe": "Adding recipe...",
-    "recipe_added": "Recipe added"
+    "sign_out_error": "Error signing out: {0}",
+    "delete_account_error": "Error deleting account: {0}",
+    "requires_recent_login": "For security reasons, this action requires recent authentication. Please sign in again.",
+    "reauthenticating": "Reauthenticating...",
+    "reauthentication_failed": "Reauthentication failed: {0}",
+    "syncing_recipes": "Syncing recipes...",
+    "sync_completed": "Sync completed",
+    "sync_error": "Sync error: {0}",
+    "assign_owner_id_error": "Error assigning owner ID: {0}",
+    "deleting_account": "Deleting account..."
   },
   "ai_errors": {
     "authentication_failed": "Authentication failed. You may need to update the app to continue using this feature.",
@@ -125,5 +190,30 @@
     "server_error": "Server error. Please try again later.",
     "network_error": "Network error. Please check your connection and try again.",
     "unknown_error": "An unexpected error occurred. Please try again."
+  },
+  "export_service": {
+    "no_recipes_to_export": "No recipes to export",
+    "save_file": "Save file",
+    "save_cancelled": "Save was cancelled",
+    "saved_successfully": "Saved successfully",
+    "save_failed": "Save failed"
+  },
+  "import_service": {
+    "select_file": "Select file",
+    "extracting_files": "Extracting files...",
+    "processing_import": "Processing import...",
+    "file_not_found": "File not found",
+    "invalid_format": "Invalid file format",
+    "no_recipes_found": "No recipes found in file",
+    "encoding_error": "File encoding error",
+    "invalid_recipe_format": "Invalid recipe format found",
+    "incomplete_recipe": "Recipe '{0}' is incomplete and was skipped",
+    "recipe_import_error": "Error importing recipe: {0}",
+    "unexpected_error": "Unexpected error occurred: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "User must be logged in to perform this action.",
+    "image_file_does_not_exist": "Image file does not exist: {0}",
+    "failed_to_download_image": "Failed to download image from {0}. Status code: {1}"
   }
 }

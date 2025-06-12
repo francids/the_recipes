@@ -3,11 +3,11 @@ import "dart:io";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:lottie/lottie.dart";
-import "package:material_dialogs/material_dialogs.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class RecipeScreen extends StatelessWidget {
   RecipeScreen({
@@ -17,6 +17,38 @@ class RecipeScreen extends StatelessWidget {
 
   final Recipe recipe;
   final RecipeController recipeController = Get.find();
+  final FavoritesController favoritesController = Get.find();
+
+  String _formatPreparationTime(int seconds) {
+    if (seconds == 0) return "";
+
+    final hours = seconds ~/ 3600;
+    final minutes = (seconds % 3600) ~/ 60;
+    final remainingSeconds = seconds % 60;
+
+    Map<String, Map<String, String>> localizedStrings = {
+      "de": {"h": "Std", "m": "Min", "s": "Sek"},
+      "en": {"h": "h", "m": "m", "s": "s"},
+      "es": {"h": "h", "m": "m", "s": "s"},
+      "fr": {"h": "h", "m": "m", "s": "s"},
+      "it": {"h": "h", "m": "m", "s": "s"},
+      "ja": {"h": "時間", "m": "分", "s": "秒"},
+      "ko": {"h": "시간", "m": "분", "s": "초"},
+      "pt": {"h": "h", "m": "m", "s": "s"},
+      "zh": {"h": "小时", "m": "分钟", "s": "秒"},
+    };
+
+    Map<String, String> currentStrings =
+        localizedStrings[Get.locale] ?? localizedStrings["en"]!;
+
+    List<String> parts = [];
+    if (hours > 0) parts.add("$hours${currentStrings["h"]}");
+    if (minutes > 0) parts.add("$minutes${currentStrings["m"]}");
+    if (remainingSeconds > 0 && hours == 0)
+      parts.add("$remainingSeconds${currentStrings["s"]}");
+
+    return parts.join(" ");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +64,17 @@ class RecipeScreen extends StatelessWidget {
           icon: const Icon(CupertinoIcons.back),
         ),
         actions: [
+          Obx(() => IconButton(
+                onPressed: () => favoritesController.toggleFavorite(recipe.id),
+                icon: Icon(
+                  favoritesController.isFavorite(recipe.id)
+                      ? CupertinoIcons.heart_fill
+                      : CupertinoIcons.heart,
+                  color: favoritesController.isFavorite(recipe.id)
+                      ? Colors.red
+                      : null,
+                ),
+              )),
           IconButton(
             icon: const Icon(CupertinoIcons.ellipsis_vertical),
             tooltip: "inicial_screen.menu_tooltip".tr,
@@ -47,48 +90,19 @@ class RecipeScreen extends StatelessWidget {
                       horizontalTitleGap: 8,
                     ),
                     onTap: () {
-                      Dialogs.materialDialog(
+                      UIHelpers.showConfirmationDialog(
                         context: context,
-                        msg: "recipe_screen.delete_confirmation_message".tr,
                         title: "recipe_screen.delete_confirmation_title".tr,
-                        lottieBuilder: LottieBuilder.asset(
-                          "assets/lottie/delete.json",
-                          fit: BoxFit.contain,
-                        ),
-                        msgAlign: TextAlign.center,
-                        titleStyle: Theme.of(context).textTheme.displayMedium!,
-                        msgStyle: Theme.of(context).textTheme.bodyMedium,
-                        color: Theme.of(context).colorScheme.surface,
-                        dialogWidth: MediaQuery.of(context).size.width * 0.8,
-                        useRootNavigator: true,
-                        useSafeArea: true,
-                        actionsBuilder: (context) {
-                          return [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: TextButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: Text("recipe_screen.cancel_button".tr),
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: FilledButton(
-                                onPressed: () {
-                                  recipeController.deleteRecipe(
-                                    recipe.id,
-                                    recipe.image,
-                                  );
-                                  Get.back();
-                                  Get.back();
-                                  recipeController.refreshRecipes();
-                                },
-                                child: Text("recipe_screen.delete_button".tr),
-                              ),
-                            ),
-                          ];
+                        message: "recipe_screen.delete_confirmation_message".tr,
+                        lottieAsset: "assets/lottie/delete.json",
+                        confirmAction: () {
+                          recipeController.deleteRecipe(
+                            recipe.id,
+                            recipe.image,
+                          );
+                          Get.back();
+                          Get.back();
+                          recipeController.refreshRecipes();
                         },
                       );
                     },
@@ -124,28 +138,46 @@ class RecipeScreen extends StatelessWidget {
                             isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Hero(
-                        tag: "recipe_image_${recipe.id}",
-                        child: ClipRRect(
+                      child: Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(9.5),
-                          child: Image.file(
-                            File(recipe.image),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          ),
+                          color:
+                              Theme.of(context).colorScheme.surfaceContainerLow,
+                        ),
+                        child: Image.file(
+                          File(recipe.image),
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     const SizedBox(height: 24),
-                    Hero(
-                      tag: "recipe_title_${recipe.id}",
-                      child: Text(
-                        recipe.title,
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
+                    Text(
+                      recipe.title,
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(
+                          begin: 0.2,
+                          duration: 400.ms,
+                          curve: Curves.easeOutCubic,
+                        ),
+                    const SizedBox(height: 8),
+                    if (recipe.preparationTime > 0)
+                      Chip(
+                        avatar: Icon(CupertinoIcons.time),
+                        label: Text(
+                          _formatPreparationTime(recipe.preparationTime),
+                        ),
+                      )
+                          .animate()
+                          .fadeIn(delay: 100.ms, duration: 500.ms)
+                          .slideY(
+                            begin: 0.2,
+                            duration: 400.ms,
+                            curve: Curves.easeOutCubic,
+                          ),
+                    const SizedBox(height: 8),
                     Text(
                       recipe.description,
                       style: Theme.of(context).textTheme.bodyMedium,

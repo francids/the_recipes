@@ -16,18 +16,66 @@
     "sign_in_description": "プロフィールにアクセスし、すべてのデバイスでレシピを同期するにはサインインしてください",
     "sign_in_with_google": "Googleでサインイン",
     "unknown_user": "未知のユーザー",
-    "account_section": "アカウント",
-    "account_info": "アカウント情報",
-    "account_info_description": "アカウントの詳細を表示",
     "data_section": "データとストレージ",
     "backup_recipes": "レシピの同期",
     "backup_recipes_description": "レシピをクラウドで自動的に同期",
     "export_recipes": "レシピのエクスポート",
     "export_recipes_description": "レシピをファイルとしてダウンロード",
+    "import_recipes": "レシピのインポート",
+    "import_recipes_description": "バックアップファイルからレシピをインポート",
+    "import_confirmation_title": "レシピのインポート",
+    "import_confirmation_message": "インポートするレシピのバックアップファイルを選択してください。重複するレシピはスキップされます。",
+    "export_confirmation_title": "レシピのエクスポート",
+    "export_confirmation_message": "すべてのレシピと画像を含むバックアップファイルを作成します。",
+    "import_success_title": "インポート完了",
+    "import_success_message": "{0}個のレシピのインポートに成功しました。{1}個の重複がスキップされました。",
+    "import_error_title": "インポート失敗",
+    "import_error_message": "レシピのインポートに失敗しました：{0}",
     "sign_out": "サインアウト",
     "sign_out_description": "アカウントからログアウト",
     "sign_out_confirmation_title": "サインアウト",
-    "sign_out_confirmation_message": "アカウントからサインアウトしてもよろしいですか？"
+    "sign_out_confirmation_message": "アカウントからサインアウトしてもよろしいですか？",
+    "syncing_recipes": "レシピを同期中...",
+    "syncing_recipes_description": "レシピをクラウドと同期している間、しばらくお待ちください。",
+    "sync_success_message": "レシピが正常に同期されました！",
+    "sync_error_message": "レシピの同期エラー: {0}",
+    "auto_sync_disabled": "自動同期が無効になっています。",
+    "disable_sync_confirmation_title": "クラウド同期を無効にする",
+    "disable_sync_confirmation_message": "クラウド同期を無効にしてもよろしいですか？これにより、共有されたレシピを含む、クラウド上のすべてのレシピが完全に削除されます。ローカルのレシピはこのデバイスに残ります。",
+    "deleting_cloud_recipes_title": "クラウドレシピを削除中",
+    "deleting_cloud_recipes_description": "クラウドからすべてのレシピを削除している間、お待ちください。",
+    "delete_cloud_recipes_error": "クラウドレシピの削除エラー: {0}"
+  },
+  "profile_info_screen": {
+    "title": "アカウント情報",
+    "personal_info": "個人情報",
+    "display_name": "表示名",
+    "email": "メールアドレス",
+    "user_id": "ユーザーID",
+    "account_details": "アカウント詳細",
+    "email_verified": "メール認証",
+    "verified": "認証済み",
+    "not_verified": "未認証",
+    "account_created": "アカウント作成日",
+    "last_sign_in": "最終サインイン",
+    "not_available": "利用不可",
+    "not_signed_in": "サインインしていません",
+    "sign_in_to_view": "アカウント情報を表示するにはサインインしてください",
+    "years_ago": "{0}年前",
+    "months_ago": "{0}ヶ月前",
+    "days_ago": "{0}日前",
+    "hours_ago": "{0}時間前",
+    "minutes_ago": "{0}分前",
+    "danger_zone": "危険ゾーン",
+    "delete_account": "アカウントを削除",
+    "delete_account_warning": "アカウントとすべてのデータを完全に削除します",
+    "delete_account_enhanced_warning": "アカウントとすべてのデータを完全に削除します。また、以下へのアクセスも失います：\n• レシピのバックアップとクラウド同期\n• レシピ生成のAI機能\n• レシピ共有機能",
+    "confirm_delete_title": "アカウントを削除",
+    "confirm_delete_message": "アカウントを削除してもよろしいですか？この操作は元に戻せず、すべてのデータが完全に失われます。",
+    "confirm_delete_enhanced_message": "アカウントを削除してもよろしいですか？この操作は元に戻せず、以下を完全に失います：\n\n• すべてのレシピとデータ\n• レシピのバックアップと同期機能\n• AI機能へのアクセス\n• レシピ共有機能\n\nすべてのデータが完全に失われます。",
+    "confirm_delete_enhanced_message_with_reauth": "アカウントを削除してもよろしいですか？この操作は永続的で元に戻すことはできません。セキュリティ確認のため再ログインが必要になる場合があります。\n\n完全に失うもの：\n• すべてのレシピとデータ\n• バックアップと同期機能\n• AI機能へのアクセス\n• 共有機能",
+    "cancel": "キャンセル",
+    "delete": "削除"
   },
   "recipe_screen": {
     "title": "レシピ",
@@ -38,6 +86,15 @@
     "ingredients_title": "材料",
     "instructions_title": "調理手順",
     "menu_item_delete": "レシピを削除"
+  },
+  "recipes_page": {
+    "no_favorites": "お気に入りのレシピがありません",
+    "favorites_filter": "お気に入り",
+    "sort_title": "タイトル",
+    "sort_duration": "期間",
+    "sort_by_label": "並び替え",
+    "view_list": "リスト表示",
+    "view_grid": "グリッド表示"
   },
   "add_recipe_screen": {
     "title": "レシピを追加",
@@ -52,8 +109,12 @@
     "exit_without_saving": "保存せずに終了しますか？",
     "previous": "前へ",
     "next": "次へ",
+    "save": "保存",
     "ingredient": "材料",
-    "step": "ステップ"
+    "step": "ステップ",
+    "saving_recipe": "レシピを保存中...",
+    "please_wait": "お待ちください",
+    "recipe_saved": "レシピが保存されました"
   },
   "settings_screen": {
     "title": "設定",
@@ -79,13 +140,16 @@
     "recipe_generated_success": "レシピ情報が生成されました",
     "recipe_generated_error": "レシピを生成できませんでした：{0}",
     "generate_recipe_info": "レシピ情報を生成",
-    "feature_not_available": "画像から自動的にレシピを生成する機能は現在利用できません。この機能は将来のバージョンで利用可能になります。"
+    "feature_not_available": "画像から自動的にレシピを生成する機能を使用するには、サインインが必要です。この機能をご利用になるにはサインインしてください。"
   },
   "text_fields_step": {
     "title_label": "レシピのタイトル",
     "title_hint": "例：シーザーサラダ",
     "description_label": "レシピの説明",
-    "description_hint": "例：鶏肉とシーザードレッシングを使ったおいしいサラダ"
+    "description_hint": "例：鶏肉とシーザードレッシングを使ったおいしいサラダ",
+    "preparation_time_label": "調理時間",
+    "preparation_time_hint": "例：30",
+    "minutes": "分"
   },
   "ui_helpers": {
     "error": "エラー",
@@ -95,27 +159,28 @@
   },
   "recipe_controller": {
     "loading_recipes": "レシピを読み込み中...",
-    "recipes_loaded": "レシピが読み込まれました",
-    "adding_recipe": "レシピを追加中...",
-    "recipe_added": "レシピが追加されました",
     "deleting_recipe": "レシピを削除中...",
     "recipe_not_found": "レシピが存在しません",
     "recipe_deleted": "レシピが削除されました",
-    "delete_error": "レシピの削除中にエラーが発生しました"
+    "delete_error": "レシピの削除中にエラーが発生しました: {0}",
+    "load_error": "レシピの読み込みエラー: {0}",
+    "sync_error": "同期エラー: {0}",
+    "add_error": "レシピの追加エラー: {0}",
+    "image_delete_error": "画像の削除エラー: {0}"
   },
   "auth_controller": {
     "signing_in": "サインイン中...",
-    "sign_in_success": "サインインに成功しました",
     "sign_in_error": "サインイン中にエラーが発生しました",
-    "signing_out": "サインアウト中...",
-    "sign_out_success": "サインアウトに成功しました",
-    "sign_out_error": "サインアウト中にエラーが発生しました：{0}"
-  },
-  "add_recipe_controller": {
-    "saving_image": "画像を保存中...",
-    "image_saved": "画像が保存されました",
-    "adding_recipe": "レシピを追加中...",
-    "recipe_added": "レシピが追加されました"
+    "sign_out_error": "サインアウト中にエラーが発生しました：{0}",
+    "delete_account_error": "アカウント削除中にエラーが発生しました：{0}",
+    "requires_recent_login": "セキュリティ上の理由により、この操作には最近の認証が必要です。再度サインインしてください。",
+    "reauthenticating": "再認証中...",
+    "reauthentication_failed": "再認証に失敗しました：{0}",
+    "syncing_recipes": "レシピを同期中...",
+    "sync_completed": "同期完了",
+    "sync_error": "同期エラー: {0}",
+    "assign_owner_id_error": "オーナーIDの割り当てエラー: {0}",
+    "deleting_account": "アカウントを削除中..."
   },
   "ai_errors": {
     "authentication_failed": "認証に失敗しました。この機能を引き続き使用するにはアプリの更新が必要な場合があります。",
@@ -125,5 +190,30 @@
     "server_error": "サーバーエラーです。後でもう一度お試しください。",
     "network_error": "ネットワークエラーです。接続を確認して再試行してください。",
     "unknown_error": "予期しないエラーが発生しました。再試行してください。"
+  },
+  "export_service": {
+    "no_recipes_to_export": "エクスポートするレシピがありません",
+    "save_file": "ファイルを保存",
+    "save_cancelled": "保存がキャンセルされました",
+    "saved_successfully": "正常に保存されました",
+    "save_failed": "保存に失敗しました"
+  },
+  "import_service": {
+    "select_file": "ファイルを選択",
+    "extracting_files": "ファイルを展開中...",
+    "processing_import": "インポート処理中...",
+    "file_not_found": "ファイルが見つかりません",
+    "invalid_format": "無効なファイル形式",
+    "no_recipes_found": "ファイルにレシピが見つかりません",
+    "encoding_error": "ファイルのエンコードエラー",
+    "invalid_recipe_format": "無効なレシピ形式が見つかりました",
+    "incomplete_recipe": "レシピ '{0}' は不完全でスキップされました",
+    "recipe_import_error": "レシピインポートエラー: {0}",
+    "unexpected_error": "予期しないエラーが発生しました: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "この操作を実行するには、ユーザーがログインしている必要があります。",
+    "image_file_does_not_exist": "画像ファイルが存在しません: {0}",
+    "failed_to_download_image": "{0}からの画像のダウンロードに失敗しました。ステータスコード: {1}"
   }
 }

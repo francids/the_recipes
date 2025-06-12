@@ -9,12 +9,17 @@ class TheRecipeAppTheme {
   static ThemeData getTheme(bool isDark) {
     return ThemeData(
       textTheme: _getTextTheme(isDark),
+      dialogTheme: _dialogTheme(isDark),
+      cardTheme: cardTheme(isDark),
       dividerTheme: _dividerTheme(isDark),
       colorScheme: isDark ? _darkColorScheme : _colorScheme,
       appBarTheme: _getAppBarTheme(isDark),
       floatingActionButtonTheme: _floatingActionButtonThemeData(isDark),
+      textButtonTheme: _textButtonTheme,
+      outlinedButtonTheme: _outlinedButtonTheme,
       filledButtonTheme: _filledButtonTheme,
       bottomNavigationBarTheme: _bottomNavigationBarTheme(isDark),
+      chipTheme: _chipTheme(isDark),
       brightness: isDark ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: isDark ? const Color(0xFF121212) : Colors.white,
       splashColor: Colors.deepOrange.withAlpha(8),
@@ -25,13 +30,86 @@ class TheRecipeAppTheme {
     );
   }
 
+  static DialogThemeData _dialogTheme(bool isDark) {
+    return DialogThemeData(
+      elevation: 8,
+      backgroundColor: isDark ? _darkColorScheme.surface : _colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    );
+  }
+
+  static CardThemeData cardTheme(bool isDark) {
+    return CardThemeData(
+      color: isDark ? const Color(0xFF2A2A2A) : const Color(0xFFFAFAFA),
+      shadowColor: isDark ? Colors.black26 : Colors.black12,
+      surfaceTintColor: isDark ? Colors.black26 : Colors.black12,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: isDark ? Colors.white30 : Colors.black26,
+          width: 0.5,
+          strokeAlign: BorderSide.strokeAlignInside,
+        ),
+      ),
+    );
+  }
+
   static DividerThemeData _dividerTheme(bool isDark) => DividerThemeData(
-        color: isDark ? Colors.white30 : Colors.black26,
+        color: isDark
+            ? Colors.white30.withAlpha(100)
+            : Colors.black26.withAlpha(100),
         thickness: 0.5,
         space: 0.5,
       );
 
-  static FilledButtonThemeData _filledButtonTheme = const FilledButtonThemeData(
+  static const TextButtonThemeData _textButtonTheme = TextButtonThemeData(
+    style: ButtonStyle(
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      foregroundColor: WidgetStatePropertyAll(Colors.deepOrange),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  static const OutlinedButtonThemeData _outlinedButtonTheme =
+      OutlinedButtonThemeData(
+    style: ButtonStyle(
+      textStyle: WidgetStatePropertyAll(
+        TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      foregroundColor: WidgetStatePropertyAll(Colors.deepOrange),
+      side: WidgetStatePropertyAll(
+        BorderSide(
+          color: Colors.deepOrange,
+          width: 1.5,
+        ),
+      ),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  static const FilledButtonThemeData _filledButtonTheme =
+      const FilledButtonThemeData(
     style: ButtonStyle(
       textStyle: WidgetStatePropertyAll(
         TextStyle(
@@ -122,6 +200,11 @@ class TheRecipeAppTheme {
           fontSize: 20,
           fontWeight: FontWeight.w500,
         ),
+        bodyLarge: TextStyle(
+          color: isDark ? Colors.white : Colors.black87,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
         bodyMedium: TextStyle(
           color: isDark ? Colors.white70 : Colors.black87,
           fontSize: 13,
@@ -129,6 +212,16 @@ class TheRecipeAppTheme {
         bodySmall: TextStyle(
           color: isDark ? Colors.white60 : Colors.black54,
           fontSize: 12,
+        ),
+        labelLarge: TextStyle(
+          color: isDark ? Colors.white : Colors.black87,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        labelMedium: TextStyle(
+          color: isDark ? Colors.white70 : Colors.black87,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
         ),
       ),
     );
@@ -198,6 +291,38 @@ class TheRecipeAppTheme {
       ),
       behavior: SnackBarBehavior.floating,
       elevation: 6,
+    );
+  }
+
+  static ChipThemeData _chipTheme(bool isDark) {
+    return ChipThemeData(
+      backgroundColor:
+          isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+      selectedColor: Colors.deepOrange.withAlpha(50),
+      disabledColor: isDark ? Colors.white12 : Colors.black12,
+      deleteIconColor: isDark ? Colors.white70 : Colors.black54,
+      labelStyle: _getTextTheme(isDark).labelLarge!.copyWith(
+            fontWeight: FontWeight.w500,
+            color: isDark ? Colors.white70 : Colors.black54,
+          ),
+      secondaryLabelStyle: _getTextTheme(isDark).labelMedium!.copyWith(
+            fontWeight: FontWeight.w400,
+            color: isDark ? Colors.white70 : Colors.black54,
+          ),
+      side: BorderSide(
+        color: isDark ? Colors.white30 : Colors.black26,
+        width: 0.5,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0,
+      pressElevation: 2,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      iconTheme: IconThemeData(
+        color: isDark ? Colors.white70 : Colors.black54,
+        size: 18,
+      ),
     );
   }
 }

@@ -4,11 +4,11 @@
     "menu_tooltip": "Opções",
     "menu_item_reload": "Recarregar receitas",
     "menu_item_settings": "Configurações",
-    "fab_tooltip_ai": "Recursos de IA",
-    "snackbar_title_not_available": "Recurso não disponível",
-    "snackbar_message_not_available": "Este recurso não está disponível nesta versão",
+    "fab_tooltip_ai": "Funções de IA",
+    "snackbar_title_not_available": "Função não disponível",
+    "snackbar_message_not_available": "Esta função não está disponível nesta versão",
     "fab_tooltip_add": "Adicionar receita",
-    "empty_list": "Nenhuma receita disponível"
+    "empty_list": "Não há receitas disponíveis"
   },
   "profile_page": {
     "title": "Perfil",
@@ -16,18 +16,66 @@
     "sign_in_description": "Faça login para acessar seu perfil e sincronizar suas receitas em todos os dispositivos",
     "sign_in_with_google": "Entrar com Google",
     "unknown_user": "Usuário desconhecido",
-    "account_section": "Conta",
-    "account_info": "Informações da conta",
-    "account_info_description": "Ver detalhes da sua conta",
     "data_section": "Dados e armazenamento",
     "backup_recipes": "Sincronizar receitas",
     "backup_recipes_description": "Sincronizar automaticamente suas receitas na nuvem",
     "export_recipes": "Exportar receitas",
     "export_recipes_description": "Baixe suas receitas como arquivo",
+    "import_recipes": "Importar receitas",
+    "import_recipes_description": "Importar receitas de um arquivo de backup",
+    "import_confirmation_title": "Importar receitas",
+    "import_confirmation_message": "Selecione um arquivo de backup de receitas para importar. Receitas duplicadas serão ignoradas.",
+    "export_confirmation_title": "Exportar receitas",
+    "export_confirmation_message": "Isso criará um arquivo de backup com todas as suas receitas e imagens.",
+    "import_success_title": "Importação concluída",
+    "import_success_message": "Importadas com sucesso {0} receitas. {1} duplicatas foram ignoradas.",
+    "import_error_title": "Falha na importação",
+    "import_error_message": "Falha ao importar receitas: {0}",
     "sign_out": "Sair",
     "sign_out_description": "Desconectar da sua conta",
     "sign_out_confirmation_title": "Sair",
-    "sign_out_confirmation_message": "Tem certeza de que deseja sair da sua conta?"
+    "sign_out_confirmation_message": "Tem certeza de que deseja sair da sua conta?",
+    "syncing_recipes": "Sincronizando receitas...",
+    "syncing_recipes_description": "Aguarde enquanto suas receitas são sincronizadas com a nuvem.",
+    "sync_success_message": "Receitas sincronizadas com sucesso!",
+    "sync_error_message": "Erro ao sincronizar receitas: {0}",
+    "auto_sync_disabled": "Sincronização automática desativada.",
+    "disable_sync_confirmation_title": "Desativar Sincronização na Nuvem",
+    "disable_sync_confirmation_message": "Tem certeza de que deseja desativar a sincronização na nuvem? Isso excluirá permanentemente todas as suas receitas da nuvem, incluindo qualquer receita compartilhada. Suas receitas locais permanecerão neste dispositivo.",
+    "deleting_cloud_recipes_title": "Excluindo Receitas da Nuvem",
+    "deleting_cloud_recipes_description": "Aguarde enquanto excluímos todas as suas receitas da nuvem.",
+    "delete_cloud_recipes_error": "Erro ao excluir receitas da nuvem: {0}"
+  },
+  "profile_info_screen": {
+    "title": "Informações da Conta",
+    "personal_info": "Informações Pessoais",
+    "display_name": "Nome de Exibição",
+    "email": "E-mail",
+    "user_id": "ID do Usuário",
+    "account_details": "Detalhes da Conta",
+    "email_verified": "Verificação de E-mail",
+    "verified": "Verificado",
+    "not_verified": "Não Verificado",
+    "account_created": "Conta Criada",
+    "last_sign_in": "Último Login",
+    "not_available": "Não Disponível",
+    "not_signed_in": "Não Conectado",
+    "sign_in_to_view": "Faça login para ver as informações da sua conta",
+    "years_ago": "Há {0} ano(s)",
+    "months_ago": "Há {0} mês(es)",
+    "days_ago": "Há {0} dia(s)",
+    "hours_ago": "Há {0} hora(s)",
+    "minutes_ago": "Há {0} minuto(s)",
+    "danger_zone": "Zona de Perigo",
+    "delete_account": "Excluir Conta",
+    "delete_account_warning": "Excluir permanentemente sua conta e todos os dados",
+    "delete_account_enhanced_warning": "Excluir permanentemente sua conta e todos os dados. Você também perderá acesso a:\n• Backups de receitas e sincronização na nuvem\n• Recursos de IA para gerar receitas\n• Capacidades de compartilhar receitas",
+    "confirm_delete_title": "Excluir Conta",
+    "confirm_delete_message": "Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita e todos os dados serão perdidos permanentemente.",
+    "confirm_delete_enhanced_message": "Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita e você perderá permanentemente:\n\n• Todas as suas receitas e dados\n• Capacidades de backup e sincronização de receitas\n• Acesso a recursos de IA\n• Funções de compartilhar receitas\n\nTodos os dados serão perdidos permanentemente.",
+    "confirm_delete_enhanced_message_with_reauth": "Tem certeza de que deseja excluir sua conta? Esta ação é permanente e não pode ser desfeita. Você pode precisar fazer login novamente para verificação de segurança.\n\nVocê perderá permanentemente:\n• Todas as suas receitas e dados\n• Capacidades de backup e sincronização\n• Acesso a recursos de IA\n• Funções de compartilhamento",
+    "cancel": "Cancelar",
+    "delete": "Excluir"
   },
   "recipe_screen": {
     "title": "Receita",
@@ -38,6 +86,15 @@
     "ingredients_title": "Ingredientes",
     "instructions_title": "Instruções",
     "menu_item_delete": "Excluir receita"
+  },
+  "recipes_page": {
+    "no_favorites": "Nenhuma receita favorita",
+    "favorites_filter": "Favoritos",
+    "sort_title": "Título",
+    "sort_duration": "Duração",
+    "sort_by_label": "Ordenar por",
+    "view_list": "Exibição em Lista",
+    "view_grid": "Exibição em Grade"
   },
   "add_recipe_screen": {
     "title": "Adicionar Receita",
@@ -52,8 +109,12 @@
     "exit_without_saving": "Sair sem salvar?",
     "previous": "Anterior",
     "next": "Próximo",
+    "save": "Salvar",
     "ingredient": "Ingrediente",
-    "step": "Passo"
+    "step": "Passo",
+    "saving_recipe": "Salvando receita...",
+    "please_wait": "Aguarde",
+    "recipe_saved": "Receita salva"
   },
   "settings_screen": {
     "title": "Configurações",
@@ -79,13 +140,16 @@
     "recipe_generated_success": "As informações da receita foram geradas",
     "recipe_generated_error": "Não foi possível gerar a receita: {0}",
     "generate_recipe_info": "Gerar informações da receita",
-    "feature_not_available": "A função para gerar receitas automaticamente a partir de imagens não está disponível atualmente. Este recurso estará disponível em versões futuras."
+    "feature_not_available": "A função para gerar receitas automaticamente a partir de imagens requer que você esteja conectado. Faça login para usar esta funcionalidade."
   },
   "text_fields_step": {
     "title_label": "Título da receita",
     "title_hint": "Exemplo: Salada Caesar",
     "description_label": "Descrição da receita",
-    "description_hint": "Exemplo: Uma salada deliciosa com frango e molho Caesar"
+    "description_hint": "Exemplo: Uma salada deliciosa com frango e molho Caesar",
+    "preparation_time_label": "Tempo de preparo",
+    "preparation_time_hint": "Exemplo: 30",
+    "minutes": "min"
   },
   "ui_helpers": {
     "error": "Erro",
@@ -95,27 +159,28 @@
   },
   "recipe_controller": {
     "loading_recipes": "Carregando receitas...",
-    "recipes_loaded": "Receitas carregadas",
-    "adding_recipe": "Adicionando receita...",
-    "recipe_added": "Receita adicionada",
     "deleting_recipe": "Excluindo receita...",
     "recipe_not_found": "A receita não existe",
     "recipe_deleted": "Receita excluída",
-    "delete_error": "Erro ao excluir a receita"
+    "delete_error": "Erro ao excluir receita: {0}",
+    "load_error": "Erro ao carregar receitas: {0}",
+    "sync_error": "Erro de sincronização: {0}",
+    "add_error": "Erro ao adicionar receita: {0}",
+    "image_delete_error": "Erro ao excluir imagem: {0}"
   },
   "auth_controller": {
-    "signing_in": "Fazendo login...",
-    "sign_in_success": "Login realizado com sucesso",
-    "sign_in_error": "Erro ao fazer login",
-    "signing_out": "Saindo...",
-    "sign_out_success": "Saída realizada com sucesso",
-    "sign_out_error": "Erro ao sair: {0}"
-  },
-  "add_recipe_controller": {
-    "saving_image": "Salvando imagem...",
-    "image_saved": "Imagem salva",
-    "adding_recipe": "Adicionando receita...",
-    "recipe_added": "Receita adicionada"
+    "signing_in": "Entrando...",
+    "sign_in_error": "Erro ao entrar",
+    "sign_out_error": "Erro ao sair: {0}",
+    "delete_account_error": "Erro ao excluir conta: {0}",
+    "requires_recent_login": "Por motivos de segurança, esta ação requer autenticação recente. Por favor, entre novamente.",
+    "reauthenticating": "Reautenticando...",
+    "reauthentication_failed": "Falha na reautenticação: {0}",
+    "syncing_recipes": "Sincronizando receitas...",
+    "sync_completed": "Sincronização concluída",
+    "sync_error": "Erro de sincronização: {0}",
+    "assign_owner_id_error": "Erro ao atribuir ID do proprietário: {0}",
+    "deleting_account": "Excluindo conta..."
   },
   "ai_errors": {
     "authentication_failed": "Falha na autenticação. Você pode precisar atualizar o aplicativo para continuar usando esta função.",
@@ -125,5 +190,30 @@
     "server_error": "Erro do servidor. Por favor tente mais tarde.",
     "network_error": "Erro de rede. Por favor verifique sua conexão e tente novamente.",
     "unknown_error": "Ocorreu um erro inesperado. Por favor tente novamente."
+  },
+  "export_service": {
+    "no_recipes_to_export": "Nenhuma receita para exportar",
+    "save_file": "Salvar arquivo",
+    "save_cancelled": "Salvamento cancelado",
+    "saved_successfully": "Salvo com sucesso",
+    "save_failed": "Erro ao salvar"
+  },
+  "import_service": {
+    "select_file": "Selecionar arquivo",
+    "processing_import": "Processando importação...",
+    "extracting_files": "Extraindo arquivos...",
+    "file_not_found": "Arquivo não encontrado",
+    "invalid_format": "Formato de arquivo inválido",
+    "encoding_error": "Erro de codificação",
+    "no_recipes_found": "Nenhuma receita encontrada no arquivo",
+    "unexpected_error": "Erro inesperado: {0}",
+    "invalid_recipe_format": "Formato de receita inválido encontrado",
+    "incomplete_recipe": "A receita '{0}' está incompleta e foi ignorada",
+    "recipe_import_error": "Erro ao importar receita: {0}"
+  },
+  "sync_service": {
+    "user_must_be_logged_in": "O usuário deve estar conectado para realizar esta ação.",
+    "image_file_does_not_exist": "Arquivo de imagem não existe: {0}",
+    "failed_to_download_image": "Falha ao baixar imagem de {0}. Código de status: {1}"
   }
 }
