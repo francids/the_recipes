@@ -25,6 +25,7 @@ class RecipesPage extends StatelessWidget {
       children: [
         SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: MediaQuery.of(context).padding.top,
