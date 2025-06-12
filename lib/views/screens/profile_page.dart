@@ -400,6 +400,29 @@ class ProfilePage extends StatelessWidget {
 
         final recipeController = Get.find<RecipeController>();
         recipeController.refreshRecipes();
+
+        final authController = Get.find<AuthController>();
+        if (authController.isLoggedIn &&
+            authController.autoSyncEnabled &&
+            importResult.importedCount > 0) {
+          try {
+            UIHelpers.showLoadingDialog(
+              context,
+              "profile_page.syncing_recipes".tr,
+              "profile_page.syncing_recipes_description".tr,
+            );
+            await _assignOwnerIdToImportedRecipes();
+            await SyncService.syncRecipesToCloud();
+            Get.back();
+          } catch (e) {
+            UIHelpers.showErrorSnackbar(
+              "profile_page.sync_error_message".trParams({
+                "0": e.toString(),
+              }),
+              context,
+            );
+          }
+        }
       }
     } catch (e) {
       UIHelpers.showErrorSnackbar(
@@ -408,6 +431,34 @@ class ProfilePage extends StatelessWidget {
         }),
         context,
       );
+    }
+  }
+
+  Future<void> _assignOwnerIdToImportedRecipes() async {
+    final authController = Get.find<AuthController>();
+    if (!authController.isLoggedIn) return;
+
+    try {
+      final box = Hive.box<Recipe>(recipesBox);
+
+      for (int i = 0; i < box.length; i++) {
+        final recipe = box.getAt(i);
+        if (recipe != null && recipe.ownerId!.isEmpty) {
+          final updatedRecipe = Recipe(
+            id: recipe.id,
+            title: recipe.title,
+            description: recipe.description,
+            image: recipe.image,
+            ingredients: recipe.ingredients,
+            directions: recipe.directions,
+            preparationTime: recipe.preparationTime,
+            ownerId: authController.user!.uid,
+          );
+          await box.putAt(i, updatedRecipe);
+        }
+      }
+    } catch (e) {
+      debugPrint("Error assigning ownerId to imported recipes: $e");
     }
   }
 
