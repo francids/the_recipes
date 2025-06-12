@@ -8,7 +8,7 @@ import { Redis } from "@upstash/redis";
 export const maxDuration = 20;
 
 const recipeSchema = z.object({
-  title: z.string().max(50),
+  title: z.string(),
   description: z.string(),
   ingredients: z.array(z.string()),
   directions: z.array(z.string()),
