@@ -3,6 +3,20 @@ import "package:flutter/services.dart";
 import "package:get/get.dart";
 
 class Messages extends Translations {
+  static String get appName =>
+      {
+        "es": "Recetas",
+        "en": "Recipes",
+        "de": "Rezepte",
+        "it": "Ricette",
+        "fr": "Recettes",
+        "pt": "Receitas",
+        "zh": "食谱",
+        "ja": "レシピ",
+        "ko": "레시피",
+      }[Get.locale?.languageCode] ??
+      "Recipes";
+
   @override
   Map<String, Map<String, String>> get keys => _keys;
 
@@ -19,47 +33,12 @@ class Messages extends Translations {
   };
 
   static Future<void> init() async {
-    final es = await rootBundle.loadString("assets/messages/es.json");
-    final en = await rootBundle.loadString("assets/messages/en.json");
-    final de = await rootBundle.loadString("assets/messages/de.json");
-    final it = await rootBundle.loadString("assets/messages/it.json");
-    final fr = await rootBundle.loadString("assets/messages/fr.json");
-    final pt = await rootBundle.loadString("assets/messages/pt.json");
-    final zh = await rootBundle.loadString("assets/messages/zh.json");
-    final ja = await rootBundle.loadString("assets/messages/ja.json");
-    final ko = await rootBundle.loadString("assets/messages/ko.json");
-
-    final esMap = _flattenTranslations(json.decode(es));
-    final enMap = _flattenTranslations(json.decode(en));
-    final deMap = _flattenTranslations(json.decode(de));
-    final itMap = _flattenTranslations(json.decode(it));
-    final frMap = _flattenTranslations(json.decode(fr));
-    final ptMap = _flattenTranslations(json.decode(pt));
-    final zhMap = _flattenTranslations(json.decode(zh));
-    final jaMap = _flattenTranslations(json.decode(ja));
-    final koMap = _flattenTranslations(json.decode(ko));
-
-    _convertParamsFormat(esMap);
-    _convertParamsFormat(enMap);
-    _convertParamsFormat(deMap);
-    _convertParamsFormat(itMap);
-    _convertParamsFormat(frMap);
-    _convertParamsFormat(ptMap);
-    _convertParamsFormat(zhMap);
-    _convertParamsFormat(jaMap);
-    _convertParamsFormat(koMap);
-
-    _keys = {
-      "es": esMap,
-      "en": enMap,
-      "de": deMap,
-      "it": itMap,
-      "fr": frMap,
-      "pt": ptMap,
-      "zh": zhMap,
-      "ja": jaMap,
-      "ko": koMap,
-    };
+    for (final lang in _keys.keys) {
+      final content = await rootBundle.loadString("assets/messages/$lang.json");
+      final translations = _flattenTranslations(json.decode(content));
+      _convertParamsFormat(translations);
+      _keys[lang] = translations;
+    }
   }
 
   static void _convertParamsFormat(Map<String, String> translations) {

@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "Recipes",
+      onGenerateTitle: (context) => Messages.appName,
       transitionDuration: const Duration(milliseconds: 350),
       defaultTransition: Transition.cupertino,
       debugShowCheckedModeBanner: false,
