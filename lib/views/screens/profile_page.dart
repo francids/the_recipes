@@ -1,25 +1,20 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:lottie/lottie.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
-import "package:the_recipes/controllers/recipe_controller.dart";
-import "package:the_recipes/hive_boxes.dart";
-import "package:the_recipes/models/recipe.dart";
-import "package:the_recipes/services/export_service.dart";
-import "package:the_recipes/services/import_service.dart";
-import "package:the_recipes/services/sync_service.dart";
+import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/views/screens/profile_info_screen.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
-import "package:file_picker/file_picker.dart";
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileController());
+
     return Scaffold(
       body: GetBuilder<AuthController>(
         builder: (controller) {
@@ -166,6 +161,8 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildDataCard(BuildContext context) {
+    final profileController = Get.find<ProfileController>();
+
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
@@ -185,7 +182,8 @@ class ProfilePage extends StatelessWidget {
                     ),
               ),
               value: authController.autoSyncEnabled,
-              onChanged: (value) => _handleAutoSyncToggle(value, context),
+              onChanged: (value) =>
+                  profileController.handleAutoSyncToggle(value, context),
               secondary: Icon(
                 CupertinoIcons.cloud_upload,
                 color: Theme.of(context).colorScheme.primary,
@@ -212,7 +210,7 @@ class ProfilePage extends StatelessWidget {
               CupertinoIcons.chevron_forward,
               color: Theme.of(context).colorScheme.outline,
             ),
-            onTap: () => _handleExportRecipes(context),
+            onTap: () => profileController.handleExportRecipes(context),
           ),
           const Divider(height: 1, indent: 16, endIndent: 16),
           ListTile(
@@ -234,232 +232,11 @@ class ProfilePage extends StatelessWidget {
               CupertinoIcons.chevron_forward,
               color: Theme.of(context).colorScheme.outline,
             ),
-            onTap: () => _handleImportRecipes(context),
+            onTap: () => profileController.handleImportRecipes(context),
           ),
         ],
       ),
     );
-  }
-
-  void _handleAutoSyncToggle(bool enabled, BuildContext context) async {
-    final authController = Get.find<AuthController>();
-
-    if (enabled) {
-      await authController.setAutoSyncEnabled(enabled);
-      UIHelpers.showLoadingDialog(
-        context,
-        "profile_page.syncing_recipes".tr,
-        "profile_page.syncing_recipes_description".tr,
-        lottieAsset: "assets/lottie/sync.json",
-      );
-
-      try {
-        await _assignOwnerIdToLocalRecipes();
-        await SyncService.fullSync();
-
-        final recipeController = Get.find<RecipeController>();
-        recipeController.refreshRecipes();
-
-        Get.back();
-
-        UIHelpers.showSuccessSnackbar(
-          "profile_page.sync_success_message".tr,
-          context,
-        );
-      } catch (e) {
-        Get.back();
-
-        await authController.setAutoSyncEnabled(false);
-
-        UIHelpers.showErrorSnackbar(
-          "profile_page.sync_error_message".trParams({
-            "0": e.toString(),
-          }),
-          context,
-        );
-      }
-    } else {
-      UIHelpers.showConfirmationDialog(
-        context: context,
-        title: "profile_page.disable_sync_confirmation_title".tr,
-        message: "profile_page.disable_sync_confirmation_message".tr,
-        lottieAsset: "assets/lottie/alert.json",
-        confirmAction: () async {
-          Get.back();
-          await authController.setAutoSyncEnabled(enabled);
-
-          try {
-            UIHelpers.showLoadingDialog(
-              context,
-              "profile_page.deleting_cloud_recipes_title".tr,
-              "profile_page.deleting_cloud_recipes_description".tr,
-            );
-
-            await SyncService.deleteAllUserRecipesFromCloud();
-            Get.back();
-
-            UIHelpers.showSuccessSnackbar(
-              "profile_page.auto_sync_disabled".tr,
-              context,
-            );
-          } catch (e) {
-            Get.back();
-
-            await authController.setAutoSyncEnabled(true);
-
-            UIHelpers.showErrorSnackbar(
-              "profile_page.delete_cloud_recipes_error".trParams({
-                "0": e.toString(),
-              }),
-              context,
-            );
-          }
-        },
-      );
-    }
-  }
-
-  Future<void> _assignOwnerIdToLocalRecipes() async {
-    final authController = Get.find<AuthController>();
-    if (!authController.isLoggedIn) return;
-
-    try {
-      final box = Hive.box<Recipe>(recipesBox);
-
-      for (int i = 0; i < box.length; i++) {
-        final recipe = box.getAt(i);
-        if (recipe != null &&
-            (recipe.ownerId!.isEmpty ||
-                recipe.ownerId != authController.user!.uid)) {
-          final updatedRecipe = Recipe(
-            id: recipe.id,
-            title: recipe.title,
-            description: recipe.description,
-            image: recipe.image,
-            ingredients: recipe.ingredients,
-            directions: recipe.directions,
-            preparationTime: recipe.preparationTime,
-            ownerId: authController.user!.uid,
-          );
-          await box.putAt(i, updatedRecipe);
-        }
-      }
-    } catch (e) {
-      debugPrint("Error assigning ownerId to local recipes: $e");
-    }
-  }
-
-  void _handleExportRecipes(BuildContext context) {
-    UIHelpers.showConfirmationDialog(
-      context: context,
-      title: "profile_page.export_confirmation_title".tr,
-      message: "profile_page.export_confirmation_message".tr,
-      lottieAsset: "assets/lottie/save_file.json",
-      confirmAction: () async {
-        Get.back();
-        final recipeController = Get.find<RecipeController>();
-        final recipes = recipeController.getAllRecipesForExport();
-        await ExportService.exportRecipes(recipes, context);
-      },
-    );
-  }
-
-  void _handleImportRecipes(BuildContext context) {
-    UIHelpers.showConfirmationDialog(
-      context: context,
-      title: "profile_page.import_confirmation_title".tr,
-      message: "profile_page.import_confirmation_message".tr,
-      lottieAsset: "assets/lottie/load_file.json",
-      confirmAction: () async {
-        Get.back();
-        await _performImport(context);
-      },
-    );
-  }
-
-  Future<void> _performImport(BuildContext context) async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ["zip"],
-        allowMultiple: false,
-      );
-
-      if (result != null && result.files.single.path != null) {
-        final filePath = result.files.single.path!;
-        final importResult =
-            await ImportService.importRecipes(filePath, context);
-
-        UIHelpers.showSuccessSnackbar(
-          "profile_page.import_success_message".trParams({
-            "0": importResult.importedCount.toString(),
-            "1": importResult.skippedCount.toString(),
-          }),
-          context,
-        );
-
-        final recipeController = Get.find<RecipeController>();
-        recipeController.refreshRecipes();
-
-        final authController = Get.find<AuthController>();
-        if (authController.isLoggedIn &&
-            authController.autoSyncEnabled &&
-            importResult.importedCount > 0) {
-          try {
-            UIHelpers.showLoadingDialog(
-              context,
-              "profile_page.syncing_recipes".tr,
-              "profile_page.syncing_recipes_description".tr,
-            );
-            await _assignOwnerIdToImportedRecipes();
-            await SyncService.syncRecipesToCloud();
-            Get.back();
-          } catch (e) {
-            UIHelpers.showErrorSnackbar(
-              "profile_page.sync_error_message".trParams({
-                "0": e.toString(),
-              }),
-              context,
-            );
-          }
-        }
-      }
-    } catch (e) {
-      UIHelpers.showErrorSnackbar(
-        "profile_page.import_error_message".trParams({
-          "0": e.toString(),
-        }),
-        context,
-      );
-    }
-  }
-
-  Future<void> _assignOwnerIdToImportedRecipes() async {
-    final authController = Get.find<AuthController>();
-    if (!authController.isLoggedIn) return;
-
-    try {
-      final box = Hive.box<Recipe>(recipesBox);
-
-      for (int i = 0; i < box.length; i++) {
-        final recipe = box.getAt(i);
-        if (recipe != null && recipe.ownerId!.isEmpty) {
-          final updatedRecipe = Recipe(
-            id: recipe.id,
-            title: recipe.title,
-            description: recipe.description,
-            image: recipe.image,
-            ingredients: recipe.ingredients,
-            directions: recipe.directions,
-            preparationTime: recipe.preparationTime,
-            ownerId: authController.user!.uid,
-          );
-          await box.putAt(i, updatedRecipe);
-        }
-      }
-    } catch (e) {
-      debugPrint("Error assigning ownerId to imported recipes: $e");
-    }
   }
 
   Widget _buildSignOutCard(BuildContext context, AuthController controller) {
