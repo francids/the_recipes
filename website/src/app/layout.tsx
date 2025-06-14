@@ -7,6 +7,7 @@ import { getLocale } from "next-intl/server";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -69,7 +70,7 @@ export default async function RootLayout({
         className={`${montserrat.className} selection:bg-yellow-600/25 dark:selection:bg-yellow-800/25`}
       >
         <NextIntlClientProvider>
-          {children}
+          <ThemeProvider>{children}</ThemeProvider>
           <SpeedInsights />
           <Analytics />
         </NextIntlClientProvider>

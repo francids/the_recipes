@@ -1,16 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
-
-type Theme = "light" | "dark" | "system";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Footer() {
   const t = useTranslations("Footer");
-  const [theme, setTheme] = useState<Theme>("system");
+  const { theme, toggleTheme, isDarkMode } = useTheme();
 
   const [footerContentRef, footerContentIsVisible] =
     useElementOnScreen<HTMLDivElement>({ threshold: 0.05, triggerOnce: true });
@@ -18,83 +16,7 @@ export default function Footer() {
     { threshold: 0.05, triggerOnce: true }
   );
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as Theme | null;
-    if (storedTheme && ["light", "dark", "system"].includes(storedTheme)) {
-      setTheme(storedTheme);
-    } else {
-      setTheme("system");
-    }
-  }, []);
-
-  useEffect(() => {
-    const applyTheme = (currentTheme: Theme) => {
-      let isDarkMode: boolean;
-      if (currentTheme === "system") {
-        isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      } else {
-        isDarkMode = currentTheme === "dark";
-      }
-
-      if (isDarkMode) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-
-      if (
-        localStorage.getItem("theme") ||
-        currentTheme !== "system" ||
-        theme !== "system"
-      ) {
-        localStorage.setItem("theme", currentTheme);
-      }
-    };
-
-    applyTheme(theme);
-  }, [theme]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const handleChange = () => {
-      if (theme === "system") {
-        if (mediaQuery.matches) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
-    };
-
-    handleChange();
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      if (prevTheme === "light") return "dark";
-      if (prevTheme === "dark") return "system";
-      return "light";
-    });
-  };
-
   const getButtonState = () => {
-    let isCurrentlyDark: boolean;
-    if (theme === "system") {
-      if (typeof window !== "undefined") {
-        isCurrentlyDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-      } else {
-        isCurrentlyDark = false;
-      }
-    } else {
-      isCurrentlyDark = theme === "dark";
-    }
-
     return {
       icon: theme === "light" ? "☀️" : theme === "dark" ? "🌙" : "💻",
       label:
@@ -103,10 +25,10 @@ export default function Footer() {
           : theme === "dark"
           ? t("theme_toggle_to_system")
           : t("theme_toggle_to_light"),
-      positionClass: isCurrentlyDark
+      positionClass: isDarkMode
         ? "transform translate-x-[30px] bg-zinc-500"
         : "bg-orange-500",
-      isDarkEffective: isCurrentlyDark,
+      isDarkEffective: isDarkMode,
     };
   };
 
