@@ -68,7 +68,7 @@ export default function PrivacyPage() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white dark:bg-zinc-900">
       <div className="flex-1 min-h-screen">
         <Navbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <div className="pt-20 pb-16 px-4 max-w-4xl mx-auto">
