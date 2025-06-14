@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import { notFound } from "next/navigation";
 import { useLocale } from "next-intl";
 import ReactMarkdown from "react-markdown";
+import Loading from "@/components/Loading";
 
 export default function PrivacyPage() {
   const locale = useLocale();
@@ -59,20 +60,22 @@ export default function PrivacyPage() {
     loadContent();
   }, [locale]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   if (error) {
     notFound();
   }
 
   return (
-    <div className="flex flex-col bg-white dark:bg-zinc-900">
+    <div className="flex flex-col bg-white dark:bg-zinc-900 relative">
+      {loading && <Loading />}
+
       <div className="flex-1 min-h-screen">
         <Navbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <div className="pt-20 pb-16 px-4 max-w-4xl mx-auto">
-          <div className="prose prose-lg dark:prose-invert max-w-none break-words overflow-wrap-anywhere">
+          <div
+            className={`prose prose-lg dark:prose-invert max-w-none break-words overflow-wrap-anywhere transition-opacity duration-300 ${
+              loading ? "opacity-0" : "opacity-100"
+            }`}
+          >
             <ReactMarkdown
               components={{
                 code: ({ children, ...props }) => (
