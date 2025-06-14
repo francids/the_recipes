@@ -85,7 +85,9 @@
     "delete_button": "Elimina",
     "ingredients_title": "Ingredienti",
     "instructions_title": "Istruzioni",
-    "menu_item_delete": "Elimina ricetta"
+    "menu_item_delete": "Elimina ricetta",
+    "deleting_recipe": "Eliminazione ricetta...",
+    "deleting_recipe_message": "Attendere prego mentre la ricetta viene eliminata."
   },
   "recipes_page": {
     "no_favorites": "Nessuna ricetta preferita",
@@ -159,9 +161,7 @@
   },
   "recipe_controller": {
     "loading_recipes": "Caricamento ricette...",
-    "deleting_recipe": "Eliminazione ricetta...",
     "recipe_not_found": "La ricetta non esiste",
-    "recipe_deleted": "Ricetta eliminata",
     "delete_error": "Errore durante l'eliminazione della ricetta: {0}",
     "load_error": "Errore nel caricamento delle ricette: {0}",
     "sync_error": "Errore di sincronizzazione: {0}",

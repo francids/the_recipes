@@ -95,12 +95,17 @@ class RecipeScreen extends StatelessWidget {
                         title: "recipe_screen.delete_confirmation_title".tr,
                         message: "recipe_screen.delete_confirmation_message".tr,
                         lottieAsset: "assets/lottie/delete.json",
-                        confirmAction: () {
-                          recipeController.deleteRecipe(
+                        confirmAction: () async {
+                          Get.back();
+                          UIHelpers.showLoadingDialog(
+                            context,
+                            "recipe_screen.deleting_recipe".tr,
+                            "recipe_screen.deleting_recipe_message".tr,
+                          );
+                          await recipeController.deleteRecipe(
                             recipe.id,
                             recipe.image,
                           );
-                          Get.back();
                           Get.back();
                           recipeController.refreshRecipes();
                         },
@@ -186,11 +191,7 @@ class RecipeScreen extends StatelessWidget {
                           duration: 400.ms,
                           curve: Curves.easeOutCubic,
                         ),
-                    const Divider(
-                      thickness: 0.3,
-                      height: 32,
-                      color: Colors.black12,
-                    ),
+                    const Divider(height: 32),
                     Text(
                       "recipe_screen.ingredients_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,
@@ -217,11 +218,7 @@ class RecipeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 3),
                       ),
                     ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
-                    const Divider(
-                      thickness: 0.3,
-                      height: 32,
-                      color: Colors.black12,
-                    ),
+                    const Divider(height: 32),
                     Text(
                       "recipe_screen.instructions_title".tr,
                       style: Theme.of(context).textTheme.displayMedium,

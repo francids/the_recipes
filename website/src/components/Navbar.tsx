@@ -36,7 +36,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
   }, [isMenuOpen, toggleMenu]);
 
   return (
-    <nav className="flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-md">
+    <nav className="flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-xs">
       <div className="flex items-center gap-4 select-none">
         <Link href="/" className="flex items-center select-none">
           <Image src="/Logo.svg" alt="The Recipes App" width={40} height={40} />

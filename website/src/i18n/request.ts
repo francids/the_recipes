@@ -7,25 +7,30 @@ const supportedLocales = ["en", "es", "de", "it", "fr", "pt", "zh", "ja", "ko"];
 const defaultLocale = "en";
 
 async function getBrowserLocale(): Promise<string | null> {
-  const requestHeaders = headers();
+  const requestHeaders = await headers();
   const acceptLanguage = requestHeaders.get("accept-language");
 
   if (!acceptLanguage) {
     return null;
   }
 
-  let languages = new Negotiator({ headers: { "accept-language": acceptLanguage } }).languages();
+  let languages = new Negotiator({
+    headers: { "accept-language": acceptLanguage },
+  }).languages();
 
   try {
     return match(languages, supportedLocales, defaultLocale);
   } catch (e) {
-    console.warn("Could not determine locale from browser, falling back to default.", e);
+    console.warn(
+      "Could not determine locale from browser, falling back to default.",
+      e
+    );
     return defaultLocale;
   }
 }
 
 async function getUserLocale(): Promise<string> {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const localeCookie = cookieStore.get("NEXT_LOCALE");
 
   if (localeCookie?.value && supportedLocales.includes(localeCookie.value)) {
@@ -45,6 +50,6 @@ export default getRequestConfig(async () => {
 
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default
+    messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });

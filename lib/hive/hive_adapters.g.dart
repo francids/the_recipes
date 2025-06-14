@@ -25,7 +25,7 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
       directions: (fields[5] as List).cast<String>(),
       preparationTime: fields[6] == null ? 0 : (fields[6] as num).toInt(),
       ownerId: fields[7] as String?,
-      isPublic: fields[8] == null ? false : fields[8] as bool,
+      isPublic: fields[8] == null ? false : fields[8] as bool?,
     );
   }
 

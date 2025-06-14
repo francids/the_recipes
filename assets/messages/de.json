@@ -85,7 +85,9 @@
     "delete_button": "Löschen",
     "ingredients_title": "Zutaten",
     "instructions_title": "Anweisungen",
-    "menu_item_delete": "Rezept löschen"
+    "menu_item_delete": "Rezept löschen",
+    "deleting_recipe": "Rezept wird gelöscht...",
+    "deleting_recipe_message": "Bitte warten Sie, während das Rezept gelöscht wird."
   },
   "recipes_page": {
     "no_favorites": "Keine Lieblingsrezepte",
@@ -159,9 +161,7 @@
   },
   "recipe_controller": {
     "loading_recipes": "Rezepte werden geladen...",
-    "deleting_recipe": "Rezept wird gelöscht...",
     "recipe_not_found": "Das Rezept existiert nicht",
-    "recipe_deleted": "Rezept gelöscht",
     "delete_error": "Fehler beim Löschen des Rezepts: {0}",
     "load_error": "Fehler beim Laden der Rezepte: {0}",
     "sync_error": "Synchronisierungsfehler: {0}",

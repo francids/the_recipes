@@ -85,7 +85,9 @@
     "delete_button": "삭제",
     "ingredients_title": "재료",
     "instructions_title": "조리 방법",
-    "menu_item_delete": "레시피 삭제"
+    "menu_item_delete": "레시피 삭제",
+    "deleting_recipe": "레시피 삭제 중...",
+    "deleting_recipe_message": "레시피를 삭제하는 동안 잠시 기다려주세요."
   },
   "recipes_page": {
     "no_favorites": "즐겨찾기 레시피가 없습니다",
@@ -159,9 +161,7 @@
   },
   "recipe_controller": {
     "loading_recipes": "레시피 로딩 중...",
-    "deleting_recipe": "레시피 삭제 중...",
     "recipe_not_found": "레시피가 존재하지 않습니다",
-    "recipe_deleted": "레시피 삭제됨",
     "delete_error": "레시피 삭제 중 오류 발생: {0}",
     "load_error": "레시피 로드 오류: {0}",
     "sync_error": "동기화 오류: {0}",

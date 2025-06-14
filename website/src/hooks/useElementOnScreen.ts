@@ -9,7 +9,7 @@ interface UseElementOnScreenOptions {
 
 export function useElementOnScreen<T extends HTMLElement>(
   options?: UseElementOnScreenOptions
-): [RefObject<T>, boolean] {
+): [RefObject<T | null>, boolean] {
   const containerRef = useRef<T>(null);
   const [isVisible, setIsVisible] = useState(false);
 

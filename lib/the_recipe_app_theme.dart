@@ -59,8 +59,8 @@ class TheRecipeAppTheme {
 
   static DividerThemeData _dividerTheme(bool isDark) => DividerThemeData(
         color: isDark
-            ? Colors.white30.withAlpha(100)
-            : Colors.black26.withAlpha(100),
+            ? Colors.white30.withAlpha(24)
+            : Colors.black26.withAlpha(24),
         thickness: 0.5,
         space: 0.5,
       );

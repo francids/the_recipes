@@ -1,6 +1,8 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/env/env.dart";
 import "package:the_recipes/views/screens/settings/language_screen.dart";
@@ -11,6 +13,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileController());
+
     return Scaffold(
       appBar: AppBar(
         title: Text("settings_screen.title".tr),
@@ -46,6 +50,28 @@ class SettingsScreen extends StatelessWidget {
                 .fadeIn(delay: 150.ms, duration: 300.ms)
                 .slideX(begin: -0.1, curve: Curves.easeOutCubic),
             const SizedBox(height: 32),
+            GetBuilder<AuthController>(
+              builder: (authController) {
+                if (authController.isLoggedIn) {
+                  return const SizedBox.shrink();
+                }
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "profile_page.data_section".tr,
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    const SizedBox(height: 16),
+                    _buildDataCard(context)
+                        .animate()
+                        .fadeIn(delay: 200.ms, duration: 300.ms)
+                        .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                    const SizedBox(height: 32),
+                  ],
+                );
+              },
+            ),
             Text(
               "settings_screen.about_section".tr,
               style: Theme.of(context).textTheme.displayMedium,
@@ -79,6 +105,7 @@ class SettingsScreen extends StatelessWidget {
                 .animate()
                 .fadeIn(delay: 300.ms, duration: 300.ms)
                 .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+            const SizedBox(height: 32),
           ],
         ),
       ),
@@ -196,6 +223,69 @@ class SettingsScreen extends StatelessWidget {
             color: Theme.of(context).colorScheme.outline,
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildDataCard(BuildContext context) {
+    final profileController = Get.find<ProfileController>();
+
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              "profile_page.export_recipes".tr,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            subtitle: Text(
+              "profile_page.export_recipes_description".tr,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+            ),
+            leading: Icon(
+              CupertinoIcons.share,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            trailing: Icon(
+              CupertinoIcons.chevron_forward,
+              color: Theme.of(context).colorScheme.outline,
+            ),
+            onTap: () => profileController.handleExportRecipes(
+              context,
+              fromSettings: true,
+            ),
+          ),
+          const Divider(height: 1, indent: 16, endIndent: 16),
+          ListTile(
+            title: Text(
+              "profile_page.import_recipes".tr,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            subtitle: Text(
+              "profile_page.import_recipes_description".tr,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+            ),
+            leading: Icon(
+              CupertinoIcons.tray_arrow_down,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            trailing: Icon(
+              CupertinoIcons.chevron_forward,
+              color: Theme.of(context).colorScheme.outline,
+            ),
+            onTap: () => profileController.handleImportRecipes(
+              context,
+              fromSettings: true,
+            ),
+          ),
+        ],
       ),
     );
   }
