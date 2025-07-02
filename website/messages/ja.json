@@ -1,7 +1,7 @@
 {
   "Navbar": {
-    "features": "特徴",
-    "download": "ダウンロード"
+    "home": "ホーム",
+    "privacy": "プライバシー"
   },
   "HeroSection": {
     "title": "あなたのデジタルレシピブック",

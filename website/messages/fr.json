@@ -1,7 +1,7 @@
 {
   "Navbar": {
-    "features": "Fonctionnalités",
-    "download": "Télécharger"
+    "home": "Accueil",
+    "privacy": "Confidentialité"
   },
   "HeroSection": {
     "title": "Votre livre de recettes numérique",

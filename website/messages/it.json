@@ -1,7 +1,7 @@
 {
   "Navbar": {
-    "features": "Funzionalità",
-    "download": "Scarica"
+    "home": "Home",
+    "privacy": "Privacy"
   },
   "HeroSection": {
     "title": "Il tuo ricettario digitale",

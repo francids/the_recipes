@@ -1,7 +1,7 @@
 {
   "Navbar": {
-    "features": "Features",
-    "download": "Download"
+    "home": "Home",
+    "privacy": "Privacy"
   },
   "HeroSection": {
     "title": "Your digital recipe book",

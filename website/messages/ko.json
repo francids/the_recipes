@@ -1,7 +1,7 @@
 {
   "Navbar": {
-    "features": "기능",
-    "download": "다운로드"
+    "home": "홈",
+    "privacy": "개인정보보호"
   },
   "HeroSection": {
     "title": "나만의 디지털 레시피 북",

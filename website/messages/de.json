@@ -1,7 +1,7 @@
 {
   "Navbar": {
-    "features": "Funktionen",
-    "download": "Herunterladen"
+    "home": "Startseite",
+    "privacy": "Datenschutz"
   },
   "HeroSection": {
     "title": "Dein digitales Rezeptbuch",

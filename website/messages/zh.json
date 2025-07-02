@@ -1,7 +1,7 @@
 {
   "Navbar": {
-    "features": "功能",
-    "download": "下载"
+    "home": "首页",
+    "privacy": "隐私"
   },
   "HeroSection": {
     "title": "您的数字食谱书",

@@ -46,16 +46,16 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
 
       <div className="hidden md:flex gap-4 items-center select-none">
         <Link
-          href="#features"
+          href="/"
           className="px-4 py-2 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-sm transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
         >
-          {t("features")}
+          {t("home")}
         </Link>
         <Link
-          href="#cta"
+          href="/privacy"
           className="px-4 py-2 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-sm transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
         >
-          {t("download")}
+          {t("privacy")}
         </Link>
         <a
           href="https://github.com/francids/the_recipes"
@@ -100,18 +100,18 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
         `}
       >
         <Link
-          href="#features"
+          href="/"
           onClick={toggleMenu}
           className="font-medium py-2 text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >
-          {t("features")}
+          {t("home")}
         </Link>
         <Link
-          href="#cta"
+          href="/privacy"
           onClick={toggleMenu}
           className="font-medium py-2 text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >
-          {t("download")}
+          {t("privacy")}
         </Link>
         <a
           href="https://github.com/francids/the_recipes"
