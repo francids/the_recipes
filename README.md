@@ -10,7 +10,7 @@ The Recipes App es una aplicación móvil enfocada en recetas. The Recipes App l
 - [x] **Soporte multi-idioma**: La aplicación está disponible en varios idiomas (Alemán, Chino, Coreano, Español, Francés, Inglés, Italiano, Japonés, Portugués).
 - [ ] **Compartición de recetas**: El usuario puede compartir sus recetas con otros usuarios a través de un enlace único.
 - [ ] **IA**: La aplicación utiliza inteligencia artificial para:
-  - [ ] Generar recetas basadas en una foto de un plato.
+  - [x] Generar recetas basadas en una foto de un plato.
   - [ ] Sugerir recetas basadas en los ingredientes que el usuario tiene en casa.
   - [ ] Sugerir recetas basadas en las preferencias del usuario.
 
