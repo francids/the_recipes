@@ -115,8 +115,8 @@ export default function HeroSection() {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-8 lg:gap-0">
-          <div className="flex justify-center md:justify-end items-center gap-3 md:gap-5 flex-wrap select-none">
-            <div className="w-64 md:w-80 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 -rotate-3 relative">
+          <div className="flex justify-center md:justify-end items-center gap-5 md:gap-10 flex-wrap select-none">
+            <div className="w-56 md:w-72 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 -rotate-3 relative">
               {!image1Loaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-orange-800/20 rounded-lg">
                   <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -129,9 +129,9 @@ export default function HeroSection() {
                     : "/LightInicialScreen.webp"
                 }
                 alt="App pantalla inicial"
-                width={360}
-                height={720}
-                className={`w-full h-auto transition-opacity duration-300 ${
+                width={320}
+                height={640}
+                className={`transition-opacity duration-300 ${
                   image1Loaded ? "opacity-100" : "opacity-0"
                 } rounded-lg`}
                 priority
@@ -139,7 +139,7 @@ export default function HeroSection() {
                 onLoadingComplete={() => setImage1Loaded(true)}
               />
             </div>
-            <div className="w-64 md:w-80 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 rotate-3 relative">
+            <div className="w-56 md:w-72 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 rotate-3 relative">
               {!image2Loaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-orange-800/20 rounded-lg">
                   <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -152,9 +152,9 @@ export default function HeroSection() {
                     : "/LightRecipeScreen.webp"
                 }
                 alt="App pantalla de receta"
-                width={360}
-                height={720}
-                className={`w-full h-auto transition-opacity duration-300 ${
+                width={320}
+                height={640}
+                className={`transition-opacity duration-300 ${
                   image2Loaded ? "opacity-100" : "opacity-0"
                 } rounded-lg`}
                 priority
