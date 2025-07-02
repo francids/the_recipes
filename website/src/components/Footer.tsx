@@ -44,8 +44,8 @@ export default function Footer() {
     <footer className="bg-zinc-900 dark:bg-zinc-950 text-white py-16 px-8">
       <div
         ref={footerContentRef}
-        className={`flex justify-between flex-wrap gap-10 max-w-7xl mx-auto mb-10 text-left ${
-          footerContentIsVisible ? "animate-fadeInUp" : "opacity-0"
+        className={`flex justify-between flex-wrap gap-10 max-w-7xl mx-auto mb-10 text-left animate-on-scroll ${
+          footerContentIsVisible ? "visible" : ""
         }`}
       >
         <div className="flex-1 min-w-[250px] flex flex-col items-start">
@@ -118,9 +118,10 @@ export default function Footer() {
       </div>
       <div
         ref={copyrightRef}
-        className={`pt-8 border-t border-zinc-800 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 text-sm w-4/5 sm:w-full sm:text-center ${
-          copyrightIsVisible ? "animate-fadeInUp" : "opacity-0"
-        } style="animation-delay: 0.3s"`}
+        className={`pt-8 border-t border-zinc-800 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 text-sm w-4/5 sm:w-full sm:text-center animate-on-scroll ${
+          copyrightIsVisible ? "visible" : ""
+        }`}
+        style={{ animationDelay: "0.3s" }}
       >
         <p>{t("copyright", { year: new Date().getFullYear() })}</p>
       </div>

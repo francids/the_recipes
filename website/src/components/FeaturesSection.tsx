@@ -23,8 +23,8 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ feature, index }) => {
   return (
     <div
       ref={cardRef}
-      className={`flex flex-col items-center w-full sm:w-80 bg-white dark:bg-zinc-800 px-8 py-12 rounded-md border-2 border-orange-200 dark:border-orange-700/30 transition-transform duration-300 md:hover:scale-105 hover:shadow-sm ${
-        cardIsVisible ? "animate-fadeInUp" : "opacity-0"
+      className={`flex flex-col items-center w-full sm:w-80 bg-white dark:bg-zinc-800 px-8 py-12 rounded-md border-2 border-orange-200 dark:border-orange-700/30 transition-transform duration-300 md:hover:scale-105 hover:shadow-sm animate-on-scroll ${
+        cardIsVisible ? "visible" : ""
       }`}
       style={{ animationDelay }}
     >
@@ -89,8 +89,8 @@ export default function FeaturesSection() {
     >
       <h2
         ref={titleRef}
-        className={`text-4xl font-bold mb-16 text-orange-600 relative ${
-          titleIsVisible ? "animate-fadeInUp" : "opacity-0"
+        className={`text-4xl font-bold mb-16 text-orange-600 relative animate-on-scroll ${
+          titleIsVisible ? "visible" : ""
         }`}
       >
         {t("title")}

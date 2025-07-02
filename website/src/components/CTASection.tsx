@@ -32,17 +32,18 @@ export default function CTASection() {
     >
       <h2
         ref={h2Ref}
-        className={`text-4xl font-bold mb-5 text-zinc-800 dark:text-zinc-100 ${
-          h2IsVisible ? "animate-fadeInUp" : "opacity-0"
+        className={`text-4xl font-bold mb-5 text-zinc-800 dark:text-zinc-100 animate-on-scroll ${
+          h2IsVisible ? "visible" : ""
         }`}
       >
         {t("title")}
       </h2>
       <p
         ref={pRef}
-        className={`max-w-2xl mx-auto mb-10 text-lg text-zinc-600 dark:text-zinc-400 ${
-          pIsVisible ? "animate-fadeInUp" : "opacity-0"
-        } style="animation-delay: 0.2s"`}
+        className={`max-w-2xl mx-auto mb-10 text-lg text-zinc-600 dark:text-zinc-400 animate-on-scroll ${
+          pIsVisible ? "visible" : ""
+        }`}
+        style={{ animationDelay: "0.2s" }}
       >
         {t("description")}
       </p>
@@ -53,9 +54,10 @@ export default function CTASection() {
           href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-orange-600 text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-700 dark:hover:bg-orange-700 select-none ${
-            button1IsVisible ? "animate-fadeInUp" : "opacity-0"
-          } style="animation-delay: 0.4s"`}
+          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-orange-600 text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-700 dark:hover:bg-orange-700 select-none animate-on-scroll ${
+            button1IsVisible ? "visible" : ""
+          }`}
+          style={{ animationDelay: "0.4s" }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -74,9 +76,10 @@ export default function CTASection() {
           href="https://github.com/francids/the_recipes"
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none ${
-            button2IsVisible ? "animate-fadeInUp" : "opacity-0"
-          } style="animation-delay: 0.5s"`}
+          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none animate-on-scroll ${
+            button2IsVisible ? "visible" : ""
+          }`}
+          style={{ animationDelay: "0.5s" }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,9 +96,10 @@ export default function CTASection() {
         <a
           ref={button3Ref}
           href="#features"
-          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none ${
-            button3IsVisible ? "animate-fadeInUp" : "opacity-0"
-          } style="animation-delay: 0.6s"`}
+          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none animate-on-scroll ${
+            button3IsVisible ? "visible" : ""
+          }`}
+          style={{ animationDelay: "0.6s" }}
         >
           {t("discover_features")}
         </a>

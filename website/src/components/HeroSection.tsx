@@ -67,16 +67,16 @@ export default function HeroSection() {
         <div className="lg:w-2/5 mb-4 xl:mb-24 text-center xl:text-left">
           <div
             ref={logotypeRef}
-            className={`flex items-center justify-center xl:justify-start mb-4 w-full ${
-              logotypeIsVisible ? "animate-fadeInUp" : "opacity-0"
+            className={`flex items-center justify-center xl:justify-start mb-4 w-full animate-on-scroll ${
+              logotypeIsVisible ? "visible" : ""
             }`}
           >
             <Logotype className="w-20 h-8 dark:text-amber-500" />
           </div>
           <h1
             ref={h1Ref}
-            className={`text-4xl md:text-5xl lg:text-5xl font-bold mb-4 drop-shadow-md ${
-              h1IsVisible ? "animate-fadeInUp" : "opacity-0"
+            className={`text-4xl md:text-5xl lg:text-5xl font-bold mb-4 drop-shadow-md animate-on-scroll ${
+              h1IsVisible ? "visible" : ""
             }`}
             style={{ animationDelay: "0.2s" }}
           >
@@ -84,8 +84,8 @@ export default function HeroSection() {
           </h1>
           <p
             ref={pRef}
-            className={`text-lg md:text-xl mb-8 ${
-              pIsVisible ? "animate-fadeInUp" : "opacity-0"
+            className={`text-lg md:text-xl mb-8 animate-on-scroll ${
+              pIsVisible ? "visible" : ""
             }`}
             style={{ animationDelay: "0.4s" }}
           >
@@ -96,8 +96,8 @@ export default function HeroSection() {
             href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-white text-orange-600 dark:bg-orange-600 dark:text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-50 dark:hover:bg-orange-700 hover:text-orange-600 dark:hover:text-white select-none ${
-              buttonIsVisible ? "animate-fadeInUp" : "opacity-0"
+            className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-white text-orange-600 dark:bg-orange-600 dark:text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-50 dark:hover:bg-orange-700 hover:text-orange-600 dark:hover:text-white select-none animate-on-scroll ${
+              buttonIsVisible ? "visible" : ""
             }`}
             style={{ animationDelay: "0.6s" }}
           >
