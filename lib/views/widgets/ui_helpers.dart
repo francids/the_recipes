@@ -1,5 +1,6 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 import "package:get/get.dart";
 import "package:lottie/lottie.dart";
 
@@ -12,9 +13,17 @@ class UIHelpers {
             Icon(
               CupertinoIcons.exclamationmark_circle,
               color: Theme.of(context).colorScheme.error,
-            ),
+            )
+                .animate()
+                .fadeIn(duration: 300.ms)
+                .scaleXY(begin: 0.5, curve: Curves.easeOutBack),
             const SizedBox(width: 8),
-            Expanded(child: Text(message)),
+            Expanded(
+              child: Text(message)
+                  .animate()
+                  .fadeIn(delay: 100.ms, duration: 300.ms)
+                  .slideX(begin: 0.1, curve: Curves.easeOutCubic),
+            ),
           ],
         ),
         behavior: SnackBarBehavior.floating,
@@ -30,9 +39,17 @@ class UIHelpers {
             Icon(
               CupertinoIcons.check_mark_circled,
               color: Colors.green,
-            ),
+            )
+                .animate()
+                .fadeIn(duration: 300.ms)
+                .scaleXY(begin: 0.5, curve: Curves.easeOutBack),
             const SizedBox(width: 8),
-            Expanded(child: Text(message)),
+            Expanded(
+              child: Text(message)
+                  .animate()
+                  .fadeIn(delay: 100.ms, duration: 300.ms)
+                  .slideX(begin: 0.1, curve: Curves.easeOutCubic),
+            ),
           ],
         ),
         behavior: SnackBarBehavior.floating,
@@ -67,19 +84,28 @@ class UIHelpers {
                     lottieAsset,
                     fit: BoxFit.contain,
                   ),
-                ),
+                )
+                    .animate()
+                    .fadeIn(duration: 300.ms)
+                    .scaleXY(begin: 0.8, curve: Curves.easeOutBack),
                 const SizedBox(height: 16),
                 Text(
                   title,
                   style: Theme.of(context).textTheme.displayMedium!,
                   textAlign: TextAlign.center,
-                ),
+                )
+                    .animate()
+                    .fadeIn(delay: 100.ms, duration: 300.ms)
+                    .slideY(begin: 0.1, curve: Curves.easeOutCubic),
                 const SizedBox(height: 16),
                 Text(
                   message,
                   style: Theme.of(context).textTheme.bodyMedium!,
                   textAlign: TextAlign.center,
-                ),
+                )
+                    .animate()
+                    .fadeIn(delay: 200.ms, duration: 300.ms)
+                    .slideY(begin: 0.1, curve: Curves.easeOutCubic),
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -89,7 +115,10 @@ class UIHelpers {
                         onPressed: () => Get.back(),
                         child: Text("ui_helpers.cancel".tr),
                       ),
-                    ),
+                    )
+                        .animate()
+                        .fadeIn(delay: 300.ms, duration: 250.ms)
+                        .slideX(begin: -0.1, curve: Curves.easeOutCubic),
                     const SizedBox(width: 8),
                     Expanded(
                       child: FilledButton(
@@ -99,13 +128,19 @@ class UIHelpers {
                         },
                         child: Text("ui_helpers.confirm".tr),
                       ),
-                    ),
+                    )
+                        .animate()
+                        .fadeIn(delay: 350.ms, duration: 250.ms)
+                        .slideX(begin: 0.1, curve: Curves.easeOutCubic),
                   ],
                 ),
               ],
             ),
           ),
-        );
+        )
+            .animate()
+            .fadeIn(duration: 200.ms)
+            .scaleXY(begin: 0.9, curve: Curves.easeOutBack);
       },
     );
   }
@@ -137,24 +172,36 @@ class UIHelpers {
                       lottieAsset ?? "assets/lottie/loading.json",
                       fit: BoxFit.contain,
                     ),
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(duration: 300.ms)
+                      .scaleXY(begin: 0.8, curve: Curves.easeOutBack),
                   const SizedBox(height: 16),
                   Text(
                     title,
                     style: Theme.of(context).textTheme.displayMedium!,
                     textAlign: TextAlign.center,
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 100.ms, duration: 300.ms)
+                      .slideY(begin: 0.1, curve: Curves.easeOutCubic),
                   const SizedBox(height: 16),
                   Text(
                     message,
                     style: Theme.of(context).textTheme.bodyMedium!,
                     textAlign: TextAlign.center,
-                  ),
+                  )
+                      .animate()
+                      .fadeIn(delay: 200.ms, duration: 300.ms)
+                      .slideY(begin: 0.1, curve: Curves.easeOutCubic),
                   const SizedBox(height: 24),
                 ],
               ),
             ),
-          ),
+          )
+              .animate()
+              .fadeIn(duration: 200.ms)
+              .scaleXY(begin: 0.9, curve: Curves.easeOutBack),
         );
       },
     );
