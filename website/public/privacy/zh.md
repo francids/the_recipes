@@ -1,6 +1,6 @@
 # **The Recipes 隐私政策**
 
-**最后更新:** 2025 年 6 月 14 日
+**最后更新:** 2025 年 7 月 3 日
 
 感谢您使用"The Recipes"。您的隐私对我们很重要。本隐私政策简明地解释了我们收集哪些信息以及如何使用这些信息。
 
@@ -20,11 +20,11 @@
    - **电子邮件地址**
    - **个人头像**
 
-这些信息仅用于在应用程序内创建和管理您的账户，并安全地存储在 Firebase(Google 的一项服务)中。
+这些信息仅用于在应用程序内创建和管理您的账户，并安全地存储在 Appwrite 中。有关其隐私政策的更多信息，请访问 https://appwrite.io/privacy。
 
 ### **我们如何使用您的信息?**
 
-- **用于应用程序功能:** 我们使用您的账户数据来识别您并能够将您的食谱同步到云端(Firebase)，使您能够备份并从多个设备访问它们。
+- **用于应用程序功能:** 我们使用您的账户数据来识别您并能够将您的食谱同步到云端(Appwrite)，使您能够备份并从多个设备访问它们。
 - **我们不会对您的数据做任何其他事情:** 我们不会出售、分发或将您的个人信息转让给第三方。我们不会向您发送营销电子邮件或促销信息。
 
 ### **对您数据的控制和账户删除**
@@ -38,8 +38,7 @@
 应用程序请求以下权限以正常运行:
 
 - `INTERNET` 和 `ACCESS_NETWORK_STATE`: 如果您已登录，需要连接到我们的服务器并同步您的食谱。
-- `com.google.android.providers.gsf.permission.READ_GSERVICES`: 允许应用程序使用 Google 服务，如登录。
-- 其他权限如 `com.android.vending.CHECK_LICENSE` 和 `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` 是技术系统权限，用于确保应用程序的完整性及其与 Android 操作系统的正确通信。
+- 其他权限如 `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` 是技术系统权限，用于确保应用程序的完整性及其与 Android 操作系统的正确通信。
 
 ### **透明度和开源**
 

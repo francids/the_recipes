@@ -1,6 +1,6 @@
 # **Política de Privacidade do The Recipes**
 
-**Última atualização:** 14 de junho de 2025
+**Última atualização:** 3 de julho de 2025
 
 Obrigado por usar "The Recipes". Sua privacidade é importante para nós. Esta Política de Privacidade explica de maneira simples quais informações coletamos e como as usamos.
 
@@ -20,11 +20,11 @@ Obrigado por usar "The Recipes". Sua privacidade é importante para nós. Esta P
    - **Endereço de e-mail**
    - **Imagem de perfil**
 
-Essas informações são usadas apenas para criar e gerenciar sua conta dentro do aplicativo e são armazenadas com segurança no Firebase, um serviço do Google.
+Essas informações são usadas apenas para criar e gerenciar sua conta dentro do aplicativo e são armazenadas com segurança no Appwrite. Para mais informações sobre suas políticas de privacidade, visite https://appwrite.io/privacy.
 
 ### **Como usamos suas informações?**
 
-- **Para a funcionalidade do aplicativo:** Usamos os dados da sua conta para identificá-lo e poder sincronizar suas receitas na nuvem (Firebase), permitindo que você tenha um backup e acesso a partir de vários dispositivos.
+- **Para a funcionalidade do aplicativo:** Usamos os dados da sua conta para identificá-lo e poder sincronizar suas receitas na nuvem (Appwrite), permitindo que você tenha um backup e acesso a partir de vários dispositivos.
 - **Não fazemos mais nada com seus dados:** Não venderemos, distribuiremos ou cederemos suas informações pessoais a terceiros. Não enviaremos e-mails de marketing ou promoções.
 
 ### **Controle sobre seus dados e exclusão de conta**
@@ -38,8 +38,7 @@ Você tem controle total sobre seus dados. Nas configurações do aplicativo, vo
 O aplicativo solicita as seguintes permissões para funcionar corretamente:
 
 - `INTERNET` e `ACCESS_NETWORK_STATE`: Necessárias para conectar-se aos nossos servidores e sincronizar suas receitas se você fez login.
-- `com.google.android.providers.gsf.permission.READ_GSERVICES`: Permite que o aplicativo utilize os serviços do Google, como o login.
-- Outras permissões como `com.android.vending.CHECK_LICENSE` e `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` são permissões técnicas do sistema para garantir a integridade do aplicativo e sua comunicação correta com o sistema operacional Android.
+- Outras permissões como `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` são permissões técnicas do sistema para garantir a integridade do aplicativo e sua comunicação correta com o sistema operacional Android.
 
 ### **Transparência e Código Aberto**
 

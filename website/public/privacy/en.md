@@ -1,6 +1,6 @@
 # **The Recipes Privacy Policy**
 
-**Last updated:** June 14, 2025
+**Last updated:** July 3, 2025
 
 Thank you for using "The Recipes". Your privacy is important to us. This Privacy Policy explains in simple terms what information we collect and how we use it.
 
@@ -20,11 +20,11 @@ Thank you for using "The Recipes". Your privacy is important to us. This Privacy
    - **Email address**
    - **Profile picture**
 
-This information is used solely to create and manage your account within the application and is stored securely on Firebase, a Google service.
+This information is used solely to create and manage your account within the application and is stored securely on Appwrite. For more information about their privacy policies, visit https://appwrite.io/privacy.
 
 ### **How do we use your information?**
 
-- **For application functionality:** We use your account data to identify you and to synchronize your recipes in the cloud (Firebase), allowing you to have a backup and access from multiple devices.
+- **For application functionality:** We use your account data to identify you and to synchronize your recipes in the cloud (Appwrite), allowing you to have a backup and access from multiple devices.
 - **We don't do anything else with your data:** We will not sell, distribute, or share your personal information with third parties. We will not send you marketing emails or promotions.
 
 ### **Control over your data and account deletion**
@@ -38,8 +38,7 @@ You have full control over your data. From the application settings, you can:
 The application requests the following permissions to function properly:
 
 - `INTERNET` and `ACCESS_NETWORK_STATE`: Required to connect to our servers and synchronize your recipes if you're signed in.
-- `com.google.android.providers.gsf.permission.READ_GSERVICES`: Allows the application to use Google services, such as sign-in.
-- Other permissions like `com.android.vending.CHECK_LICENSE` and `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` are technical system permissions to ensure the application's integrity and its proper communication with the Android operating system.
+- Other permissions like `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` are technical system permissions to ensure the application's integrity and its proper communication with the Android operating system.
 
 ### **Transparency and Open Source**
 

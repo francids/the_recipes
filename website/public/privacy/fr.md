@@ -1,6 +1,6 @@
 # **Politique de Confidentialité de The Recipes**
 
-**Dernière mise à jour:** 14 juin 2025
+**Dernière mise à jour:** 3 juillet 2025
 
 Merci d'utiliser "The Recipes". Votre vie privée est importante pour nous. Cette Politique de Confidentialité explique simplement quelles informations nous collectons et comment nous les utilisons.
 
@@ -20,11 +20,11 @@ Merci d'utiliser "The Recipes". Votre vie privée est importante pour nous. Cett
    - **Adresse e-mail**
    - **Image de profil**
 
-Ces informations sont utilisées uniquement pour créer et gérer votre compte au sein de l'application et sont stockées en toute sécurité dans Firebase, un service de Google.
+Ces informations sont utilisées uniquement pour créer et gérer votre compte au sein de l'application et sont stockées en toute sécurité dans Appwrite. Pour plus d'informations sur leurs politiques de confidentialité, visitez https://appwrite.io/privacy.
 
 ### **Comment utilisons-nous vos informations?**
 
-- **Pour la fonctionnalité de l'application:** Nous utilisons les données de votre compte pour vous identifier et pouvoir synchroniser vos recettes dans le cloud (Firebase), vous permettant d'avoir une sauvegarde et un accès depuis plusieurs appareils.
+- **Pour la fonctionnalité de l'application:** Nous utilisons les données de votre compte pour vous identifier et pouvoir synchroniser vos recettes dans le cloud (Appwrite), vous permettant d'avoir une sauvegarde et un accès depuis plusieurs appareils.
 - **Nous ne faisons rien d'autre avec vos données:** Nous ne vendrons pas, ne distribuerons pas et ne céderons pas vos informations personnelles à des tiers. Nous ne vous enverrons pas d'emails marketing ni de promotions.
 
 ### **Contrôle sur vos données et suppression de compte**
@@ -38,8 +38,7 @@ Vous avez le contrôle total sur vos données. Depuis les paramètres de l'appli
 L'application demande les autorisations suivantes pour fonctionner correctement:
 
 - `INTERNET` et `ACCESS_NETWORK_STATE`: Nécessaires pour se connecter à nos serveurs et synchroniser vos recettes si vous vous êtes connecté.
-- `com.google.android.providers.gsf.permission.READ_GSERVICES`: Permet à l'application d'utiliser les services Google, comme la connexion.
-- D'autres autorisations comme `com.android.vending.CHECK_LICENSE` et `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` sont des autorisations techniques du système pour assurer l'intégrité de l'application et sa communication correcte avec le système d'exploitation Android.
+- D'autres autorisations comme `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` sont des autorisations techniques du système pour assurer l'intégrité de l'application et sa communication correcte avec le système d'exploitation Android.
 
 ### **Transparence et Code Open Source**
 

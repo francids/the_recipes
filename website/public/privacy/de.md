@@ -1,6 +1,6 @@
 # **Datenschutzrichtlinie von The Recipes**
 
-**Letzte Aktualisierung:** 14. Juni 2025
+**Letzte Aktualisierung:** 3. Juli 2025
 
 Vielen Dank für die Nutzung von "The Recipes". Deine Privatsphäre ist uns wichtig. Diese Datenschutzrichtlinie erklärt auf einfache Weise, welche Informationen wir sammeln und wie wir sie verwenden.
 
@@ -20,11 +20,11 @@ Vielen Dank für die Nutzung von "The Recipes". Deine Privatsphäre ist uns wich
    - **E-Mail-Adresse**
    - **Profilbild**
 
-Diese Informationen werden ausschließlich zur Erstellung und Verwaltung deines Kontos innerhalb der App verwendet und sicher in Firebase, einem Google-Dienst, gespeichert.
+Diese Informationen werden ausschließlich zur Erstellung und Verwaltung deines Kontos innerhalb der App verwendet und sicher in Appwrite gespeichert. Weitere Informationen zu deren Datenschutzrichtlinien findest du unter https://appwrite.io/privacy.
 
 ### **Wie verwenden wir deine Informationen?**
 
-- **Für die App-Funktionalität:** Wir verwenden deine Kontodaten, um dich zu identifizieren und deine Rezepte in der Cloud (Firebase) zu synchronisieren, damit du ein Backup hast und von mehreren Geräten aus zugreifen kannst.
+- **Für die App-Funktionalität:** Wir verwenden deine Kontodaten, um dich zu identifizieren und deine Rezepte in der Cloud (Appwrite) zu synchronisieren, damit du ein Backup hast und von mehreren Geräten aus zugreifen kannst.
 - **Wir tun nichts anderes mit deinen Daten:** Wir verkaufen, verteilen oder geben deine persönlichen Informationen nicht an Dritte weiter. Wir senden dir keine Marketing- oder Werbe-E-Mails.
 
 ### **Kontrolle über deine Daten und Kontolöschung**
@@ -38,8 +38,7 @@ Du hast die volle Kontrolle über deine Daten. In den Einstellungen der App kann
 Die App benötigt folgende Berechtigungen, um ordnungsgemäß zu funktionieren:
 
 - `INTERNET` und `ACCESS_NETWORK_STATE`: Notwendig, um mit unseren Servern zu verbinden und deine Rezepte zu synchronisieren, falls du angemeldet bist.
-- `com.google.android.providers.gsf.permission.READ_GSERVICES`: Ermöglicht der App die Nutzung von Google-Diensten, wie die Anmeldung.
-- Andere Berechtigungen wie `com.android.vending.CHECK_LICENSE` und `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` sind technische Systemberechtigungen, um die Integrität der App und ihre korrekte Kommunikation mit dem Android-Betriebssystem zu gewährleisten.
+- Andere Berechtigungen wie `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` sind technische Systemberechtigungen, um die Integrität der App und ihre korrekte Kommunikation mit dem Android-Betriebssystem zu gewährleisten.
 
 ### **Transparenz und Open Source**
 

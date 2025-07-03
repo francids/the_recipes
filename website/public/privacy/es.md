@@ -1,6 +1,6 @@
 # **Política de Privacidad de The Recipes**
 
-**Última actualización:** 14 de junio de 2025
+**Última actualización:** 3 de julio de 2025
 
 Gracias por usar "The Recipes". Tu privacidad es importante para nosotros. Esta Política de Privacidad explica de manera sencilla qué información recopilamos y cómo la usamos.
 
@@ -20,11 +20,11 @@ Gracias por usar "The Recipes". Tu privacidad es importante para nosotros. Esta 
    - **Dirección de correo electrónico**
    - **Imagen de perfil**
 
-Esta información se utiliza únicamente para crear y gestionar tu cuenta dentro de la aplicación y se almacena de forma segura en Firebase, un servicio de Google.
+Esta información se utiliza únicamente para crear y gestionar tu cuenta dentro de la aplicación y se almacena de forma segura en Appwrite. Para más información sobre sus políticas de privacidad, visita https://appwrite.io/privacy.
 
 ### **¿Cómo usamos tu información?**
 
-- **Para la funcionalidad de la aplicación:** Usamos los datos de tu cuenta para identificarte y poder sincronizar tus recetas en la nube (Firebase), permitiéndote tener un respaldo y acceso desde múltiples dispositivos.
+- **Para la funcionalidad de la aplicación:** Usamos los datos de tu cuenta para identificarte y poder sincronizar tus recetas en la nube (Appwrite), permitiéndote tener un respaldo y acceso desde múltiples dispositivos.
 - **No hacemos nada más con tus datos:** No venderemos, distribuiremos ni cederemos tu información personal a terceros. No te enviaremos correos electrónicos de marketing ni promociones.
 
 ### **Control sobre tus datos y eliminación de cuenta**
@@ -38,8 +38,7 @@ Tú tienes el control total sobre tus datos. Desde la configuración de la aplic
 La aplicación solicita los siguientes permisos para funcionar correctamente:
 
 - `INTERNET` y `ACCESS_NETWORK_STATE`: Necesarios para conectar con nuestros servidores y sincronizar tus recetas si has iniciado sesión.
-- `com.google.android.providers.gsf.permission.READ_GSERVICES`: Permite que la aplicación utilice los servicios de Google, como el inicio de sesión.
-- Otros permisos como `com.android.vending.CHECK_LICENSE` y `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` son permisos técnicos del sistema para asegurar la integridad de la aplicación y su correcta comunicación con el sistema operativo Android.
+- Otros permisos como `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` son permisos técnicos del sistema para asegurar la integridad de la aplicación y su correcta comunicación con el sistema operativo Android.
 
 ### **Transparencia y Código Abierto**
 

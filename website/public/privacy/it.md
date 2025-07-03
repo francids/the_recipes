@@ -1,6 +1,6 @@
 # **Informativa sulla Privacy di The Recipes**
 
-**Ultimo aggiornamento:** 14 giugno 2025
+**Ultimo aggiornamento:** 3 luglio 2025
 
 Grazie per utilizzare "The Recipes". La tua privacy è importante per noi. Questa Informativa sulla Privacy spiega in modo semplice quali informazioni raccogliamo e come le utilizziamo.
 
@@ -20,11 +20,11 @@ Grazie per utilizzare "The Recipes". La tua privacy è importante per noi. Quest
    - **Indirizzo e-mail**
    - **Immagine del profilo**
 
-Queste informazioni vengono utilizzate esclusivamente per creare e gestire il tuo account all'interno dell'applicazione e sono archiviate in modo sicuro su Firebase, un servizio di Google.
+Queste informazioni vengono utilizzate esclusivamente per creare e gestire il tuo account all'interno dell'applicazione e sono archiviate in modo sicuro su Appwrite. Per maggiori informazioni sulle loro politiche sulla privacy, visita https://appwrite.io/privacy.
 
 ### **Come utilizziamo le tue informazioni?**
 
-- **Per la funzionalità dell'applicazione:** Utilizziamo i dati del tuo account per identificarti e poter sincronizzare le tue ricette nel cloud (Firebase), permettendoti di avere un backup e l'accesso da più dispositivi.
+- **Per la funzionalità dell'applicazione:** Utilizziamo i dati del tuo account per identificarti e poter sincronizzare le tue ricette nel cloud (Appwrite), permettendoti di avere un backup e l'accesso da più dispositivi.
 - **Non facciamo altro con i tuoi dati:** Non venderemo, distribuiremo o cederemo le tue informazioni personali a terzi. Non ti invieremo email di marketing o promozioni.
 
 ### **Controllo sui tuoi dati e cancellazione dell'account**
@@ -38,8 +38,7 @@ Tu hai il controllo totale sui tuoi dati. Dalle impostazioni dell'applicazione, 
 L'applicazione richiede le seguenti autorizzazioni per funzionare correttamente:
 
 - `INTERNET` e `ACCESS_NETWORK_STATE`: Necessari per connettersi ai nostri server e sincronizzare le tue ricette se hai effettuato l'accesso.
-- `com.google.android.providers.gsf.permission.READ_GSERVICES`: Consente all'applicazione di utilizzare i servizi Google, come l'accesso.
-- Altre autorizzazioni come `com.android.vending.CHECK_LICENSE` e `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` sono autorizzazioni tecniche del sistema per garantire l'integrità dell'applicazione e la sua corretta comunicazione con il sistema operativo Android.
+- Altre autorizzazioni come `com.francids.recipes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` sono autorizzazioni tecniche del sistema per garantire l'integrità dell'applicazione e la sua corretta comunicazione con il sistema operativo Android.
 
 ### **Trasparenza e Codice Open Source**
 
