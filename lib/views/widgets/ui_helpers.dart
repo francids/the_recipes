@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:get/get.dart";
 import "package:lottie/lottie.dart";
+import "package:the_recipes/views/widgets/pressable_button.dart";
 
 class UIHelpers {
   static void showErrorSnackbar(String message, BuildContext context) {
@@ -111,9 +112,11 @@ class UIHelpers {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
-                      child: TextButton(
-                        onPressed: () => Get.back(),
-                        child: Text("ui_helpers.cancel".tr),
+                      child: PressableButton(
+                        child: TextButton(
+                          onPressed: () => Get.back(),
+                          child: Text("ui_helpers.cancel".tr),
+                        ),
                       ),
                     )
                         .animate()
@@ -121,12 +124,14 @@ class UIHelpers {
                         .slideX(begin: -0.1, curve: Curves.easeOutCubic),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: FilledButton(
-                        onPressed: () {
-                          Get.back();
-                          confirmAction();
-                        },
-                        child: Text("ui_helpers.confirm".tr),
+                      child: PressableButton(
+                        child: FilledButton(
+                          onPressed: () {
+                            Get.back();
+                            confirmAction();
+                          },
+                          child: Text("ui_helpers.confirm".tr),
+                        ),
                       ),
                     )
                         .animate()
