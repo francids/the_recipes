@@ -2,6 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/add_recipe_controller.dart";
+import "package:the_recipes/views/widgets/pressable_button.dart";
 import "package:the_recipes/views/widgets/recipe_form/image_step_widget.dart";
 import "package:the_recipes/views/widgets/recipe_form/text_fields_step_widget.dart";
 import "package:the_recipes/views/widgets/recipe_form/dynamic_list_step_widget.dart";
@@ -312,38 +313,36 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _currentStep.value > 0
-                        ? TextButton(
-                            style: Theme.of(context)
-                                .textButtonTheme
-                                .style!
-                                .copyWith(
-                                  backgroundColor: WidgetStateProperty.all(
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                  ),
-                                ),
-                            onPressed: () => _handleNavigation(false),
-                            child: Text("add_recipe_screen.previous".tr),
+                        ? PressableButton(
+                            child: TextButton(
+                              onPressed: () => _handleNavigation(false),
+                              child: Text("add_recipe_screen.previous".tr),
+                            ),
                           )
                             .animate()
                             .fadeIn(duration: 200.ms)
                             .slideX(begin: -0.5, curve: Curves.easeOutCubic)
                         : const SizedBox(),
                     _currentStep.value < 3 && _isCurrentStepValid.value
-                        ? FilledButton(
-                            onPressed: () => _handleNavigation(true),
-                            child: Text("add_recipe_screen.next".tr),
+                        ? PressableButton(
+                            child: FilledButton(
+                              onPressed: () => _handleNavigation(true),
+                              child: Text("add_recipe_screen.next".tr),
+                            ),
                           )
                             .animate()
                             .fadeIn(duration: 200.ms)
                             .slideX(begin: 0.5, curve: Curves.easeOutCubic)
                         : _currentStep.value == 3 && _isCurrentStepValid.value
-                            ? FilledButton.icon(
-                                icon: const Icon(
-                                  CupertinoIcons.checkmark_alt,
-                                  size: 20,
+                            ? PressableButton(
+                                child: FilledButton.icon(
+                                  icon: const Icon(
+                                    CupertinoIcons.checkmark_alt,
+                                    size: 20,
+                                  ),
+                                  onPressed: _handleSaveRecipe,
+                                  label: Text("add_recipe_screen.save".tr),
                                 ),
-                                onPressed: _handleSaveRecipe,
-                                label: Text("add_recipe_screen.save".tr),
                               )
                                 .animate()
                                 .fadeIn(duration: 200.ms)

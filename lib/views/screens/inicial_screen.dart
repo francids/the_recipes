@@ -7,6 +7,7 @@ import "package:the_recipes/views/screens/recipes_page.dart";
 import "package:the_recipes/views/screens/add_recipe_screen.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/views/widgets/pressable_button.dart";
 
 class InicialScreen extends StatefulWidget {
   const InicialScreen({super.key});
@@ -266,12 +267,14 @@ class _InicialScreenState extends State<InicialScreen>
                             ),
                           ],
                         ),
-                        child: FloatingActionButton(
-                          elevation: 0,
-                          onPressed: () async {
-                            await Get.to(const AddRecipeScreen());
-                          },
-                          child: const Icon(CupertinoIcons.add),
+                        child: PressableButton(
+                          child: FloatingActionButton(
+                            elevation: 0,
+                            onPressed: () async {
+                              await Get.to(const AddRecipeScreen());
+                            },
+                            child: const Icon(CupertinoIcons.add),
+                          ),
                         ),
                       ).animate().scale(
                             delay: 150.ms,

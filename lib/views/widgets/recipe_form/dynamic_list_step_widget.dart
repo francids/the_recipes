@@ -3,6 +3,7 @@ import "package:get/get.dart";
 import "package:the_recipes/gestures/drag_start_listener.dart";
 import "package:the_recipes/views/widgets/form_field.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/views/widgets/pressable_button.dart";
 
 class DynamicListStepWidget extends StatefulWidget {
   final RxList<String> list;
@@ -25,13 +26,15 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FilledButton(
-          onPressed: () => widget.list.add(""),
-          child: Text(
-            "dynamic_list.add_item".trParams(
-              {
-                "0": widget.label,
-              },
+        PressableButton(
+          child: FilledButton(
+            onPressed: () => widget.list.add(""),
+            child: Text(
+              "dynamic_list.add_item".trParams(
+                {
+                  "0": widget.label,
+                },
+              ),
             ),
           ),
         )
@@ -111,9 +114,11 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
                 hintText: "${widget.label} ${index + 1}",
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.remove_circle, color: Colors.red),
-              onPressed: () => widget.list.removeAt(index),
+            PressableButton(
+              child: IconButton(
+                icon: const Icon(Icons.remove_circle, color: Colors.red),
+                onPressed: () => widget.list.removeAt(index),
+              ),
             ),
           ],
         ),

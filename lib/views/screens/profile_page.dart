@@ -5,6 +5,7 @@ import "package:lottie/lottie.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/views/screens/profile_info_screen.dart";
+import "package:the_recipes/views/widgets/pressable_button.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
@@ -97,10 +98,12 @@ class ProfilePage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
-          FilledButton.icon(
-            onPressed: () => authController.signInWithGoogle(),
-            icon: const Icon(CupertinoIcons.person_add),
-            label: Text("profile_page.sign_in_with_google".tr),
+          PressableButton(
+            child: FilledButton.icon(
+              onPressed: () => authController.signInWithGoogle(),
+              icon: const Icon(CupertinoIcons.person_add),
+              label: Text("profile_page.sign_in_with_google".tr),
+            ),
           ),
         ],
       ),

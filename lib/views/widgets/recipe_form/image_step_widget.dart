@@ -6,6 +6,7 @@ import "package:image_picker/image_picker.dart";
 import "package:the_recipes/controllers/add_recipe_controller.dart";
 import "package:the_recipes/controllers/ai_recipe_controller.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
+import "package:the_recipes/views/widgets/pressable_button.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
@@ -140,14 +141,16 @@ class ImageStepWidget extends StatelessWidget {
       return Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 32),
-        child: FilledButton.icon(
-          onPressed: () => _generateRecipeFromImage(context),
-          icon: const Icon(Icons.auto_awesome, color: Colors.white),
-          label: Text(
-            "image_step.generate_recipe_info".tr,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.white,
+        child: PressableButton(
+          child: FilledButton.icon(
+            onPressed: () => _generateRecipeFromImage(context),
+            icon: const Icon(Icons.auto_awesome, color: Colors.white),
+            label: Text(
+              "image_step.generate_recipe_info".tr,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
