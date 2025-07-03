@@ -90,7 +90,7 @@ class UIHelpers {
                         child: Text("ui_helpers.cancel".tr),
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: FilledButton(
                         onPressed: () {
@@ -150,6 +150,7 @@ class UIHelpers {
                     style: Theme.of(context).textTheme.bodyMedium!,
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
