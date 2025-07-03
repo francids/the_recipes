@@ -122,21 +122,21 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Row(
             children: [
-              // CircleAvatar(
-              //   radius: 32,
-              //   backgroundColor: theme.colorScheme.primary.withAlpha(25),
-              //   backgroundImage: user?.prefs.data["photoURL"] != null
-              //       ? NetworkImage(user!.prefs.data["photoURL"].toString())
-              //       : null,
-              //   child: user?.prefs.data["photoURL"] == null
-              //       ? Icon(
-              //           CupertinoIcons.person,
-              //           size: 32,
-              //           color: theme.colorScheme.primary,
-              //         )
-              //       : null,
-              // ),
-              // const SizedBox(width: 16),
+              CircleAvatar(
+                radius: 32,
+                backgroundColor: theme.colorScheme.primary.withAlpha(25),
+                backgroundImage: controller.userProfileImageUrl != null
+                    ? NetworkImage(controller.userProfileImageUrl!)
+                    : null,
+                child: controller.userProfileImageUrl == null
+                    ? Icon(
+                        CupertinoIcons.person,
+                        size: 32,
+                        color: theme.colorScheme.primary,
+                      )
+                    : null,
+              ),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

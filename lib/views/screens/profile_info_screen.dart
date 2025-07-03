@@ -34,13 +34,12 @@ class ProfileInfoScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // _buildProfileAvatar(context, user.prefs.data['photoURL'] ?? '')
-                //     .animate()
-                //     .fadeIn(duration: 300.ms)
-                //     .scale(
-                //         begin: const Offset(0.8, 0.8),
-                //         curve: Curves.easeOutCubic),
-                // const SizedBox(height: 32),
+                _buildProfileAvatar(
+                  context,
+                  controller.userProfileImageUrl ?? "",
+                ).animate().fadeIn(duration: 300.ms).scale(
+                    begin: const Offset(0.8, 0.8), curve: Curves.easeOutCubic),
+                const SizedBox(height: 32),
                 Text(
                   "profile_info_screen.personal_info".tr,
                   style: textTheme.displayMedium,
@@ -243,33 +242,33 @@ class ProfileInfoScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildProfileAvatar(BuildContext context, String? photoURL) {
-  //   final theme = Theme.of(context);
+  Widget _buildProfileAvatar(BuildContext context, String? photoURL) {
+    final theme = Theme.of(context);
 
-  //   return Center(
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         shape: BoxShape.circle,
-  //         border: Border.all(
-  //           color: theme.colorScheme.outline.withAlpha(51),
-  //           width: 2,
-  //         ),
-  //       ),
-  //       child: CircleAvatar(
-  //         radius: 60,
-  //         backgroundColor: theme.colorScheme.primary.withAlpha(25),
-  //         backgroundImage: photoURL != null ? NetworkImage(photoURL) : null,
-  //         child: photoURL == null
-  //             ? Icon(
-  //                 CupertinoIcons.person,
-  //                 size: 60,
-  //                 color: theme.colorScheme.primary,
-  //               )
-  //             : null,
-  //       ),
-  //     ),
-  //   );
-  // }
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: theme.colorScheme.outline.withAlpha(51),
+            width: 2,
+          ),
+        ),
+        child: CircleAvatar(
+          radius: 60,
+          backgroundColor: theme.colorScheme.primary.withAlpha(25),
+          backgroundImage: photoURL != null ? NetworkImage(photoURL) : null,
+          child: photoURL == null
+              ? Icon(
+                  CupertinoIcons.person,
+                  size: 60,
+                  color: theme.colorScheme.primary,
+                )
+              : null,
+        ),
+      ),
+    );
+  }
 
   Widget _buildInfoListTile(
     BuildContext context, {
