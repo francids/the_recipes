@@ -9,8 +9,7 @@ class AppwriteConfig {
   static Client get client {
     _client ??= Client()
         .setEndpoint("https://nyc.cloud.appwrite.io/v1")
-        .setProject("the-recipes")
-        .setSelfSigned();
+        .setProject("the-recipes");
     return _client!;
   }
 
