@@ -15,7 +15,7 @@ class TheRecipeAppTheme {
       colorScheme: isDark ? _darkColorScheme : _colorScheme,
       appBarTheme: _getAppBarTheme(isDark),
       floatingActionButtonTheme: _floatingActionButtonThemeData(isDark),
-      textButtonTheme: _textButtonTheme,
+      textButtonTheme: _textButtonTheme(isDark),
       outlinedButtonTheme: _outlinedButtonTheme,
       filledButtonTheme: _filledButtonTheme,
       bottomNavigationBarTheme: _bottomNavigationBarTheme(isDark),
@@ -65,23 +65,36 @@ class TheRecipeAppTheme {
         space: 0.5,
       );
 
-  static const TextButtonThemeData _textButtonTheme = TextButtonThemeData(
-    style: ButtonStyle(
-      textStyle: WidgetStatePropertyAll(
-        TextStyle(
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      foregroundColor: WidgetStatePropertyAll(Colors.deepOrange),
-      shape: WidgetStatePropertyAll(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
+  static TextButtonThemeData _textButtonTheme(bool isDark) =>
+      TextButtonThemeData(
+        style: ButtonStyle(
+          textStyle: WidgetStatePropertyAll(
+            TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          surfaceTintColor: WidgetStatePropertyAll(
+            isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+          ),
+          overlayColor: WidgetStatePropertyAll(
+            isDark ? Colors.white10 : Colors.black12,
+          ),
+          splashFactory: NoSplash.splashFactory,
+          backgroundColor: WidgetStatePropertyAll(
+            isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+          ),
+          foregroundColor: WidgetStatePropertyAll(
+            isDark ? Colors.white : Colors.black87,
+          ),
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 
   static const OutlinedButtonThemeData _outlinedButtonTheme =
       OutlinedButtonThemeData(
@@ -113,7 +126,7 @@ class TheRecipeAppTheme {
     style: ButtonStyle(
       textStyle: WidgetStatePropertyAll(
         TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w600,
         ),
       ),
       backgroundColor: WidgetStatePropertyAll(Colors.deepOrange),
