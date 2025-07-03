@@ -70,7 +70,7 @@ class RecipeController extends GetxController {
         directions: directions,
         preparationTime: preparationTime,
         ownerId: ownerId ??
-            (authController.isLoggedIn ? authController.user!.uid : null),
+            (authController.isLoggedIn ? authController.user!.$id : null),
         isPublic: isPublic ?? false,
       );
 

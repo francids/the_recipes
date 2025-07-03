@@ -23,7 +23,7 @@ class Recipe extends HiveObject {
     String? ownerId,
     this.isPublic = false,
   })  : ownerId = ownerId ??
-            (AuthController().isLoggedIn ? AuthController().user!.uid : ""),
+            (AuthController().isLoggedIn ? AuthController().user!.$id : ""),
         assert(ingredients.isNotEmpty),
         assert(directions.isNotEmpty);
 

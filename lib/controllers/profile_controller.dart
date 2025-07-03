@@ -101,7 +101,7 @@ class ProfileController extends GetxController {
         final recipe = box.getAt(i);
         if (recipe != null &&
             (recipe.ownerId!.isEmpty ||
-                recipe.ownerId != _authController.user!.uid)) {
+                recipe.ownerId != _authController.user!.$id)) {
           final updatedRecipe = Recipe(
             id: recipe.id,
             title: recipe.title,
@@ -110,7 +110,7 @@ class ProfileController extends GetxController {
             ingredients: recipe.ingredients,
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
-            ownerId: _authController.user!.uid,
+            ownerId: _authController.user!.$id,
           );
           await box.putAt(i, updatedRecipe);
         }
@@ -231,7 +231,7 @@ class ProfileController extends GetxController {
             ingredients: recipe.ingredients,
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
-            ownerId: _authController.user!.uid,
+            ownerId: _authController.user!.$id,
           );
           await box.putAt(i, updatedRecipe);
         }

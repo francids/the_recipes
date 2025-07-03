@@ -1,20 +1,23 @@
-import "package:firebase_auth/firebase_auth.dart";
+import "package:appwrite/appwrite.dart";
+import "package:appwrite/models.dart" as models;
+import "package:appwrite/enums.dart" as enums;
 import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:get/get.dart";
 import "package:google_sign_in/google_sign_in.dart";
 import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/services/sync_service.dart";
+import "package:the_recipes/appwrite_config.dart";
 
 class AuthController extends GetxController {
   static const autoSyncKey = "autoSync";
   static AuthController instance = Get.find();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final Account _account = AppwriteConfig.account;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  User? _user;
+  models.User? _user;
 
-  User? get user => _user;
+  models.User? get user => _user;
   bool get isLoggedIn => _user != null;
 
   bool get autoSyncEnabled => _getAutoSyncSetting();
@@ -33,34 +36,40 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _auth.authStateChanges().listen((User? user) {
+    _checkCurrentUser();
+  }
+
+  Future<void> _checkCurrentUser() async {
+    try {
+      final user = await _account.get();
       _user = user;
       update();
-    });
+    } catch (e) {
+      _user = null;
+      update();
+    }
   }
 
   Future<void> signInWithGoogle() async {
     try {
       EasyLoading.show(status: "auth_controller.signing_in".tr);
 
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        EasyLoading.dismiss();
-        return;
-      }
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+      await _account.createOAuth2Session(
+        provider: enums.OAuthProvider.google,
+        success: AppwriteConfig.redirectUrlSuccess,
+        failure: AppwriteConfig.redirectUrlFailure,
       );
 
-      await _auth.signInWithCredential(credential);
-      update();
+      await _checkCurrentUser();
+
       EasyLoading.dismiss();
+    } on AppwriteException catch (e) {
+      EasyLoading.dismiss();
+      print("Appwrite error: ${e.code} - ${e.message}");
+      EasyLoading.showError("auth_controller.sign_in_error".tr);
     } catch (e) {
+      EasyLoading.dismiss();
+      print("General error: $e");
       EasyLoading.showError("auth_controller.sign_in_error".tr);
     }
   }
@@ -69,8 +78,9 @@ class AuthController extends GetxController {
     try {
       final box = Hive.box(settingsBox);
       await box.delete(autoSyncKey);
-      await _auth.signOut();
+      await _account.deleteSession(sessionId: 'current');
       await _googleSignIn.signOut();
+      _user = null;
       update();
     } catch (e) {
       EasyLoading.showError(
@@ -90,28 +100,38 @@ class AuthController extends GetxController {
       if (_user != null) {
         await SyncService.deleteAllUserRecipesFromCloud();
 
-        await _user!.delete();
+        final sessions = await _account.listSessions();
+        for (final session in sessions.sessions) {
+          await _account.deleteSession(sessionId: session.$id);
+        }
+
         await _googleSignIn.signOut();
+        _user = null;
         update();
         EasyLoading.dismiss();
       }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'requires-recent-login') {
-        EasyLoading.dismiss();
+    } on AppwriteException catch (e) {
+      EasyLoading.dismiss();
+      if (e.code == 401) {
         EasyLoading.showError("auth_controller.requires_recent_login".tr);
         await _reauthenticateAndDelete();
       } else {
         EasyLoading.showError(
-          "auth_controller.delete_account_error".trParams({
-            "0": e.message ?? e.toString(),
-          }),
+          "auth_controller.delete_account_error".trParams(
+            {
+              "0": e.message ?? e.toString(),
+            },
+          ),
         );
       }
     } catch (e) {
+      EasyLoading.dismiss();
       EasyLoading.showError(
-        "auth_controller.delete_account_error".trParams({
-          "0": e.toString(),
-        }),
+        "auth_controller.delete_account_error".trParams(
+          {
+            "0": e.toString(),
+          },
+        ),
       );
     }
   }
@@ -120,28 +140,25 @@ class AuthController extends GetxController {
     try {
       EasyLoading.show(status: "auth_controller.reauthenticating".tr);
 
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        EasyLoading.dismiss();
-        return;
-      }
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+      await _account.createOAuth2Session(
+        provider: enums.OAuthProvider.google,
+        success: AppwriteConfig.redirectUrlSuccess,
+        failure: AppwriteConfig.redirectUrlFailure,
       );
-
-      await _user!.reauthenticateWithCredential(credential);
 
       await SyncService.deleteAllUserRecipesFromCloud();
 
-      await _user!.delete();
+      final sessions = await _account.listSessions();
+      for (final session in sessions.sessions) {
+        await _account.deleteSession(sessionId: session.$id);
+      }
+
       await _googleSignIn.signOut();
+      _user = null;
       update();
       EasyLoading.dismiss();
     } catch (e) {
+      EasyLoading.dismiss();
       EasyLoading.showError(
         "auth_controller.reauthentication_failed".trParams({
           "0": e.toString(),

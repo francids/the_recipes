@@ -1,6 +1,6 @@
 import "dart:io";
-import "package:cloud_firestore/cloud_firestore.dart";
-import "package:firebase_storage/firebase_storage.dart";
+import "package:appwrite/appwrite.dart";
+import "package:appwrite/models.dart" as models;
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
@@ -10,10 +10,11 @@ import "package:http/http.dart" as http;
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/models/recipe.dart";
+import "package:the_recipes/appwrite_config.dart";
 
 class SyncService {
-  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  static final FirebaseStorage _storage = FirebaseStorage.instance;
+  static final Databases _databases = AppwriteConfig.databases;
+  static final Storage _storage = AppwriteConfig.storage;
   static final AuthController _authController = Get.find<AuthController>();
 
   static Future<void> syncRecipesToCloud() async {
@@ -26,7 +27,7 @@ class SyncService {
       final userRecipes = localBox.values
           .where((recipe) =>
               recipe.ownerId!.isEmpty ||
-              recipe.ownerId == _authController.user!.uid)
+              recipe.ownerId == _authController.user!.$id)
           .toList();
 
       for (Recipe recipe in userRecipes) {
@@ -39,7 +40,7 @@ class SyncService {
             ingredients: recipe.ingredients,
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
-            ownerId: _authController.user!.uid,
+            ownerId: _authController.user!.$id,
           );
           await localBox.put(recipe.id, updatedRecipe);
           await _uploadRecipeToCloud(updatedRecipe);
@@ -59,24 +60,28 @@ class SyncService {
     }
 
     try {
-      final QuerySnapshot snapshot = await _firestore
-          .collection("recipes")
-          .where("ownerId", isEqualTo: _authController.user!.uid)
-          .get();
+      final documentList = await _databases.listDocuments(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.recipesCollectionId,
+        queries: [
+          Query.equal('ownerId', _authController.user!.$id),
+        ],
+      );
 
       final localBox = Hive.box<Recipe>(recipesBox);
 
-      for (QueryDocumentSnapshot doc in snapshot.docs) {
-        final recipeData = doc.data() as Map<String, dynamic>;
-        recipeData["id"] = doc.id;
+      for (var doc in documentList.documents) {
+        final recipeData = doc.data;
+        recipeData["id"] = doc.$id;
 
         if (recipeData["image"] != null &&
-            (recipeData["image"]
-                    .toString()
-                    .startsWith("https://firebasestorage.googleapis.com") ||
-                recipeData["image"].toString().startsWith("gs://"))) {
-          recipeData["image"] =
-              await _downloadImage(recipeData["image"], recipeData["id"]);
+            recipeData["image"].toString().isNotEmpty) {
+          String imageValue = recipeData["image"].toString();
+
+          if (imageValue.startsWith("http") || !imageValue.contains("/")) {
+            recipeData["image"] =
+                await _downloadImage(imageValue, recipeData["id"]);
+          }
         }
 
         final recipe = Recipe.fromMap(recipeData);
@@ -91,30 +96,63 @@ class SyncService {
   static Future<void> _uploadRecipeToCloud(Recipe recipe) async {
     try {
       String? cloudImageUrl;
-      if (recipe.image.isNotEmpty &&
-          !recipe.image.startsWith("https://firebasestorage.googleapis.com") &&
-          !recipe.image.startsWith("gs://")) {
-        try {
-          final docSnapshot =
-              await _firestore.collection("recipes").doc(recipe.id).get();
+      models.Document? existingDoc;
 
-          if (docSnapshot.exists) {
-            final existingData = docSnapshot.data() as Map<String, dynamic>;
-            final existingImage = existingData["image"] as String?;
+      try {
+        existingDoc = await _databases.getDocument(
+          databaseId: AppwriteConfig.databaseId,
+          collectionId: AppwriteConfig.recipesCollectionId,
+          documentId: recipe.id,
+        );
+      } on AppwriteException catch (e) {
+        if (e.type == "user_unauthorized") {
+          debugPrint("User is not authorized: $e");
+        }
+        if (e.type != "document_not_found") {
+          debugPrint("Error getting existing document: $e");
+        }
+        existingDoc = null;
+      } catch (e) {
+        existingDoc = null;
+      }
 
-            if (existingImage != null &&
-                (existingImage
-                        .startsWith("https://firebasestorage.googleapis.com") ||
-                    existingImage.startsWith("gs://"))) {
-              cloudImageUrl = existingImage;
+      if (recipe.image.isNotEmpty && !recipe.image.startsWith("http")) {
+        if (existingDoc != null) {
+          final existingImage = existingDoc.data["image"] as String?;
+          if (existingImage != null && existingImage.isNotEmpty) {
+            if (existingImage != recipe.image) {
+              try {
+                if (existingImage.startsWith("http")) {
+                  final uri = Uri.parse(existingImage);
+                  if (uri.pathSegments.length >= 3) {
+                    final fileId = uri.pathSegments[3];
+                    await _storage.deleteFile(
+                      bucketId: AppwriteConfig.bucketId,
+                      fileId: fileId,
+                    );
+                  }
+                } else {
+                  await _storage.deleteFile(
+                    bucketId: AppwriteConfig.bucketId,
+                    fileId: existingImage,
+                  );
+                }
+              } catch (e) {
+                debugPrint("Error deleting old image: $e");
+              }
+
+              cloudImageUrl = await _uploadImage(
+                  recipe.image, recipe.id, recipe.isPublic ?? false);
             } else {
-              cloudImageUrl = await _uploadImage(recipe.image, recipe.id);
+              cloudImageUrl = existingImage;
             }
           } else {
-            cloudImageUrl = await _uploadImage(recipe.image, recipe.id);
+            cloudImageUrl = await _uploadImage(
+                recipe.image, recipe.id, recipe.isPublic ?? false);
           }
-        } catch (e) {
-          cloudImageUrl = await _uploadImage(recipe.image, recipe.id);
+        } else {
+          cloudImageUrl = await _uploadImage(
+              recipe.image, recipe.id, recipe.isPublic ?? false);
         }
       }
 
@@ -122,18 +160,70 @@ class SyncService {
       if (cloudImageUrl != null) {
         recipeData["image"] = cloudImageUrl;
       }
+      recipeData.remove("id");
 
-      await _firestore
-          .collection("recipes")
-          .doc(recipe.id)
-          .set(recipeData, SetOptions(merge: true));
+      final bool isPublic = recipe.isPublic ?? false;
+
+      if (existingDoc != null) {
+        await _databases.updateDocument(
+          databaseId: AppwriteConfig.databaseId,
+          collectionId: AppwriteConfig.recipesCollectionId,
+          documentId: recipe.id,
+          data: recipeData,
+          permissions: [
+            Permission.read(
+              isPublic ? Role.any() : Role.user(_authController.user!.$id),
+            ),
+            Permission.update(Role.user(_authController.user!.$id)),
+            Permission.delete(Role.user(_authController.user!.$id)),
+          ],
+        );
+      } else {
+        try {
+          await _databases.createDocument(
+            databaseId: AppwriteConfig.databaseId,
+            collectionId: AppwriteConfig.recipesCollectionId,
+            documentId: recipe.id,
+            data: recipeData,
+            permissions: [
+              Permission.read(
+                isPublic ? Role.any() : Role.user(_authController.user!.$id),
+              ),
+              Permission.update(Role.user(_authController.user!.$id)),
+              Permission.delete(Role.user(_authController.user!.$id)),
+            ],
+          );
+        } catch (e) {
+          if (e.toString().contains('document_already_exists')) {
+            await _databases.updateDocument(
+              databaseId: AppwriteConfig.databaseId,
+              collectionId: AppwriteConfig.recipesCollectionId,
+              documentId: recipe.id,
+              data: recipeData,
+              permissions: [
+                Permission.read(
+                  isPublic ? Role.any() : Role.user(_authController.user!.$id),
+                ),
+                Permission.update(Role.user(_authController.user!.$id)),
+                Permission.delete(Role.user(_authController.user!.$id)),
+              ],
+            );
+          } else {
+            rethrow;
+          }
+        }
+      }
     } catch (e) {
       debugPrint("Error uploading recipe ${recipe.id}: $e");
       rethrow;
     }
   }
 
-  static Future<String> _uploadImage(String localPath, String recipeId) async {
+  static Future<String> _uploadImage(
+    String localPath,
+    String recipeId,
+    bool isPublic,
+  ) async {
     try {
       final File imageFile = File(localPath);
       if (!await imageFile.exists()) {
@@ -142,21 +232,32 @@ class SyncService {
         }));
       }
 
-      final String fileName =
-          "${recipeId}_${DateTime.now().millisecondsSinceEpoch}";
-      final Reference ref = _storage.ref().child("recipes/$recipeId/$fileName");
+      final String fileName = path.basename(localPath);
 
-      final SettableMetadata metadata = SettableMetadata(
-        customMetadata: {
-          "ownerId": _authController.user!.uid,
-          "isPublic": "false",
-        },
+      try {
+        await _storage.deleteFile(
+          bucketId: AppwriteConfig.bucketId,
+          fileId: recipeId,
+        );
+        debugPrint("Deleted existing file with ID: $recipeId");
+      } catch (e) {
+        debugPrint("No existing file to delete with ID: $recipeId");
+      }
+
+      final result = await _storage.createFile(
+        bucketId: AppwriteConfig.bucketId,
+        fileId: recipeId,
+        file: InputFile.fromPath(path: localPath, filename: fileName),
+        permissions: [
+          Permission.read(
+            isPublic ? Role.any() : Role.user(_authController.user!.$id),
+          ),
+          Permission.update(Role.user(_authController.user!.$id)),
+          Permission.delete(Role.user(_authController.user!.$id)),
+        ],
       );
 
-      final UploadTask uploadTask = ref.putFile(imageFile, metadata);
-      final TaskSnapshot snapshot = await uploadTask;
-
-      return await snapshot.ref.getDownloadURL();
+      return result.$id;
     } catch (e) {
       debugPrint("Error uploading image: $e");
       rethrow;
@@ -177,16 +278,27 @@ class SyncService {
           "${recipeId}_${DateTime.now().millisecondsSinceEpoch}.jpg";
       String localPath = path.join(imagesPath, fileName);
 
-      final response = await http.get(Uri.parse(cloudUrl));
-      if (response.statusCode == 200) {
-        final File imageFile = File(localPath);
-        await imageFile.writeAsBytes(response.bodyBytes);
-        return localPath;
+      if (cloudUrl.startsWith("http")) {
+        final response = await http.get(Uri.parse(cloudUrl));
+        if (response.statusCode == 200) {
+          final File imageFile = File(localPath);
+          await imageFile.writeAsBytes(response.bodyBytes);
+          return localPath;
+        } else {
+          throw Exception("sync_service.failed_to_download_image".trParams({
+            "0": cloudUrl,
+            "1": response.statusCode.toString(),
+          }));
+        }
       } else {
-        throw Exception("sync_service.failed_to_download_image".trParams({
-          "0": cloudUrl,
-          "1": response.statusCode.toString(),
-        }));
+        final bytes = await _storage.getFileDownload(
+          bucketId: AppwriteConfig.bucketId,
+          fileId: cloudUrl,
+        );
+
+        final File imageFile = File(localPath);
+        await imageFile.writeAsBytes(bytes);
+        return localPath;
       }
     } catch (e) {
       debugPrint("Error downloading image: $e");
@@ -210,28 +322,47 @@ class SyncService {
     }
 
     try {
-      final docSnapshot =
-          await _firestore.collection("recipes").doc(recipeId).get();
+      try {
+        final doc = await _databases.getDocument(
+          databaseId: AppwriteConfig.databaseId,
+          collectionId: AppwriteConfig.recipesCollectionId,
+          documentId: recipeId,
+        );
 
-      if (docSnapshot.exists) {
-        final recipeData = docSnapshot.data() as Map<String, dynamic>;
-        final imageUrl = recipeData["image"] as String?;
-
-        if (imageUrl != null &&
-            (imageUrl.startsWith("https://firebasestorage.googleapis.com") ||
-                imageUrl.startsWith("gs://"))) {
+        final imageUrl = doc.data["image"] as String?;
+        if (imageUrl != null && imageUrl.isNotEmpty) {
           try {
-            final Reference imageRef = _storage.refFromURL(imageUrl);
-            await imageRef.delete();
-            debugPrint("Image deleted from Firebase Storage: $imageUrl");
+            if (imageUrl.startsWith("http")) {
+              final uri = Uri.parse(imageUrl);
+              if (uri.pathSegments.length >= 3) {
+                final fileId = uri.pathSegments[3];
+                await _storage.deleteFile(
+                  bucketId: AppwriteConfig.bucketId,
+                  fileId: fileId,
+                );
+                debugPrint("Image deleted from Appwrite Storage: $imageUrl");
+              }
+            } else {
+              await _storage.deleteFile(
+                bucketId: AppwriteConfig.bucketId,
+                fileId: imageUrl,
+              );
+              debugPrint("Image deleted from Appwrite Storage: $imageUrl");
+            }
           } catch (e) {
-            debugPrint("Error deleting image from Firebase Storage: $e");
+            debugPrint("Error deleting image from Appwrite Storage: $e");
           }
         }
+      } catch (e) {
+        debugPrint("Error getting document before deletion: $e");
       }
 
-      await _firestore.collection("recipes").doc(recipeId).delete();
-      debugPrint("Recipe document deleted from Firestore: $recipeId");
+      await _databases.deleteDocument(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.recipesCollectionId,
+        documentId: recipeId,
+      );
+      debugPrint("Recipe document deleted from Appwrite: $recipeId");
     } catch (e) {
       debugPrint("Error deleting recipe from cloud: $e");
       rethrow;
@@ -244,33 +375,54 @@ class SyncService {
     }
 
     try {
-      final QuerySnapshot snapshot = await _firestore
-          .collection("recipes")
-          .where("ownerId", isEqualTo: _authController.user!.uid)
-          .get();
+      final documentList = await _databases.listDocuments(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.recipesCollectionId,
+        queries: [
+          Query.equal('ownerId', _authController.user!.$id),
+        ],
+      );
 
-      for (QueryDocumentSnapshot doc in snapshot.docs) {
-        final recipeData = doc.data() as Map<String, dynamic>;
-        final imageUrl = recipeData["image"] as String?;
+      for (var doc in documentList.documents) {
+        final imageUrl = doc.data["image"] as String?;
 
-        if (imageUrl != null &&
-            (imageUrl.startsWith("https://firebasestorage.googleapis.com") ||
-                imageUrl.startsWith("gs://"))) {
+        if (imageUrl != null && imageUrl.isNotEmpty) {
           try {
-            final Reference imageRef = _storage.refFromURL(imageUrl);
-            await imageRef.delete();
-            debugPrint(
-              "Image deleted from Firebase Storage during mass delete: $imageUrl",
-            );
+            if (imageUrl.startsWith("http")) {
+              final uri = Uri.parse(imageUrl);
+              if (uri.pathSegments.length >= 3) {
+                final fileId = uri.pathSegments[3];
+                await _storage.deleteFile(
+                  bucketId: AppwriteConfig.bucketId,
+                  fileId: fileId,
+                );
+                debugPrint(
+                  "Image deleted from Appwrite Storage during mass delete: $imageUrl",
+                );
+              }
+            } else {
+              await _storage.deleteFile(
+                bucketId: AppwriteConfig.bucketId,
+                fileId: imageUrl,
+              );
+              debugPrint(
+                "Image deleted from Appwrite Storage during mass delete: $imageUrl",
+              );
+            }
           } catch (e) {
             debugPrint(
-              "Error deleting image from Firebase Storage during mass delete: $e",
+              "Error deleting image from Appwrite Storage during mass delete: $e",
             );
           }
         }
-        await _firestore.collection("recipes").doc(doc.id).delete();
+
+        await _databases.deleteDocument(
+          databaseId: AppwriteConfig.databaseId,
+          collectionId: AppwriteConfig.recipesCollectionId,
+          documentId: doc.$id,
+        );
         debugPrint(
-          "Recipe document deleted from Firestore during mass delete: ${doc.id}",
+          "Recipe document deleted from Appwrite during mass delete: ${doc.$id}",
         );
       }
     } catch (e) {

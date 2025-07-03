@@ -25,4 +25,4 @@ La aplicación móvil está desarrollada en [Flutter](https://flutter.dev/) con 
 
 La página web está desarrollada en [Next.js](https://nextjs.org/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/). Las funcionalidades de IA están desarrolladas con [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/); adicionalmente, se utiliza [Upstash Redis](https://upstash.com/) para el cacheo de las peticiones a la API de IA.
 
-Tanto la aplicación móvil como la página web usan [Firebase](https://firebase.google.com/) para la autenticación de usuarios y el almacenamiento de recetas en la nube.
+Tanto la aplicación móvil como la página web usan [Appwrite](https://appwrite.io/) para la autenticación de usuarios y el almacenamiento de recetas en la nube.

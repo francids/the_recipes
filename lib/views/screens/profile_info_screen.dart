@@ -34,13 +34,13 @@ class ProfileInfoScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildProfileAvatar(context, user.photoURL)
-                    .animate()
-                    .fadeIn(duration: 300.ms)
-                    .scale(
-                        begin: const Offset(0.8, 0.8),
-                        curve: Curves.easeOutCubic),
-                const SizedBox(height: 32),
+                // _buildProfileAvatar(context, user.prefs.data['photoURL'] ?? '')
+                //     .animate()
+                //     .fadeIn(duration: 300.ms)
+                //     .scale(
+                //         begin: const Offset(0.8, 0.8),
+                //         curve: Curves.easeOutCubic),
+                // const SizedBox(height: 32),
                 Text(
                   "profile_info_screen.personal_info".tr,
                   style: textTheme.displayMedium,
@@ -58,23 +58,25 @@ class ProfileInfoScreen extends StatelessWidget {
                       _buildInfoListTile(
                         context,
                         title: "profile_info_screen.display_name".tr,
-                        value: user.displayName ??
-                            "profile_info_screen.not_available".tr,
+                        value: user.name.isNotEmpty
+                            ? user.name
+                            : "profile_info_screen.not_available".tr,
                         icon: CupertinoIcons.person,
                       ),
                       const Divider(height: 1, indent: 16, endIndent: 16),
                       _buildInfoListTile(
                         context,
                         title: "profile_info_screen.email".tr,
-                        value: user.email ??
-                            "profile_info_screen.not_available".tr,
+                        value: user.email.isNotEmpty
+                            ? user.email
+                            : "profile_info_screen.not_available".tr,
                         icon: CupertinoIcons.mail,
                       ),
                       const Divider(height: 1, indent: 16, endIndent: 16),
                       _buildInfoListTile(
                         context,
                         title: "profile_info_screen.user_id".tr,
-                        value: user.uid,
+                        value: user.$id,
                         icon: CupertinoIcons.number,
                         isSelectable: true,
                       ),
@@ -102,21 +104,22 @@ class ProfileInfoScreen extends StatelessWidget {
                       _buildInfoListTile(
                         context,
                         title: "profile_info_screen.email_verified".tr,
-                        value: user.emailVerified
+                        value: user.emailVerification
                             ? "profile_info_screen.verified".tr
                             : "profile_info_screen.not_verified".tr,
-                        icon: user.emailVerified
+                        icon: user.emailVerification
                             ? CupertinoIcons.checkmark_shield
                             : CupertinoIcons.exclamationmark_shield,
-                        valueColor:
-                            user.emailVerified ? Colors.green : Colors.orange,
+                        valueColor: user.emailVerification
+                            ? Colors.green
+                            : Colors.orange,
                       ),
                       const Divider(height: 1, indent: 16, endIndent: 16),
                       _buildInfoListTile(
                         context,
                         title: "profile_info_screen.account_created".tr,
-                        value: user.metadata.creationTime != null
-                            ? _formatDate(user.metadata.creationTime!)
+                        value: user.registration.isNotEmpty
+                            ? _formatDate(DateTime.parse(user.registration))
                             : "profile_info_screen.not_available".tr,
                         icon: CupertinoIcons.calendar,
                       ),
@@ -124,8 +127,8 @@ class ProfileInfoScreen extends StatelessWidget {
                       _buildInfoListTile(
                         context,
                         title: "profile_info_screen.last_sign_in".tr,
-                        value: user.metadata.lastSignInTime != null
-                            ? _formatDate(user.metadata.lastSignInTime!)
+                        value: user.accessedAt.isNotEmpty
+                            ? _formatDate(DateTime.parse(user.accessedAt))
                             : "profile_info_screen.not_available".tr,
                         icon: CupertinoIcons.time,
                       ),
@@ -240,33 +243,33 @@ class ProfileInfoScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileAvatar(BuildContext context, String? photoURL) {
-    final theme = Theme.of(context);
+  // Widget _buildProfileAvatar(BuildContext context, String? photoURL) {
+  //   final theme = Theme.of(context);
 
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: theme.colorScheme.outline.withAlpha(51),
-            width: 2,
-          ),
-        ),
-        child: CircleAvatar(
-          radius: 60,
-          backgroundColor: theme.colorScheme.primary.withAlpha(25),
-          backgroundImage: photoURL != null ? NetworkImage(photoURL) : null,
-          child: photoURL == null
-              ? Icon(
-                  CupertinoIcons.person,
-                  size: 60,
-                  color: theme.colorScheme.primary,
-                )
-              : null,
-        ),
-      ),
-    );
-  }
+  //   return Center(
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         shape: BoxShape.circle,
+  //         border: Border.all(
+  //           color: theme.colorScheme.outline.withAlpha(51),
+  //           width: 2,
+  //         ),
+  //       ),
+  //       child: CircleAvatar(
+  //         radius: 60,
+  //         backgroundColor: theme.colorScheme.primary.withAlpha(25),
+  //         backgroundImage: photoURL != null ? NetworkImage(photoURL) : null,
+  //         child: photoURL == null
+  //             ? Icon(
+  //                 CupertinoIcons.person,
+  //                 size: 60,
+  //                 color: theme.colorScheme.primary,
+  //               )
+  //             : null,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildInfoListTile(
     BuildContext context, {

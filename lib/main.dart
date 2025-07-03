@@ -1,4 +1,3 @@
-import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_easyloading/flutter_easyloading.dart";
@@ -9,7 +8,7 @@ import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/controllers/language_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/controllers/view_option_controller.dart";
-import "package:the_recipes/firebase_options.dart";
+import "package:the_recipes/appwrite_config.dart";
 import "package:the_recipes/hive/hive_adapters.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/messages.dart";
@@ -28,9 +27,7 @@ void main() async {
   await Hive.openBox<String>(favoritesBox);
   await Hive.openBox(settingsBox);
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  AppwriteConfig.client;
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
