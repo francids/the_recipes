@@ -6,7 +6,7 @@ export default async ({ req, res, log, error }: any) => {
   }
 
   if (req.path === "/generate-recipe") {
-    const { image, language } = req.body;
+    const { image, language } = req.bodyJson;
 
     if (!image || typeof image !== "string") {
       error("Invalid image format");
