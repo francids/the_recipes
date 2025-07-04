@@ -115,7 +115,7 @@ export default function HeroSection() {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-8 lg:gap-0">
-          <div className="flex justify-center md:justify-end items-center gap-5 md:gap-10 flex-wrap select-none">
+          <div className="flex justify-center md:justify-end items-center gap-6 md:gap-12 flex-wrap select-none">
             <div className="w-56 md:w-72 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 -rotate-3 relative">
               {!image1Loaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-orange-800/20 rounded-lg">
