@@ -44,7 +44,9 @@
     "disable_sync_confirmation_message": "您确定要禁用云端同步吗？这将永久删除云端所有食谱，包括任何已分享的食谱。您的本地食谱将保留在此设备上。",
     "deleting_cloud_recipes_title": "正在删除云端食谱",
     "deleting_cloud_recipes_description": "请稍候，我们正在从云端删除您的所有食谱。",
-    "delete_cloud_recipes_error": "删除云端食谱错误：{0}"
+    "delete_cloud_recipes_error": "删除云端食谱错误：{0}",
+    "shared_recipes": "分享的食谱",
+    "shared_recipes_description": "查看您公开分享的食谱"
   },
   "profile_info_screen": {
     "title": "账户信息",
@@ -215,5 +217,9 @@
     "user_must_be_logged_in": "用户必须登录才能执行此操作。",
     "image_file_does_not_exist": "图片文件不存在：{0}",
     "failed_to_download_image": "从 {0} 下载图片失败。状态码：{1}"
+  },
+  "shared_recipes_screen": {
+    "title": "我分享的食谱",
+    "no_public_recipes": "您还没有分享任何食谱。将您的食谱设为公开以与其他人分享。"
   }
 }

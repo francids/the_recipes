@@ -44,7 +44,9 @@
     "disable_sync_confirmation_message": "Sei sicuro di voler disattivare la sincronizzazione cloud? Questo eliminerà definitivamente tutte le tue ricette dal cloud, incluse le ricette condivise. Le tue ricette locali rimarranno su questo dispositivo.",
     "deleting_cloud_recipes_title": "Eliminazione Ricette Cloud",
     "deleting_cloud_recipes_description": "Attendere prego mentre eliminiamo tutte le vostre ricette dal cloud.",
-    "delete_cloud_recipes_error": "Errore durante l'eliminazione delle ricette cloud: {0}"
+    "delete_cloud_recipes_error": "Errore durante l'eliminazione delle ricette cloud: {0}",
+    "shared_recipes": "Ricette Condivise",
+    "shared_recipes_description": "Visualizza le tue ricette condivise pubblicamente"
   },
   "profile_info_screen": {
     "title": "Informazioni Account",
@@ -215,5 +217,9 @@
     "user_must_be_logged_in": "L'utente deve aver effettuato l'accesso per eseguire questa azione.",
     "image_file_does_not_exist": "Il file immagine non esiste: {0}",
     "failed_to_download_image": "Impossibile scaricare l'immagine da {0}. Codice di stato: {1}"
+  },
+  "shared_recipes_screen": {
+    "title": "Le Mie Ricette Condivise",
+    "no_public_recipes": "Non hai ancora condiviso nessuna ricetta. Contrassegna le tue ricette come pubbliche per condividerle con altri."
   }
 }

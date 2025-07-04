@@ -5,6 +5,7 @@ import "package:lottie/lottie.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/views/screens/profile_info_screen.dart";
+import "package:the_recipes/views/screens/shared_recipes_screen.dart";
 import "package:the_recipes/views/widgets/pressable_button.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
@@ -23,9 +24,10 @@ class ProfilePage extends StatelessWidget {
             return _buildSignInPrompt(context);
           }
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 16,
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).padding.top,
@@ -34,7 +36,14 @@ class ProfilePage extends StatelessWidget {
                     .animate()
                     .fadeIn(duration: 300.ms)
                     .slideX(begin: -0.2, curve: Curves.easeOutCubic),
-                const SizedBox(height: 32),
+                _buildSharedRecipesCard(context)
+                    .animate()
+                    .fadeIn(delay: 100.ms, duration: 250.ms)
+                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
+                const Divider(
+                  indent: 16,
+                  endIndent: 16,
+                ),
                 Text(
                   "profile_page.data_section".tr,
                   style: Theme.of(context).textTheme.displayMedium,
@@ -42,12 +51,10 @@ class ProfilePage extends StatelessWidget {
                     .animate()
                     .fadeIn(delay: 150.ms, duration: 250.ms)
                     .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-                const SizedBox(height: 16),
                 _buildDataCard(context)
                     .animate()
                     .fadeIn(delay: 200.ms, duration: 250.ms)
                     .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-                const SizedBox(height: 16),
                 const Divider(
                   indent: 16,
                   endIndent: 16,
@@ -55,12 +62,10 @@ class ProfilePage extends StatelessWidget {
                     .animate()
                     .fadeIn(delay: 250.ms, duration: 200.ms)
                     .slideX(begin: -0.1, curve: Curves.easeOutCubic),
-                const SizedBox(height: 16),
                 _buildSignOutCard(context, controller)
                     .animate()
                     .fadeIn(delay: 300.ms, duration: 250.ms)
                     .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-                const SizedBox(height: 16),
               ],
             ),
           );
@@ -284,6 +289,37 @@ class ProfilePage extends StatelessWidget {
             color: Theme.of(context).colorScheme.outline,
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSharedRecipesCard(BuildContext context) {
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: ListTile(
+        title: Text(
+          "profile_page.shared_recipes".tr,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+        ),
+        subtitle: Text(
+          "profile_page.shared_recipes_description".tr,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
+        ),
+        leading: Icon(
+          CupertinoIcons.person_2_square_stack,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        trailing: Icon(
+          CupertinoIcons.chevron_forward,
+          color: Theme.of(context).colorScheme.outline,
+        ),
+        onTap: () => Get.to(() => const SharedRecipesScreen()),
       ),
     );
   }

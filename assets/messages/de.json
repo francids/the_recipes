@@ -44,7 +44,9 @@
     "disable_sync_confirmation_message": "Sind Sie sicher, dass Sie die Cloud-Synchronisation deaktivieren möchten? Dies wird alle Ihre Rezepte dauerhaft aus der Cloud löschen, einschließlich aller geteilten Rezepte. Ihre lokalen Rezepte bleiben auf diesem Gerät erhalten.",
     "deleting_cloud_recipes_title": "Cloud-Rezepte Werden Gelöscht",
     "deleting_cloud_recipes_description": "Bitte warten Sie, während wir alle Ihre Rezepte aus der Cloud löschen.",
-    "delete_cloud_recipes_error": "Fehler beim Löschen der Cloud-Rezepte: {0}"
+    "delete_cloud_recipes_error": "Fehler beim Löschen der Cloud-Rezepte: {0}",
+    "shared_recipes": "Geteilte Rezepte",
+    "shared_recipes_description": "Ihre öffentlich geteilten Rezepte anzeigen"
   },
   "profile_info_screen": {
     "title": "Kontoinformationen",
@@ -215,5 +217,9 @@
     "user_must_be_logged_in": "Der Benutzer muss angemeldet sein, um diese Aktion auszuführen.",
     "image_file_does_not_exist": "Bilddatei existiert nicht: {0}",
     "failed_to_download_image": "Fehler beim Herunterladen des Bildes von {0}. Statuscode: {1}"
+  },
+  "shared_recipes_screen": {
+    "title": "Meine Geteilten Rezepte",
+    "no_public_recipes": "Sie haben noch keine Rezepte geteilt. Markieren Sie Ihre Rezepte als öffentlich, um sie mit anderen zu teilen."
   }
 }

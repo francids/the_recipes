@@ -44,7 +44,9 @@
     "disable_sync_confirmation_message": "Tem certeza de que deseja desativar a sincronização na nuvem? Isso excluirá permanentemente todas as suas receitas da nuvem, incluindo qualquer receita compartilhada. Suas receitas locais permanecerão neste dispositivo.",
     "deleting_cloud_recipes_title": "Excluindo Receitas da Nuvem",
     "deleting_cloud_recipes_description": "Aguarde enquanto excluímos todas as suas receitas da nuvem.",
-    "delete_cloud_recipes_error": "Erro ao excluir receitas da nuvem: {0}"
+    "delete_cloud_recipes_error": "Erro ao excluir receitas da nuvem: {0}",
+    "shared_recipes": "Receitas Compartilhadas",
+    "shared_recipes_description": "Ver suas receitas compartilhadas publicamente"
   },
   "profile_info_screen": {
     "title": "Informações da Conta",
@@ -215,5 +217,9 @@
     "user_must_be_logged_in": "O usuário deve estar conectado para realizar esta ação.",
     "image_file_does_not_exist": "Arquivo de imagem não existe: {0}",
     "failed_to_download_image": "Falha ao baixar imagem de {0}. Código de status: {1}"
+  },
+  "shared_recipes_screen": {
+    "title": "Minhas Receitas Compartilhadas",
+    "no_public_recipes": "Você ainda não compartilhou nenhuma receita. Marque suas receitas como públicas para compartilhá-las com outros."
   }
 }
