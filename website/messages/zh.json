@@ -30,6 +30,11 @@
     "view_github": "在 GitHub 上查看",
     "discover_features": "发现功能"
   },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "页面未找到",
+    "description": "哎呀！这个页面就像没有配料的食谱一样消失了。"
+  },
   "Footer": {
     "tagline": "您的数字烹饪助手",
     "section_recipes": "The Recipes",

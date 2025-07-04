@@ -30,6 +30,11 @@
     "view_github": "Visualizza su GitHub",
     "discover_features": "Scopri le funzionalità"
   },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Pagina non trovata",
+    "description": "Ops! Questa pagina è scomparsa come una ricetta senza ingredienti."
+  },
   "Footer": {
     "tagline": "Il tuo assistente culinario digitale",
     "section_recipes": "The Recipes",

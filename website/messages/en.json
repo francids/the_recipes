@@ -30,6 +30,11 @@
     "view_github": "View on GitHub",
     "discover_features": "Discover features"
   },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "description": "Oops! This page has vanished like a recipe without ingredients."
+  },
   "Footer": {
     "tagline": "Your digital culinary assistant",
     "section_recipes": "The Recipes",

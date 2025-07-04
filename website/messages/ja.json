@@ -30,6 +30,11 @@
     "view_github": "GitHubで表示",
     "discover_features": "特徴を発見"
   },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "ページが見つかりません",
+    "description": "おっと！このページは材料のないレシピのように消えてしまいました。"
+  },
   "Footer": {
     "tagline": "あなたのデジタル料理アシスタント",
     "section_recipes": "The Recipes",

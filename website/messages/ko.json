@@ -30,6 +30,11 @@
     "view_github": "GitHub에서 보기",
     "discover_features": "기능 살펴보기"
   },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "페이지를 찾을 수 없습니다",
+    "description": "앗! 이 페이지는 재료 없는 레시피처럼 사라져 버렸습니다."
+  },
   "Footer": {
     "tagline": "나만의 디지털 요리 도우미",
     "section_recipes": "The Recipes",
