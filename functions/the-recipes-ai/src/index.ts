@@ -9,9 +9,12 @@ export default async ({ req, res, log, error }: any) => {
     const { image, language } = req.body;
 
     if (!image || typeof image !== "string") {
-      return res
-        .status(400)
-        .json({ error: "Missing or invalid image - must be a string" });
+      return res.json(
+        {
+          error: "Missing or invalid image - must be a string",
+        },
+        400
+      );
     }
 
     const validLanguages = [
@@ -26,22 +29,35 @@ export default async ({ req, res, log, error }: any) => {
       "zh",
     ];
     if (!language || !validLanguages.includes(language)) {
-      return res.status(400).json({
-        error:
-          "Missing or invalid language - must be one of: " +
-          validLanguages.join(", "),
-      });
+      return res.json(
+        {
+          error:
+            "Missing or invalid language - must be one of: " +
+            validLanguages.join(", "),
+        },
+        400
+      );
     }
 
     if (Buffer.byteLength(image, "base64") > 5 * 1024 * 1024) {
-      return res.status(400).json({ error: "Image too large (>5 MB)" });
+      return res.json(
+        {
+          error: "Image too large (>5 MB)",
+        },
+        400
+      );
     }
 
     try {
       const result = await generateRecipe(image, language);
       return res.json(result);
     } catch (error) {
-      return res.status(500).json({ error: "Failed to generate recipe" });
+      return res.json(
+        {
+          error: "Failed to generate recipe",
+        },
+        500
+      );
     }
   }
 
