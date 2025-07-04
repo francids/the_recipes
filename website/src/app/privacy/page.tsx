@@ -86,14 +86,13 @@ export default function PrivacyPage() {
 
       {loading && <Loading />}
 
-      <div
-        ref={pageRef}
-        className={`flex-1 min-h-screen animate-on-scroll relative z-10 ${
-          pageIsVisible ? "visible" : ""
-        }`}
-      >
+      <div ref={pageRef} className="flex-1 min-h-screen relative z-10">
         <Navbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-        <div className="pt-20 pb-16 px-4 max-w-4xl mx-auto">
+        <div
+          className={`pt-20 pb-16 px-4 max-w-4xl mx-auto animate-on-scroll ${
+            pageIsVisible ? "visible" : ""
+          }`}
+        >
           <div
             ref={contentRef}
             className={`prose prose-lg dark:prose-invert max-w-none break-words overflow-wrap-anywhere transition-all duration-500 ease-out animate-on-scroll selection:bg-orange-500/25 ${
