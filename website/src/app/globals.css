@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+html {
+  background: #fafafa;
+}
+
+html.dark {
+  background: #18181b;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
