@@ -247,41 +247,19 @@ class _InicialScreenState extends State<InicialScreen>
                   ),
                   if (_currentIndex == 0) ...[
                     const Spacer(),
-                    Tooltip(
-                      message: "inicial_screen.fab_tooltip_add".tr,
-                      preferBelow: false,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.black.withAlpha(77)
-                                  : Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer
-                                      .withAlpha(77),
-                              blurRadius: 10,
-                              offset: const Offset(0, -2),
-                            ),
-                          ],
+                    PressableButton(
+                      child: FloatingActionButton(
+                        elevation: 0,
+                        onPressed: () async {
+                          await Get.to(const AddRecipeScreen());
+                        },
+                        child: const Icon(CupertinoIcons.add),
+                      ),
+                    ).animate().scale(
+                          delay: 150.ms,
+                          duration: 300.ms,
+                          curve: Curves.easeOutBack,
                         ),
-                        child: PressableButton(
-                          child: FloatingActionButton(
-                            elevation: 0,
-                            onPressed: () async {
-                              await Get.to(const AddRecipeScreen());
-                            },
-                            child: const Icon(CupertinoIcons.add),
-                          ),
-                        ),
-                      ).animate().scale(
-                            delay: 150.ms,
-                            duration: 300.ms,
-                            curve: Curves.easeOutBack,
-                          ),
-                    ),
                   ],
                 ],
               ),
