@@ -21,7 +21,9 @@ class ProfilePage extends StatelessWidget {
       body: GetBuilder<AuthController>(
         builder: (controller) {
           if (!controller.isLoggedIn) {
-            return _buildSignInPrompt(context);
+            return Center(
+              child: _buildSignInPrompt(context),
+            );
           }
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),

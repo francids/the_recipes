@@ -3,6 +3,7 @@ import "dart:io";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/models/recipe.dart";
@@ -21,6 +22,7 @@ class RecipeScreen extends StatelessWidget {
   final RecipeController recipeController = Get.find();
   final FavoritesController favoritesController = Get.find();
   final ShareRecipeController shareRecipeController = Get.find();
+  final AuthController authController = Get.find();
 
   String _formatPreparationTime(int seconds) {
     if (seconds == 0) return "";
@@ -78,16 +80,18 @@ class RecipeScreen extends StatelessWidget {
                       : null,
                 ),
               )),
-          Obx(
-            () => IconButton(
-              icon: Icon(
-                shareRecipeController.isPublic(recipe.id)
-                    ? CupertinoIcons.globe
-                    : CupertinoIcons.share,
+          if (authController.isLoggedIn)
+            Obx(
+              () => IconButton(
+                icon: Icon(
+                  shareRecipeController.isPublic(recipe.id)
+                      ? CupertinoIcons.globe
+                      : CupertinoIcons.share,
+                ),
+                onPressed: () =>
+                    ShareRecipeBottomSheet.show(context, recipe.id),
               ),
-              onPressed: () => ShareRecipeBottomSheet.show(context, recipe.id),
             ),
-          ),
           IconButton(
             icon: const Icon(CupertinoIcons.ellipsis_vertical),
             tooltip: "inicial_screen.menu_tooltip".tr,
