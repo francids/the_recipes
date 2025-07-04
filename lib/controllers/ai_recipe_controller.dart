@@ -4,10 +4,12 @@ import "dart:typed_data";
 
 import "package:flutter_image_compress/flutter_image_compress.dart";
 import "package:get/get.dart";
-import "package:the_recipes/env/env.dart";
+import "package:the_recipes/appwrite_config.dart";
 import "package:the_recipes/models/recipe.dart";
 
 class AIRecipeController extends GetConnect {
+  final functions = AppwriteConfig.functions;
+
   @override
   void onInit() {
     httpClient.timeout = const Duration(seconds: 30);
@@ -41,22 +43,19 @@ class AIRecipeController extends GetConnect {
         "language": Get.locale?.languageCode ?? "en",
       };
 
-      final response = await post(
-        "https://recipes.francids.com/api/ai/generate-recipe",
-        body,
-        contentType: "application/json",
-        headers: {
-          "TRA-SECRET-KEY": Env.TRA_SECRET_KEY,
-        },
+      final execution = await functions.createExecution(
+        functionId: "the-recipes-ai",
+        body: jsonEncode(body),
+        path: "/generate-recipe",
       );
 
-      if (response.statusCode == 200) {
-        return Recipe.fromMap(response.body);
+      if (execution.responseStatusCode == 200) {
+        return Recipe.fromMap(jsonDecode(execution.responseBody));
       } else {
-        response.printInfo();
-        String errorMessage =
-            _getErrorMessage(response.statusCode, response.body);
-        throw AIRecipeException(errorMessage, response.statusCode!);
+        execution.printInfo();
+        String errorMessage = _getErrorMessage(
+            execution.responseStatusCode, execution.responseBody);
+        throw AIRecipeException(errorMessage, execution.responseStatusCode);
       }
     } catch (error) {
       if (error is AIRecipeException) {

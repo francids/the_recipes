@@ -5,6 +5,7 @@ class AppwriteConfig {
   static Account? _account;
   static Databases? _databases;
   static Storage? _storage;
+  static Functions? _functions;
 
   static Client get client {
     _client ??= Client()
@@ -26,6 +27,11 @@ class AppwriteConfig {
   static Storage get storage {
     _storage ??= Storage(client);
     return _storage!;
+  }
+
+  static Functions get functions {
+    _functions ??= Functions(client);
+    return _functions!;
   }
 
   static const String databaseId = "principal";
