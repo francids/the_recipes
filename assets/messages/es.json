@@ -98,6 +98,8 @@
     "make_public_description": "Compartir con otros",
     "generate_qr": "Generar código QR",
     "generate_qr_description": "Crear código QR para compartir",
+    "qr_code": "Código QR",
+    "qr_code_description": "Escanea este código QR para ver la receta en otro dispositivo",
     "share": "Compartir enlace",
     "share_link_description": "Compartir enlace de la receta"
   },

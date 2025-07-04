@@ -98,6 +98,8 @@
     "make_public_description": "다른 사람들이 이 레시피를 발견하고 볼 수 있도록 허용",
     "generate_qr": "QR 코드 생성",
     "generate_qr_description": "쉬운 공유를 위한 QR 코드 생성",
+    "qr_code": "QR 코드",
+    "qr_code_description": "이 QR 코드를 스캔하여 모든 기기에서 레시피를 확인하세요",
     "share": "링크 공유",
     "share_link_description": "레시피 링크를 다른 사람들과 공유"
   },

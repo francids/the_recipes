@@ -98,6 +98,8 @@
     "make_public_description": "允许他人发现并查看此食谱",
     "generate_qr": "生成二维码",
     "generate_qr_description": "创建二维码便于分享",
+    "qr_code": "二维码",
+    "qr_code_description": "扫描此二维码在任何设备上查看食谱",
     "share": "分享链接",
     "share_link_description": "与他人分享食谱链接"
   },

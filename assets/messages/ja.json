@@ -98,6 +98,8 @@
     "make_public_description": "他の人がこのレシピを発見して閲覧できるようにする",
     "generate_qr": "QRコード生成",
     "generate_qr_description": "簡単共有用のQRコードを作成",
+    "qr_code": "QRコード",
+    "qr_code_description": "このQRコードをスキャンして、任意のデバイスでレシピを表示",
     "share": "リンク共有",
     "share_link_description": "レシピのリンクを他の人と共有"
   },

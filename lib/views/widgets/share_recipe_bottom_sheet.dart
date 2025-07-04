@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:the_recipes/controllers/share_recipe_controller.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/views/widgets/qr_bottom_sheet.dart";
 
 class ShareRecipeBottomSheet extends StatelessWidget {
   const ShareRecipeBottomSheet({
@@ -25,14 +26,7 @@ class ShareRecipeBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final shareRecipeController = Get.find<ShareRecipeController>();
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
-      ),
+    return Padding(
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 16.0,
         bottom: MediaQuery.of(context).padding.bottom,
@@ -46,7 +40,7 @@ class ShareRecipeBottomSheet extends StatelessWidget {
           children: [
             Text(
               "recipe_screen.share_recipe".tr,
-              style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(),
+              style: Theme.of(context).appBarTheme.titleTextStyle,
               textAlign: TextAlign.start,
             )
                 .animate()
@@ -122,7 +116,12 @@ class ShareRecipeBottomSheet extends StatelessWidget {
                         CupertinoIcons.chevron_forward,
                         color: Theme.of(context).colorScheme.outline,
                       ),
-                      onTap: () async {},
+                      onTap: () {
+                        QrBottomSheet.show(
+                          context,
+                          shareRecipeController.generateShareUrl(recipeId),
+                        );
+                      },
                     )
                         .animate()
                         .fadeIn(delay: 150.ms, duration: 250.ms)
@@ -147,7 +146,7 @@ class ShareRecipeBottomSheet extends StatelessWidget {
                         CupertinoIcons.chevron_forward,
                         color: Theme.of(context).colorScheme.outline,
                       ),
-                      onTap: () async {},
+                      onTap: () {},
                     )
                         .animate()
                         .fadeIn(delay: 200.ms, duration: 250.ms)

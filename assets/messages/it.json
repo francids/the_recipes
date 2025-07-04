@@ -98,6 +98,8 @@
     "make_public_description": "Permetti ad altri di scoprire e visualizzare questa ricetta",
     "generate_qr": "Genera Codice QR",
     "generate_qr_description": "Crea un codice QR per condivisione facile",
+    "qr_code": "Codice QR",
+    "qr_code_description": "Scansiona questo codice QR per visualizzare la ricetta su qualsiasi dispositivo",
     "share": "Condividi Link",
     "share_link_description": "Condividi link della ricetta con altri"
   },
