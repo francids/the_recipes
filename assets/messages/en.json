@@ -94,7 +94,7 @@
     "recipe_already_public": "This recipe is already public and can be shared with others.",
     "share_description": "Make this recipe public to share it with friends and family.",
     "make_public": "Make Public",
-    "make_private_description": "Make recipe private and remove from public sharing",
+    "make_private_description": "Make recipe private",
     "make_public_description": "Allow others to discover and view this recipe",
     "generate_qr": "Generate QR Code",
     "generate_qr_description": "Create a QR code for easy sharing",
