@@ -64,7 +64,7 @@ export default function HeroSection() {
         }`}
       ></div>
       <div className="max-w-7xl mx-auto flex xl:flex-row flex-col lg:items-center xl:justify-between gap-8 relative z-10">
-        <div className="lg:w-2/5 mb-4 xl:mb-24 text-center xl:text-left">
+        <div className="lg:w-2/5 mb-4 lg:mb-12 xl:mb-32 text-center xl:text-left">
           <div
             ref={logotypeRef}
             className={`flex items-center justify-center xl:justify-start mb-4 w-full animate-on-scroll ${
