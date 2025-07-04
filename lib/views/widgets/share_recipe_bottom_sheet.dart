@@ -1,6 +1,7 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:share_plus/share_plus.dart";
 import "package:the_recipes/controllers/share_recipe_controller.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:the_recipes/views/widgets/qr_bottom_sheet.dart";
@@ -146,7 +147,15 @@ class ShareRecipeBottomSheet extends StatelessWidget {
                         CupertinoIcons.chevron_forward,
                         color: Theme.of(context).colorScheme.outline,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        SharePlus.instance.share(
+                          ShareParams(
+                            uri: Uri.parse(
+                              shareRecipeController.generateShareUrl(recipeId),
+                            ),
+                          ),
+                        );
+                      },
                     )
                         .animate()
                         .fadeIn(delay: 200.ms, duration: 250.ms)
