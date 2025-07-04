@@ -89,7 +89,17 @@
     "instructions_title": "烹饪步骤",
     "menu_item_delete": "删除食谱",
     "deleting_recipe": "正在删除食谱...",
-    "deleting_recipe_message": "请稍候，正在删除食谱。"
+    "deleting_recipe_message": "请稍候，正在删除食谱。",
+    "share_recipe": "分享食谱",
+    "recipe_already_public": "该食谱已公开，可以与他人分享。",
+    "share_description": "将此食谱设为公开，与朋友和家人分享。",
+    "make_public": "设为公开",
+    "make_private_description": "将食谱设为私密并从公开分享中移除",
+    "make_public_description": "允许他人发现并查看此食谱",
+    "generate_qr": "生成二维码",
+    "generate_qr_description": "创建二维码便于分享",
+    "share": "分享链接",
+    "share_link_description": "与他人分享食谱链接"
   },
   "recipes_page": {
     "no_favorites": "暂无收藏的食谱",
@@ -168,7 +178,8 @@
     "load_error": "加载食谱错误：{0}",
     "sync_error": "同步错误：{0}",
     "add_error": "添加食谱错误：{0}",
-    "image_delete_error": "删除图片错误：{0}"
+    "image_delete_error": "删除图片错误：{0}",
+    "update_error": "更新食谱错误：{0}"
   },
   "auth_controller": {
     "signing_in": "登录中...",

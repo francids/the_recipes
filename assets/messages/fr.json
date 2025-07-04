@@ -89,7 +89,17 @@
     "instructions_title": "Instructions",
     "menu_item_delete": "Supprimer la recette",
     "deleting_recipe": "Suppression de la recette...",
-    "deleting_recipe_message": "Veuillez patienter pendant la suppression de la recette."
+    "deleting_recipe_message": "Veuillez patienter pendant la suppression de la recette.",
+    "share_recipe": "Partager la Recette",
+    "recipe_already_public": "Cette recette est déjà publique et peut être partagée avec d'autres.",
+    "share_description": "Rendez cette recette publique pour la partager avec vos amis et votre famille.",
+    "make_public": "Rendre Publique",
+    "make_private_description": "Rendre la recette privée et retirer du partage public",
+    "make_public_description": "Permettre aux autres de découvrir et voir cette recette",
+    "generate_qr": "Générer un QR Code",
+    "generate_qr_description": "Créer un code QR pour un partage facile",
+    "share": "Partager le Lien",
+    "share_link_description": "Partager le lien de la recette avec d'autres"
   },
   "recipes_page": {
     "no_favorites": "Aucune recette favorite",
@@ -168,7 +178,8 @@
     "load_error": "Erreur de chargement des recettes : {0}",
     "sync_error": "Erreur de synchronisation : {0}",
     "add_error": "Erreur d'ajout de la recette : {0}",
-    "image_delete_error": "Erreur de suppression de l'image : {0}"
+    "image_delete_error": "Erreur de suppression de l'image : {0}",
+    "update_error": "Erreur de mise à jour de la recette : {0}"
   },
   "auth_controller": {
     "signing_in": "Connexion en cours...",

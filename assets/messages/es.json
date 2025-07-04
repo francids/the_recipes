@@ -13,7 +13,7 @@
   "profile_page": {
     "title": "Perfil",
     "sign_in_required": "Inicio de sesión requerido",
-    "sign_in_description": "Inicia sesión para acceder a tu perfil y sincronizar tus recetas en todos tus dispositivos",
+    "sign_in_description": "Inicia sesión para sincronizar recetas en todos tus dispositivos",
     "sign_in_with_google": "Iniciar sesión con Google",
     "unknown_user": "Usuario desconocido",
     "data_section": "Datos y almacenamiento",
@@ -24,9 +24,9 @@
     "import_recipes": "Importar recetas",
     "import_recipes_description": "Importar desde un archivo de respaldo",
     "import_confirmation_title": "Importar recetas",
-    "import_confirmation_message": "Selecciona un archivo de respaldo de recetas para importar. Las recetas duplicadas serán omitidas.",
+    "import_confirmation_message": "Selecciona archivo de respaldo. Se omitirán duplicados.",
     "export_confirmation_title": "Exportar recetas",
-    "export_confirmation_message": "Esto creará un archivo de respaldo con todas tus recetas e imágenes.",
+    "export_confirmation_message": "Crear respaldo con todas tus recetas e imágenes.",
     "import_success_title": "Importación completada",
     "import_success_message": "Se importaron exitosamente {0} recetas. Se omitieron {1} duplicados.",
     "import_error_title": "Error de importación",
@@ -36,14 +36,14 @@
     "sign_out_confirmation_title": "Cerrar sesión",
     "sign_out_confirmation_message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?",
     "syncing_recipes": "Sincronizando recetas...",
-    "syncing_recipes_description": "Por favor, espera mientras tus recetas se sincronizan con la nube.",
-    "sync_success_message": "¡Recetas sincronizadas con éxito!",
+    "syncing_recipes_description": "Sincronizando recetas con la nube.",
+    "sync_success_message": "¡Recetas sincronizadas!",
     "sync_error_message": "Error al sincronizar recetas: {0}",
-    "auto_sync_disabled": "Sincronización automática desactivada.",
+    "auto_sync_disabled": "Sincronización automática desactivada",
     "disable_sync_confirmation_title": "Desactivar sincronización en la nube",
-    "disable_sync_confirmation_message": "¿Estás seguro de que quieres desactivar la sincronización en la nube? Esto eliminará permanentemente todas tus recetas de la nube, incluyendo cualquier receta compartida. Tus recetas locales permanecerán en este dispositivo.",
+    "disable_sync_confirmation_message": "¿Desactivar sincronización? Esto eliminará permanentemente las recetas de la nube.",
     "deleting_cloud_recipes_title": "Eliminando recetas de la nube",
-    "deleting_cloud_recipes_description": "Por favor espera mientras eliminamos todas tus recetas de la nube.",
+    "deleting_cloud_recipes_description": "Eliminando recetas de la nube.",
     "delete_cloud_recipes_error": "Error al eliminar recetas de la nube: {0}",
     "shared_recipes": "Recetas Compartidas",
     "shared_recipes_description": "Ver tus recetas públicas"
@@ -89,7 +89,17 @@
     "instructions_title": "Instrucciones",
     "menu_item_delete": "Eliminar receta",
     "deleting_recipe": "Eliminando receta...",
-    "deleting_recipe_message": "Por favor espere mientras se elimina la receta."
+    "deleting_recipe_message": "Por favor espere mientras se elimina la receta.",
+    "share_recipe": "Compartir receta",
+    "recipe_already_public": "Esta receta ya es pública.",
+    "share_description": "Comparte esta receta con amigos y familia.",
+    "make_public": "Hacer pública",
+    "make_private_description": "Hacer receta privada",
+    "make_public_description": "Compartir con otros",
+    "generate_qr": "Generar código QR",
+    "generate_qr_description": "Crear código QR para compartir",
+    "share": "Compartir enlace",
+    "share_link_description": "Compartir enlace de la receta"
   },
   "recipes_page": {
     "no_favorites": "No hay recetas favoritas",
@@ -140,11 +150,11 @@
   "image_step": {
     "tap_to_select": "Toca la imagen para seleccionar una foto de la receta",
     "analyzing_image_title": "Analizando imagen",
-    "analyzing_image_message": "Por favor espera mientras procesamos la imagen",
-    "recipe_generated_success": "Se ha generado información de la receta",
+    "analyzing_image_message": "Procesando imagen",
+    "recipe_generated_success": "Información de receta generada",
     "recipe_generated_error": "No se pudo generar la receta: {0}",
     "generate_recipe_info": "Generar información de la receta",
-    "feature_not_available": "La función de generar recetas automáticamente a partir de imágenes requiere que inicies sesión. Por favor, inicia sesión para usar esta característica."
+    "feature_not_available": "Esta función requiere iniciar sesión. Por favor, inicia sesión para usarla."
   },
   "text_fields_step": {
     "title_label": "Título de la receta",
@@ -168,7 +178,8 @@
     "load_error": "Error al cargar recetas: {0}",
     "sync_error": "Error de sincronización: {0}",
     "add_error": "Error al añadir receta: {0}",
-    "image_delete_error": "Error al eliminar imagen: {0}"
+    "image_delete_error": "Error al eliminar imagen: {0}",
+    "update_error": "Error al actualizar receta: {0}"
   },
   "auth_controller": {
     "signing_in": "Iniciando sesión...",
@@ -220,6 +231,6 @@
   },
   "shared_recipes_screen": {
     "title": "Recetas que compartes",
-    "no_public_recipes": "Aún no has compartido ninguna receta. Marca tus recetas como públicas para compartirlas con otros."
+    "no_public_recipes": "Aún no has compartido recetas. Marca tus recetas como públicas para compartirlas."
   }
 }

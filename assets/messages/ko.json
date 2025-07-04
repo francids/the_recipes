@@ -89,7 +89,17 @@
     "instructions_title": "조리 방법",
     "menu_item_delete": "레시피 삭제",
     "deleting_recipe": "레시피 삭제 중...",
-    "deleting_recipe_message": "레시피를 삭제하는 동안 잠시 기다려주세요."
+    "deleting_recipe_message": "레시피를 삭제하는 동안 잠시 기다려주세요.",
+    "share_recipe": "레시피 공유",
+    "recipe_already_public": "이 레시피는 이미 공개되어 다른 사람들과 공유할 수 있습니다.",
+    "share_description": "이 레시피를 공개하여 친구와 가족과 공유하세요.",
+    "make_public": "공개하기",
+    "make_private_description": "레시피를 비공개로 만들고 공개 공유에서 제거",
+    "make_public_description": "다른 사람들이 이 레시피를 발견하고 볼 수 있도록 허용",
+    "generate_qr": "QR 코드 생성",
+    "generate_qr_description": "쉬운 공유를 위한 QR 코드 생성",
+    "share": "링크 공유",
+    "share_link_description": "레시피 링크를 다른 사람들과 공유"
   },
   "recipes_page": {
     "no_favorites": "즐겨찾기 레시피가 없습니다",
@@ -168,7 +178,8 @@
     "load_error": "레시피 로드 오류: {0}",
     "sync_error": "동기화 오류: {0}",
     "add_error": "레시피 추가 오류: {0}",
-    "image_delete_error": "이미지 삭제 오류: {0}"
+    "image_delete_error": "이미지 삭제 오류: {0}",
+    "update_error": "레시피 업데이트 오류: {0}"
   },
   "auth_controller": {
     "signing_in": "로그인 중...",

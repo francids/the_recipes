@@ -6,6 +6,8 @@ import "package:hive_ce_flutter/adapters.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/favorites_controller.dart";
 import "package:the_recipes/controllers/language_controller.dart";
+import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/controllers/share_recipe_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/controllers/view_option_controller.dart";
 import "package:the_recipes/appwrite_config.dart";
@@ -37,11 +39,13 @@ void main() async {
     ],
   );
 
+  Get.lazyPut(() => RecipeController());
   Get.put(AuthController());
   Get.put(ThemeController());
   Get.put(LanguageController());
   Get.put(FavoritesController());
   Get.put(ViewOptionController());
+  Get.put(ShareRecipeController());
 
   configureEasyLoading();
 

@@ -89,7 +89,17 @@
     "instructions_title": "調理手順",
     "menu_item_delete": "レシピを削除",
     "deleting_recipe": "レシピを削除中...",
-    "deleting_recipe_message": "レシピを削除している間お待ちください。"
+    "deleting_recipe_message": "レシピを削除している間お待ちください。",
+    "share_recipe": "レシピを共有",
+    "recipe_already_public": "このレシピは既に公開されており、他の人と共有できます。",
+    "share_description": "このレシピを公開して、友人や家族と共有しましょう。",
+    "make_public": "公開する",
+    "make_private_description": "レシピを非公開にして公開共有から削除",
+    "make_public_description": "他の人がこのレシピを発見して閲覧できるようにする",
+    "generate_qr": "QRコード生成",
+    "generate_qr_description": "簡単共有用のQRコードを作成",
+    "share": "リンク共有",
+    "share_link_description": "レシピのリンクを他の人と共有"
   },
   "recipes_page": {
     "no_favorites": "お気に入りのレシピがありません",
@@ -168,7 +178,8 @@
     "load_error": "レシピの読み込みエラー: {0}",
     "sync_error": "同期エラー: {0}",
     "add_error": "レシピの追加エラー: {0}",
-    "image_delete_error": "画像の削除エラー: {0}"
+    "image_delete_error": "画像の削除エラー: {0}",
+    "update_error": "レシピの更新エラー: {0}"
   },
   "auth_controller": {
     "signing_in": "サインイン中...",

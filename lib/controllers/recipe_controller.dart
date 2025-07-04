@@ -94,6 +94,44 @@ class RecipeController extends GetxController {
     }
   }
 
+  Future<void> updateLocalRecipe(
+    String id, {
+    String? title,
+    String? description,
+    String? imagePath,
+    List<String>? ingredients,
+    List<String>? directions,
+    int? preparationTime,
+    bool? isPublic,
+  }) async {
+    try {
+      var box = Hive.box<Recipe>(recipesBox);
+
+      if (box.containsKey(id)) {
+        Recipe recipe = box.get(id)!;
+
+        recipe.title = title ?? recipe.title;
+        recipe.description = description ?? recipe.description;
+        recipe.image = imagePath ?? recipe.image;
+        recipe.ingredients = ingredients ?? recipe.ingredients;
+        recipe.directions = directions ?? recipe.directions;
+        recipe.preparationTime = preparationTime ?? recipe.preparationTime;
+        recipe.isPublic = isPublic ?? recipe.isPublic;
+
+        await box.put(id, recipe);
+      } else {
+        EasyLoading.showError("recipe_controller.recipe_not_found".tr);
+        return;
+      }
+
+      update();
+    } catch (e) {
+      EasyLoading.showError("recipe_controller.update_error".trParams({
+        "0": e.toString(),
+      }));
+    }
+  }
+
   Future<void> deleteRecipe(String id, String image) async {
     try {
       var box = Hive.box<Recipe>(recipesBox);
