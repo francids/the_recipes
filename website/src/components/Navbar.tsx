@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import LanguageSelect from "./LanguageSelect";
 
@@ -13,6 +14,7 @@ interface NavbarProps {
 
 export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
   const t = useTranslations("Navbar");
+  const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -36,7 +38,11 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
   }, [isMenuOpen, toggleMenu]);
 
   return (
-    <nav className="flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-xs">
+    <nav
+      className={`flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-xs ${
+        pathname !== "/" ? "border-b border-zinc-300 dark:border-zinc-700" : ""
+      }`}
+    >
       <div className="flex items-center gap-4 select-none">
         <Link href="/" className="flex items-center select-none">
           <Image src="/Logo.svg" alt="The Recipes App" width={40} height={40} />
