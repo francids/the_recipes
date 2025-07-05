@@ -26,14 +26,18 @@ export default function SharingPage() {
 
   const attemptAppRedirect = (recipeId: string) => {
     const deepLink = `the-recipes://sharing?id=${recipeId}`;
-    const androidIntent = `intent://sharing?id=${recipeId}#Intent;scheme=the-recipes;package=com.francids.recipes;end`;
+    const androidIntent = `intent://sharing?id=${recipeId}#Intent;scheme=the-recipes;package=com.francids.recipes;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.francids.recipes;end`;
     const iosUniversalLink = `https://recipes.francids.com/sharing?id=${recipeId}`;
 
     const isAndroid = /Android/i.test(navigator.userAgent);
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     if (isAndroid) {
-      window.location.href = androidIntent;
+      window.location.href = deepLink;
+
+      setTimeout(() => {
+        window.location.href = androidIntent;
+      }, 2000);
     } else if (isIOS) {
       window.location.href = iosUniversalLink;
 
@@ -46,7 +50,7 @@ export default function SharingPage() {
 
     setTimeout(() => {
       setShowFallback(true);
-    }, 3000);
+    }, 4000);
   };
 
   const recipeId = searchParams.get("id");
