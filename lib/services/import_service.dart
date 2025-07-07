@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:path_provider/path_provider.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:path/path.dart" as path;
@@ -13,6 +14,7 @@ import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class ImportService {
   static final Uuid _uuid = Uuid();
+  static final AuthController _authController = Get.find<AuthController>();
 
   static Future<ImportResult> importRecipes(
       String zipFilePath, BuildContext context) async {
@@ -153,6 +155,9 @@ class ImportService {
           ingredients: List<String>.from(recipeData["ingredients"] ?? []),
           directions: List<String>.from(recipeData["directions"] ?? []),
           preparationTime: recipeData["preparationTime"] ?? 0,
+          ownerId: _authController.isLoggedIn ? _authController.user!.$id : "",
+          isPublic: false,
+          cloudId: null,
         );
 
         if (recipe.title.isEmpty ||
