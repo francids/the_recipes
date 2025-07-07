@@ -6,6 +6,7 @@ import "package:flutter_image_compress/flutter_image_compress.dart";
 import "package:get/get.dart";
 import "package:the_recipes/appwrite_config.dart";
 import "package:the_recipes/models/recipe.dart";
+import "package:uuid/uuid.dart";
 
 class AIRecipeController extends GetConnect {
   final functions = AppwriteConfig.functions;
@@ -50,7 +51,16 @@ class AIRecipeController extends GetConnect {
       );
 
       if (execution.responseStatusCode == 200) {
-        return Recipe.fromMap(jsonDecode(execution.responseBody));
+        final recipeData = jsonDecode(execution.responseBody);
+        return Recipe(
+          id: const Uuid().v4(),
+          title: recipeData["title"] ?? "",
+          description: recipeData["description"] ?? "",
+          image: imagePath,
+          ingredients: List<String>.from(recipeData["ingredients"] ?? []),
+          directions: List<String>.from(recipeData["directions"] ?? []),
+          preparationTime: recipeData["preparationTime"] ?? 0,
+        );
       } else {
         execution.printInfo();
         String errorMessage = _getErrorMessage(

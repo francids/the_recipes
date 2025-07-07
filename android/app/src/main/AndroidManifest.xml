@@ -30,13 +30,16 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="http"
-                      android:host="recipes.francids.com"
-                      android:pathPrefix="/sharing"/>
+                      android:host="recipes.francids.com" />
                 <data android:scheme="https"
-                      android:host="recipes.francids.com"
-                      android:pathPrefix="/sharing"/>
-                <data android:scheme="the-recipes"
-                      android:host="recipes.francids.com"/>
+                      android:host="recipes.francids.com" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="the-recipes"/>
             </intent-filter>
         </activity>
         

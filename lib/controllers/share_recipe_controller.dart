@@ -4,9 +4,11 @@ import "package:get/get.dart";
 import "package:the_recipes/appwrite_config.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/models/recipe.dart";
 
 class ShareRecipeController extends GetxController {
   final databases = AppwriteConfig.databases;
+  final storage = AppwriteConfig.storage;
   final authController = Get.find<AuthController>();
   final recipeController = Get.find<RecipeController>();
 
@@ -18,19 +20,33 @@ class ShareRecipeController extends GetxController {
 
   final String shareUrlTemplate = "https://recipes.francids.com/sharing?id=";
 
-  String generateShareUrl(String recipeId) {
-    return "$shareUrlTemplate$recipeId";
-  }
-
   Future<void> makeRecipePublic(String recipeId) async {
     try {
+      final recipe =
+          recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+      if (recipe == null || recipe.cloudId == null) {
+        debugPrint("Recipe not found or has no cloudId: $recipeId");
+        return;
+      }
+
+      final cloudId = recipe.cloudId!;
+
       await databases.updateDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.recipesCollectionId,
-        documentId: recipeId,
+        documentId: cloudId,
         data: {
           "isPublic": true,
         },
+        permissions: [
+          Permission.read(Role.any()),
+          Permission.update(Role.user(authController.user!.$id)),
+          Permission.delete(Role.user(authController.user!.$id)),
+        ],
+      );
+      await storage.updateFile(
+        bucketId: AppwriteConfig.bucketId,
+        fileId: cloudId,
         permissions: [
           Permission.read(Role.any()),
           Permission.update(Role.user(authController.user!.$id)),
@@ -46,13 +62,31 @@ class ShareRecipeController extends GetxController {
 
   Future<void> makeRecipePrivate(String recipeId) async {
     try {
+      final recipe =
+          recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+      if (recipe == null || recipe.cloudId == null) {
+        debugPrint("Recipe not found or has no cloudId: $recipeId");
+        return;
+      }
+
+      final cloudId = recipe.cloudId!;
+
       await databases.updateDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.recipesCollectionId,
-        documentId: recipeId,
+        documentId: cloudId,
         data: {
           "isPublic": false,
         },
+        permissions: [
+          Permission.read(Role.user(authController.user!.$id)),
+          Permission.update(Role.user(authController.user!.$id)),
+          Permission.delete(Role.user(authController.user!.$id)),
+        ],
+      );
+      await storage.updateFile(
+        bucketId: AppwriteConfig.bucketId,
+        fileId: cloudId,
         permissions: [
           Permission.read(Role.user(authController.user!.$id)),
           Permission.update(Role.user(authController.user!.$id)),
@@ -64,5 +98,48 @@ class ShareRecipeController extends GetxController {
     } catch (e) {
       debugPrint("Error making recipe private: $e");
     }
+  }
+
+  String generateShareUrl(String recipeId) {
+    if (!authController.isLoggedIn) return "";
+
+    final recipe =
+        recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+    if (recipe == null || recipe.cloudId == null) {
+      debugPrint("Recipe not found or has no cloudId: $recipeId");
+      return "";
+    }
+
+    return "$shareUrlTemplate${recipe.cloudId}";
+  }
+
+  Future<Recipe> getSharedRecipe(String cloudId) async {
+    try {
+      final document = await databases.getDocument(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.recipesCollectionId,
+        documentId: cloudId,
+      );
+
+      final recipeData = document.data;
+      recipeData["image"] =
+          "${AppwriteConfig.endpoint}/storage/buckets/${AppwriteConfig.bucketId}/files/$cloudId/view?project=${AppwriteConfig.projectId}";
+      recipeData["cloudId"] = cloudId;
+
+      return Recipe.fromMap(recipeData);
+    } catch (e) {
+      debugPrint("Error fetching shared recipe: $e");
+      rethrow;
+    }
+  }
+
+  String? getCloudId(String recipeId) {
+    final recipe =
+        recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+    return recipe?.cloudId;
+  }
+
+  bool canShare(String recipeId) {
+    return getCloudId(recipeId) != null;
   }
 }

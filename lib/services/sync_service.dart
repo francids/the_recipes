@@ -11,8 +11,10 @@ import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/appwrite_config.dart";
+import "package:uuid/uuid.dart";
 
 class SyncService {
+  static final Uuid _uuid = Uuid();
   static final Databases _databases = AppwriteConfig.databases;
   static final Storage _storage = AppwriteConfig.storage;
   static final AuthController _authController = Get.find<AuthController>();
@@ -41,6 +43,8 @@ class SyncService {
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
             ownerId: _authController.user!.$id,
+            isPublic: recipe.isPublic,
+            cloudId: recipe.cloudId,
           );
           await localBox.put(recipe.id, updatedRecipe);
           await _uploadRecipeToCloud(updatedRecipe);
@@ -72,20 +76,56 @@ class SyncService {
 
       for (var doc in documentList.documents) {
         final recipeData = doc.data;
-        recipeData["id"] = doc.$id;
+        recipeData["cloudId"] = doc.$id;
+
+        Recipe? existingRecipe;
+        for (var localRecipe in localBox.values) {
+          if (localRecipe.cloudId == doc.$id) {
+            existingRecipe = localRecipe;
+            break;
+          }
+        }
 
         if (recipeData["image"] != null &&
             recipeData["image"].toString().isNotEmpty) {
           String imageValue = recipeData["image"].toString();
 
           if (imageValue.startsWith("http") || !imageValue.contains("/")) {
-            recipeData["image"] =
-                await _downloadImage(imageValue, recipeData["id"]);
+            String recipeId = recipeData["id"]?.toString() ?? doc.$id;
+            recipeData["image"] = await _downloadImage(imageValue, recipeId);
           }
         }
 
-        final recipe = Recipe.fromMap(recipeData);
-        await localBox.put(recipe.id, recipe);
+        if (existingRecipe != null) {
+          final updatedRecipe = Recipe(
+            id: existingRecipe.id,
+            title: recipeData["title"] ?? "",
+            description: recipeData["description"] ?? "",
+            image: recipeData["image"] ?? "",
+            ingredients: List<String>.from(recipeData["ingredients"] ?? []),
+            directions: List<String>.from(recipeData["directions"] ?? []),
+            preparationTime: recipeData["preparationTime"] ?? 0,
+            ownerId: recipeData["ownerId"] ?? "",
+            isPublic: recipeData["isPublic"] ?? false,
+            cloudId: recipeData["cloudId"],
+          );
+          await localBox.put(existingRecipe.id, updatedRecipe);
+        } else {
+          String newLocalId = _uuid.v4();
+          final newRecipe = Recipe(
+            id: newLocalId,
+            title: recipeData["title"] ?? "",
+            description: recipeData["description"] ?? "",
+            image: recipeData["image"] ?? "",
+            ingredients: List<String>.from(recipeData["ingredients"] ?? []),
+            directions: List<String>.from(recipeData["directions"] ?? []),
+            preparationTime: recipeData["preparationTime"] ?? 0,
+            ownerId: recipeData["ownerId"] ?? "",
+            isPublic: recipeData["isPublic"] ?? false,
+            cloudId: recipeData["cloudId"],
+          );
+          await localBox.put(newLocalId, newRecipe);
+        }
       }
     } catch (e) {
       debugPrint("Error syncing recipes from cloud: $e");
@@ -95,6 +135,11 @@ class SyncService {
 
   static Future<void> _uploadRecipeToCloud(Recipe recipe) async {
     try {
+      if (recipe.ownerId == null || recipe.ownerId!.isEmpty) {
+        throw Exception("Recipe must have an owner ID to sync to cloud");
+      }
+
+      String cloudId = recipe.cloudId ?? _uuid.v4();
       String? cloudImageUrl;
       models.Document? existingDoc;
 
@@ -102,7 +147,7 @@ class SyncService {
         existingDoc = await _databases.getDocument(
           databaseId: AppwriteConfig.databaseId,
           collectionId: AppwriteConfig.recipesCollectionId,
-          documentId: recipe.id,
+          documentId: cloudId,
         );
       } on AppwriteException catch (e) {
         if (e.type == "user_unauthorized") {
@@ -142,17 +187,17 @@ class SyncService {
               }
 
               cloudImageUrl = await _uploadImage(
-                  recipe.image, recipe.id, recipe.isPublic ?? false);
+                  recipe.image, cloudId, recipe.isPublic ?? false);
             } else {
               cloudImageUrl = existingImage;
             }
           } else {
             cloudImageUrl = await _uploadImage(
-                recipe.image, recipe.id, recipe.isPublic ?? false);
+                recipe.image, cloudId, recipe.isPublic ?? false);
           }
         } else {
           cloudImageUrl = await _uploadImage(
-              recipe.image, recipe.id, recipe.isPublic ?? false);
+              recipe.image, cloudId, recipe.isPublic ?? false);
         }
       }
 
@@ -161,6 +206,7 @@ class SyncService {
         recipeData["image"] = cloudImageUrl;
       }
       recipeData.remove("id");
+      recipeData.remove("cloudId");
 
       final bool isPublic = recipe.isPublic ?? false;
 
@@ -168,7 +214,7 @@ class SyncService {
         await _databases.updateDocument(
           databaseId: AppwriteConfig.databaseId,
           collectionId: AppwriteConfig.recipesCollectionId,
-          documentId: recipe.id,
+          documentId: cloudId,
           data: recipeData,
           permissions: [
             Permission.read(
@@ -183,7 +229,7 @@ class SyncService {
           await _databases.createDocument(
             databaseId: AppwriteConfig.databaseId,
             collectionId: AppwriteConfig.recipesCollectionId,
-            documentId: recipe.id,
+            documentId: cloudId,
             data: recipeData,
             permissions: [
               Permission.read(
@@ -193,12 +239,28 @@ class SyncService {
               Permission.delete(Role.user(_authController.user!.$id)),
             ],
           );
+
+          final localBox = Hive.box<Recipe>(recipesBox);
+          final updatedRecipe = Recipe(
+            id: recipe.id,
+            title: recipe.title,
+            description: recipe.description,
+            image: recipe.image,
+            ingredients: recipe.ingredients,
+            directions: recipe.directions,
+            preparationTime: recipe.preparationTime,
+            ownerId: recipe.ownerId,
+            isPublic: recipe.isPublic,
+            cloudId: cloudId,
+          );
+          await localBox.put(recipe.id, updatedRecipe);
+          debugPrint("Updated recipe ${recipe.id} with cloudId: $cloudId");
         } catch (e) {
           if (e.toString().contains('document_already_exists')) {
             await _databases.updateDocument(
               databaseId: AppwriteConfig.databaseId,
               collectionId: AppwriteConfig.recipesCollectionId,
-              documentId: recipe.id,
+              documentId: cloudId,
               data: recipeData,
               permissions: [
                 Permission.read(
@@ -322,11 +384,21 @@ class SyncService {
     }
 
     try {
+      final localBox = Hive.box<Recipe>(recipesBox);
+      final recipe = localBox.get(recipeId);
+
+      if (recipe == null || recipe.cloudId == null) {
+        debugPrint("Recipe not found locally or has no cloudId: $recipeId");
+        return;
+      }
+
+      final cloudId = recipe.cloudId!;
+
       try {
         final doc = await _databases.getDocument(
           databaseId: AppwriteConfig.databaseId,
           collectionId: AppwriteConfig.recipesCollectionId,
-          documentId: recipeId,
+          documentId: cloudId,
         );
 
         final imageUrl = doc.data["image"] as String?;
@@ -360,9 +432,9 @@ class SyncService {
       await _databases.deleteDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.recipesCollectionId,
-        documentId: recipeId,
+        documentId: cloudId,
       );
-      debugPrint("Recipe document deleted from Appwrite: $recipeId");
+      debugPrint("Recipe document deleted from Appwrite: $cloudId");
     } catch (e) {
       debugPrint("Error deleting recipe from cloud: $e");
       rethrow;
@@ -428,6 +500,74 @@ class SyncService {
     } catch (e) {
       debugPrint("Error deleting all user recipes from cloud: $e");
       rethrow;
+    }
+  }
+
+  static Future<void> ensureRecipesHaveCloudIds() async {
+    try {
+      final localBox = Hive.box<Recipe>(recipesBox);
+      bool hasChanges = false;
+
+      for (var recipe in localBox.values) {
+        if (recipe.cloudId == null) {
+          final updatedRecipe = Recipe(
+            id: recipe.id,
+            title: recipe.title,
+            description: recipe.description,
+            image: recipe.image,
+            ingredients: recipe.ingredients,
+            directions: recipe.directions,
+            preparationTime: recipe.preparationTime,
+            ownerId: recipe.ownerId,
+            isPublic: recipe.isPublic,
+            cloudId: _uuid.v4(),
+          );
+          await localBox.put(recipe.id, updatedRecipe);
+          hasChanges = true;
+          debugPrint("Assigned cloudId to recipe: ${recipe.id}");
+        }
+      }
+
+      if (hasChanges) {
+        debugPrint(
+            "Updated ${localBox.values.where((r) => r.cloudId != null).length} recipes with cloudIds");
+      }
+    } catch (e) {
+      debugPrint("Error ensuring recipes have cloudIds: $e");
+    }
+  }
+
+  static Future<void> clearLocalRecipesOnSignOut() async {
+    try {
+      final localBox = Hive.box<Recipe>(recipesBox);
+
+      final recipesToRemove = <String>[];
+
+      for (var recipe in localBox.values) {
+        if (recipe.ownerId != null && recipe.ownerId!.isNotEmpty) {
+          recipesToRemove.add(recipe.id);
+
+          try {
+            if (recipe.image.isNotEmpty) {
+              final File imageFile = File(recipe.image);
+              if (await imageFile.exists()) {
+                await imageFile.delete();
+              }
+            }
+          } catch (e) {
+            debugPrint("Error deleting local image: $e");
+          }
+        }
+      }
+
+      for (String recipeId in recipesToRemove) {
+        await localBox.delete(recipeId);
+      }
+
+      debugPrint(
+          "Cleared ${recipesToRemove.length} synced recipes from local storage");
+    } catch (e) {
+      debugPrint("Error clearing local recipes on sign out: $e");
     }
   }
 }

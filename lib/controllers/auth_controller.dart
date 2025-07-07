@@ -7,6 +7,7 @@ import "package:get/get.dart";
 import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/services/sync_service.dart";
+import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/appwrite_config.dart";
 import "package:http/http.dart" as http;
 import "dart:convert";
@@ -131,11 +132,16 @@ class AuthController extends GetxController {
 
   Future<void> signOut() async {
     try {
-      final box = Hive.box(settingsBox);
-      await box.delete(autoSyncKey);
+      if (autoSyncEnabled) {
+        await SyncService.clearLocalRecipesOnSignOut();
+      }
+      await setAutoSyncEnabled(false);
+
       await _account.deleteSession(sessionId: "current");
       _user = null;
       _userProfileImageUrl = null;
+
+      Get.find<RecipeController>().refreshRecipes();
       update();
     } catch (e) {
       EasyLoading.showError(

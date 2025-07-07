@@ -96,12 +96,12 @@ class ProfileController extends GetxController {
 
     try {
       final box = Hive.box<Recipe>(recipesBox);
+      final recipesToUpdate = <String, Recipe>{};
 
-      for (int i = 0; i < box.length; i++) {
-        final recipe = box.getAt(i);
-        if (recipe != null &&
-            (recipe.ownerId!.isEmpty ||
-                recipe.ownerId != _authController.user!.$id)) {
+      for (var recipe in box.values) {
+        if (recipe.ownerId == null || 
+            recipe.ownerId!.isEmpty ||
+            recipe.ownerId != _authController.user!.$id) {
           final updatedRecipe = Recipe(
             id: recipe.id,
             title: recipe.title,
@@ -111,9 +111,15 @@ class ProfileController extends GetxController {
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
             ownerId: _authController.user!.$id,
+            isPublic: recipe.isPublic,
+            cloudId: recipe.cloudId,
           );
-          await box.putAt(i, updatedRecipe);
+          recipesToUpdate[recipe.id] = updatedRecipe;
         }
+      }
+
+      for (var entry in recipesToUpdate.entries) {
+        await box.put(entry.key, entry.value);
       }
     } catch (e) {
       debugPrint("Error assigning ownerId to local recipes: $e");
@@ -219,10 +225,10 @@ class ProfileController extends GetxController {
 
     try {
       final box = Hive.box<Recipe>(recipesBox);
+      final recipesToUpdate = <String, Recipe>{};
 
-      for (int i = 0; i < box.length; i++) {
-        final recipe = box.getAt(i);
-        if (recipe != null && recipe.ownerId!.isEmpty) {
+      for (var recipe in box.values) {
+        if (recipe.ownerId == null || recipe.ownerId!.isEmpty) {
           final updatedRecipe = Recipe(
             id: recipe.id,
             title: recipe.title,
@@ -232,9 +238,15 @@ class ProfileController extends GetxController {
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
             ownerId: _authController.user!.$id,
+            isPublic: recipe.isPublic,
+            cloudId: recipe.cloudId,
           );
-          await box.putAt(i, updatedRecipe);
+          recipesToUpdate[recipe.id] = updatedRecipe;
         }
+      }
+
+      for (var entry in recipesToUpdate.entries) {
+        await box.put(entry.key, entry.value);
       }
     } catch (e) {
       debugPrint("Error assigning ownerId to imported recipes: $e");

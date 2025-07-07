@@ -9,8 +9,8 @@ class AppwriteConfig {
 
   static Client get client {
     _client ??= Client()
-        .setEndpoint("https://nyc.cloud.appwrite.io/v1")
-        .setProject("the-recipes");
+        .setEndpoint(AppwriteConfig.endpoint)
+        .setProject(AppwriteConfig.projectId);
     return _client!;
   }
 
@@ -34,6 +34,8 @@ class AppwriteConfig {
     return _functions!;
   }
 
+  static const String projectId = "the-recipes";
+  static const String endpoint = "https://nyc.cloud.appwrite.io/v1";
   static const String databaseId = "principal";
   static const String recipesCollectionId = "recipes";
   static const String bucketId = "recipes";

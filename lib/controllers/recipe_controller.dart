@@ -1,5 +1,6 @@
 import "dart:io";
 
+import "package:flutter/material.dart";
 import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
@@ -54,12 +55,11 @@ class RecipeController extends GetxController {
     String imagePath,
     List<String> ingredients,
     List<String> directions,
-    int preparationTime, {
-    String? ownerId,
-    bool? isPublic,
-  }) async {
+    int preparationTime,
+  ) async {
     try {
-      String id = uuid.v4();
+      var box = Hive.box<Recipe>(recipesBox);
+      String id = const Uuid().v4();
 
       Recipe recipe = Recipe(
         id: id,
@@ -69,18 +69,18 @@ class RecipeController extends GetxController {
         ingredients: ingredients,
         directions: directions,
         preparationTime: preparationTime,
-        ownerId: ownerId ??
-            (authController.isLoggedIn ? authController.user!.$id : null),
-        isPublic: isPublic ?? false,
+        ownerId: authController.isLoggedIn ? authController.user!.$id : "",
+        isPublic: false,
+        cloudId: null,
       );
 
-      await Hive.box<Recipe>(recipesBox).put(id, recipe);
-
-      recipes.add(recipe);
+      await box.put(id, recipe);
+      update();
 
       if (authController.isLoggedIn && authController.autoSyncEnabled) {
         try {
           await SyncService.syncRecipesToCloud();
+          update();
         } catch (e) {
           EasyLoading.showError("recipe_controller.sync_error".trParams({
             "0": e.toString(),
@@ -137,6 +137,18 @@ class RecipeController extends GetxController {
       var box = Hive.box<Recipe>(recipesBox);
 
       if (box.containsKey(id)) {
+        final recipe = box.get(id)!;
+
+        if (authController.isLoggedIn &&
+            recipe.cloudId != null &&
+            recipe.cloudId!.isNotEmpty) {
+          try {
+            await SyncService.deleteRecipeFromCloud(id);
+          } catch (e) {
+            debugPrint("Error deleting recipe from cloud: $e");
+          }
+        }
+
         await box.delete(id);
       } else {
         EasyLoading.showError("recipe_controller.recipe_not_found".tr);
@@ -152,16 +164,6 @@ class RecipeController extends GetxController {
         } catch (e) {
           EasyLoading.showError(
               "recipe_controller.image_delete_error".trParams({
-            "0": e.toString(),
-          }));
-        }
-      }
-
-      if (authController.isLoggedIn && authController.autoSyncEnabled) {
-        try {
-          await SyncService.deleteRecipeFromCloud(id);
-        } catch (e) {
-          EasyLoading.showError("recipe_controller.sync_error".trParams({
             "0": e.toString(),
           }));
         }

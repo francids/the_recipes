@@ -1,5 +1,6 @@
 import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
+import "package:uuid/uuid.dart";
 
 class Recipe extends HiveObject {
   String id;
@@ -11,6 +12,7 @@ class Recipe extends HiveObject {
   int preparationTime; // in seconds
   String? ownerId;
   bool? isPublic;
+  String? cloudId;
 
   Recipe({
     required this.id,
@@ -22,13 +24,16 @@ class Recipe extends HiveObject {
     this.preparationTime = 0,
     String? ownerId,
     this.isPublic = false,
+    this.cloudId,
   })  : ownerId = ownerId ??
             (AuthController().isLoggedIn ? AuthController().user!.$id : ""),
         assert(ingredients.isNotEmpty),
         assert(directions.isNotEmpty);
 
   Recipe.fromMap(Map<String, dynamic> map)
-      : id = map["id"] ?? "",
+      : id = map["id"]?.toString().isNotEmpty == true 
+            ? map["id"].toString() 
+            : const Uuid().v4(),
         title = map["title"] ?? "",
         description = map["description"] ?? "",
         image = map["image"] ?? "",
@@ -36,7 +41,8 @@ class Recipe extends HiveObject {
         directions = List<String>.from(map["directions"] ?? []),
         preparationTime = map["preparationTime"] ?? 0,
         ownerId = map["ownerId"] ?? "",
-        isPublic = map["isPublic"] ?? false {
+        isPublic = map["isPublic"] ?? false,
+        cloudId = map["cloudId"] {
     assert(ingredients.isNotEmpty);
     assert(directions.isNotEmpty);
   }
@@ -52,6 +58,7 @@ class Recipe extends HiveObject {
       "preparationTime": preparationTime,
       "ownerId": ownerId,
       "isPublic": isPublic,
+      "cloudId": cloudId,
     };
   }
 }

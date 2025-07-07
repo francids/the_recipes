@@ -5,7 +5,7 @@ nextTypeId: 1
 types:
   Recipe:
     typeId: 0
-    nextIndex: 9
+    nextIndex: 10
     fields:
       id:
         index: 0
@@ -25,3 +25,5 @@ types:
         index: 7
       isPublic:
         index: 8
+      cloudId:
+        index: 9
