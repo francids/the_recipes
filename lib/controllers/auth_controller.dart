@@ -15,7 +15,8 @@ import "dart:convert";
 class AuthController extends GetxController {
   static const autoSyncKey = "autoSync";
   static AuthController instance = Get.find();
-  final Account _account = AppwriteConfig.account;
+  final _account = AppwriteConfig.account;
+  final _functions = AppwriteConfig.functions;
 
   models.User? _user;
   String? _userProfileImageUrl;
@@ -161,29 +162,17 @@ class AuthController extends GetxController {
       if (_user != null) {
         await SyncService.deleteAllUserRecipesFromCloud();
 
-        final sessions = await _account.listSessions();
-        for (final session in sessions.sessions) {
-          await _account.deleteSession(sessionId: session.$id);
-        }
+        await setAutoSyncEnabled(false);
+
+        await _functions.createExecution(
+          functionId: "the-recipes-accounts",
+          path: "/delete",
+        );
 
         _user = null;
         _userProfileImageUrl = null;
         update();
         EasyLoading.dismiss();
-      }
-    } on AppwriteException catch (e) {
-      EasyLoading.dismiss();
-      if (e.code == 401) {
-        EasyLoading.showError("auth_controller.requires_recent_login".tr);
-        await _reauthenticateAndDelete();
-      } else {
-        EasyLoading.showError(
-          "auth_controller.delete_account_error".trParams(
-            {
-              "0": e.message ?? e.toString(),
-            },
-          ),
-        );
       }
     } catch (e) {
       EasyLoading.dismiss();
@@ -193,58 +182,6 @@ class AuthController extends GetxController {
             "0": e.toString(),
           },
         ),
-      );
-    }
-  }
-
-  Future<void> _reauthenticateAndDelete() async {
-    try {
-      EasyLoading.show(status: "auth_controller.reauthenticating".tr);
-
-      await _account.createOAuth2Session(
-        provider: enums.OAuthProvider.google,
-        success: AppwriteConfig.redirectUrlSuccess,
-        failure: AppwriteConfig.redirectUrlFailure,
-        scopes: ["profile", "email", "openid"],
-      );
-
-      if (_user != null) {
-        final session = await _account.getSession(sessionId: "current");
-        final providerAccessToken = session.providerAccessToken;
-
-        final response = await http.get(
-          Uri.parse("https://www.googleapis.com/oauth2/v3/userinfo"),
-          headers: {
-            "Authorization": "Bearer $providerAccessToken",
-          },
-        );
-
-        if (response.statusCode == 200) {
-          final Map<String, dynamic> userData = jsonDecode(response.body);
-          final String? userImageUrl = userData["picture"];
-          if (userImageUrl != null) {
-            await _storeUserProfileImage(userImageUrl);
-          }
-        }
-      }
-
-      await SyncService.deleteAllUserRecipesFromCloud();
-
-      final sessions = await _account.listSessions();
-      for (final session in sessions.sessions) {
-        await _account.deleteSession(sessionId: session.$id);
-      }
-
-      _user = null;
-      _userProfileImageUrl = null;
-      update();
-      EasyLoading.dismiss();
-    } catch (e) {
-      EasyLoading.dismiss();
-      EasyLoading.showError(
-        "auth_controller.reauthentication_failed".trParams({
-          "0": e.toString(),
-        }),
       );
     }
   }
