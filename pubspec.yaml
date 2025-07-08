@@ -31,6 +31,7 @@ dependencies:
   pretty_qr_code: ^3.4.0
   share_plus: ^11.0.0
   app_links: ^6.4.0
+  screen_brightness: ^2.1.5
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,9 @@
 import "package:flutter/material.dart";
 import "package:pretty_qr_code/pretty_qr_code.dart";
 import "package:get/get.dart";
+import "package:screen_brightness/screen_brightness.dart";
 
-class QrBottomSheet extends StatelessWidget {
+class QrBottomSheet extends StatefulWidget {
   const QrBottomSheet({super.key, required this.url});
 
   final String url;
@@ -18,6 +19,47 @@ class QrBottomSheet extends StatelessWidget {
       ),
       builder: (context) => QrBottomSheet(url: url),
     );
+  }
+
+  @override
+  State<QrBottomSheet> createState() => _QrBottomSheetState();
+}
+
+class _QrBottomSheetState extends State<QrBottomSheet> {
+  double? _originalBrightness;
+
+  @override
+  void initState() {
+    super.initState();
+    _setBrightnessToMax();
+  }
+
+  @override
+  void dispose() {
+    _restoreOriginalBrightness();
+    super.dispose();
+  }
+
+  Future<void> _setBrightnessToMax() async {
+    try {
+      _originalBrightness = await ScreenBrightness.instance.application;
+      await ScreenBrightness.instance.setApplicationScreenBrightness(1.0);
+    } catch (e) {
+      debugPrint("Error setting brightness: $e");
+    }
+  }
+
+  Future<void> _restoreOriginalBrightness() async {
+    try {
+      if (_originalBrightness != null) {
+        await ScreenBrightness.instance
+            .setApplicationScreenBrightness(_originalBrightness!);
+      } else {
+        await ScreenBrightness.instance.resetApplicationScreenBrightness();
+      }
+    } catch (e) {
+      debugPrint("Error restoring brightness: $e");
+    }
   }
 
   @override
@@ -64,7 +106,7 @@ class QrBottomSheet extends StatelessWidget {
                       ),
                     ),
                     child: PrettyQrView.data(
-                      data: url,
+                      data: widget.url,
                       decoration: const PrettyQrDecoration(
                         shape: PrettyQrSmoothSymbol(
                           color: Color(0xFFEA580C),
