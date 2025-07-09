@@ -79,13 +79,17 @@ class ShareRecipeBottomSheet extends StatelessWidget {
                           ),
                     ),
                     value: shareRecipeController.isPublic(recipeId),
-                    onChanged: (value) async {
-                      if (value) {
-                        await shareRecipeController.makeRecipePublic(recipeId);
-                      } else {
-                        await shareRecipeController.makeRecipePrivate(recipeId);
-                      }
-                    },
+                    onChanged: shareRecipeController.isLoading(recipeId)
+                        ? null
+                        : (value) async {
+                            if (value) {
+                              await shareRecipeController
+                                  .makeRecipePublic(recipeId);
+                            } else {
+                              await shareRecipeController
+                                  .makeRecipePrivate(recipeId);
+                            }
+                          },
                     secondary: Icon(
                       shareRecipeController.isPublic(recipeId)
                           ? CupertinoIcons.globe

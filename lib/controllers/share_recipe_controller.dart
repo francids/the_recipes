@@ -12,15 +12,22 @@ class ShareRecipeController extends GetxController {
   final authController = Get.find<AuthController>();
   final recipeController = Get.find<RecipeController>();
 
+  final RxMap<String, bool> _isLoading = <String, bool>{}.obs;
+
   bool isPublic(String recipeId) {
     final recipe =
         recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
     return recipe?.isPublic ?? false;
   }
 
+  bool isLoading(String recipeId) {
+    return _isLoading[recipeId] ?? false;
+  }
+
   final String shareUrlTemplate = "https://recipes.francids.com/sharing?id=";
 
   Future<void> makeRecipePublic(String recipeId) async {
+    _isLoading[recipeId] = true;
     try {
       final recipe =
           recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
@@ -57,10 +64,13 @@ class ShareRecipeController extends GetxController {
       recipeController.refreshRecipes();
     } catch (e) {
       debugPrint("Error making recipe public: $e");
+    } finally {
+      _isLoading[recipeId] = false;
     }
   }
 
   Future<void> makeRecipePrivate(String recipeId) async {
+    _isLoading[recipeId] = true;
     try {
       final recipe =
           recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
@@ -97,6 +107,8 @@ class ShareRecipeController extends GetxController {
       recipeController.refreshRecipes();
     } catch (e) {
       debugPrint("Error making recipe private: $e");
+    } finally {
+      _isLoading[recipeId] = false;
     }
   }
 
