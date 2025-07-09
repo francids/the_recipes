@@ -9,19 +9,17 @@
     "download": "今すぐダウンロード"
   },
   "FeaturesSection": {
-    "title": "主な特徴",
-    "feature1_title": "オフラインで動作",
-    "feature1_description": "情報はデバイスに保存され、インターネットは不要です。",
-    "feature2_title": "レシピを管理",
-    "feature2_description": "手順と材料を常に手元に置いて、レシピを表示、追加、削除できます。",
+    "title": "私たちの提供",
+    "feature1_title": "デフォルトでローカル動作",
+    "feature1_description": "アプリはデバイス上でオフラインで動作します。オプションでログインしてAI機能と共有を有効化。",
     "feature3_title": "ダークモード",
-    "feature3_description": "暗い環境での料理に最適なダークテーマ。",
-    "feature4_title": "近日公開：共有",
-    "feature4_description": "まもなく、あなたの料理作品を友人や家族と共有できるようになります。",
-    "feature5_title": "近日公開：レシピ用AI",
-    "feature5_description": "AIを使用して画像からレシピを自動生成します。",
+    "feature3_description": "暗い環境での料理や夜間の食事準備のために特別に設計された美しいダークテーマです。",
+    "feature4_title": "リンクでレシピを共有",
+    "feature4_description": "お気に入りのレシピを共有するためのユニークなリンクを生成します。ユーザーは任意のデバイスからリンクにアクセスでき、アプリが自動的に開いて全ての材料と手順を含む完全なレシピが表示されます。",
+    "feature5_title": "AIレシピ生成",
+    "feature5_description": "任意の料理の写真を撮ると、人工知能が画像を分析して完全なレシピを生成します。AIは見える材料を識別し、料理の視覚的分析に基づいて調理方法を提案します。",
     "feature6_title": "多言語サポート",
-    "feature6_description": "アプリは、グローバルな視聴者に対応するために複数の言語で利用可能です。"
+    "feature6_description": "アプリは日本語、英語、スペイン語、フランス語など複数の言語で利用でき、世界中のユーザーに対応しています。"
   },
   "CTASection": {
     "title": "今すぐ利用可能！",

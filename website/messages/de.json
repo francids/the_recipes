@@ -9,19 +9,17 @@
     "download": "Jetzt herunterladen"
   },
   "FeaturesSection": {
-    "title": "Hauptfunktionen",
-    "feature1_title": "Funktioniert offline",
-    "feature1_description": "Informationen werden auf deinem Gerät gespeichert, kein Internet erforderlich.",
-    "feature2_title": "Verwalte deine Rezepte",
-    "feature2_description": "Rezepte anzeigen, hinzufügen und löschen, mit Anleitungen und Zutaten immer zur Hand.",
+    "title": "Was wir bieten",
+    "feature1_title": "Funktioniert standardmäßig lokal",
+    "feature1_description": "Die App funktioniert offline auf deinem Gerät. Optional anmelden für KI-Funktionen und Teilen.",
     "feature3_title": "Dunkelmodus",
-    "feature3_description": "Dunkles Design, ideal zum Kochen bei schlechten Lichtverhältnissen.",
-    "feature4_title": "Demnächst: Teilen",
-    "feature4_description": "Bald kannst du deine kulinarischen Kreationen mit Freunden und Familie teilen.",
-    "feature5_title": "Demnächst: KI für Rezepte",
-    "feature5_description": "Automatische Rezepterstellung aus Bildern mithilfe von KI.",
+    "feature3_description": "Wunderschönes dunkles Design speziell für das Kochen bei schlechten Lichtverhältnissen und nächtliche Essenszubereitung entwickelt.",
+    "feature4_title": "Rezepte per Link teilen",
+    "feature4_description": "Erstelle einzigartige Links zum Teilen deiner Lieblingsrezepte. Benutzer können den Link von jedem Gerät aus aufrufen und die App öffnet sich automatisch mit dem vollständigen Rezept inklusive aller Zutaten und Anweisungen.",
+    "feature5_title": "KI-Rezeptgenerierung",
+    "feature5_description": "Mache ein Foto von einem beliebigen Gericht und unsere künstliche Intelligenz analysiert das Bild, um ein vollständiges Rezept zu erstellen. Die KI identifiziert sichtbare Zutaten und schlägt Zubereitungsmethoden basierend auf der visuellen Analyse des Gerichts vor.",
     "feature6_title": "Mehrsprachige Unterstützung",
-    "feature6_description": "Die App ist in mehreren Sprachen verfügbar, um ein globales Publikum zu erreichen."
+    "feature6_description": "Die App ist in mehreren Sprachen verfügbar, einschließlich Deutsch, Englisch, Spanisch, Französisch und mehr für Benutzer weltweit."
   },
   "CTASection": {
     "title": "Jetzt verfügbar!",

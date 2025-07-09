@@ -9,19 +9,17 @@
     "download": "지금 다운로드"
   },
   "FeaturesSection": {
-    "title": "주요 기능",
-    "feature1_title": "오프라인 작동",
-    "feature1_description": "정보는 기기에 저장되며 인터넷 연결이 필요하지 않습니다.",
-    "feature2_title": "레시피 관리",
-    "feature2_description": "지침과 재료를 항상 손쉽게 확인하며 레시피를 보고, 추가하고, 삭제할 수 있습니다.",
+    "title": "우리가 제공하는 것",
+    "feature1_title": "기본적으로 로컬에서 작동",
+    "feature1_description": "앱은 기기에서 오프라인으로 작동합니다. 선택적으로 로그인하여 AI 기능과 공유를 활성화하세요.",
     "feature3_title": "다크 모드",
-    "feature3_description": "어두운 환경에서 요리하기에 이상적인 다크 테마입니다.",
-    "feature4_title": "출시 예정: 공유",
-    "feature4_description": "곧 친구 및 가족과 요리 창작물을 공유할 수 있게 됩니다.",
-    "feature5_title": "출시 예정: 레시피용 AI",
-    "feature5_description": "AI를 사용하여 이미지에서 레시피를 자동으로 생성합니다.",
+    "feature3_description": "어두운 환경에서의 요리와 야간 식사 준비를 위해 특별히 설계된 아름다운 다크 테마입니다.",
+    "feature4_title": "링크로 레시피 공유",
+    "feature4_description": "좋아하는 레시피를 공유하기 위한 고유한 링크를 생성합니다. 사용자는 어떤 기기에서든 링크에 접근할 수 있으며 앱이 자동으로 열려 모든 재료와 지침이 포함된 완전한 레시피가 표시됩니다.",
+    "feature5_title": "AI 레시피 생성",
+    "feature5_description": "어떤 요리든 사진을 찍으면 인공지능이 이미지를 분석하여 완전한 레시피를 생성합니다. AI는 보이는 재료를 식별하고 요리의 시각적 분석을 바탕으로 조리 방법을 제안합니다.",
     "feature6_title": "다국어 지원",
-    "feature6_description": "이 앱은 전 세계 사용자를 위해 여러 언어로 제공됩니다."
+    "feature6_description": "이 앱은 한국어, 영어, 스페인어, 프랑스어 등 여러 언어로 제공되어 전 세계 사용자를 지원합니다."
   },
   "CTASection": {
     "title": "지금 이용 가능!",

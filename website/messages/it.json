@@ -1,6 +1,9 @@
 {
   "Navbar": {
-    "home": "Home",
+    "feature4_title": "Condividi ricette tramite link",
+    "feature4_description": "Genera link unici per condividere le tue ricette preferite. Gli utenti possono accedere al link da qualsiasi dispositivo e l'app si aprirà automaticamente mostrando la ricetta completa con tutti gli ingredienti e le istruzioni.",
+    "feature5_title": "Generazione ricette con IA",
+    "feature5_description": "Scatta una foto di qualsiasi piatto e la nostra intelligenza artificiale analizzerà l'immagine per generare una ricetta completa. L'IA identifica gli ingredienti visibili e suggerisce metodi di preparazione basati sull'analisi visiva del piatto.", "home": "Home",
     "privacy": "Privacy"
   },
   "HeroSection": {
@@ -9,19 +12,17 @@
     "download": "Scarica ora"
   },
   "FeaturesSection": {
-    "title": "Caratteristiche principali",
-    "feature1_title": "Funziona offline",
-    "feature1_description": "Informazioni memorizzate sul tuo dispositivo, non è necessaria alcuna connessione Internet.",
-    "feature2_title": "Gestisci le tue ricette",
-    "feature2_description": "Visualizza, aggiungi ed elimina ricette con istruzioni e ingredienti sempre a portata di mano.",
+    "title": "Cosa ti offriamo",
+    "feature1_title": "Funziona localmente per impostazione predefinita",
+    "feature1_description": "L'app funziona offline sul tuo dispositivo. Accedi opzionalmente per funzionalità AI e condivisione.",
     "feature3_title": "Modalità scura",
-    "feature3_description": "Tema scuro ideale per cucinare in ambienti con scarsa illuminazione.",
+    "feature3_description": "Bellissimo tema scuro progettato specificamente per cucinare in ambienti con scarsa illuminazione e preparazione notturna dei pasti.",
     "feature4_title": "Prossimamente: Condividi",
     "feature4_description": "Presto potrai condividere le tue creazioni culinarie con amici e familiari.",
     "feature5_title": "Prossimamente: AI per le ricette",
     "feature5_description": "Generazione automatica di ricette da immagini tramite AI.",
     "feature6_title": "Supporto Multilingue",
-    "feature6_description": "L'app è disponibile in più lingue per soddisfare un pubblico globale."
+    "feature6_description": "L'app è disponibile in più lingue incluso italiano, inglese, spagnolo, francese e altre per utenti di tutto il mondo."
   },
   "CTASection": {
     "title": "Disponibile ora!",

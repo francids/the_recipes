@@ -9,19 +9,17 @@
     "download": "Baixar agora"
   },
   "FeaturesSection": {
-    "title": "Principais funcionalidades",
-    "feature1_title": "Funciona localmente",
-    "feature1_description": "Informações armazenadas no seu dispositivo, sem necessidade de internet.",
-    "feature2_title": "Gerencie suas receitas",
-    "feature2_description": "Visualize, adicione e exclua receitas com instruções e ingredientes sempre à mão.",
+    "title": "O que oferecemos",
+    "feature1_title": "Funciona localmente por padrão",
+    "feature1_description": "O aplicativo funciona offline no seu dispositivo. Opcionalmente faça login para recursos de IA e compartilhamento.",
     "feature3_title": "Modo escuro",
-    "feature3_description": "Tema escuro ideal para cozinhar em ambientes com pouca luz.",
-    "feature4_title": "Em breve: Compartilhar",
-    "feature4_description": "Em breve, você poderá compartilhar suas criações culinárias com amigos e familiares.",
-    "feature5_title": "Em breve: IA para receitas",
-    "feature5_description": "Geração automática de receitas a partir de imagens com IA.",
+    "feature3_description": "Lindo tema escuro projetado especificamente para cozinhar em ambientes com pouca luz e preparação noturna de refeições.",
+    "feature4_title": "Compartilhar receitas por link",
+    "feature4_description": "Gere links únicos para compartilhar suas receitas favoritas. Os usuários podem acessar o link de qualquer dispositivo e o aplicativo abrirá automaticamente exibindo a receita completa com todos os ingredientes e instruções.",
+    "feature5_title": "Geração de receitas com IA",
+    "feature5_description": "Tire uma foto de qualquer prato e nossa inteligência artificial analisará a imagem para gerar uma receita completa. A IA identifica ingredientes visíveis e sugere métodos de preparo baseados na análise visual do prato.",
     "feature6_title": "Suporte Multilíngue",
-    "feature6_description": "O aplicativo está disponível em vários idiomas para atender a um público global."
+    "feature6_description": "O aplicativo está disponível em vários idiomas incluindo português, inglês, espanhol, francês e mais para usuários do mundo todo."
   },
   "CTASection": {
     "title": "Já disponível!",

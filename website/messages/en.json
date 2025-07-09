@@ -9,19 +9,17 @@
     "download": "Download now"
   },
   "FeaturesSection": {
-    "title": "Main Features",
-    "feature1_title": "Works offline",
-    "feature1_description": "Information stored on your device, no internet needed.",
-    "feature2_title": "Manage your recipes",
-    "feature2_description": "View, add, and delete recipes with instructions and ingredients always at hand.",
+    "title": "What we offer",
+    "feature1_title": "Works locally by default",
+    "feature1_description": "App works offline on your device. Sign in optionally for cloud sync, AI features, and sharing.",
     "feature3_title": "Dark mode",
-    "feature3_description": "Dark theme ideal for cooking in low-light environments.",
-    "feature4_title": "Coming soon: Share",
-    "feature4_description": "Soon you'll be able to share your culinary creations with friends and family.",
-    "feature5_title": "Coming soon: AI for recipes",
-    "feature5_description": "Automatic recipe generation from images using AI.",
+    "feature3_description": "Beautiful dark theme designed specifically for cooking in low-light environments and nighttime meal preparation.",
+    "feature4_title": "Share recipes via link",
+    "feature4_description": "Generate unique links to share your favorite recipes. Users can access the link from any device and the app will automatically open displaying the complete recipe with all ingredients and instructions.",
+    "feature5_title": "AI recipe generation",
+    "feature5_description": "Take a photo of any dish and our artificial intelligence will analyze the image to generate a complete recipe. The AI identifies visible ingredients and suggests preparation methods based on visual analysis of the dish.",
     "feature6_title": "Multi-language Support",
-    "feature6_description": "The app is available in multiple languages to cater to a global audience."
+    "feature6_description": "The app is available in multiple languages including English, Spanish, French, German, and more to cater to users worldwide."
   },
   "CTASection": {
     "title": "Available now!",
