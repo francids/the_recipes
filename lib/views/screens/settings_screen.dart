@@ -1,7 +1,6 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/env/env.dart";
@@ -33,78 +32,38 @@ class SettingsScreen extends StatelessWidget {
             Text(
               "settings_screen.appearance_section".tr,
               style: Theme.of(context).textTheme.displayMedium,
-            ),
+            ).animate().fadeIn(duration: 300.ms),
             const SizedBox(height: 16),
             _buildThemeCard(context)
                 .animate()
-                .fadeIn(duration: 300.ms)
-                .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                .fadeIn(delay: 50.ms, duration: 300.ms),
             const SizedBox(height: 32),
             Text(
               "settings_screen.language_section".tr,
               style: Theme.of(context).textTheme.displayMedium,
-            ),
+            ).animate().fadeIn(delay: 100.ms, duration: 300.ms),
             const SizedBox(height: 16),
             _buildLanguageCard(context)
                 .animate()
-                .fadeIn(delay: 150.ms, duration: 300.ms)
-                .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                .fadeIn(delay: 150.ms, duration: 300.ms),
             const SizedBox(height: 32),
-            GetBuilder<AuthController>(
-              builder: (authController) {
-                if (authController.isLoggedIn) {
-                  return const SizedBox.shrink();
-                }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "profile_page.data_section".tr,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildDataCard(context)
-                        .animate()
-                        .fadeIn(delay: 200.ms, duration: 300.ms)
-                        .slideX(begin: -0.1, curve: Curves.easeOutCubic),
-                    const SizedBox(height: 32),
-                  ],
-                );
-              },
-            ),
+            Text(
+              "profile_page.data_section".tr,
+              style: Theme.of(context).textTheme.displayMedium,
+            ).animate().fadeIn(delay: 200.ms, duration: 300.ms),
+            const SizedBox(height: 16),
+            _buildDataCard(context)
+                .animate()
+                .fadeIn(delay: 250.ms, duration: 300.ms),
+            const SizedBox(height: 32),
             Text(
               "settings_screen.about_section".tr,
               style: Theme.of(context).textTheme.displayMedium,
-            ),
+            ).animate().fadeIn(delay: 300.ms, duration: 300.ms),
             const SizedBox(height: 16),
-            Card(
-              elevation: 0,
-              margin: EdgeInsets.zero,
-              clipBehavior: Clip.antiAlias,
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      "settings_screen.version".tr,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    subtitle: Text(
-                      Env.APP_VERSION,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
-                    ),
-                    leading: Icon(
-                      CupertinoIcons.info_circle,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ],
-              ),
-            )
+            _buildAboutCard(context)
                 .animate()
-                .fadeIn(delay: 300.ms, duration: 300.ms)
-                .slideX(begin: -0.1, curve: Curves.easeOutCubic),
+                .fadeIn(delay: 350.ms, duration: 300.ms),
             const SizedBox(height: 32),
           ],
         ),
@@ -283,6 +242,34 @@ class SettingsScreen extends StatelessWidget {
             onTap: () => profileController.handleImportRecipes(
               context,
               fromSettings: true,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAboutCard(BuildContext context) {
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              "settings_screen.version".tr,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            subtitle: Text(
+              Env.APP_VERSION,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+            ),
+            leading: Icon(
+              CupertinoIcons.info_circle,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],

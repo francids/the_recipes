@@ -19,8 +19,8 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       body: GetBuilder<AuthController>(
-        builder: (controller) {
-          if (!controller.isLoggedIn) {
+        builder: (authController) {
+          if (!authController.isLoggedIn) {
             return Center(
               child: _buildSignInPrompt(context),
             );
@@ -34,37 +34,22 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).padding.top,
                 ),
-                _buildProfileHeader(context, controller)
+                _buildProfileHeader(context, authController)
                     .animate()
                     .fadeIn(duration: 300.ms)
                     .slideX(begin: -0.2, curve: Curves.easeOutCubic),
-                _buildSharedRecipesCard(context)
+                _buildRecipesManagementCard(context, authController)
                     .animate()
                     .fadeIn(delay: 100.ms, duration: 250.ms)
                     .slideX(begin: -0.15, curve: Curves.easeOutCubic),
                 const Divider(
                   indent: 16,
                   endIndent: 16,
-                ),
-                Text(
-                  "profile_page.data_section".tr,
-                  style: Theme.of(context).textTheme.displayMedium,
                 )
                     .animate()
-                    .fadeIn(delay: 150.ms, duration: 250.ms)
-                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-                _buildDataCard(context)
-                    .animate()
-                    .fadeIn(delay: 200.ms, duration: 250.ms)
-                    .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-                const Divider(
-                  indent: 16,
-                  endIndent: 16,
-                )
-                    .animate()
-                    .fadeIn(delay: 250.ms, duration: 200.ms)
+                    .fadeIn(delay: 200.ms, duration: 200.ms)
                     .slideX(begin: -0.1, curve: Curves.easeOutCubic),
-                _buildSignOutCard(context, controller)
+                _buildSignOutCard(context, authController)
                     .animate()
                     .fadeIn(delay: 300.ms, duration: 250.ms)
                     .slideX(begin: -0.15, curve: Curves.easeOutCubic),
@@ -172,85 +157,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildDataCard(BuildContext context) {
-    final profileController = Get.find<ProfileController>();
-
-    return Card(
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: [
-          GetBuilder<AuthController>(
-            builder: (authController) => SwitchListTile(
-              title: Text(
-                "profile_page.backup_recipes".tr,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              subtitle: Text(
-                "profile_page.backup_recipes_description".tr,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-              ),
-              value: authController.autoSyncEnabled,
-              onChanged: (value) =>
-                  profileController.handleAutoSyncToggle(value, context),
-              secondary: Icon(
-                CupertinoIcons.cloud_upload,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ),
-          const Divider(height: 1, indent: 16, endIndent: 16),
-          ListTile(
-            title: Text(
-              "profile_page.export_recipes".tr,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            subtitle: Text(
-              "profile_page.export_recipes_description".tr,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-            ),
-            leading: Icon(
-              CupertinoIcons.share,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            trailing: Icon(
-              CupertinoIcons.chevron_forward,
-              color: Theme.of(context).colorScheme.outline,
-            ),
-            onTap: () => profileController.handleExportRecipes(context),
-          ),
-          const Divider(height: 1, indent: 16, endIndent: 16),
-          ListTile(
-            title: Text(
-              "profile_page.import_recipes".tr,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            subtitle: Text(
-              "profile_page.import_recipes_description".tr,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-            ),
-            leading: Icon(
-              CupertinoIcons.tray_arrow_down,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            trailing: Icon(
-              CupertinoIcons.chevron_forward,
-              color: Theme.of(context).colorScheme.outline,
-            ),
-            onTap: () => profileController.handleImportRecipes(context),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildSignOutCard(BuildContext context, AuthController controller) {
     return Card(
       elevation: 0,
@@ -295,33 +201,64 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSharedRecipesCard(BuildContext context) {
+  Widget _buildRecipesManagementCard(
+    BuildContext context,
+    AuthController authController,
+  ) {
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      child: ListTile(
-        title: Text(
-          "profile_page.shared_recipes".tr,
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w500,
+      child: Column(
+        children: [
+          GetBuilder<ProfileController>(
+            builder: (profileController) => SwitchListTile(
+              title: Text(
+                "profile_page.backup_recipes".tr,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-        ),
-        subtitle: Text(
-          "profile_page.shared_recipes_description".tr,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              subtitle: Text(
+                "profile_page.backup_recipes_description".tr,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+              ),
+              value: authController.autoSyncEnabled,
+              onChanged: (value) =>
+                  profileController.handleAutoSyncToggle(value, context),
+              secondary: Icon(
+                CupertinoIcons.cloud_upload,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
+          if (authController.autoSyncEnabled) ...[
+            const Divider(height: 1),
+            ListTile(
+              title: Text(
+                "profile_page.shared_recipes".tr,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+              ),
+              subtitle: Text(
+                "profile_page.shared_recipes_description".tr,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+              ),
+              leading: Icon(
+                CupertinoIcons.person_2_square_stack,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              trailing: Icon(
+                CupertinoIcons.chevron_forward,
                 color: Theme.of(context).colorScheme.outline,
               ),
-        ),
-        leading: Icon(
-          CupertinoIcons.person_2_square_stack,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        trailing: Icon(
-          CupertinoIcons.chevron_forward,
-          color: Theme.of(context).colorScheme.outline,
-        ),
-        onTap: () => Get.to(() => const SharedRecipesScreen()),
+              onTap: () => Get.to(() => const SharedRecipesScreen()),
+            ),
+          ]
+        ],
       ),
     );
   }
