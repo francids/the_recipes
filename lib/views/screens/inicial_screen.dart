@@ -234,12 +234,20 @@ class _InicialScreenState extends State<InicialScreen>
                       tabs: [
                         Tab(
                           iconMargin: const EdgeInsets.only(bottom: 4),
-                          icon: Icon(CupertinoIcons.home),
+                          icon: Icon(
+                            _tabController.index == 0
+                                ? CupertinoIcons.house_fill
+                                : CupertinoIcons.house,
+                          ),
                           text: _titles[0],
                         ),
                         Tab(
                           iconMargin: const EdgeInsets.only(bottom: 4),
-                          icon: Icon(CupertinoIcons.person),
+                          icon: Icon(
+                            _tabController.index == 1
+                                ? CupertinoIcons.person_fill
+                                : CupertinoIcons.person,
+                          ),
                           text: _titles[1],
                         ),
                       ],
