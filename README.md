@@ -1,8 +1,8 @@
 # The Recipes App
 
-The Recipes App es una aplicación móvil enfocada en recetas. The Recipes App le permite al usuario revisar sus recetas, agregar nuevas y eliminar algunas.
+**The Recipes** es una aplicación móvil enfocada en recetas. The Recipes App le permite al usuario revisar sus recetas, agregar nuevas y eliminar algunas.
 
-## Funcionalidades
+## Funcionalidades de la aplicación
 
 - [x] **Gestión de recetas**: El usuario puede agregar, visualizar y eliminar recetas.
 - [x] **Funcionalidad local**: La aplicación permite al usuario gestionar sus recetas sin necesidad de conexión a Internet.
@@ -14,15 +14,20 @@ The Recipes App es una aplicación móvil enfocada en recetas. The Recipes App l
   - [ ] Sugerir recetas basadas en los ingredientes que el usuario tiene en casa.
   - [ ] Sugerir recetas basadas en las preferencias del usuario.
 
-## Directorios
+## Estructura del proyecto
 
-- **lib/**: Contiene el código fuente de la aplicación móvil desarrollada en Flutter.
-- **website/**: Contiene el código fuente de la página web; incluye visualizar recetas compartidas, API's de IA y la página de inicio.
+El repositorio está organizado en tres carpetas principales:
 
-## Tecnologías
+- **`lib/`**: Contiene el código fuente de la aplicación móvil Flutter, incluyendo controladores, modelos, vistas y configuraciones de la app.
+- **`website/`**: Sitio web desarrollado en Next.js que presenta la aplicación y maneja la funcionalidad de compartir recetas a través de enlaces únicos.
+- **`functions/`**: Funciones serverless de Appwrite que proporcionan servicios de backend para la gestión de cuentas y funcionalidades de IA.
+
+## Tecnologías utilizadas
 
 La aplicación móvil está desarrollada en [Flutter](https://flutter.dev/) con [Hive CE](https://pub.dev/packages/hive_ce) y [GetX](https://pub.dev/packages/get).
 
-La página web está desarrollada en [Next.js](https://nextjs.org/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/). Las funcionalidades de IA están desarrolladas con [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/); adicionalmente, se utiliza [Upstash Redis](https://upstash.com/) para el cacheo de las peticiones a la API de IA.
+El sitio web está desarrollado en [Next.js](https://nextjs.org/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/).
 
-Tanto la aplicación móvil como la página web usan [Appwrite](https://appwrite.io/) para la autenticación de usuarios y el almacenamiento de recetas en la nube.
+Las funciones serverless están desarrolladas en [Bun](https://bun.sh/) y se ejecutan en [Appwrite Functions](https://appwrite.io/docs/functions). Las funciones de IA utilizan [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/).
+
+Tanto la aplicación móvil como la página web usan [Appwrite](https://appwrite.io/) para la autenticación de usuarios, almacenamiento de recetas y demás.
