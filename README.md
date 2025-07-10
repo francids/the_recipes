@@ -24,10 +24,7 @@ El repositorio está organizado en tres carpetas principales:
 
 ## Tecnologías utilizadas
 
-La aplicación móvil está desarrollada en [Flutter](https://flutter.dev/) con [Hive CE](https://pub.dev/packages/hive_ce) y [GetX](https://pub.dev/packages/get).
-
-El sitio web está desarrollado en [Next.js](https://nextjs.org/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/).
-
-Las funciones serverless están desarrolladas en [Bun](https://bun.sh/) y se ejecutan en [Appwrite Functions](https://appwrite.io/docs/functions). Las funciones de IA utilizan [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/).
-
-Tanto la aplicación móvil como la página web usan [Appwrite](https://appwrite.io/) para la autenticación de usuarios, almacenamiento de recetas y demás.
+- La aplicación móvil está desarrollada en [Flutter](https://flutter.dev/) con [Hive CE](https://pub.dev/packages/hive_ce) y [GetX](https://pub.dev/packages/get).
+- El sitio web está desarrollado en [Next.js](https://nextjs.org/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/).
+- Las funciones serverless están desarrolladas en [Bun](https://bun.sh/) y se ejecutan en [Appwrite Functions](https://appwrite.io/docs/functions). Las funciones de IA utilizan [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/).
+- La aplicación móvil usa [Appwrite](https://appwrite.io/) para la autenticación de usuarios, almacenamiento de recetas y demás.
