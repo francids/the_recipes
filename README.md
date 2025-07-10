@@ -1,3 +1,5 @@
+<img src="./assets/Logo.svg" width="100">
+
 # The Recipes App
 
 **The Recipes** es una aplicación móvil enfocada en recetas. The Recipes App le permite al usuario revisar sus recetas, agregar nuevas y eliminar algunas.
