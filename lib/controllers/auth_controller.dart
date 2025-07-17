@@ -92,8 +92,6 @@ class AuthController extends GetxController {
 
       await _account.createOAuth2Session(
         provider: enums.OAuthProvider.google,
-        success: AppwriteConfig.redirectUrlSuccess,
-        failure: AppwriteConfig.redirectUrlFailure,
         scopes: ["profile", "email", "openid"],
       );
 

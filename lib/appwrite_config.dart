@@ -39,9 +39,4 @@ class AppwriteConfig {
   static const String databaseId = "principal";
   static const String recipesCollectionId = "recipes";
   static const String bucketId = "recipes";
-
-  static const String redirectUrlSuccess =
-      "https://cloud.appwrite.io/console/auth/oauth2/success";
-  static const String redirectUrlFailure =
-      "https://cloud.appwrite.io/console/auth/oauth2/failure";
 }
