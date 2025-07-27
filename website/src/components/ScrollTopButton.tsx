@@ -1,5 +1,3 @@
-"use client";
-
 interface ScrollTopButtonProps {
   showScrollTop: boolean;
 }

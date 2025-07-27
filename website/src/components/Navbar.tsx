@@ -1,11 +1,7 @@
-"use client";
-
 import { useEffect, useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslation } from "react-i18next";
 import LanguageSelect from "./LanguageSelect";
+import { Link } from "react-router";
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -13,8 +9,9 @@ interface NavbarProps {
 }
 
 export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
-  const t = useTranslations("Navbar");
-  const pathname = usePathname();
+  const { t } = useTranslation(undefined, {
+    keyPrefix: "Navbar",
+  });
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -40,25 +37,27 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
   return (
     <nav
       className={`flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-xs ${
-        pathname !== "/" ? "border-b border-zinc-300 dark:border-zinc-700" : ""
+        window.location.pathname !== "/"
+          ? "border-b border-zinc-300 dark:border-zinc-700"
+          : ""
       }`}
     >
       <div className="flex items-center gap-4 select-none">
-        <Link href="/" className="flex items-center select-none">
-          <Image src="/Logo.svg" alt="The Recipes App" width={40} height={40} />
+        <Link to="/" className="flex items-center select-none">
+          <img src="/Logo.svg" alt="The Recipes App" width={40} height={40} />
         </Link>
         <LanguageSelect />
       </div>
 
       <div className="hidden md:flex gap-4 items-center select-none">
         <Link
-          href="/"
+          to="/"
           className="px-4 py-2 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-sm transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
         >
           {t("home")}
         </Link>
         <Link
-          href="/privacy"
+          to="/privacy"
           className="px-4 py-2 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-sm transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
         >
           {t("privacy")}
@@ -106,14 +105,14 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
         `}
       >
         <Link
-          href="/"
+          to="/"
           onClick={toggleMenu}
           className="font-medium py-2 text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >
           {t("home")}
         </Link>
         <Link
-          href="/privacy"
+          to="/privacy"
           onClick={toggleMenu}
           className="font-medium py-2 text-zinc-800 dark:text-zinc-100 hover:text-orange-600 dark:hover:text-orange-400"
         >

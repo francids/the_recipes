@@ -1,13 +1,13 @@
-"use client";
-
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslation } from "react-i18next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 
-export default function NotFound() {
-  const t = useTranslations("NotFound");
+export default function NotFoundPage() {
+  const { t } = useTranslation(undefined, {
+    keyPrefix: "NotFound",
+  });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [contentRef, contentIsVisible] = useElementOnScreen<HTMLDivElement>({

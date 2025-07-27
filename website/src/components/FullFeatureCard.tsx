@@ -1,6 +1,5 @@
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
-import Feature from "@/interfaces/feature";
-import Image from "next/image";
+import type Feature from "@/interfaces/feature";
 
 interface FullFeatureCardProps {
   feature: Feature;
@@ -40,14 +39,21 @@ export default function FullFeatureCard({
         </p>
       </div>
       <div className="w-full lg:w-1/2 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/20 dark:to-orange-800/20 flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:aspect-square">
-        <Image
+        <img
+          src={isDarkMode ? feature.darkImage || "" : feature.lightImage || ""}
+          alt={feature.title}
+          className="w-full h-full object-cover"
+          loading="lazy"
+          style={{ animationDelay }}
+        />
+        {/* <Image
           src={isDarkMode ? feature.darkImage || "" : feature.lightImage || ""}
           alt={feature.title}
           className="w-full h-full object-cover"
           width={1000}
           height={1000}
           quality={100}
-        />
+        /> */}
       </div>
     </div>
   );

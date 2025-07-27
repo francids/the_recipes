@@ -1,13 +1,12 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslation } from "react-i18next";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 import { useTheme } from "@/contexts/ThemeContext";
+import { Link } from "react-router";
 
 export default function Footer() {
-  const t = useTranslations("Footer");
+  const { t } = useTranslation(undefined, {
+    keyPrefix: "Footer",
+  });
   const { theme, toggleTheme, isDarkMode } = useTheme();
 
   const [footerContentRef, footerContentIsVisible] =
@@ -50,12 +49,11 @@ export default function Footer() {
       >
         <div className="flex-1 min-w-[250px] flex flex-col items-start">
           <div className="w-[150px] mb-5 text-white select-none pointer-events-none">
-            <Image
+            <img
               src="/Logo.svg"
               alt="The Recipes App Logo"
               width={100}
               height={24}
-              priority
             />
           </div>
           <p className="text-neutral-400 dark:text-neutral-300 text-lg">
@@ -68,13 +66,13 @@ export default function Footer() {
               {t("section_recipes")}
             </h3>
             <Link
-              href="/#features"
+              to="/#features"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
               {t("link_features")}
             </Link>
             <Link
-              href="/#cta"
+              to="/#cta"
               className="block text-neutral-400 dark:text-neutral-300 mb-2.5 no-underline hover:text-orange-500 transition-colors"
             >
               {t("link_development")}

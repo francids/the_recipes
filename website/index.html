@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>The Recipes</title>
+    <meta
+      name="description"
+      content="Tu libro de recetas digital - Almacena, organiza y encuentra fácilmente todas tus recetas favoritas"
+    />
+    <meta
+      name="viewport"
+      media="(prefers-color-scheme: dark)"
+      theme-color="#18181b"
+    />
+    <meta
+      name="viewport"
+      media="(prefers-color-scheme: light)"
+      theme-color="#ffffff"
+    />
+    <meta property="og:image" content="/opengraph-image.png" />
+
+    <script>
+      (function () {
+        try {
+          const resources = [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "it",
+            "ja",
+            "ko",
+            "pt",
+            "zh",
+          ];
+          const savedLang = localStorage.getItem("i18nextLng");
+          const browserLang = navigator.language.split("-")[0];
+          const lang =
+            savedLang && resources.includes(savedLang)
+              ? savedLang
+              : resources.includes(browserLang)
+              ? browserLang
+              : "en";
+          document.documentElement.setAttribute("lang", lang);
+        } catch (e) {}
+      })();
+    </script>
+
+    <script>
+      (() => {
+        try {
+          const theme = localStorage.getItem("theme");
+          if (
+            theme === "dark" ||
+            (theme === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+          ) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

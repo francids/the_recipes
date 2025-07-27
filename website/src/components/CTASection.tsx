@@ -1,8 +1,10 @@
-import { useTranslations } from "next-intl";
+import { useTranslation } from "react-i18next";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 
 export default function CTASection() {
-  const t = useTranslations("CTASection");
+  const { t } = useTranslation(undefined, {
+    keyPrefix: "CTASection",
+  });
 
   const [h2Ref, h2IsVisible] = useElementOnScreen<HTMLHeadingElement>({
     threshold: 0.1,

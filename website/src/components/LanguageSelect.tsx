@@ -1,9 +1,5 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
-import { useLocale } from "next-intl";
-import { setCookie } from "cookies-next";
-import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const languageOptions = [
   { code: "es", name: "Español", flagCode: "ES" },
@@ -18,14 +14,16 @@ const languageOptions = [
 ];
 
 export default function LanguageSelect() {
-  const locale = useLocale();
+  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>(locale);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(
+    i18n.language
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setSelectedLanguage(locale);
-  }, [locale]);
+    setSelectedLanguage(i18n.language);
+  }, [i18n.language]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,8 +43,7 @@ export default function LanguageSelect() {
 
   const changeLanguage = (code: string) => {
     if (code !== selectedLanguage) {
-      setCookie("NEXT_LOCALE", code, { maxAge: 60 * 60 * 24 * 3 });
-      window.location.reload();
+      i18n.changeLanguage(code);
     }
     setIsOpen(false);
   };
@@ -70,10 +67,10 @@ export default function LanguageSelect() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center gap-1 py-2 px-3 rounded-md text-zinc-700 dark:text-zinc-300 bg-orange-100 dark:bg-orange-900/20 hover:bg-orange-200 dark:hover:bg-orange-900/30 transition-colors border border-orange-200 dark:border-orange-700/30"
-        aria-label="Seleccionar idioma"
+        aria-label="Select language"
         aria-expanded={isOpen}
       >
-        <Image
+        <img
           src={`flags/${getCurrentLanguageFlag()}.svg`}
           alt={getCurrentLanguageName()}
           width={16}
@@ -115,7 +112,7 @@ export default function LanguageSelect() {
                       : "text-zinc-700 dark:text-zinc-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400"
                   }`}
                 >
-                  <Image
+                  <img
                     src={`flags/${language.flagCode}.svg`}
                     alt={language.name}
                     width={16}

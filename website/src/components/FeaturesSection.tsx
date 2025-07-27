@@ -1,12 +1,14 @@
-import { useTranslations } from "next-intl";
+import { useTranslation } from "react-i18next";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 import { useEffect, useState } from "react";
 import FullFeatureCard from "./FullFeatureCard";
 import FeatureCard from "./FeatureCard";
-import Feature from "@/interfaces/feature";
+import type Feature from "@/interfaces/feature";
 
 export default function FeaturesSection() {
-  const t = useTranslations("FeaturesSection");
+  const { t } = useTranslation(undefined, {
+    keyPrefix: "FeaturesSection",
+  });
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {

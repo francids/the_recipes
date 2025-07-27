@@ -47,6 +47,6 @@
     "theme_toggle_to_dark": "Passer en mode sombre",
     "theme_toggle_to_system": "Passer en mode système",
     "theme_toggle_to_light": "Passer en mode clair",
-    "copyright": "© {year} The Recipes App. Tous droits réservés."
+    "copyright": "© {{year}} The Recipes App. Tous droits réservés."
   }
 }

@@ -1,5 +1,5 @@
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
-import Feature from "@/interfaces/feature";
+import type Feature from "@/interfaces/feature";
 
 interface FeatureCardProps {
   feature: Feature;

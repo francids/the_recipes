@@ -1,11 +1,9 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
+import { useSearchParams } from "react-router";
 
 export default function SharingPage() {
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [showFallback, setShowFallback] = useState(false);
 
   useEffect(() => {

@@ -1,16 +1,13 @@
-"use client";
-
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import { notFound } from "next/navigation";
-import { useLocale } from "next-intl";
 import ReactMarkdown from "react-markdown";
 import Loading from "@/components/Loading";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
+import { useTranslation } from "react-i18next";
 
 export default function PrivacyPage() {
-  const locale = useLocale();
+  const { i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState(true);
@@ -60,7 +57,7 @@ export default function PrivacyPage() {
     const loadContent = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/privacy/${locale}.md`);
+        const response = await fetch(`/privacy/${i18n.language}.md`);
         if (!response.ok) {
           throw new Error("Content not found");
         }
@@ -74,10 +71,10 @@ export default function PrivacyPage() {
     };
 
     loadContent();
-  }, [locale]);
+  }, [i18n.language]);
 
   if (error) {
-    notFound();
+    console.error("Error loading privacy content");
   }
 
   return (

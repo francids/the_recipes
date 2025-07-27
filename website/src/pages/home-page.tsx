@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -8,7 +6,7 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import ScrollTopButton from "@/components/ScrollTopButton";
 
-export default function Home() {
+export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);

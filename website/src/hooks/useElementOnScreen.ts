@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, RefObject } from 'react';
+import { useEffect, useState, useRef, type RefObject } from "react";
 
 interface UseElementOnScreenOptions {
   root?: RefObject<HTMLElement> | null;
@@ -15,7 +15,7 @@ export function useElementOnScreen<T extends HTMLElement>(
 
   const {
     root = null,
-    rootMargin = '0px',
+    rootMargin = "0px",
     threshold = 0.1,
     triggerOnce = true,
   } = options || {};
