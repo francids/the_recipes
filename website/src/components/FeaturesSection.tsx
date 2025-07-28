@@ -5,6 +5,11 @@ import FullFeatureCard from "./FullFeatureCard";
 import FeatureCard from "./FeatureCard";
 import type Feature from "@/interfaces/feature";
 
+import LightAiComponent from "../assets/light-ai-component.png";
+import DarkAiComponent from "../assets/dark-ai-component.png";
+import LightShareComponent from "../assets/light-share-component.png";
+import DarkShareComponent from "../assets/dark-share-component.png";
+
 export default function FeaturesSection() {
   const { t } = useTranslation(undefined, {
     keyPrefix: "FeaturesSection",
@@ -39,15 +44,15 @@ export default function FeaturesSection() {
       icon: "🤖",
       title: t("feature5_title"),
       description: t("feature5_description"),
-      lightImage: "/LightAiComponent.png",
-      darkImage: "/DarkAiComponent.png",
+      lightImage: LightAiComponent,
+      darkImage: DarkAiComponent,
     },
     {
       icon: "🔄",
       title: t("feature4_title"),
       description: t("feature4_description"),
-      lightImage: "/LightShareComponent.png",
-      darkImage: "/DarkShareComponent.png",
+      lightImage: LightShareComponent,
+      darkImage: DarkShareComponent,
     },
     {
       icon: "📱",

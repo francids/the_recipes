@@ -3,6 +3,11 @@ import { useTranslation } from "react-i18next";
 import Logotype from "./Logotype";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 
+import LightInicialScreen from "../assets/light-inicial-screen.webp";
+import DarkInicialScreen from "../assets/dark-inicial-screen.webp";
+import LightRecipeScreen from "../assets/light-recipe-screen.webp";
+import DarkRecipeScreen from "../assets/dark-recipe-screen.webp";
+
 export default function HeroSection() {
   const { t } = useTranslation(undefined, {
     keyPrefix: "HeroSection",
@@ -115,11 +120,7 @@ export default function HeroSection() {
           <div className="flex justify-center md:justify-end items-center gap-6 md:gap-12 flex-wrap select-none">
             <div className="w-56 md:w-72 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 -rotate-3 relative">
               <img
-                src={
-                  isDarkMode
-                    ? "/DarkInicialScreen.webp"
-                    : "/LightInicialScreen.webp"
-                }
+                src={isDarkMode ? DarkInicialScreen : LightInicialScreen}
                 alt="App pantalla inicial"
                 width={320}
                 height={640}
@@ -128,11 +129,7 @@ export default function HeroSection() {
             </div>
             <div className="w-56 md:w-72 transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:rotate-0 rotate-3 relative">
               <img
-                src={
-                  isDarkMode
-                    ? "/DarkRecipeScreen.webp"
-                    : "/LightRecipeScreen.webp"
-                }
+                src={isDarkMode ? DarkRecipeScreen : LightRecipeScreen}
                 alt="App pantalla de receta"
                 width={320}
                 height={640}

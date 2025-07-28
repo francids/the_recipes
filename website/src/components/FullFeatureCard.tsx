@@ -46,14 +46,6 @@ export default function FullFeatureCard({
           loading="lazy"
           style={{ animationDelay }}
         />
-        {/* <Image
-          src={isDarkMode ? feature.darkImage || "" : feature.lightImage || ""}
-          alt={feature.title}
-          className="w-full h-full object-cover"
-          width={1000}
-          height={1000}
-          quality={100}
-        /> */}
       </div>
     </div>
   );
