@@ -1,8 +1,8 @@
 <img src="./assets/Logo.svg" width="100">
 
-# The Recipes App
+# The Recipes
 
-**The Recipes** es una aplicación móvil enfocada en recetas. The Recipes App le permite al usuario revisar sus recetas, agregar nuevas y eliminar algunas.
+**The Recipes** es una aplicación móvil enfocada en recetas. The Recipes le permite al usuario revisar sus recetas, agregar nuevas y eliminar algunas.
 
 ## Funcionalidades de la aplicación
 
@@ -21,12 +21,24 @@
 El repositorio está organizado en tres carpetas principales:
 
 - **`lib/`**: Contiene el código fuente de la aplicación móvil Flutter, incluyendo controladores, modelos, vistas y configuraciones de la app.
-- **`website/`**: Sitio web desarrollado en Next.js que presenta la aplicación y maneja la funcionalidad de compartir recetas a través de enlaces únicos.
+- **`website/`**: Sitio web desarrollado en Vite con Bun que presenta la aplicación y maneja la funcionalidad de compartir recetas a través de enlaces únicos.
 - **`functions/`**: Funciones serverless de Appwrite que proporcionan servicios de backend para la gestión de cuentas y funcionalidades de IA.
 
 ## Tecnologías utilizadas
 
 - La aplicación móvil está desarrollada en [Flutter](https://flutter.dev/) con [Hive CE](https://pub.dev/packages/hive_ce) y [GetX](https://pub.dev/packages/get).
-- El sitio web está desarrollado en [Next.js](https://nextjs.org/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/).
-- Las funciones serverless están desarrolladas en [Bun](https://bun.sh/) y se ejecutan en [Appwrite Functions](https://appwrite.io/docs/functions). Las funciones de IA utilizan [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/).
+- El sitio web está desarrollado en [Vite](https://vite.dev/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/).
+- Las funciones serverless están desarrolladas en [Bun](https://bun.sh/) y se ejecutan en [Appwrite Functions](https://appwrite.io/products/functions). Las funciones de IA utilizan [AI SDK](https://sdk.vercel.ai/) y [Gemini](https://ai.google.dev/).
 - La aplicación móvil usa [Appwrite](https://appwrite.io/) para la autenticación de usuarios, almacenamiento de recetas y demás.
+
+## Desarrollo
+
+> Para iniciar con el desarrollo del sitio web o las funciones, revisar el archivo `README.md` correspondiente en cada carpeta.
+
+Para iniciar con el desarrollo de la aplicación móvil, se debe tener [Flutter](https://flutter.dev/) instalado.
+
+1. Clona el repositorio.
+2. Instala las dependencias: `flutter pub get`
+3. Genera los archivos necesarios con build_runner: `dart run build_runner build --delete-conflicting-outputs`
+4. Inicia el emulador o conecta un dispositivo físico.
+5. Corre la aplicación: `flutter run`
