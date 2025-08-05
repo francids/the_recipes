@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
 import ReactMarkdown from "react-markdown";
 import Loading from "@/components/Loading";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
@@ -8,7 +7,6 @@ import { useTranslation } from "react-i18next";
 
 export default function PrivacyPage() {
   const { i18n } = useTranslation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -28,31 +26,6 @@ export default function PrivacyPage() {
     triggerOnce: true,
   });
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && isMenuOpen) {
-        setIsMenuOpen(false);
-        document.body.style.overflow = "";
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
   useEffect(() => {
     const loadContent = async () => {
       try {
@@ -63,7 +36,7 @@ export default function PrivacyPage() {
         }
         const text = await response.text();
         setContent(text);
-      } catch (err) {
+      } catch {
         setError(true);
       } finally {
         setLoading(false);
@@ -84,7 +57,6 @@ export default function PrivacyPage() {
       {loading && <Loading />}
 
       <div ref={pageRef} className="flex-1 min-h-screen relative z-10">
-        <Navbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <div
           className={`pt-20 pb-16 px-4 max-w-4xl mx-auto animate-on-scroll ${
             pageIsVisible ? "visible" : ""

@@ -1,14 +1,11 @@
-import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
 
 export default function NotFoundPage() {
   const { t } = useTranslation(undefined, {
     keyPrefix: "NotFound",
   });
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [contentRef, contentIsVisible] = useElementOnScreen<HTMLDivElement>({
     threshold: 0.1,
@@ -20,35 +17,9 @@ export default function NotFoundPage() {
     triggerOnce: true,
   });
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && isMenuOpen) {
-        setIsMenuOpen(false);
-        document.body.style.overflow = "";
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
   return (
     <div className="flex flex-col bg-white dark:bg-zinc-900 relative min-h-screen">
       <div className="flex-1 min-h-screen relative z-10">
-        <Navbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <div className="flex flex-col items-center justify-center min-h-screen pt-20 pb-16 px-4">
           <div
             ref={contentRef}

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "./LanguageSelect";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 interface NavbarProps {
   isMenuOpen: boolean;
@@ -14,6 +14,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
   });
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -37,7 +38,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
   return (
     <nav
       className={`flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-xs ${
-        window.location.pathname !== "/"
+        location.pathname !== "/"
           ? "border-b border-zinc-300 dark:border-zinc-700"
           : ""
       }`}
