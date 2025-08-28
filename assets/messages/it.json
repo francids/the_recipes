@@ -234,5 +234,15 @@
   "shared_recipes_screen": {
     "title": "Le Mie Ricette Condivise",
     "no_public_recipes": "Non hai ancora condiviso nessuna ricetta. Contrassegna le tue ricette come pubbliche per condividerle con altri."
+  },
+  "shared_recipe": {
+    "title": "Ricetta Condivisa",
+    "not_found_error": "Ricetta non trovata. La ricetta condivisa non è stata trovata o non è più disponibile.",
+    "save_locally": "Salva nelle Mie Ricette",
+    "already_saved": "Questa ricetta è già salvata nella tua collezione",
+    "saving_title": "Salvataggio Ricetta",
+    "saving_message": "Aggiunta della ricetta alla tua collezione...",
+    "save_success": "Ricetta salvata con successo!",
+    "save_error": "Errore nel salvare la ricetta: {0}"
   }
 }

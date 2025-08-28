@@ -234,5 +234,15 @@
   "shared_recipes_screen": {
     "title": "我分享的食谱",
     "no_public_recipes": "您还没有分享任何食谱。将您的食谱设为公开以与其他人分享。"
+  },
+  "shared_recipe": {
+    "title": "分享的食谱",
+    "not_found_error": "食谱未找到。分享的食谱无法找到或不再可用。",
+    "save_locally": "保存到我的食谱",
+    "already_saved": "此食谱已保存在您的收藏中",
+    "saving_title": "正在保存食谱",
+    "saving_message": "正在将食谱添加到您的收藏中...",
+    "save_success": "食谱保存成功！",
+    "save_error": "保存食谱时出错：{0}"
   }
 }

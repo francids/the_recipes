@@ -61,7 +61,6 @@ class ShareRecipeController extends GetxController {
         ],
       );
       recipeController.updateLocalRecipe(recipeId, isPublic: true);
-      recipeController.refreshRecipes();
     } catch (e) {
       debugPrint("Error making recipe public: $e");
     } finally {
@@ -104,7 +103,6 @@ class ShareRecipeController extends GetxController {
         ],
       );
       recipeController.updateLocalRecipe(recipeId, isPublic: false);
-      recipeController.refreshRecipes();
     } catch (e) {
       debugPrint("Error making recipe private: $e");
     } finally {
@@ -153,5 +151,48 @@ class ShareRecipeController extends GetxController {
 
   bool canShare(String recipeId) {
     return getCloudId(recipeId) != null;
+  }
+
+  Recipe? findLocalRecipeByCloudId(String cloudId) {
+    return recipeController.recipes.firstWhereOrNull(
+      (recipe) => recipe.cloudId == cloudId,
+    );
+  }
+
+  Recipe? findLocalRecipeByTitle(String title) {
+    var exactMatch = recipeController.recipes.firstWhereOrNull(
+      (recipe) => recipe.title.toLowerCase() == title.toLowerCase(),
+    );
+
+    if (exactMatch != null) return exactMatch;
+
+    return recipeController.recipes.firstWhereOrNull(
+      (recipe) =>
+          recipe.title.toLowerCase().contains(title.toLowerCase()) ||
+          title.toLowerCase().contains(recipe.title.toLowerCase()),
+    );
+  }
+
+  bool isRecipeAlreadySaved(Recipe sharedRecipe) {
+    if (sharedRecipe.cloudId != null) {
+      final byCloudId = findLocalRecipeByCloudId(sharedRecipe.cloudId!);
+      if (byCloudId != null) return true;
+    }
+
+    final byTitle = findLocalRecipeByTitle(sharedRecipe.title);
+    if (byTitle != null) {
+      final sameIngredients = byTitle.ingredients.length ==
+              sharedRecipe.ingredients.length &&
+          byTitle.ingredients.every(
+            (ingredient) => sharedRecipe.ingredients.any(
+              (sharedIngredient) =>
+                  ingredient.toLowerCase() == sharedIngredient.toLowerCase(),
+            ),
+          );
+
+      if (sameIngredients) return true;
+    }
+
+    return false;
   }
 }

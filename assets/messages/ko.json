@@ -234,5 +234,15 @@
   "shared_recipes_screen": {
     "title": "내가 공유한 레시피",
     "no_public_recipes": "아직 공유한 레시피가 없습니다. 레시피를 공개로 설정하여 다른 사람들과 공유해보세요."
+  },
+  "shared_recipe": {
+    "title": "공유된 레시피",
+    "not_found_error": "레시피를 찾을 수 없습니다. 공유된 레시피를 찾을 수 없거나 더 이상 사용할 수 없습니다.",
+    "save_locally": "내 레시피에 저장",
+    "already_saved": "이 레시피는 이미 컬렉션에 저장되어 있습니다",
+    "saving_title": "레시피 저장 중",
+    "saving_message": "컬렉션에 레시피를 추가하고 있습니다...",
+    "save_success": "레시피가 성공적으로 저장되었습니다!",
+    "save_error": "레시피 저장 오류: {0}"
   }
 }

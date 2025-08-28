@@ -234,5 +234,15 @@
   "shared_recipes_screen": {
     "title": "My Shared Recipes",
     "no_public_recipes": "You haven't shared any recipes yet. Mark your recipes as public to share them with others."
+  },
+  "shared_recipe": {
+    "title": "Shared Recipe",
+    "not_found_error": "Recipe not found. The shared recipe could not be found or is no longer available.",
+    "save_locally": "Save to My Recipes",
+    "already_saved": "This recipe is already saved in your collection",
+    "saving_title": "Saving Recipe",
+    "saving_message": "Adding recipe to your collection...",
+    "save_success": "Recipe saved successfully!",
+    "save_error": "Error saving recipe: {0}"
   }
 }

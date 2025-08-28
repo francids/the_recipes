@@ -234,5 +234,15 @@
   "shared_recipes_screen": {
     "title": "Recetas que compartes",
     "no_public_recipes": "Aún no has compartido recetas. Marca tus recetas como públicas para compartirlas."
+  },
+  "shared_recipe": {
+    "title": "Receta compartida",
+    "not_found_error": "Receta no encontrada. La receta compartida no se pudo encontrar o ya no está disponible.",
+    "save_locally": "Guardar en mis recetas",
+    "already_saved": "Esta receta ya está guardada en tu colección",
+    "saving_title": "Guardando receta",
+    "saving_message": "Añadiendo receta a tu colección...",
+    "save_success": "¡Receta guardada exitosamente!",
+    "save_error": "Error al guardar receta: {0}"
   }
 }

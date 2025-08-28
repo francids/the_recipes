@@ -234,5 +234,15 @@
   "shared_recipes_screen": {
     "title": "私の共有レシピ",
     "no_public_recipes": "まだレシピを共有していません。レシピを公開として設定して他の人と共有しましょう。"
+  },
+  "shared_recipe": {
+    "title": "共有レシピ",
+    "not_found_error": "レシピが見つかりません。共有レシピが見つからないか、利用できなくなりました。",
+    "save_locally": "マイレシピに保存",
+    "already_saved": "このレシピは既にコレクションに保存されています",
+    "saving_title": "レシピを保存中",
+    "saving_message": "レシピをコレクションに追加しています...",
+    "save_success": "レシピが正常に保存されました！",
+    "save_error": "レシピの保存エラー: {0}"
   }
 }

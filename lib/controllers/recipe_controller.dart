@@ -75,6 +75,7 @@ class RecipeController extends GetxController {
       );
 
       await box.put(id, recipe);
+      recipes.add(recipe);
       update();
 
       if (authController.isLoggedIn && authController.autoSyncEnabled) {
@@ -91,6 +92,56 @@ class RecipeController extends GetxController {
       EasyLoading.showError("recipe_controller.add_error".trParams({
         "0": e.toString(),
       }));
+    }
+  }
+
+  Future<void> addSharedRecipe(Recipe sharedRecipe) async {
+    try {
+      var box = Hive.box<Recipe>(recipesBox);
+      String id = const Uuid().v4();
+
+      String localImagePath = sharedRecipe.image;
+
+      if (sharedRecipe.image.isNotEmpty &&
+          sharedRecipe.image.startsWith("http")) {
+        try {
+          localImagePath = await SyncService.downloadSharedRecipeImage(
+              sharedRecipe.image, id);
+        } catch (e) {
+          debugPrint("Error downloading shared recipe image: $e");
+          localImagePath = sharedRecipe.image;
+        }
+      }
+
+      Recipe recipe = Recipe(
+        id: id,
+        title: sharedRecipe.title,
+        description: sharedRecipe.description,
+        image: localImagePath,
+        ingredients: sharedRecipe.ingredients,
+        directions: sharedRecipe.directions,
+        preparationTime: sharedRecipe.preparationTime,
+        ownerId: authController.isLoggedIn ? authController.user!.$id : "",
+        isPublic: false,
+        cloudId: null,
+      );
+
+      await box.put(id, recipe);
+      recipes.add(recipe);
+      update();
+
+      if (authController.isLoggedIn && authController.autoSyncEnabled) {
+        try {
+          await SyncService.syncRecipesToCloud();
+          update();
+        } catch (e) {
+          EasyLoading.showError("recipe_controller.sync_error".trParams({
+            "0": e.toString(),
+          }));
+        }
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -119,6 +170,11 @@ class RecipeController extends GetxController {
         recipe.isPublic = isPublic ?? recipe.isPublic;
 
         await box.put(id, recipe);
+
+        int index = recipes.indexWhere((r) => r.id == id);
+        if (index != -1) {
+          recipes[index] = recipe;
+        }
       } else {
         EasyLoading.showError("recipe_controller.recipe_not_found".tr);
         return;
@@ -150,6 +206,7 @@ class RecipeController extends GetxController {
         }
 
         await box.delete(id);
+        recipes.removeWhere((recipe) => recipe.id == id);
       } else {
         EasyLoading.showError("recipe_controller.recipe_not_found".tr);
         return;

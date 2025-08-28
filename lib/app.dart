@@ -7,7 +7,9 @@ import "package:the_recipes/controllers/share_recipe_controller.dart";
 import "package:the_recipes/messages.dart";
 import "package:the_recipes/the_recipe_app_theme.dart";
 import "package:the_recipes/views/screens/inicial_screen.dart";
+import "package:the_recipes/views/screens/recipe_screen.dart";
 import "package:the_recipes/views/screens/shared_recipe_screen.dart";
+import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class TheRecipesApp extends StatefulWidget {
   const TheRecipesApp({super.key});
@@ -39,21 +41,51 @@ class _TheRecipesAppState extends State<TheRecipesApp>
       _handleDeepLink(uri);
     });
 
-    final appLink = await _appLinks.getInitialLink();
-    if (appLink != null) {
-      await _handleDeepLink(appLink);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 500));
+      final appLink = await _appLinks.getInitialLink();
+      if (appLink != null) {
+        await _handleDeepLink(appLink);
+      }
+    });
   }
 
   Future<void> _handleDeepLink(Uri uri) async {
-    if ((uri.pathSegments.contains("recipe") ||
+    bool isSharingLink = (uri.host == "sharing" ||
+            uri.pathSegments.contains("recipe") ||
             uri.pathSegments.contains("sharing")) &&
-        uri.queryParameters.containsKey("id")) {
+        uri.queryParameters.containsKey("id");
+
+    if (isSharingLink) {
       final recipeCloudId = uri.queryParameters["id"];
+
       if (recipeCloudId != null) {
-        final recipeShared =
-            await shareRecipeController.getSharedRecipe(recipeCloudId);
-        Get.to(() => SharedRecipeScreen(recipe: recipeShared));
+        final localRecipe =
+            shareRecipeController.findLocalRecipeByCloudId(recipeCloudId);
+
+        if (localRecipe != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Get.to(() => RecipeScreen(recipe: localRecipe));
+          });
+        } else {
+          try {
+            final recipeShared =
+                await shareRecipeController.getSharedRecipe(recipeCloudId);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Get.to(() => SharedRecipeScreen(recipe: recipeShared));
+            });
+          } catch (e) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              final currentContext = Get.context;
+              if (currentContext != null) {
+                UIHelpers.showErrorSnackbar(
+                  "shared_recipe.not_found_error".tr,
+                  currentContext,
+                );
+              }
+            });
+          }
+        }
       }
     }
   }

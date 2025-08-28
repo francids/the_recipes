@@ -91,7 +91,6 @@ class RecipeScreen extends StatelessWidget {
                             recipe.image,
                           );
                           Get.back();
-                          recipeController.refreshRecipes();
                         },
                       );
                     },

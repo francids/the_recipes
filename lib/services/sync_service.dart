@@ -570,4 +570,9 @@ class SyncService {
       debugPrint("Error clearing local recipes on sign out: $e");
     }
   }
+
+  static Future<String> downloadSharedRecipeImage(
+      String cloudUrl, String recipeId) async {
+    return await _downloadImage(cloudUrl, recipeId);
+  }
 }

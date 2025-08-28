@@ -234,5 +234,15 @@
   "shared_recipes_screen": {
     "title": "Meine Geteilten Rezepte",
     "no_public_recipes": "Sie haben noch keine Rezepte geteilt. Markieren Sie Ihre Rezepte als öffentlich, um sie mit anderen zu teilen."
+  },
+  "shared_recipe": {
+    "title": "Geteiltes Rezept",
+    "not_found_error": "Rezept nicht gefunden. Das geteilte Rezept konnte nicht gefunden werden oder ist nicht mehr verfügbar.",
+    "save_locally": "In Meine Rezepte Speichern",
+    "already_saved": "Dieses Rezept ist bereits in Ihrer Sammlung gespeichert",
+    "saving_title": "Rezept Speichern",
+    "saving_message": "Rezept wird zu Ihrer Sammlung hinzugefügt...",
+    "save_success": "Rezept erfolgreich gespeichert!",
+    "save_error": "Fehler beim Speichern des Rezepts: {0}"
   }
 }
