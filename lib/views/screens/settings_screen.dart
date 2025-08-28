@@ -4,7 +4,7 @@ import "package:get/get.dart";
 import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/env/env.dart";
-import "package:the_recipes/views/screens/settings/language_screen.dart";
+import "package:the_recipes/views/widgets/settings/language_bottom_sheet.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
 class SettingsScreen extends StatelessWidget {
@@ -109,7 +109,7 @@ class SettingsScreen extends StatelessWidget {
                       ? Theme.of(context).colorScheme.outline
                       : Theme.of(context).colorScheme.primary,
                 ),
-                activeColor: controller.followSystemTheme
+                activeThumbColor: controller.followSystemTheme
                     ? Theme.of(context).colorScheme.outline
                     : null,
               ),
@@ -147,21 +147,7 @@ class SettingsScreen extends StatelessWidget {
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () {
-          Get.bottomSheet(
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
-                  topRight: Radius.circular(16.0),
-                ),
-              ),
-              child: const LanguageScreen(),
-            ),
-            isScrollControlled: true,
-          );
-        },
+        onTap: () => LanguageBottomSheet.show(context),
         child: ListTile(
           title: Text(
             "settings_screen.language".tr,

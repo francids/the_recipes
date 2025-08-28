@@ -30,7 +30,7 @@ class ShareRecipeBottomSheet extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 16.0,
-        bottom: MediaQuery.of(context).padding.bottom,
+        bottom: MediaQuery.of(context).padding.bottom + 8.0,
         left: 16.0,
         right: 16.0,
       ),
@@ -179,7 +179,6 @@ class ShareRecipeBottomSheet extends StatelessWidget {
                 .animate()
                 .fadeIn(delay: 250.ms, duration: 250.ms)
                 .slideX(begin: -0.15, curve: Curves.easeOutCubic),
-            SizedBox(height: MediaQuery.of(context).padding.bottom),
           ],
         ),
       ),
