@@ -74,7 +74,7 @@ export default function FeaturesSection() {
   return (
     <section
       id="features"
-      className="py-20 px-5 bg-zinc-50 dark:bg-gradient-to-b dark:from-zinc-900 dark:to-zinc-950 text-center flex flex-col items-center justify-center"
+      className="py-20 px-5 bg-white dark:bg-gradient-to-b dark:from-zinc-900 dark:to-zinc-950 text-center flex flex-col items-center justify-center"
     >
       <h2
         ref={titleRef}

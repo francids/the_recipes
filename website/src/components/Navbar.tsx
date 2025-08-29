@@ -40,7 +40,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
       className={`flex justify-between items-center px-8 py-4 static z-50 transition-all duration-300 bg-white dark:bg-zinc-900 shadow-xs ${
         location.pathname !== "/"
           ? "border-b border-zinc-300 dark:border-zinc-700"
-          : ""
+          : "border-b border-main/25 dark:border-amber-500/25"
       }`}
     >
       <div className="flex items-center gap-4 select-none">
