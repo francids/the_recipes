@@ -102,7 +102,7 @@ export default function Navbar({ isMenuOpen, toggleMenu }: NavbarProps) {
               ? "opacity-100 pointer-events-auto"
               : "opacity-0 pointer-events-none"
           }
-          bg-white dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700 z-40
+          bg-white dark:bg-zinc-800 border-t border-zinc-200 dark:border-zinc-700 z-40
         `}
       >
         <Link
