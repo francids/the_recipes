@@ -1,14 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { useElementOnScreen } from "@/hooks/useElementOnScreen";
+import { useElementOnScreen, useTheme } from "@/hooks";
 import FullFeatureCard from "./FullFeatureCard";
 import FeatureCard from "./FeatureCard";
 import type Feature from "@/interfaces/feature";
 
-import LightAiComponent from "../assets/light-ai-component.png";
-import DarkAiComponent from "../assets/dark-ai-component.png";
-import LightShareComponent from "../assets/light-share-component.png";
-import DarkShareComponent from "../assets/dark-share-component.png";
-import { useTheme } from "@/contexts/ThemeContext";
+import LightAiComponent from "@/assets/light-ai-component.png";
+import DarkAiComponent from "@/assets/dark-ai-component.png";
+import LightShareComponent from "@/assets/light-share-component.png";
+import DarkShareComponent from "@/assets/dark-share-component.png";
 
 export default function FeaturesSection() {
   const { t } = useTranslation(undefined, {

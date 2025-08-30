@@ -1,13 +1,12 @@
 import { useTranslation } from "react-i18next";
 import Logotype from "./Logotype";
 import RecipeBackground from "./RecipeBackground";
-import { useElementOnScreen } from "@/hooks/useElementOnScreen";
+import { useElementOnScreen, useTheme } from "@/hooks";
 
 import LightInicialScreen from "../assets/light-inicial-screen.webp";
 import DarkInicialScreen from "../assets/dark-inicial-screen.webp";
 import LightRecipeScreen from "../assets/light-recipe-screen.webp";
 import DarkRecipeScreen from "../assets/dark-recipe-screen.webp";
-import { useTheme } from "@/contexts/ThemeContext";
 
 export default function HeroSection() {
   const { t } = useTranslation(undefined, {

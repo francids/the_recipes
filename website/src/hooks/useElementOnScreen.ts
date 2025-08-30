@@ -7,7 +7,7 @@ interface UseElementOnScreenOptions {
   triggerOnce?: boolean;
 }
 
-export function useElementOnScreen<T extends HTMLElement>(
+export default function useElementOnScreen<T extends HTMLElement>(
   options?: UseElementOnScreenOptions
 ): [RefObject<T | null>, boolean] {
   const containerRef = useRef<T>(null);

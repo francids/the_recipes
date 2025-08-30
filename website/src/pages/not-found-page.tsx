@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Footer from "@/components/Footer";
-import { useElementOnScreen } from "@/hooks/useElementOnScreen";
+import { useElementOnScreen } from "@/hooks";
 
 export default function NotFoundPage() {
   const { t } = useTranslation(undefined, {

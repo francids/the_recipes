@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useElementOnScreen } from "@/hooks/useElementOnScreen";
+import { useElementOnScreen } from "@/hooks";
 
 export default function CTASection() {
   const { t } = useTranslation(undefined, {

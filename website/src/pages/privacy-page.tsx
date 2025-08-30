@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import Loading from "@/components/Loading";
-import { useElementOnScreen } from "@/hooks/useElementOnScreen";
+import { useElementOnScreen } from "@/hooks";
 import { useTranslation } from "react-i18next";
 
 export default function PrivacyPage() {

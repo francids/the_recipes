@@ -1,6 +1,6 @@
 import lightHexagonSvg from "../assets/light-hexagon.svg";
 import darkHexagonSvg from "../assets/dark-hexagon.svg";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "@/hooks";
 
 export default function HexagonBackground() {
   const { isDarkMode } = useTheme();

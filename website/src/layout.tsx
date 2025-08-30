@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
-import { ThemeProvider } from "./contexts/ThemeContext";
+import { ThemeProvider } from "./ThemeProvider";
 import Navbar from "./components/Navbar";
 
 export default function Layout() {

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "@/hooks";
 import { Link } from "react-router";
 
 export default function Footer() {

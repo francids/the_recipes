@@ -1,34 +1,26 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  type ReactNode,
-} from "react";
-
-type Theme = "light" | "dark" | "system";
-
-interface ThemeContextType {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-  toggleTheme: () => void;
-  isDarkMode: boolean;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+import { useEffect, useState, type ReactNode } from "react";
+import { ThemeContext, type Theme } from "./ThemeContext";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("system");
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as Theme | null;
-    if (storedTheme && ["light", "dark", "system"].includes(storedTheme)) {
-      setTheme(storedTheme);
-    } else {
-      setTheme("system");
+  const [theme, setTheme] = useState<Theme>(() => {
+    try {
+      const storedTheme = localStorage.getItem("theme") as Theme | null;
+      if (storedTheme && ["light", "dark", "system"].includes(storedTheme)) {
+        return storedTheme;
+      }
+      return "system";
+    } catch {
+      return "system";
     }
-  }, []);
+  });
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    try {
+      return document.documentElement.classList.contains("dark");
+    } catch {
+      return false;
+    }
+  });
 
   useEffect(() => {
     const applyTheme = (currentTheme: Theme) => {
@@ -87,13 +79,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       {children}
     </ThemeContext.Provider>
   );
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
 }

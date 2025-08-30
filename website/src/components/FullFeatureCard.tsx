@@ -1,4 +1,4 @@
-import { useElementOnScreen } from "@/hooks/useElementOnScreen";
+import { useElementOnScreen } from "@/hooks";
 import type Feature from "@/interfaces/feature";
 
 interface FullFeatureCardProps {
