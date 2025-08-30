@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
 import ScrollTopButton from "@/components/ScrollTopButton";
 
 export default function HomePage() {
@@ -34,7 +33,6 @@ export default function HomePage() {
       <HeroSection />
       <FeaturesSection />
       <CTASection />
-      <Footer />
       <ScrollTopButton showScrollTop={showScrollTop} />
     </div>
   );

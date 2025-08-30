@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import Loading from "@/components/Loading";
@@ -17,11 +16,6 @@ export default function PrivacyPage() {
   });
 
   const [pageRef, pageIsVisible] = useElementOnScreen<HTMLDivElement>({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
-
-  const [footerRef, footerIsVisible] = useElementOnScreen<HTMLDivElement>({
     threshold: 0.1,
     triggerOnce: true,
   });
@@ -97,16 +91,6 @@ export default function PrivacyPage() {
             </ReactMarkdown>
           </div>
         </div>
-      </div>
-
-      <div
-        ref={footerRef}
-        className={`animate-on-scroll relative z-10 ${
-          footerIsVisible ? "visible" : ""
-        }`}
-        style={{ animationDelay: "0.2s" }}
-      >
-        <Footer />
       </div>
     </div>
   );

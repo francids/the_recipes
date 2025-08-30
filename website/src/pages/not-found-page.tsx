@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import Footer from "@/components/Footer";
 import { useElementOnScreen } from "@/hooks";
 
 export default function NotFoundPage() {
@@ -8,11 +7,6 @@ export default function NotFoundPage() {
   });
 
   const [contentRef, contentIsVisible] = useElementOnScreen<HTMLDivElement>({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
-
-  const [footerRef, footerIsVisible] = useElementOnScreen<HTMLDivElement>({
     threshold: 0.1,
     triggerOnce: true,
   });
@@ -38,16 +32,6 @@ export default function NotFoundPage() {
             </p>
           </div>
         </div>
-      </div>
-
-      <div
-        ref={footerRef}
-        className={`animate-on-scroll relative z-10 ${
-          footerIsVisible ? "visible" : ""
-        }`}
-        style={{ animationDelay: "0.2s" }}
-      >
-        <Footer />
       </div>
     </div>
   );

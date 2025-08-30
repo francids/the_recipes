@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import { ThemeProvider } from "./ThemeProvider";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,6 +37,7 @@ export default function Layout() {
       <ThemeProvider>
         <Navbar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <Outlet />
+        <Footer />
       </ThemeProvider>
     </>
   );
