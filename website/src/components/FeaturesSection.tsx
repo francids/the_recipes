@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { useElementOnScreen } from "@/hooks/useElementOnScreen";
-import { useEffect, useState } from "react";
 import FullFeatureCard from "./FullFeatureCard";
 import FeatureCard from "./FeatureCard";
 import type Feature from "@/interfaces/feature";
@@ -9,30 +8,13 @@ import LightAiComponent from "../assets/light-ai-component.png";
 import DarkAiComponent from "../assets/dark-ai-component.png";
 import LightShareComponent from "../assets/light-share-component.png";
 import DarkShareComponent from "../assets/dark-share-component.png";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function FeaturesSection() {
   const { t } = useTranslation(undefined, {
     keyPrefix: "FeaturesSection",
   });
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setIsDarkMode(isDark);
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          const isDark = document.documentElement.classList.contains("dark");
-          setIsDarkMode(isDark);
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
+  const { isDarkMode } = useTheme();
 
   const [titleRef, titleIsVisible] = useElementOnScreen<HTMLHeadingElement>({
     threshold: 0.1,

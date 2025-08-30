@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Logotype from "./Logotype";
 import RecipeBackground from "./RecipeBackground";
@@ -8,12 +7,13 @@ import LightInicialScreen from "../assets/light-inicial-screen.webp";
 import DarkInicialScreen from "../assets/dark-inicial-screen.webp";
 import LightRecipeScreen from "../assets/light-recipe-screen.webp";
 import DarkRecipeScreen from "../assets/dark-recipe-screen.webp";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function HeroSection() {
   const { t } = useTranslation(undefined, {
     keyPrefix: "HeroSection",
   });
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const { isDarkMode } = useTheme();
 
   const [h1Ref, h1IsVisible] = useElementOnScreen<HTMLHeadingElement>({
     threshold: 0.1,
@@ -31,24 +31,6 @@ export default function HeroSection() {
     threshold: 0.1,
     triggerOnce: true,
   });
-
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setIsDarkMode(isDark);
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          const isDark = document.documentElement.classList.contains("dark");
-          setIsDarkMode(isDark);
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section className="text-zinc-900 dark:text-zinc-100 pt-20 md:pt-20 pb-16 px-8 text-center md:text-left relative overflow-hidden selection:bg-white/25">

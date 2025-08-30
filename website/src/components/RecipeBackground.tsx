@@ -1,28 +1,9 @@
-import { useEffect, useState } from "react";
-
 import lightHexagonSvg from "../assets/light-hexagon.svg";
 import darkHexagonSvg from "../assets/dark-hexagon.svg";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function HexagonBackground() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setIsDarkMode(isDark);
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          const isDarkNow = document.documentElement.classList.contains("dark");
-          setIsDarkMode(isDarkNow);
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
+  const { isDarkMode } = useTheme();
 
   const hexagon = isDarkMode ? darkHexagonSvg : lightHexagonSvg;
 
