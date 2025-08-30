@@ -31,25 +31,34 @@ export default function HexagonBackground() {
       <style>{`
         @keyframes scroll-bg {
           0% {
-            background-position: 0 0;
+            background-position: 0px 0px;
+          }
+          25% {
+            background-position: 62.5px 62.5px;
+          }
+          50% {
+            background-position: 125px 125px;
+          }
+          75% {
+            background-position: 187.5px 187.5px;
           }
           100% {
-            background-position: -200px -200px;
+            background-position: 250px 250px;
           }
         }
         .animate-scroll-bg {
-          animation: scroll-bg 20s linear infinite;
+          animation: scroll-bg 40s linear infinite;
         }
       `}</style>
       <div
         className="absolute inset-0 opacity-10 dark:opacity-5 animate-scroll-bg transition-opacity duration-500"
         style={{
           backgroundImage: `url("${hexagon}")`,
-          backgroundSize: "200px",
+          backgroundSize: "125px",
           backgroundRepeat: "repeat",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white dark:to-zinc-900 dark:via-zinc-900/75" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white lg:via-white/80 to-white dark:via-zinc-900 lg:dark:via-zinc-900/80 dark:to-zinc-900" />
     </div>
   );
 }
