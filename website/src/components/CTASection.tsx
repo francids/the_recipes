@@ -56,7 +56,7 @@ export default function CTASection() {
           href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-orange-600 text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:shadow-orange-500/50 dark:hover:shadow-orange-400/50 hover:bg-orange-700 dark:hover:bg-orange-700 select-none animate-on-scroll ${
+          className={`inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-main text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-orange-500 hover:text-white select-none animate-on-scroll ${
             button1IsVisible ? "visible" : ""
           }`}
           style={{ animationDelay: "0.4s" }}
