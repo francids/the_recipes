@@ -59,12 +59,12 @@ export default function FeaturesSection() {
     >
       <h2
         ref={titleRef}
-        className={`text-4xl font-bold mb-16 text-orange-600 relative animate-on-scroll ${
+        className={`text-4xl font-bold mb-16 text-main relative animate-on-scroll ${
           titleIsVisible ? "visible" : ""
         }`}
       >
         {t("title")}
-        <span className="absolute bottom-[-1.5rem] left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full shadow-sm"></span>
+        <span className="absolute bottom-[-1.5rem] left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-main rounded-md shadow-sm"></span>
       </h2>
 
       <div className="w-full xl:w-4/5 md:mb-8">

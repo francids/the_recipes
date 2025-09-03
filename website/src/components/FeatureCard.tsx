@@ -17,7 +17,7 @@ export default function FeatureCard({ feature, index }: FeatureCardProps) {
   return (
     <div
       ref={cardRef}
-      className={`flex flex-col items-center w-full sm:w-80 bg-white dark:bg-zinc-800 px-8 py-12 rounded-md border-2 border-orange-200 dark:border-orange-700/30 transition-transform duration-300 md:hover:scale-105 hover:shadow-sm animate-on-scroll ${
+      className={`flex flex-col items-center w-full sm:w-80 bg-white dark:bg-zinc-800 px-8 py-12 rounded-md border-2 border-orange-200 dark:border-main transition-transform duration-300 md:hover:scale-105 hover:shadow-sm animate-on-scroll ${
         cardIsVisible ? "visible" : ""
       }`}
       style={{ animationDelay }}

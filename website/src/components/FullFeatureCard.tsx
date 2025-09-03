@@ -22,7 +22,7 @@ export default function FullFeatureCard({
   return (
     <div
       ref={cardRef}
-      className={`flex flex-col lg:flex-row w-full bg-white dark:bg-zinc-800 rounded-md border-2 border-orange-200 dark:border-orange-700/30 transition-transform duration-300 md:hover:scale-[101%] hover:shadow-sm animate-on-scroll overflow-hidden min-h-[60vh] lg:min-h-[80vh] mb-8 ${
+      className={`flex flex-col lg:flex-row w-full bg-white dark:bg-zinc-800 rounded-lg border-2 border-orange-200 dark:border-main transition-transform duration-300 md:hover:scale-[101%] hover:shadow-sm animate-on-scroll overflow-hidden min-h-[60vh] lg:min-h-[80vh] mb-8 ${
         cardIsVisible ? "visible" : ""
       }`}
       style={{ animationDelay }}
