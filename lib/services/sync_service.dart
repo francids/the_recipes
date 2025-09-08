@@ -14,10 +14,10 @@ import "package:the_recipes/appwrite_config.dart";
 import "package:uuid/uuid.dart";
 
 class SyncService {
-  static final Uuid _uuid = Uuid();
-  static final Databases _databases = AppwriteConfig.databases;
-  static final Storage _storage = AppwriteConfig.storage;
-  static final AuthController _authController = Get.find<AuthController>();
+  static final _uuid = Uuid();
+  static final _tables = AppwriteConfig.tables;
+  static final _storage = AppwriteConfig.storage;
+  static final _authController = Get.find<AuthController>();
 
   static Future<void> syncRecipesToCloud() async {
     if (!_authController.isLoggedIn) {
@@ -64,9 +64,9 @@ class SyncService {
     }
 
     try {
-      final documentList = await _databases.listDocuments(
+      final documentList = await _tables.listRows(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.recipesCollectionId,
+        tableId: AppwriteConfig.recipesTableId,
         queries: [
           Query.equal('ownerId', _authController.user!.$id),
         ],
@@ -74,7 +74,7 @@ class SyncService {
 
       final localBox = Hive.box<Recipe>(recipesBox);
 
-      for (var doc in documentList.documents) {
+      for (var doc in documentList.rows) {
         final recipeData = doc.data;
         recipeData["cloudId"] = doc.$id;
 
@@ -141,13 +141,13 @@ class SyncService {
 
       String cloudId = recipe.cloudId ?? _uuid.v4();
       String? cloudImageUrl;
-      models.Document? existingDoc;
+      models.Row? existingDoc;
 
       try {
-        existingDoc = await _databases.getDocument(
+        existingDoc = await _tables.getRow(
           databaseId: AppwriteConfig.databaseId,
-          collectionId: AppwriteConfig.recipesCollectionId,
-          documentId: cloudId,
+          tableId: AppwriteConfig.recipesTableId,
+          rowId: cloudId,
         );
       } on AppwriteException catch (e) {
         if (e.type == "user_unauthorized") {
@@ -211,10 +211,10 @@ class SyncService {
       final bool isPublic = recipe.isPublic ?? false;
 
       if (existingDoc != null) {
-        await _databases.updateDocument(
+        await _tables.updateRow(
           databaseId: AppwriteConfig.databaseId,
-          collectionId: AppwriteConfig.recipesCollectionId,
-          documentId: cloudId,
+          tableId: AppwriteConfig.recipesTableId,
+          rowId: cloudId,
           data: recipeData,
           permissions: [
             Permission.read(
@@ -226,10 +226,10 @@ class SyncService {
         );
       } else {
         try {
-          await _databases.createDocument(
+          await _tables.createRow(
             databaseId: AppwriteConfig.databaseId,
-            collectionId: AppwriteConfig.recipesCollectionId,
-            documentId: cloudId,
+            tableId: AppwriteConfig.recipesTableId,
+            rowId: cloudId,
             data: recipeData,
             permissions: [
               Permission.read(
@@ -257,10 +257,10 @@ class SyncService {
           debugPrint("Updated recipe ${recipe.id} with cloudId: $cloudId");
         } catch (e) {
           if (e.toString().contains('document_already_exists')) {
-            await _databases.updateDocument(
+            await _tables.updateRow(
               databaseId: AppwriteConfig.databaseId,
-              collectionId: AppwriteConfig.recipesCollectionId,
-              documentId: cloudId,
+              tableId: AppwriteConfig.recipesTableId,
+              rowId: cloudId,
               data: recipeData,
               permissions: [
                 Permission.read(
@@ -395,10 +395,10 @@ class SyncService {
       final cloudId = recipe.cloudId!;
 
       try {
-        final doc = await _databases.getDocument(
+        final doc = await _tables.getRow(
           databaseId: AppwriteConfig.databaseId,
-          collectionId: AppwriteConfig.recipesCollectionId,
-          documentId: cloudId,
+          tableId: AppwriteConfig.recipesTableId,
+          rowId: cloudId,
         );
 
         final imageUrl = doc.data["image"] as String?;
@@ -429,10 +429,10 @@ class SyncService {
         debugPrint("Error getting document before deletion: $e");
       }
 
-      await _databases.deleteDocument(
+      await _tables.deleteRow(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.recipesCollectionId,
-        documentId: cloudId,
+        tableId: AppwriteConfig.recipesTableId,
+        rowId: cloudId,
       );
       debugPrint("Recipe document deleted from Appwrite: $cloudId");
     } catch (e) {
@@ -447,15 +447,15 @@ class SyncService {
     }
 
     try {
-      final documentList = await _databases.listDocuments(
+      final documentList = await _tables.listRows(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.recipesCollectionId,
+        tableId: AppwriteConfig.recipesTableId,
         queries: [
-          Query.equal('ownerId', _authController.user!.$id),
+          Query.equal("ownerId", _authController.user!.$id),
         ],
       );
 
-      for (var doc in documentList.documents) {
+      for (var doc in documentList.rows) {
         final imageUrl = doc.data["image"] as String?;
 
         if (imageUrl != null && imageUrl.isNotEmpty) {
@@ -488,10 +488,10 @@ class SyncService {
           }
         }
 
-        await _databases.deleteDocument(
+        await _tables.deleteRow(
           databaseId: AppwriteConfig.databaseId,
-          collectionId: AppwriteConfig.recipesCollectionId,
-          documentId: doc.$id,
+          tableId: AppwriteConfig.recipesTableId,
+          rowId: doc.$id,
         );
         debugPrint(
           "Recipe document deleted from Appwrite during mass delete: ${doc.$id}",

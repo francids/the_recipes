@@ -3,7 +3,7 @@ import "package:appwrite/appwrite.dart";
 class AppwriteConfig {
   static Client? _client;
   static Account? _account;
-  static Databases? _databases;
+  static TablesDB? _tables;
   static Storage? _storage;
   static Functions? _functions;
 
@@ -19,9 +19,9 @@ class AppwriteConfig {
     return _account!;
   }
 
-  static Databases get databases {
-    _databases ??= Databases(client);
-    return _databases!;
+  static TablesDB get tables {
+    _tables ??= TablesDB(client);
+    return _tables!;
   }
 
   static Storage get storage {
@@ -37,6 +37,6 @@ class AppwriteConfig {
   static const String projectId = "the-recipes";
   static const String endpoint = "https://nyc.cloud.appwrite.io/v1";
   static const String databaseId = "principal";
-  static const String recipesCollectionId = "recipes";
+  static const String recipesTableId = "recipes";
   static const String bucketId = "recipes";
 }

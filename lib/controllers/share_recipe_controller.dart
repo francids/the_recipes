@@ -7,16 +7,16 @@ import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/models/recipe.dart";
 
 class ShareRecipeController extends GetxController {
-  final databases = AppwriteConfig.databases;
-  final storage = AppwriteConfig.storage;
-  final authController = Get.find<AuthController>();
-  final recipeController = Get.find<RecipeController>();
+  final _tables = AppwriteConfig.tables;
+  final _storage = AppwriteConfig.storage;
+  final _authController = Get.find<AuthController>();
+  final _recipeController = Get.find<RecipeController>();
 
   final RxMap<String, bool> _isLoading = <String, bool>{}.obs;
 
   bool isPublic(String recipeId) {
     final recipe =
-        recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+        _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
     return recipe?.isPublic ?? false;
   }
 
@@ -30,7 +30,7 @@ class ShareRecipeController extends GetxController {
     _isLoading[recipeId] = true;
     try {
       final recipe =
-          recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+          _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
       if (recipe == null || recipe.cloudId == null) {
         debugPrint("Recipe not found or has no cloudId: $recipeId");
         return;
@@ -38,29 +38,29 @@ class ShareRecipeController extends GetxController {
 
       final cloudId = recipe.cloudId!;
 
-      await databases.updateDocument(
+      await _tables.updateRow(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.recipesCollectionId,
-        documentId: cloudId,
+        tableId: AppwriteConfig.recipesTableId,
+        rowId: cloudId,
         data: {
           "isPublic": true,
         },
         permissions: [
           Permission.read(Role.any()),
-          Permission.update(Role.user(authController.user!.$id)),
-          Permission.delete(Role.user(authController.user!.$id)),
+          Permission.update(Role.user(_authController.user!.$id)),
+          Permission.delete(Role.user(_authController.user!.$id)),
         ],
       );
-      await storage.updateFile(
+      await _storage.updateFile(
         bucketId: AppwriteConfig.bucketId,
         fileId: cloudId,
         permissions: [
           Permission.read(Role.any()),
-          Permission.update(Role.user(authController.user!.$id)),
-          Permission.delete(Role.user(authController.user!.$id)),
+          Permission.update(Role.user(_authController.user!.$id)),
+          Permission.delete(Role.user(_authController.user!.$id)),
         ],
       );
-      recipeController.updateLocalRecipe(recipeId, isPublic: true);
+      _recipeController.updateLocalRecipe(recipeId, isPublic: true);
     } catch (e) {
       debugPrint("Error making recipe public: $e");
     } finally {
@@ -72,7 +72,7 @@ class ShareRecipeController extends GetxController {
     _isLoading[recipeId] = true;
     try {
       final recipe =
-          recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+          _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
       if (recipe == null || recipe.cloudId == null) {
         debugPrint("Recipe not found or has no cloudId: $recipeId");
         return;
@@ -80,29 +80,29 @@ class ShareRecipeController extends GetxController {
 
       final cloudId = recipe.cloudId!;
 
-      await databases.updateDocument(
+      await _tables.updateRow(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.recipesCollectionId,
-        documentId: cloudId,
+        tableId: AppwriteConfig.recipesTableId,
+        rowId: cloudId,
         data: {
           "isPublic": false,
         },
         permissions: [
-          Permission.read(Role.user(authController.user!.$id)),
-          Permission.update(Role.user(authController.user!.$id)),
-          Permission.delete(Role.user(authController.user!.$id)),
+          Permission.read(Role.user(_authController.user!.$id)),
+          Permission.update(Role.user(_authController.user!.$id)),
+          Permission.delete(Role.user(_authController.user!.$id)),
         ],
       );
-      await storage.updateFile(
+      await _storage.updateFile(
         bucketId: AppwriteConfig.bucketId,
         fileId: cloudId,
         permissions: [
-          Permission.read(Role.user(authController.user!.$id)),
-          Permission.update(Role.user(authController.user!.$id)),
-          Permission.delete(Role.user(authController.user!.$id)),
+          Permission.read(Role.user(_authController.user!.$id)),
+          Permission.update(Role.user(_authController.user!.$id)),
+          Permission.delete(Role.user(_authController.user!.$id)),
         ],
       );
-      recipeController.updateLocalRecipe(recipeId, isPublic: false);
+      _recipeController.updateLocalRecipe(recipeId, isPublic: false);
     } catch (e) {
       debugPrint("Error making recipe private: $e");
     } finally {
@@ -111,10 +111,10 @@ class ShareRecipeController extends GetxController {
   }
 
   String generateShareUrl(String recipeId) {
-    if (!authController.isLoggedIn) return "";
+    if (!_authController.isLoggedIn) return "";
 
     final recipe =
-        recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+        _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
     if (recipe == null || recipe.cloudId == null) {
       debugPrint("Recipe not found or has no cloudId: $recipeId");
       return "";
@@ -125,10 +125,10 @@ class ShareRecipeController extends GetxController {
 
   Future<Recipe> getSharedRecipe(String cloudId) async {
     try {
-      final document = await databases.getDocument(
+      final document = await _tables.getRow(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.recipesCollectionId,
-        documentId: cloudId,
+        tableId: AppwriteConfig.recipesTableId,
+        rowId: cloudId,
       );
 
       final recipeData = document.data;
@@ -145,7 +145,7 @@ class ShareRecipeController extends GetxController {
 
   String? getCloudId(String recipeId) {
     final recipe =
-        recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+        _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
     return recipe?.cloudId;
   }
 
@@ -154,19 +154,19 @@ class ShareRecipeController extends GetxController {
   }
 
   Recipe? findLocalRecipeByCloudId(String cloudId) {
-    return recipeController.recipes.firstWhereOrNull(
+    return _recipeController.recipes.firstWhereOrNull(
       (recipe) => recipe.cloudId == cloudId,
     );
   }
 
   Recipe? findLocalRecipeByTitle(String title) {
-    var exactMatch = recipeController.recipes.firstWhereOrNull(
+    var exactMatch = _recipeController.recipes.firstWhereOrNull(
       (recipe) => recipe.title.toLowerCase() == title.toLowerCase(),
     );
 
     if (exactMatch != null) return exactMatch;
 
-    return recipeController.recipes.firstWhereOrNull(
+    return _recipeController.recipes.firstWhereOrNull(
       (recipe) =>
           recipe.title.toLowerCase().contains(title.toLowerCase()) ||
           title.toLowerCase().contains(recipe.title.toLowerCase()),
