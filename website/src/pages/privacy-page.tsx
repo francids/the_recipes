@@ -7,8 +7,9 @@ import { useTranslation } from "react-i18next";
 export default function PrivacyPage() {
   const { i18n } = useTranslation();
   const [content, setContent] = useState<string>("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading"
+  );
 
   const [contentRef, contentIsVisible] = useElementOnScreen<HTMLDivElement>({
     threshold: 0.1,
@@ -23,24 +24,29 @@ export default function PrivacyPage() {
   useEffect(() => {
     const loadContent = async () => {
       try {
-        setLoading(true);
-        const response = await fetch(`/privacy/${i18n.language}.md`);
-        if (!response.ok) {
-          throw new Error("Content not found");
+        setStatus("loading");
+        const modules = import.meta.glob("../assets/privacy/*.md", {
+          import: "default",
+          query: "?raw",
+          eager: true,
+        });
+        const filePath = `../assets/privacy/${i18n.language}.md`;
+
+        if (modules[filePath]) {
+          setContent(modules[filePath] as string);
+        } else {
+          setContent(modules["../assets/privacy/en.md"] as string);
         }
-        const text = await response.text();
-        setContent(text);
+        setStatus("success");
       } catch {
-        setError(true);
-      } finally {
-        setLoading(false);
+        setStatus("error");
       }
     };
 
     loadContent();
   }, [i18n.language]);
 
-  if (error) {
+  if (status === "error") {
     console.error("Error loading privacy content");
   }
 
@@ -48,7 +54,7 @@ export default function PrivacyPage() {
     <div className="flex flex-col bg-white dark:bg-zinc-900 relative min-h-screen">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#f97316_1px,transparent_1px),linear-gradient(to_bottom,#f97316_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_30%,transparent_100%)] opacity-[0.008] dark:opacity-[0.012] pointer-events-none"></div>
 
-      {loading && <Loading />}
+      {status === "loading" && <Loading />}
 
       <div ref={pageRef} className="flex-1 min-h-screen relative z-10">
         <div
@@ -59,7 +65,7 @@ export default function PrivacyPage() {
           <div
             ref={contentRef}
             className={`prose prose-lg dark:prose-invert max-w-none break-words overflow-wrap-anywhere transition-all duration-500 ease-out animate-on-scroll selection:bg-orange-500/25 ${
-              loading
+              status === "loading"
                 ? "opacity-0"
                 : contentIsVisible
                 ? "visible opacity-100"
