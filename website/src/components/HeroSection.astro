@@ -1,5 +1,11 @@
 ---
 import { t, type Language } from '../utils/i18n';
+import RecipeBackground from './RecipeBackground.astro';
+
+import lightInicialScreen from '../assets/light-inicial-screen.webp';
+import darkInicialScreen from '../assets/dark-inicial-screen.webp';
+import lightRecipeScreen from '../assets/light-recipe-screen.webp';
+import darkRecipeScreen from '../assets/dark-recipe-screen.webp';
 
 interface Props {
   lang: Language;
@@ -9,6 +15,7 @@ const { lang } = Astro.props;
 ---
 
 <section class="text-zinc-900 dark:text-zinc-100 pt-20 md:pt-20 pb-16 px-8 text-center md:text-left relative overflow-hidden selection:bg-white/25">
+  <RecipeBackground />
   <div class="max-w-7xl mx-auto flex xl:flex-row flex-col lg:items-center xl:justify-between gap-8 relative z-10">
     <div class="lg:w-2/5 mb-4 lg:mb-12 xl:mb-32 text-center xl:text-left">
       <div class="flex items-center justify-center xl:justify-start mb-4 w-full animate-on-scroll">
@@ -20,11 +27,11 @@ const { lang } = Astro.props;
         </svg>
       </div>
       
-      <h1 class="md:leading-12 text-4xl md:text-5xl lg:text-5xl font-bold mb-4 animate-on-scroll">
+      <h1 class="md:leading-12 text-4xl md:text-5xl lg:text-5xl font-bold mb-4 animate-on-scroll" style="animation-delay: 0.2s;">
         {t("title", lang, "HeroSection")}
       </h1>
       
-      <p class="text-zinc-600 dark:text-zinc-400 md:leading-8 text-lg md:text-xl mb-8 animate-on-scroll">
+      <p class="text-zinc-600 dark:text-zinc-400 md:leading-8 text-lg md:text-xl mb-8 animate-on-scroll" style="animation-delay: 0.4s;">
         {t("description", lang, "HeroSection")}
       </p>
       
@@ -33,6 +40,7 @@ const { lang } = Astro.props;
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-md bg-main text-white font-semibold text-lg transition-all duration-300 active:scale-95 hover:bg-orange-500 hover:text-white select-none animate-on-scroll"
+        style="animation-delay: 0.6s;"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -49,36 +57,36 @@ const { lang } = Astro.props;
 
     <div class="flex flex-col items-center justify-center gap-8 lg:gap-0">
       <div class="flex justify-center md:justify-end items-center gap-6 md:gap-12 flex-wrap select-none">
-        <div class="w-56 md:w-72 transition-all duration-500 hover:-translate-y-2 hover:-rotate-1 -rotate-3 relative">
+        <div class="w-56 md:w-72 transition-all duration-500 hover:-translate-y-2 hover:-rotate-1 -rotate-3 relative animate-on-scroll" style="animation-delay: 0.8s;">
           <img
-            src="/assets/light-inicial-screen.webp"
+            src={lightInicialScreen.src}
             alt="App initial screen"
             width="320"
             height="640"
-            class="transition-opacity duration-300 rounded-lg dark:hidden"
+            class="transition-opacity duration-300 rounded-lg dark:hidden shadow-xl"
           />
           <img
-            src="/assets/dark-inicial-screen.webp"
+            src={darkInicialScreen.src}
             alt="App initial screen"
             width="320"
             height="640"
-            class="transition-opacity duration-300 rounded-lg hidden dark:block"
+            class="transition-opacity duration-300 rounded-lg hidden dark:block shadow-xl"
           />
         </div>
-        <div class="w-56 md:w-72 transition-all duration-500 hover:-translate-y-2 hover:rotate-1 rotate-3 relative">
+        <div class="w-56 md:w-72 transition-all duration-500 hover:-translate-y-2 hover:rotate-1 rotate-3 relative animate-on-scroll" style="animation-delay: 1.0s;">
           <img
-            src="/assets/light-recipe-screen.webp"
+            src={lightRecipeScreen.src}
             alt="App recipe screen"
             width="320"
             height="640"
-            class="transition-opacity duration-300 rounded-lg dark:hidden"
+            class="transition-opacity duration-300 rounded-lg dark:hidden shadow-xl"
           />
           <img
-            src="/assets/dark-recipe-screen.webp"
+            src={darkRecipeScreen.src}
             alt="App recipe screen"
             width="320"
             height="640"
-            class="transition-opacity duration-300 rounded-lg hidden dark:block"
+            class="transition-opacity duration-300 rounded-lg hidden dark:block shadow-xl"
           />
         </div>
       </div>

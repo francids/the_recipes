@@ -1,0 +1,71 @@
+---
+import lightHexagon from '../assets/light-hexagon.svg';
+import darkHexagon from '../assets/dark-hexagon.svg';
+---
+
+<div class="recipe-background absolute inset-0 z-0 overflow-hidden bg-gradient-to-b from-main/5 to-white dark:from-main/10 dark:to-zinc-900">
+  <div 
+    class="hexagon-pattern absolute inset-0 opacity-10 dark:opacity-5 animate-scroll-bg transition-opacity duration-500"
+    data-light-bg={lightHexagon.src}
+    data-dark-bg={darkHexagon.src}
+  >
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white lg:via-white/80 to-white dark:via-zinc-900 lg:dark:via-zinc-900/80 dark:to-zinc-900"></div>
+</div>
+
+<style>
+  @keyframes scroll-bg {
+    0% {
+      background-position: 0px 0px;
+    }
+    25% {
+      background-position: 62.5px 62.5px;
+    }
+    50% {
+      background-position: 125px 125px;
+    }
+    75% {
+      background-position: 187.5px 187.5px;
+    }
+    100% {
+      background-position: 250px 250px;
+    }
+  }
+  
+  .animate-scroll-bg {
+    animation: scroll-bg 40s linear infinite;
+  }
+</style>
+
+<script>
+  function updateHexagonBackground() {
+    const hexagonPattern = document.querySelector('.hexagon-pattern') as HTMLElement;
+    if (!hexagonPattern) return;
+    
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    const lightBg = hexagonPattern.dataset.lightBg;
+    const darkBg = hexagonPattern.dataset.darkBg;
+    const bgUrl = isDarkMode ? darkBg : lightBg;
+    
+    hexagonPattern.style.backgroundImage = `url("${bgUrl}")`;
+    hexagonPattern.style.backgroundSize = '125px';
+    hexagonPattern.style.backgroundRepeat = 'repeat';
+  }
+
+  // Update on load
+  updateHexagonBackground();
+  
+  // Update when theme changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        updateHexagonBackground();
+      }
+    });
+  });
+  
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>
