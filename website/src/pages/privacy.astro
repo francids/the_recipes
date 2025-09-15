@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import ScrollTopButton from '../components/ScrollTopButton.astro';
+
+// For now, let's default to Spanish and load the privacy content
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+
+const lang = 'es'; // TODO: This should be dynamic based on routing or detection
+
+let content = '';
+try {
+  const privacyPath = join(process.cwd(), 'public', 'privacy', `${lang}.md`);
+  content = await readFile(privacyPath, 'utf-8');
+} catch {
+  try {
+    const fallbackPath = join(process.cwd(), 'public', 'privacy', 'en.md');
+    content = await readFile(fallbackPath, 'utf-8');
+  } catch {
+    content = '# Privacy Policy\n\nPrivacy policy content could not be loaded.';
+  }
+}
+---
+
+<Layout title="Privacy Policy - The Recipes">
+  <Navbar lang={lang} />
+  <div class="flex flex-col bg-white dark:bg-zinc-900 relative min-h-screen">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#f97316_1px,transparent_1px),linear-gradient(to_bottom,#f97316_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_30%,transparent_100%)] opacity-[0.008] dark:opacity-[0.012] pointer-events-none"></div>
+    
+    <div class="flex-1 min-h-screen relative z-10">
+      <div class="pt-20 pb-16 px-4 max-w-4xl mx-auto animate-on-scroll">
+        <div class="prose prose-lg dark:prose-invert max-w-none break-words overflow-wrap-anywhere transition-all duration-500 ease-out animate-on-scroll selection:bg-orange-500/25" id="privacy-content">
+          <div set:html={content}></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer lang={lang} />
+  <ScrollTopButton />
+</Layout>
+
+<script>
+  // Convert markdown to HTML on the client side for better UX
+  document.addEventListener('DOMContentLoaded', async () => {
+    const contentEl = document.getElementById('privacy-content');
+    if (contentEl && contentEl.textContent?.includes('#')) {
+      try {
+        // Simple markdown parsing for headers and basic formatting
+        let html = contentEl.innerHTML;
+        html = html.replace(/^# (.+$)/gm, '<h1>$1</h1>');
+        html = html.replace(/^## (.+$)/gm, '<h2>$1</h2>');
+        html = html.replace(/^### (.+$)/gm, '<h3>$1</h3>');
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+        html = html.replace(/\n\n/g, '</p><p>');
+        html = `<p>${html}</p>`;
+        contentEl.innerHTML = html;
+      } catch (e) {
+        console.error('Error parsing markdown:', e);
+      }
+    }
+
+    // Add animation functionality
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      triggerOnce: true
+    });
+
+    animatedElements.forEach(el => observer.observe(el));
+  });
+</script>

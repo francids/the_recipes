@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import ScrollTopButton from '../components/ScrollTopButton.astro';
+
+const lang = 'es'; // TODO: This should be dynamic based on routing or detection
+---
+
+<Layout title="Recipe Sharing - The Recipes">
+  <Navbar lang={lang} />
+  <div class="flex flex-col bg-white dark:bg-zinc-900 relative min-h-screen">
+    <div class="flex-1 flex items-center justify-center min-h-screen relative z-10">
+      <!-- Loading state -->
+      <div id="loading" class="text-center px-4">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-main mx-auto mb-4"></div>
+        <p class="text-zinc-600 dark:text-zinc-400">Loading recipe...</p>
+      </div>
+      
+      <!-- No recipe ID state -->
+      <div id="no-recipe" class="text-center px-4 hidden">
+        <h1 class="text-3xl font-bold text-zinc-800 dark:text-zinc-100 mb-4">
+          No recipe ID provided
+        </h1>
+      </div>
+
+      <!-- Fallback state -->
+      <div id="fallback" class="text-center px-4 max-w-md hidden">
+        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+          Para ver esta receta, abre la aplicación The Recipes en tu dispositivo móvil.
+        </p>
+        <div class="space-y-4">
+          <button
+            id="open-app-btn"
+            class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors select-none"
+          >
+            Abrir en la App
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer lang={lang} />
+  <ScrollTopButton />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const loadingEl = document.getElementById('loading');
+    const noRecipeEl = document.getElementById('no-recipe');
+    const fallbackEl = document.getElementById('fallback');
+    const openAppBtn = document.getElementById('open-app-btn');
+    
+    // Get recipe ID from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipeId = urlParams.get('id');
+    
+    if (!recipeId) {
+      loadingEl?.classList.add('hidden');
+      noRecipeEl?.classList.remove('hidden');
+      return;
+    }
+
+    // Check if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
+    if (isMobile) {
+      attemptAppRedirect(recipeId);
+    } else {
+      showFallback();
+    }
+
+    function attemptAppRedirect(recipeId: string) {
+      const deepLink = `the-recipes://sharing?id=${recipeId}`;
+      const androidIntent = `intent://sharing?id=${recipeId}#Intent;scheme=the-recipes;package=com.francids.recipes;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.francids.recipes;end`;
+      const iosUniversalLink = `https://recipes.francids.com/sharing?id=${recipeId}`;
+
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isAndroid) {
+        window.location.href = deepLink;
+
+        setTimeout(() => {
+          window.location.href = androidIntent;
+        }, 2000);
+      } else if (isIOS) {
+        window.location.href = iosUniversalLink;
+
+        setTimeout(() => {
+          window.location.href = deepLink;
+        }, 1000);
+      } else {
+        window.location.href = deepLink;
+      }
+
+      setTimeout(() => {
+        showFallback();
+      }, 4000);
+    }
+
+    function showFallback() {
+      loadingEl?.classList.add('hidden');
+      fallbackEl?.classList.remove('hidden');
+      
+      // Set up open app button
+      if (openAppBtn) {
+        openAppBtn.addEventListener('click', () => {
+          window.location.href = `the-recipes://sharing?id=${recipeId}`;
+        });
+      }
+    }
+  });
+</script>
