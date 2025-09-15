@@ -10,15 +10,16 @@ const { lang } = Astro.props;
 
 <section class="py-20 px-5 bg-gradient-to-r from-main to-orange-600 text-white text-center">
   <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl font-bold mb-4">
+    <h2 class="text-4xl font-bold mb-4 animate-on-scroll">
       {t("title", lang, "CTASection")}
     </h2>
     
-    <p class="text-xl mb-8 opacity-90">
+    <p class="text-xl mb-8 opacity-90 animate-on-scroll" style="animation-delay: 0.2s;">
       {t("description", lang, "CTASection")}
     </p>
     
-    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-on-scroll" style="animation-delay: 0.4s;"
+    >
       <a
         href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
         target="_blank"
@@ -57,3 +58,24 @@ const { lang } = Astro.props;
     </div>
   </div>
 </section>
+
+<script>
+  // Add animation functionality for CTA
+  document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('section .animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      triggerOnce: true
+    });
+
+    animatedElements.forEach(el => observer.observe(el));
+  });
+</script>

@@ -16,31 +16,31 @@ const { lang } = Astro.props;
 
   <div class="w-full xl:w-4/5 md:mb-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 animate-on-scroll" style="animation-delay: 0.2s;">
         <div class="text-4xl mb-4">🤖</div>
         <h3 class="text-xl font-semibold mb-2">{t("feature5_title", lang, "FeaturesSection")}</h3>
         <p class="text-zinc-600 dark:text-zinc-400">{t("feature5_description", lang, "FeaturesSection")}</p>
       </div>
       
-      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 animate-on-scroll" style="animation-delay: 0.4s;">
         <div class="text-4xl mb-4">🔄</div>
         <h3 class="text-xl font-semibold mb-2">{t("feature4_title", lang, "FeaturesSection")}</h3>
         <p class="text-zinc-600 dark:text-zinc-400">{t("feature4_description", lang, "FeaturesSection")}</p>
       </div>
       
-      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 animate-on-scroll" style="animation-delay: 0.6s;">
         <div class="text-4xl mb-4">📱</div>
         <h3 class="text-xl font-semibold mb-2">{t("feature1_title", lang, "FeaturesSection")}</h3>
         <p class="text-zinc-600 dark:text-zinc-400">{t("feature1_description", lang, "FeaturesSection")}</p>
       </div>
       
-      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 animate-on-scroll" style="animation-delay: 0.8s;">
         <div class="text-4xl mb-4">🌙</div>
         <h3 class="text-xl font-semibold mb-2">{t("feature3_title", lang, "FeaturesSection")}</h3>
         <p class="text-zinc-600 dark:text-zinc-400">{t("feature3_description", lang, "FeaturesSection")}</p>
       </div>
       
-      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 animate-on-scroll" style="animation-delay: 1.0s;">
         <div class="text-4xl mb-4">🌐</div>
         <h3 class="text-xl font-semibold mb-2">{t("feature6_title", lang, "FeaturesSection")}</h3>
         <p class="text-zinc-600 dark:text-zinc-400">{t("feature6_description", lang, "FeaturesSection")}</p>
@@ -48,3 +48,24 @@ const { lang } = Astro.props;
     </div>
   </div>
 </section>
+
+<script>
+  // Add animation functionality for features
+  document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('#features .animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      triggerOnce: true
+    });
+
+    animatedElements.forEach(el => observer.observe(el));
+  });
+</script>
