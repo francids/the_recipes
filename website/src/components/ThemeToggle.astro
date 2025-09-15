@@ -1,0 +1,171 @@
+---
+// Theme toggle component similar to original React version
+---
+
+<button
+  id="theme-toggle"
+  class="p-2 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-semibold text-sm transition-all duration-300 active:scale-95 hover:bg-zinc-200 dark:hover:bg-zinc-700/20 hover:shadow-sm select-none"
+  aria-label="Toggle theme"
+>
+  <svg
+    id="theme-icon-light"
+    class="w-5 h-5 transition-opacity duration-200"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+      clip-rule="evenodd"
+    ></path>
+  </svg>
+  
+  <svg
+    id="theme-icon-dark"
+    class="w-5 h-5 transition-opacity duration-200 hidden"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+  </svg>
+
+  <svg
+    id="theme-icon-system"
+    class="w-5 h-5 transition-opacity duration-200 hidden"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+    ></path>
+  </svg>
+</button>
+
+<script>
+  interface ThemeState {
+    theme: 'light' | 'dark' | 'system';
+    isDarkMode: boolean;
+  }
+
+  class ThemeManager {
+    private state: ThemeState;
+    private mediaQuery: MediaQueryList;
+
+    constructor() {
+      this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this.state = {
+        theme: this.getStoredTheme(),
+        isDarkMode: false
+      };
+      
+      this.applyTheme(this.state.theme);
+      this.updateIcon();
+      this.mediaQuery.addEventListener('change', this.handleSystemThemeChange.bind(this));
+    }
+
+    private getStoredTheme(): 'light' | 'dark' | 'system' {
+      try {
+        const stored = localStorage.getItem('theme') as 'light' | 'dark' | 'system' | null;
+        if (stored && ['light', 'dark', 'system'].includes(stored)) {
+          return stored;
+        }
+      } catch (e) {
+        console.error('Error getting stored theme:', e);
+      }
+      return 'system';
+    }
+
+    private applyTheme(theme: 'light' | 'dark' | 'system') {
+      let isDark: boolean;
+      
+      if (theme === 'system') {
+        isDark = this.mediaQuery.matches;
+      } else {
+        isDark = theme === 'dark';
+      }
+
+      this.state.isDarkMode = isDark;
+
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      try {
+        localStorage.setItem('theme', theme);
+      } catch (e) {
+        console.error('Error saving theme to localStorage:', e);
+      }
+    }
+
+    private handleSystemThemeChange() {
+      if (this.state.theme === 'system') {
+        this.applyTheme('system');
+        this.updateIcon();
+      }
+    }
+
+    private updateIcon() {
+      const lightIcon = document.getElementById('theme-icon-light');
+      const darkIcon = document.getElementById('theme-icon-dark');
+      const systemIcon = document.getElementById('theme-icon-system');
+
+      // Hide all icons first
+      [lightIcon, darkIcon, systemIcon].forEach(icon => {
+        icon?.classList.add('hidden');
+      });
+
+      // Show the appropriate icon
+      switch (this.state.theme) {
+        case 'light':
+          lightIcon?.classList.remove('hidden');
+          break;
+        case 'dark':
+          darkIcon?.classList.remove('hidden');
+          break;
+        case 'system':
+          systemIcon?.classList.remove('hidden');
+          break;
+      }
+    }
+
+    public toggleTheme() {
+      let nextTheme: 'light' | 'dark' | 'system';
+      
+      switch (this.state.theme) {
+        case 'light':
+          nextTheme = 'dark';
+          break;
+        case 'dark':
+          nextTheme = 'system';
+          break;
+        case 'system':
+        default:
+          nextTheme = 'light';
+          break;
+      }
+
+      this.state.theme = nextTheme;
+      this.applyTheme(nextTheme);
+      this.updateIcon();
+    }
+  }
+
+  // Initialize theme manager when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeManager = new ThemeManager();
+    const toggleButton = document.getElementById('theme-toggle');
+    
+    toggleButton?.addEventListener('click', () => {
+      themeManager.toggleTheme();
+    });
+  });
+</script>
