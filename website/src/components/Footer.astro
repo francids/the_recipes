@@ -1,0 +1,161 @@
+---
+import {
+  detectUserLocale,
+  createTranslationHelper,
+  type Locale,
+} from "../utils/i18n.ts";
+
+const locale: Locale = detectUserLocale(Astro.request);
+const t = await createTranslationHelper(locale);
+---
+
+<footer
+  class="bg-zinc-100/75 dark:bg-zinc-900 dark:dark:bg-zinc-950 text-zinc-800 dark:text-white py-16 px-8"
+>
+  <div
+    class="flex justify-between flex-wrap gap-10 max-w-7xl mx-auto mb-10 text-left"
+  >
+    <div class="flex-1 min-w-[250px] flex flex-col items-start">
+      <div
+        class="w-[150px] mb-5 text-zinc-800 dark:text-white select-none pointer-events-none"
+      >
+        <img
+          src="/Logo.svg"
+          alt="The Recipes App Logo"
+          width={100}
+          height={24}
+        />
+      </div>
+      <p
+        class="text-zinc-600 dark:text-zinc-400 dark:dark:text-zinc-300 text-lg"
+      >
+        {t("Footer.tagline")}
+      </p>
+    </div>
+    <div class="flex gap-10 flex-wrap">
+      <div class="min-w-[150px]">
+        <h3
+          class="text-orange-600 dark:text-orange-500 mb-5 text-lg font-semibold"
+        >
+          {t("Footer.section_recipes")}
+        </h3>
+        <a
+          href="/#features"
+          class="block text-zinc-600 dark:text-zinc-400 dark:dark:text-zinc-300 mb-2.5 no-underline hover:text-orange-600 dark:hover:text-orange-500 transition-colors"
+        >
+          {t("Footer.link_features")}
+        </a>
+        <a
+          href="/#cta"
+          class="block text-zinc-600 dark:text-zinc-400 dark:dark:text-zinc-300 mb-2.5 no-underline hover:text-orange-600 dark:hover:text-orange-500 transition-colors"
+        >
+          {t("Footer.link_development")}
+        </a>
+      </div>
+      <div class="min-w-[150px]">
+        <h3
+          class="text-orange-600 dark:text-orange-500 mb-5 text-lg font-semibold"
+        >
+          {t("Footer.section_contact")}
+        </h3>
+        <a
+          href="https://github.com/francids/the_recipes"
+          class="block text-zinc-600 dark:text-zinc-400 dark:dark:text-zinc-300 mb-2.5 no-underline hover:text-orange-600 dark:hover:text-orange-500 transition-colors"
+        >
+          GitHub
+        </a>
+      </div>
+      <div class="min-w-[150px]">
+        <h3
+          class="text-orange-600 dark:text-orange-500 mb-5 text-lg font-semibold"
+        >
+          {t("Footer.section_preferences")}
+        </h3>
+        <div class="flex items-center justify-start gap-2.5 mt-2.5">
+          <span
+            class="text-zinc-600 dark:text-zinc-400 dark:dark:text-zinc-300 text-base"
+          >
+            {t("Footer.theme_label")}
+          </span>
+          <button
+            id="theme-toggle"
+            class="relative inline-block w-[60px] h-[30px] bg-zinc-300 dark:bg-zinc-700 dark:dark:bg-zinc-800 rounded-full border-none cursor-pointer overflow-hidden transition-colors"
+            data-theme="system"
+          >
+            <div
+              id="theme-toggle-indicator"
+              class="absolute top-0.5 left-0.5 w-[26px] h-[26px] flex items-center justify-center rounded-full transition-transform ease-in-out duration-300 bg-orange-500"
+            >
+              <span
+                class="text-sm flex items-center justify-center select-none pointer-events-none"
+              >
+                💻
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="pt-8 border-t border-zinc-100 dark:border-zinc-800 dark:dark:border-zinc-700 text-zinc-500 dark:text-zinc-500 dark:dark:text-zinc-400 text-sm w-4/5 sm:w-full sm:text-center"
+  >
+    <p>{t("Footer.copyright", new Date().getFullYear().toString())}</p>
+  </div>
+</footer>
+
+<script>
+  interface ThemeState {
+    theme: "light" | "dark" | "system";
+  }
+
+  const themeToggle = document.getElementById(
+    "theme-toggle"
+  ) as HTMLButtonElement;
+  const themeIndicator = document.getElementById(
+    "theme-toggle-indicator"
+  ) as HTMLDivElement;
+
+  function updateThemeButton(state: ThemeState) {
+    const { theme } = state;
+
+    const icons = { light: "☀️", dark: "🌙", system: "💻" };
+    const positions = {
+      light: "translate-x-0",
+      dark: "translate-x-[30px]",
+      system: "translate-x-[15px]",
+    };
+    const bgColors = {
+      light: "bg-orange-500",
+      dark: "bg-zinc-500",
+      system: "bg-blue-500",
+    };
+
+    const icon = themeIndicator.querySelector("span");
+    if (icon) {
+      icon.textContent = icons[theme];
+    }
+
+    themeIndicator.classList.remove(
+      "translate-x-0",
+      "translate-x-[15px]",
+      "translate-x-[30px]",
+      "bg-orange-500",
+      "bg-zinc-500",
+      "bg-blue-500"
+    );
+
+    themeIndicator.classList.add(positions[theme], bgColors[theme]);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof window !== "undefined" && window.themeManager) {
+      updateThemeButton(window.themeManager.getState());
+      window.themeManager.subscribe(updateThemeButton);
+
+      themeToggle?.addEventListener("click", () => {
+        window.themeManager?.toggleTheme();
+      });
+    }
+  });
+</script>

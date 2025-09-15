@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-main: #ea580c;
+}
+
+@layer components {
+  .prose code {
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+}
+
+::selection {
+  background-color: rgb(202 138 4 / 0.25);
+}
+
+.dark ::selection {
+  background-color: rgb(113 63 18 / 0.25);
+}
+
+:root {
+  --font-sans: "Montserrat", sans-serif;
+}
+
+html {
+  background: #fafafa;
+}
+
+html.dark {
+  background: #18181b;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ea580c;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c2410c;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #52525b;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #71717a;
+}
+
+@supports (scrollbar-color: auto) {
+  html {
+    scrollbar-color: #ea580c #ffffff;
+    scrollbar-width: thin;
+  }
+
+  html.dark {
+    scrollbar-color: #52525b #18181b;
+  }
+}

@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createTranslationHelper, detectUserLocale, type Locale } from "@/utils/i18n";
+
+const url = new URL(Astro.request.url);
+const recipeId = url.searchParams.get("id");
+
+const locale: Locale = detectUserLocale(Astro.request);
+const t = await createTranslationHelper(locale);
+---
+
+<Layout>
+    {!recipeId ? (
+    <div class="flex flex-col bg-white dark:bg-zinc-900 relative min-h-screen">
+      <div class="flex-1 flex items-center justify-center min-h-screen relative z-10">
+        <div class="text-center px-4">
+          <h1 class="text-3xl font-bold text-zinc-800 dark:text-zinc-100 mb-4">
+            {t("Sharing.no_recipe_id")}
+          </h1>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div id="sharing-content" class="flex flex-col bg-white dark:bg-zinc-900 relative min-h-screen">
+      <div id="loading" class="flex-1 flex items-center justify-center min-h-screen relative z-10">
+        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-500"></div>
+      </div>
+      
+      <div id="fallback" class="flex-1 flex items-center justify-center min-h-screen relative z-10">
+        <div class="text-center px-4 max-w-md">
+          <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+            {t("Sharing.view_recipe_message")}
+          </p>
+
+          <div class="space-y-4">
+            <button
+              id="open-app-btn"
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors select-none"
+            >
+              {t("Sharing.open_app_button")}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+</Layout>
+
+{recipeId && (
+  <script define:vars={{ recipeId }}>
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    function attemptAppRedirect(recipeId) {
+      const deepLink = `the-recipes://sharing?id=${recipeId}`;
+      const androidIntent = `intent://sharing?id=${recipeId}#Intent;scheme=the-recipes;package=com.francids.recipes;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.francids.recipes;end`;
+      const iosUniversalLink = `https://recipes.francids.com/sharing?id=${recipeId}`;
+
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isAndroid) {
+        window.location.href = deepLink;
+        setTimeout(() => {
+          window.location.href = androidIntent;
+        }, 2000);
+      } else if (isIOS) {
+        window.location.href = iosUniversalLink;
+        setTimeout(() => {
+          window.location.href = deepLink;
+        }, 1000);
+      } else {
+        window.location.href = deepLink;
+      }
+
+      setTimeout(() => {
+        showFallback();
+      }, 4000);
+    }
+    
+    function showFallback() {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('fallback').classList.remove('hidden');
+    }
+    
+    if (isMobile) {
+      attemptAppRedirect(recipeId);
+    } else {
+      showFallback();
+    }
+    
+    // Event listener para el botón
+    document.getElementById('open-app-btn')?.addEventListener('click', () => {
+      window.location.href = `the-recipes://sharing?id=${recipeId}`;
+    });
+  </script>
+)}

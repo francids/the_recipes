@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { detectUserLocale } from "../utils/i18n.ts";
+import { getEntry } from "astro:content";
+
+const locale = detectUserLocale(Astro.request);
+
+let privacyEntry = await getEntry("privacy", locale);
+if (!privacyEntry) {
+  privacyEntry = await getEntry("privacy", "en");
+}
+
+let pageTitle = "Privacy Policy";
+let Content = null;
+
+if (privacyEntry) {
+  const { Content: MarkdownContent } = await privacyEntry.render();
+  Content = MarkdownContent;
+  pageTitle = privacyEntry.data.title;
+}
+---
+
+<Layout title={pageTitle}>
+  <main class="container mx-auto px-4 py-8 max-w-4xl mt-8">
+    <div class="max-w-none prose prose-lg dark:prose-invert">
+      {Content && <Content />}
+    </div>
+  </main>
+</Layout>

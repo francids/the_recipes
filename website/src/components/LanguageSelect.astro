@@ -1,0 +1,155 @@
+---
+import {
+  detectUserLocale,
+  supportedLocales,
+  type Locale,
+} from "../utils/i18n.ts";
+
+const locale: Locale = detectUserLocale(Astro.request);
+
+const languageFlags: Record<Locale, string> = {
+  es: "ES",
+  en: "GB",
+  de: "DE",
+  it: "IT",
+  fr: "FR",
+  pt: "PT",
+  zh: "CN",
+  ja: "JP",
+  ko: "KR",
+};
+
+const languageNames: Record<Locale, string> = {
+  es: "Español",
+  en: "English",
+  de: "Deutsch",
+  it: "Italiano",
+  fr: "Français",
+  pt: "Português",
+  zh: "中文",
+  ja: "日本語",
+  ko: "한국어",
+};
+
+const currentFlag = languageFlags[locale];
+const currentName = languageNames[locale];
+---
+
+<div class="relative" id="language-selector">
+  <button
+    id="language-toggle"
+    class="inline-flex items-center gap-1 py-2 px-3 rounded-md text-zinc-700 dark:text-zinc-300 bg-orange-100 dark:bg-orange-900/20 hover:bg-orange-200 dark:hover:bg-orange-900/30 transition-colors border border-orange-200 dark:border-orange-700/30"
+    aria-label="Select language"
+    aria-expanded="false"
+  >
+    <img
+      src={`/flags/${currentFlag}.svg`}
+      alt={currentName}
+      width={16}
+      height={16}
+      class="inline-block ml-2"
+      loading="lazy"
+    />
+    <span class="text-sm font-medium text-orange-700 dark:text-orange-400">
+      {currentName}
+    </span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16px"
+      height="16px"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="ml-1.5 transition-transform duration-200 text-orange-500 dark:text-orange-400"
+      id="language-arrow"
+    >
+      <path d="M12 5v14m-7-7l7 7 7-7"></path>
+    </svg>
+  </button>
+
+  <div
+    id="language-dropdown"
+    class="absolute mt-1 left-0 bg-white dark:bg-zinc-800 border border-orange-200 dark:border-orange-800/30 rounded-md shadow-lg z-50 min-w-[150px] overflow-hidden opacity-0 pointer-events-none transition-opacity duration-200"
+  >
+    <ul class="py-1">
+      {
+        supportedLocales.map((langCode) => (
+          <li>
+            <button
+              class={`flex justify-start items-center w-full gap-0 text-left px-4 py-2 text-sm language-option ${
+                langCode === locale
+                  ? "bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400 font-medium"
+                  : "text-zinc-700 dark:text-zinc-300 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400"
+              }`}
+              data-language={langCode}
+            >
+              <img
+                src={`/flags/${languageFlags[langCode]}.svg`}
+                alt={languageNames[langCode]}
+                width={16}
+                height={16}
+                class="inline-block mr-2"
+                loading="lazy"
+              />
+              <span>{languageNames[langCode]}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  const selector = document.getElementById("language-selector");
+  const toggle = document.getElementById("language-toggle");
+  const dropdown = document.getElementById("language-dropdown");
+  const arrow = document.getElementById("language-arrow");
+  const options = document.querySelectorAll(".language-option");
+
+  let isOpen = false;
+
+  function toggleDropdown() {
+    isOpen = !isOpen;
+    if (dropdown && arrow && toggle) {
+      dropdown.style.opacity = isOpen ? "1" : "0";
+      dropdown.style.pointerEvents = isOpen ? "auto" : "none";
+      arrow.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
+      toggle.setAttribute("aria-expanded", isOpen.toString());
+    }
+  }
+
+  function closeDropdown() {
+    isOpen = false;
+    if (dropdown && arrow && toggle) {
+      dropdown.style.opacity = "0";
+      dropdown.style.pointerEvents = "none";
+      arrow.style.transform = "rotate(0deg)";
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  toggle?.addEventListener("click", toggleDropdown);
+
+  options.forEach((option) => {
+    option.addEventListener("click", (e) => {
+      const target = e.currentTarget as HTMLButtonElement;
+      const language = target.dataset.language;
+      if (language) {
+        document.cookie = `locale=${language}; max-age=${
+          60 * 60 * 24 * 365
+        }; path=/`;
+        window.location.reload();
+      }
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (selector && !selector.contains(e.target as Node)) {
+      closeDropdown();
+    }
+  });
+</script>

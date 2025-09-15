@@ -36,6 +36,11 @@
     "subtitle": "页面未找到",
     "description": "哎呀！这个页面就像没有配料的食谱一样消失了。"
   },
+  "Sharing": {
+    "no_recipe_id": "未提供菜谱ID",
+    "view_recipe_message": "要查看此菜谱，请在您的移动设备上打开The Recipes应用。",
+    "open_app_button": "在应用中打开"
+  },
   "Footer": {
     "tagline": "您的数字烹饪助手",
     "section_recipes": "The Recipes",

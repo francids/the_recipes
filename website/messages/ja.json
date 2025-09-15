@@ -33,6 +33,11 @@
     "subtitle": "ページが見つかりません",
     "description": "おっと！このページは材料のないレシピのように消えてしまいました。"
   },
+  "Sharing": {
+    "no_recipe_id": "レシピIDが提供されていません",
+    "view_recipe_message": "このレシピを見るには、モバイルデバイスでThe Recipesアプリを開いてください。",
+    "open_app_button": "アプリで開く"
+  },
   "Footer": {
     "tagline": "あなたのデジタル料理アシスタント",
     "section_recipes": "The Recipes",

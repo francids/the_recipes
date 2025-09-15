@@ -1,0 +1,53 @@
+<button
+  id="scroll-to-top"
+  class="fixed bottom-8 right-8 w-14 h-14 bg-main text-white rounded-lg flex justify-center items-center shadow-lg z-50 transition-all duration-300 hover:bg-orange-600 hover:-translate-y-1 opacity-0 invisible transform translate-y-4"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="currentColor"
+  >
+    <path
+      d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z"
+    ></path>
+  </svg>
+</button>
+
+<script>
+  const scrollButton = document.getElementById("scroll-to-top");
+
+  if (scrollButton) {
+    scrollButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
+</script>
+
+<style>
+  #scroll-to-top {
+    transition:
+      opacity 0.3s ease-out,
+      visibility 0.3s ease-out,
+      transform 0.3s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.3s ease-out;
+  }
+</style>

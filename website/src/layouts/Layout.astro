@@ -1,0 +1,263 @@
+---
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import ScrollTopButton from "../components/ScrollTopButton.astro";
+import { detectUserLocale } from "../utils/i18n";
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "The Recipes", description = "Your digital recipe book" } =
+  Astro.props;
+
+const currentLang = Astro.locals.lang || detectUserLocale(Astro.request);
+---
+
+<html lang={currentLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} id="meta-description" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#18181b"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#ffffff"
+    />
+    <meta property="og:title" content={title} id="og-title" />
+    <meta property="og:description" content={description} id="og-description" />
+    <meta
+      property="og:image"
+      content="https://recipes.francids.com/opengraph-image.png"
+    />
+    <meta property="og:url" content="https://recipes.francids.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" id="og-locale" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="it_IT" />
+    <meta property="og:locale:alternate" content="ja_JP" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+    <meta property="og:locale:alternate" content="pt_PT" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+  </head>
+
+  <body>
+    <Navbar />
+    <main class="bg-white dark:bg-zinc-900 min-h-screen">
+      <slot />
+    </main>
+    <Footer />
+    <ScrollTopButton />
+  </body>
+</html>
+
+<script>
+  import "../utils/ThemeManager";
+  import "../utils/MenuManager";
+
+  function handleScroll() {
+    const currentScrollY = window.scrollY;
+    const scrollButton = document.getElementById("scroll-to-top");
+
+    if (scrollButton) {
+      if (currentScrollY > 300) {
+        scrollButton.classList.remove(
+          "opacity-0",
+          "invisible",
+          "translate-y-4"
+        );
+        scrollButton.classList.add("opacity-100", "visible", "translate-y-0");
+      } else {
+        scrollButton.classList.add("opacity-0", "invisible", "translate-y-4");
+        scrollButton.classList.remove(
+          "opacity-100",
+          "visible",
+          "translate-y-0"
+        );
+      }
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+</script>
+
+<script is:inline>
+  (function () {
+    try {
+      const supportedLocales = [
+        "de",
+        "en",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "ko",
+        "pt",
+        "zh",
+      ];
+      const defaultLocale = "en";
+
+      const translations = {
+        en: {
+          title: "The Recipes",
+          description:
+            "Your digital recipe book - Store, organize and easily find all your favorite recipes",
+          ogDescription:
+            "Your digital recipe book: save, organize and easily find all your favorite recipes",
+          locale: "en_US",
+        },
+        es: {
+          title: "The Recipes",
+          description:
+            "Tu libro de recetas digital - Almacena, organiza y encuentra fácilmente todas tus recetas favoritas",
+          ogDescription:
+            "Tu recetario digital: guarda, organiza y encuentra fácilmente todas tus recetas favoritas",
+          locale: "es_ES",
+        },
+        fr: {
+          title: "The Recipes",
+          description:
+            "Votre livre de recettes numérique - Stockez, organisez et trouvez facilement toutes vos recettes préférées",
+          ogDescription:
+            "Votre livre de recettes numérique : sauvegardez, organisez et trouvez facilement toutes vos recettes préférées",
+          locale: "fr_FR",
+        },
+        de: {
+          title: "The Recipes",
+          description:
+            "Ihr digitales Rezeptbuch - Speichern, organisieren und finden Sie alle Ihre Lieblingsrezepte",
+          ogDescription:
+            "Ihr digitales Rezeptbuch: Speichern, organisieren und finden Sie alle Ihre Lieblingsrezepte",
+          locale: "de_DE",
+        },
+        it: {
+          title: "The Recipes",
+          description:
+            "Il tuo libro di ricette digitale - Archivia, organizza e trova facilmente tutte le tue ricette preferite",
+          ogDescription:
+            "Il tuo libro di ricette digitale: salva, organizza e trova facilmente tutte le tue ricette preferite",
+          locale: "it_IT",
+        },
+        ja: {
+          title: "The Recipes",
+          description:
+            "あなたのデジタルレシピブック - お気に入りのレシピを保存、整理、簡単検索",
+          ogDescription:
+            "あなたのデジタルレシピブック：お気に入りのレシピを保存、整理、簡単検索",
+          locale: "ja_JP",
+        },
+        ko: {
+          title: "The Recipes",
+          description:
+            "당신의 디지털 레시피북 - 좋아하는 레시피를 저장, 정리하고 쉽게 찾으세요",
+          ogDescription:
+            "당신의 디지털 레시피북: 좋아하는 레시피를 저장, 정리하고 쉽게 찾으세요",
+          locale: "ko_KR",
+        },
+        pt: {
+          title: "The Recipes",
+          description:
+            "Seu livro de receitas digital - Armazene, organize e encontre facilmente todas as suas receitas favoritas",
+          ogDescription:
+            "Seu livro de receitas digital: salve, organize e encontre facilmente todas as suas receitas favoritas",
+          locale: "pt_PT",
+        },
+        zh: {
+          title: "The Recipes",
+          description: "您的数字食谱书 - 存储、整理并轻松找到您所有喜爱的食谱",
+          ogDescription: "您的数字食谱书：保存、整理并轻松找到您所有喜爱的食谱",
+          locale: "zh_CN",
+        },
+      };
+
+      function detectUserLocale() {
+        const cookies = document.cookie;
+        if (cookies) {
+          const localeCookie = cookies
+            .split(";")
+            .find((c) => c.trim().startsWith("locale="));
+
+          if (localeCookie) {
+            const locale = localeCookie.split("=")[1];
+            if (supportedLocales.includes(locale)) {
+              return locale;
+            }
+          }
+        }
+
+        const savedLang = localStorage.getItem("i18nextLng");
+        if (savedLang && supportedLocales.includes(savedLang)) {
+          return savedLang;
+        }
+
+        const acceptLanguage = navigator.language;
+        if (acceptLanguage) {
+          const langCode = acceptLanguage.split("-")[0].toLowerCase();
+          if (supportedLocales.includes(langCode)) {
+            return langCode;
+          }
+        }
+
+        return defaultLocale;
+      }
+
+      const lang = detectUserLocale();
+
+      document.documentElement.setAttribute("lang", lang);
+      const t = translations[lang];
+      document.title = t.title;
+
+      const metaDescription = document.getElementById("meta-description");
+      if (metaDescription) {
+        metaDescription.setAttribute("content", t.description);
+      }
+
+      const ogTitle = document.getElementById("og-title");
+      if (ogTitle) {
+        ogTitle.setAttribute("content", t.title);
+      }
+
+      const ogDescription = document.getElementById("og-description");
+      if (ogDescription) {
+        ogDescription.setAttribute("content", t.ogDescription);
+      }
+
+      const ogLocale = document.getElementById("og-locale");
+      if (ogLocale) {
+        ogLocale.setAttribute("content", t.locale);
+      }
+    } catch (e) {
+      console.error("Error setting language metadata:", e);
+    }
+  })();
+</script>
+
+<script is:inline>
+  (() => {
+    try {
+      const theme = localStorage.getItem("theme");
+      if (
+        theme === "dark" ||
+        (theme === "system" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+    } catch (e) {}
+  })();
+</script>

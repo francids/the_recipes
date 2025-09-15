@@ -1,0 +1,84 @@
+---
+import FullFeatureCard from "./FullFeatureCard.astro";
+import FeatureCard from "./FeatureCard.astro";
+import type Feature from "../interfaces/feature";
+
+import LightAiComponent from "@/assets/light-ai-component.png";
+import DarkAiComponent from "@/assets/dark-ai-component.png";
+import LightShareComponent from "@/assets/light-share-component.png";
+import DarkShareComponent from "@/assets/dark-share-component.png";
+import {
+  createTranslationHelper,
+  detectUserLocale,
+  type Locale,
+} from "@/utils/i18n";
+
+const locale: Locale = detectUserLocale(Astro.request);
+const t = await createTranslationHelper(locale);
+
+const features: Feature[] = [
+  {
+    icon: "🤖",
+    title: t("FeaturesSection.feature5_title"),
+    description: t("FeaturesSection.feature5_description"),
+    lightImage: LightAiComponent,
+    darkImage: DarkAiComponent,
+  },
+  {
+    icon: "🔄",
+    title: t("FeaturesSection.feature4_title"),
+    description: t("FeaturesSection.feature4_description"),
+    lightImage: LightShareComponent,
+    darkImage: DarkShareComponent,
+  },
+  {
+    icon: "📱",
+    title: t("FeaturesSection.feature1_title"),
+    description: t("FeaturesSection.feature1_description"),
+  },
+  {
+    icon: "🌙",
+    title: t("FeaturesSection.feature3_title"),
+    description: t("FeaturesSection.feature3_description"),
+  },
+  {
+    icon: "🌐",
+    title: t("FeaturesSection.feature6_title"),
+    description: t("FeaturesSection.feature6_description"),
+  },
+];
+---
+
+<section
+  id="features"
+  class="py-20 px-5 bg-white dark:bg-gradient-to-b dark:from-zinc-900 dark:to-zinc-950 text-center flex flex-col items-center justify-center"
+>
+  <h2 class="text-4xl font-bold mb-16 text-main relative">
+    {t("FeaturesSection.title")}
+    <span
+      class="absolute bottom-[-1.5rem] left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-main rounded-md shadow-sm"
+    ></span>
+  </h2>
+
+  <div class="w-full xl:w-4/5 md:mb-8">
+    {
+      features.map((feature) => {
+        if (feature.darkImage && feature.lightImage) {
+          return <FullFeatureCard feature={feature} />;
+        }
+      })
+    }
+  </div>
+
+  <div
+    class="flex flex-wrap justify-center items-stretch gap-8 max-w-6xl mx-auto"
+  >
+    {
+      features.map((feature) => {
+        if (!feature.darkImage && !feature.lightImage) {
+          return <FeatureCard feature={feature} />;
+        }
+      })
+    }
+  </div>
+</section>

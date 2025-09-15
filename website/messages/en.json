@@ -33,6 +33,11 @@
     "subtitle": "Page Not Found",
     "description": "Oops! This page has vanished like a recipe without ingredients."
   },
+  "Sharing": {
+    "no_recipe_id": "No recipe ID provided",
+    "view_recipe_message": "To view this recipe, open The Recipes app on your mobile device.",
+    "open_app_button": "Open in App"
+  },
   "Footer": {
     "tagline": "Your digital culinary assistant",
     "section_recipes": "The Recipes",

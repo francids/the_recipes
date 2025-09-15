@@ -33,6 +33,11 @@
     "subtitle": "Página no encontrada",
     "description": "¡Ups! Esta página ha desaparecido como una receta sin ingredientes."
   },
+  "Sharing": {
+    "no_recipe_id": "No se proporcionó ID de receta",
+    "view_recipe_message": "Para ver esta receta, abre la aplicación The Recipes en tu dispositivo móvil.",
+    "open_app_button": "Abrir en la app"
+  },
   "Footer": {
     "tagline": "Tu asistente culinario digital",
     "section_recipes": "The Recipes",
