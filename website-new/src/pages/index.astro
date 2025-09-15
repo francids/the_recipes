@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import FeaturesSection from '../components/FeaturesSection.astro';
+import CTASection from '../components/CTASection.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import ScrollTopButton from '../components/ScrollTopButton.astro';
+
+const lang = 'es'; // TODO: This should be dynamic based on routing or detection
+---
+
+<Layout title="The Recipes">
+  <Navbar />
+  <main class="min-h-screen">
+    <HeroSection lang={lang} />
+    <FeaturesSection lang={lang} />
+    <CTASection lang={lang} />
+    <ScrollTopButton />
+  </main>
+  <Footer lang={lang} />
+</Layout>

@@ -1,0 +1,158 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  locale?: string;
+}
+
+const { 
+  title = 'The Recipes',
+  description = 'Tu libro de recetas digital - Almacena, organiza y encuentra fácilmente todas tus recetas favoritas',
+  ogTitle = title,
+  ogDescription = description,
+  locale = 'es_ES'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={locale.split('_')[0]}>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} id="meta-description" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#18181b" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={ogTitle} id="og-title" />
+    <meta property="og:description" content={ogDescription} id="og-description" />
+    <meta property="og:image" content="https://recipes.francids.com/opengraph-image.png" />
+    <meta property="og:url" content="https://recipes.francids.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locale} id="og-locale" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="it_IT" />
+    <meta property="og:locale:alternate" content="ja_JP" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+    <meta property="og:locale:alternate" content="pt_PT" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+
+    <!-- Language and Theme Scripts -->
+    <script is:inline>
+      (function () {
+        try {
+          const resources = [
+            "en", "es", "fr", "de", "it", "ja", "ko", "pt", "zh"
+          ];
+          
+          const translations = {
+            en: {
+              title: "The Recipes",
+              description: "Your digital cookbook - Store, organize, and easily find all your favorite recipes",
+              ogDescription: "Your digital cookbook: store, organize, and easily find all your favorite recipes",
+              locale: "en_US",
+            },
+            es: {
+              title: "The Recipes",
+              description: "Tu libro de recetas digital - Almacena, organiza y encuentra fácilmente todas tus recetas favoritas",
+              ogDescription: "Tu recetario digital: guarda, organiza y encuentra fácilmente todas tus recetas favoritas",
+              locale: "es_ES",
+            },
+            fr: {
+              title: "The Recipes",
+              description: "Votre livre de recettes numérique - Sauvegardez, organisez et trouvez facilement toutes vos recettes préférées",
+              ogDescription: "Votre livre de recettes numérique : sauvegardez, organisez et trouvez facilement toutes vos recettes préférées",
+              locale: "fr_FR",
+            },
+            de: {
+              title: "The Recipes",
+              description: "Ihr digitales Rezeptbuch - Speichern, organisieren und finden Sie alle Ihre Lieblingsrezepte",
+              ogDescription: "Ihr digitales Rezeptbuch: Speichern, organisieren und finden Sie alle Ihre Lieblingsrezepte",
+              locale: "de_DE",
+            },
+            it: {
+              title: "The Recipes",
+              description: "Il tuo libro di ricette digitale - Archivia, organizza e trova facilmente tutte le tue ricette preferite",
+              ogDescription: "Il tuo libro di ricette digitale: salva, organizza e trova facilmente tutte le tue ricette preferite",
+              locale: "it_IT",
+            },
+            ja: {
+              title: "The Recipes",
+              description: "あなたのデジタルクックブック - お気に入りのレシピを簡単に保存、整理、検索",
+              ogDescription: "あなたのデジタルクックブック：お気に入りのレシピを簡単に保存、整理、検索",
+              locale: "ja_JP",
+            },
+            ko: {
+              title: "The Recipes",
+              description: "당신의 디지털 요리책 - 좋아하는 레시피를 쉽게 저장, 정리, 검색하세요",
+              ogDescription: "당신의 디지털 요리책: 좋아하는 레시피를 쉽게 저장, 정리, 검색하세요",
+              locale: "ko_KR",
+            },
+            pt: {
+              title: "The Recipes",
+              description: "Seu livro de receitas digital - Armazene, organize e encontre facilmente todas as suas receitas favoritas",
+              ogDescription: "Seu livro de receitas digital: armazene, organize e encontre facilmente todas as suas receitas favoritas",
+              locale: "pt_PT",
+            },
+            zh: {
+              title: "The Recipes",
+              description: "您的数字食谱书 - 轻松存储、整理和查找您最喜欢的食谱",
+              ogDescription: "您的数字食谱书：轻松存储、整理和查找您最喜欢的食谱",
+              locale: "zh_CN",
+            },
+          };
+
+          const lang = localStorage.getItem("i18nextLng") || navigator.language.split("-")[0] || "en";
+          const t = translations[lang] || translations["en"];
+          
+          document.title = t.title;
+          const metaDescription = document.getElementById("meta-description");
+          if (metaDescription) {
+            metaDescription.setAttribute("content", t.description);
+          }
+          const ogTitle = document.getElementById("og-title");
+          if (ogTitle) {
+            ogTitle.setAttribute("content", t.title);
+          }
+          const ogDescription = document.getElementById("og-description");
+          if (ogDescription) {
+            ogDescription.setAttribute("content", t.ogDescription);
+          }
+          const ogLocale = document.getElementById("og-locale");
+          if (ogLocale) {
+            ogLocale.setAttribute("content", t.locale);
+          }
+        } catch (e) {
+          console.error("Error setting language metadata:", e);
+        }
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        try {
+          const theme = localStorage.getItem("theme");
+          if (
+            theme === "dark" ||
+            (theme === "system" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+          ) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

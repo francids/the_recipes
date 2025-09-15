@@ -1,0 +1,56 @@
+---
+import { t, type Language } from '../utils/i18n';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'es' } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-zinc-900 text-zinc-300 py-12 px-8">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div class="text-center md:text-left">
+        <div class="flex items-center justify-center md:justify-start mb-4">
+          <img src="/Logo.svg" alt="The Recipes" width="40" height="40" class="mr-2" />
+          <span class="text-xl font-bold text-white">The Recipes</span>
+        </div>
+        <p class="text-sm text-zinc-400">
+          Your digital cookbook for organizing and sharing recipes.
+        </p>
+      </div>
+      
+      <div class="text-center">
+        <h3 class="text-lg font-semibold text-white mb-4">Links</h3>
+        <div class="space-y-2">
+          <div><a href="/" class="text-zinc-400 hover:text-white transition-colors">Home</a></div>
+          <div><a href="/privacy" class="text-zinc-400 hover:text-white transition-colors">Privacy</a></div>
+          <div><a href="https://github.com/francids/the_recipes" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-white transition-colors">GitHub</a></div>
+        </div>
+      </div>
+      
+      <div class="text-center md:text-right">
+        <h3 class="text-lg font-semibold text-white mb-4">Download</h3>
+        <a
+          href="https://github.com/francids/the_recipes/releases/latest/download/app-release.apk"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-main hover:bg-orange-600 text-white rounded-md transition-colors text-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+            <path d="M40-240q9-107 65.5-197T256-580l-74-128q-6-9-3-19t13-15q8-5 18-2t16 12l74 128q86-36 180-36t180 36l74-128q6-9 16-12t18 2q10 5 13 15t-3 19l-74 128q94 53 150.5 143T920-240H40Zm240-110q21 0 35.5-14.5T330-400q0-21-14.5-35.5T280-450q-21 0-35.5 14.5T230-400q0 21 14.5 35.5T280-350Zm400 0q21 0 35.5-14.5T730-400q0-21-14.5-35.5T680-450q-21 0-35.5 14.5T630-400q0 21 14.5 35.5T680-350Z"/>
+          </svg>
+          Android APK
+        </a>
+      </div>
+    </div>
+    
+    <div class="border-t border-zinc-800 pt-8 text-center">
+      <p class="text-sm text-zinc-500">
+        © {currentYear} The Recipes. Made with ❤️ by Francis.
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,52 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "privacy": "Privacy"
+  },
+  "HeroSection": {
+    "title": "Your digital recipe book",
+    "description": "Store, organize, and easily find all your favorite recipes in one place. Now available for Android!",
+    "download": "Download now"
+  },
+  "FeaturesSection": {
+    "title": "What we offer",
+    "feature1_title": "Works locally by default",
+    "feature1_description": "App works offline on your device. Sign in optionally for cloud sync, AI features, and sharing.",
+    "feature3_title": "Dark mode",
+    "feature3_description": "Beautiful dark theme designed specifically for cooking in low-light environments and nighttime meal preparation.",
+    "feature4_title": "Share recipes via link",
+    "feature4_description": "Generate unique links to share your favorite recipes. Users can access the link from any device and the app will automatically open displaying the complete recipe with all ingredients and instructions.",
+    "feature5_title": "AI recipe generation",
+    "feature5_description": "Take a photo of any dish and our artificial intelligence will analyze the image to generate a complete recipe. The AI identifies visible ingredients and suggests preparation methods based on visual analysis of the dish.",
+    "feature6_title": "Multi-language Support",
+    "feature6_description": "The app is available in multiple languages including English, Spanish, French, German, and more to cater to users worldwide."
+  },
+  "CTASection": {
+    "title": "Available now!",
+    "description": "The Recipes App is now available for Android. Download the app and start organizing your favorite recipes today.",
+    "download_now": "Download now",
+    "source_code": "Source code",
+    "discover_features": "Discover features"
+  },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "description": "Oops! This page has vanished like a recipe without ingredients."
+  },
+  "Footer": {
+    "tagline": "Your digital culinary assistant",
+    "section_recipes": "The Recipes",
+    "link_features": "Features",
+    "link_development": "Development",
+    "section_contact": "Contact",
+    "section_preferences": "Preferences",
+    "theme_label": "Current theme:",
+    "theme_light": "Light mode",
+    "theme_dark": "Dark mode",
+    "theme_system": "System mode",
+    "theme_toggle_to_dark": "Switch to dark mode",
+    "theme_toggle_to_system": "Switch to system mode",
+    "theme_toggle_to_light": "Switch to light mode",
+    "copyright": "© {{year}} The Recipes App. All rights reserved."
+  }
+}

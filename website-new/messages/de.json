@@ -1,0 +1,52 @@
+{
+  "Navbar": {
+    "home": "Startseite",
+    "privacy": "Datenschutz"
+  },
+  "HeroSection": {
+    "title": "Dein digitales Rezeptbuch",
+    "description": "Speichere, organisiere und finde all deine Lieblingsrezepte ganz einfach an einem Ort. Jetzt für Android verfügbar!",
+    "download": "Jetzt herunterladen"
+  },
+  "FeaturesSection": {
+    "title": "Was wir bieten",
+    "feature1_title": "Funktioniert standardmäßig lokal",
+    "feature1_description": "Die App funktioniert offline auf deinem Gerät. Optional anmelden für KI-Funktionen und Teilen.",
+    "feature3_title": "Dunkelmodus",
+    "feature3_description": "Wunderschönes dunkles Design speziell für das Kochen bei schlechten Lichtverhältnissen und nächtliche Essenszubereitung entwickelt.",
+    "feature4_title": "Rezepte per Link teilen",
+    "feature4_description": "Erstelle einzigartige Links zum Teilen deiner Lieblingsrezepte. Benutzer können den Link von jedem Gerät aus aufrufen und die App öffnet sich automatisch mit dem vollständigen Rezept inklusive aller Zutaten und Anweisungen.",
+    "feature5_title": "KI-Rezeptgenerierung",
+    "feature5_description": "Mache ein Foto von einem beliebigen Gericht und unsere künstliche Intelligenz analysiert das Bild, um ein vollständiges Rezept zu erstellen. Die KI identifiziert sichtbare Zutaten und schlägt Zubereitungsmethoden basierend auf der visuellen Analyse des Gerichts vor.",
+    "feature6_title": "Mehrsprachige Unterstützung",
+    "feature6_description": "Die App ist in mehreren Sprachen verfügbar, einschließlich Deutsch, Englisch, Spanisch, Französisch und mehr für Benutzer weltweit."
+  },
+  "CTASection": {
+    "title": "Jetzt verfügbar!",
+    "description": "Die Recipes App ist jetzt für Android verfügbar. Lade die App herunter und beginne noch heute, deine Lieblingsrezepte zu organisieren.",
+    "download_now": "Jetzt herunterladen",
+    "source_code": "Quellcode",
+    "discover_features": "Funktionen entdecken"
+  },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Seite nicht gefunden",
+    "description": "Ups! Diese Seite ist verschwunden wie ein Rezept ohne Zutaten."
+  },
+  "Footer": {
+    "tagline": "Dein digitaler Kochassistent",
+    "section_recipes": "The Recipes",
+    "link_features": "Funktionen",
+    "link_development": "Entwicklung",
+    "section_contact": "Kontakt",
+    "section_preferences": "Einstellungen",
+    "theme_label": "Aktuelles Design:",
+    "theme_light": "Heller Modus",
+    "theme_dark": "Dunkler Modus",
+    "theme_system": "Systemmodus",
+    "theme_toggle_to_dark": "Zum dunklen Modus wechseln",
+    "theme_toggle_to_system": "Zum Systemmodus wechseln",
+    "theme_toggle_to_light": "Zum hellen Modus wechseln",
+    "copyright": "© {{year}} The Recipes App. Alle Rechte vorbehalten."
+  }
+}

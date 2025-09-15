@@ -1,0 +1,50 @@
+---
+import { t, type Language } from '../utils/i18n';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+---
+
+<section id="features" class="py-20 px-5 bg-white dark:bg-gradient-to-b dark:from-zinc-900 dark:to-zinc-950 text-center flex flex-col items-center justify-center">
+  <h2 class="text-4xl font-bold mb-16 text-main relative animate-on-scroll">
+    {t("title", lang, "FeaturesSection")}
+    <span class="absolute bottom-[-1.5rem] left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-main rounded-md shadow-sm"></span>
+  </h2>
+
+  <div class="w-full xl:w-4/5 md:mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+        <div class="text-4xl mb-4">🤖</div>
+        <h3 class="text-xl font-semibold mb-2">{t("feature5_title", lang, "FeaturesSection")}</h3>
+        <p class="text-zinc-600 dark:text-zinc-400">{t("feature5_description", lang, "FeaturesSection")}</p>
+      </div>
+      
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+        <div class="text-4xl mb-4">🔄</div>
+        <h3 class="text-xl font-semibold mb-2">{t("feature4_title", lang, "FeaturesSection")}</h3>
+        <p class="text-zinc-600 dark:text-zinc-400">{t("feature4_description", lang, "FeaturesSection")}</p>
+      </div>
+      
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+        <div class="text-4xl mb-4">📱</div>
+        <h3 class="text-xl font-semibold mb-2">{t("feature1_title", lang, "FeaturesSection")}</h3>
+        <p class="text-zinc-600 dark:text-zinc-400">{t("feature1_description", lang, "FeaturesSection")}</p>
+      </div>
+      
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+        <div class="text-4xl mb-4">🌙</div>
+        <h3 class="text-xl font-semibold mb-2">{t("feature3_title", lang, "FeaturesSection")}</h3>
+        <p class="text-zinc-600 dark:text-zinc-400">{t("feature3_description", lang, "FeaturesSection")}</p>
+      </div>
+      
+      <div class="p-6 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+        <div class="text-4xl mb-4">🌐</div>
+        <h3 class="text-xl font-semibold mb-2">{t("feature6_title", lang, "FeaturesSection")}</h3>
+        <p class="text-zinc-600 dark:text-zinc-400">{t("feature6_description", lang, "FeaturesSection")}</p>
+      </div>
+    </div>
+  </div>
+</section>

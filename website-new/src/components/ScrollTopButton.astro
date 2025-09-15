@@ -1,0 +1,54 @@
+---
+// Simple scroll to top button component
+---
+
+<button
+  id="scroll-top-button"
+  class="fixed bottom-6 right-6 w-12 h-12 bg-main hover:bg-orange-600 text-white rounded-full shadow-lg transition-all duration-300 opacity-0 translate-y-4 pointer-events-none z-50"
+  aria-label="Scroll to top"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 mx-auto"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const scrollButton = document.getElementById('scroll-top-button');
+    let lastScrollY = 0;
+    let showScrollTop = false;
+
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 300 && !showScrollTop) {
+        showScrollTop = true;
+        scrollButton?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        scrollButton?.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      } else if (currentScrollY <= 300 && showScrollTop) {
+        showScrollTop = false;
+        scrollButton?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        scrollButton?.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+
+      lastScrollY = currentScrollY;
+    }
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    scrollButton?.addEventListener('click', scrollToTop);
+  });
+</script>

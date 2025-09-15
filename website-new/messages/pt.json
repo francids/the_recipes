@@ -1,0 +1,52 @@
+{
+  "Navbar": {
+    "home": "Início",
+    "privacy": "Privacidade"
+  },
+  "HeroSection": {
+    "title": "Seu livro de receitas digital",
+    "description": "Armazene, organize e encontre facilmente todas as suas receitas favoritas em um só lugar. Já disponível para Android!",
+    "download": "Baixar agora"
+  },
+  "FeaturesSection": {
+    "title": "O que oferecemos",
+    "feature1_title": "Funciona localmente por padrão",
+    "feature1_description": "O aplicativo funciona offline no seu dispositivo. Opcionalmente faça login para recursos de IA e compartilhamento.",
+    "feature3_title": "Modo escuro",
+    "feature3_description": "Lindo tema escuro projetado especificamente para cozinhar em ambientes com pouca luz e preparação noturna de refeições.",
+    "feature4_title": "Compartilhar receitas por link",
+    "feature4_description": "Gere links únicos para compartilhar suas receitas favoritas. Os usuários podem acessar o link de qualquer dispositivo e o aplicativo abrirá automaticamente exibindo a receita completa com todos os ingredientes e instruções.",
+    "feature5_title": "Geração de receitas com IA",
+    "feature5_description": "Tire uma foto de qualquer prato e nossa inteligência artificial analisará a imagem para gerar uma receita completa. A IA identifica ingredientes visíveis e sugere métodos de preparo baseados na análise visual do prato.",
+    "feature6_title": "Suporte Multilíngue",
+    "feature6_description": "O aplicativo está disponível em vários idiomas incluindo português, inglês, espanhol, francês e mais para usuários do mundo todo."
+  },
+  "CTASection": {
+    "title": "Já disponível!",
+    "description": "O The Recipes App já está disponível para Android. Baixe o aplicativo e comece a organizar suas receitas favoritas hoje mesmo.",
+    "download_now": "Baixar agora",
+    "source_code": "Código fonte",
+    "discover_features": "Descobrir funcionalidades"
+  },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Página não encontrada",
+    "description": "Ops! Esta página desapareceu como uma receita sem ingredientes."
+  },
+  "Footer": {
+    "tagline": "Seu assistente culinário digital",
+    "section_recipes": "The Recipes",
+    "link_features": "Funcionalidades",
+    "link_development": "Desenvolvimento",
+    "section_contact": "Contato",
+    "section_preferences": "Preferências",
+    "theme_label": "Tema atual:",
+    "theme_light": "Modo claro",
+    "theme_dark": "Modo escuro",
+    "theme_system": "Modo sistema",
+    "theme_toggle_to_dark": "Mudar para modo escuro",
+    "theme_toggle_to_system": "Mudar para modo sistema",
+    "theme_toggle_to_light": "Mudar para modo claro",
+    "copyright": "© {{year}} The Recipes App. Todos os direitos reservados."
+  }
+}
