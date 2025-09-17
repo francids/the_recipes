@@ -49,16 +49,17 @@ async function loadTranslations(locale: Locale): Promise<Translations> {
 }
 
 export function detectUserLocale(request: Request): Locale {
-  const cookies = request.headers.get("cookie");
-  if (cookies) {
-    const localeCookie = cookies
-      .split(";")
-      .find((c) => c.trim().startsWith("locale="));
-
-    if (localeCookie) {
-      const locale = localeCookie.split("=")[1] as Locale;
-      if (supportedLocales.includes(locale)) {
-        return locale;
+  const cookieHeader = request.headers.get("cookie");
+  if (cookieHeader) {
+    const cookies = cookieHeader.split(";");
+    for (const cookie of cookies) {
+      const [name, value] = cookie.trim().split("=");
+      if (
+        name === "locale" &&
+        value &&
+        supportedLocales.includes(value as Locale)
+      ) {
+        return value as Locale;
       }
     }
   }

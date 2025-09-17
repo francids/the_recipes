@@ -139,9 +139,7 @@ const currentName = languageNames[locale];
       const target = e.currentTarget as HTMLButtonElement;
       const language = target.dataset.language;
       if (language) {
-        document.cookie = `locale=${language}; max-age=${
-          60 * 60 * 24 * 365
-        }; path=/`;
+        document.cookie = `locale=${language};path=/;max-age=${60 * 60 * 24 * 365};SameSite=Lax`;
         window.location.reload();
       }
     });

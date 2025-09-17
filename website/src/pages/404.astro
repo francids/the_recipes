@@ -8,13 +8,6 @@ import {
 
 const locale: Locale = detectUserLocale(Astro.request);
 const t = await createTranslationHelper(locale);
-
-Astro.cookies.set("locale", locale, {
-  maxAge: 60 * 60 * 24 * 365,
-  httpOnly: false,
-  secure: true,
-  sameSite: "strict",
-});
 ---
 
 <Layout client:load>

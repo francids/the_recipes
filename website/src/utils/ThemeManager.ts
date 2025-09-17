@@ -7,7 +7,22 @@ export class ThemeManager implements ThemeManagerType {
 
   init(): void {
     try {
-      const storedTheme = localStorage.getItem("theme");
+      function getCookie(name: string): string | null {
+        const nameEQ = name + "=";
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          let cookie = cookies[i];
+          while (cookie.charAt(0) === " ") {
+            cookie = cookie.substring(1, cookie.length);
+          }
+          if (cookie.indexOf(nameEQ) === 0) {
+            return cookie.substring(nameEQ.length, cookie.length);
+          }
+        }
+        return null;
+      }
+
+      const storedTheme = getCookie("theme");
       this.theme =
         storedTheme && ["light", "dark", "system"].includes(storedTheme)
           ? (storedTheme as Theme)
@@ -33,11 +48,15 @@ export class ThemeManager implements ThemeManagerType {
 
     if (isDark) {
       document.documentElement.classList.add("dark");
+      document.documentElement.style.backgroundColor = "#18181b";
     } else {
       document.documentElement.classList.remove("dark");
+      document.documentElement.style.backgroundColor = "#fafafa";
     }
 
-    localStorage.setItem("theme", currentTheme);
+    document.cookie = `theme=${currentTheme};path=/;max-age=${
+      60 * 60 * 24 * 365
+    };SameSite=Lax`;
     this.notifyListeners();
   }
 
@@ -63,8 +82,10 @@ export class ThemeManager implements ThemeManagerType {
 
         if (isDark) {
           document.documentElement.classList.add("dark");
+          document.documentElement.style.backgroundColor = "#18181b";
         } else {
           document.documentElement.classList.remove("dark");
+          document.documentElement.style.backgroundColor = "#fafafa";
         }
 
         this.notifyListeners();
