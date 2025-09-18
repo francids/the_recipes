@@ -111,11 +111,25 @@ export async function t(
 
 export async function createTranslationHelper(
   locale: Locale
-): Promise<(key: string, fallback?: string) => string> {
+): Promise<
+  (key: string, fallback?: string, params?: Record<string, string>) => string
+> {
   const translations = await loadTranslations(locale);
 
-  return function translate(key: string, fallback: string = key): string {
-    return getNestedTranslation(translations, key) || fallback;
+  return function translate(
+    key: string,
+    fallback: string = key,
+    params?: Record<string, string>
+  ): string {
+    let result = getNestedTranslation(translations, key) || fallback;
+
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        result = result.replace(new RegExp(`{{${key}}}`, "g"), value);
+      });
+    }
+
+    return result;
   };
 }
 
