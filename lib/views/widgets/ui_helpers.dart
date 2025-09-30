@@ -1,8 +1,8 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
-import "package:get/get.dart";
 import "package:lottie/lottie.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/widgets/pressable_button.dart";
 
 class UIHelpers {
@@ -114,7 +114,7 @@ class UIHelpers {
                     Expanded(
                       child: PressableButton(
                         child: TextButton(
-                          onPressed: () => Get.back(),
+                          onPressed: () => Navigator.of(context).pop(),
                           child: Text("ui_helpers.cancel".tr),
                         ),
                       ),
@@ -127,7 +127,7 @@ class UIHelpers {
                       child: PressableButton(
                         child: FilledButton(
                           onPressed: () {
-                            Get.back();
+                            Navigator.of(context).pop();
                             confirmAction();
                           },
                           child: Text("ui_helpers.confirm".tr),

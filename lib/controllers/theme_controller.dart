@@ -1,96 +1,128 @@
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:the_recipes/hive_boxes.dart";
 
-class ThemeController extends GetxController {
+class ThemeState {
+  final bool isDarkMode;
+  final bool followSystemTheme;
+
+  ThemeState({
+    required this.isDarkMode,
+    required this.followSystemTheme,
+  });
+
+  ThemeState copyWith({
+    bool? isDarkMode,
+    bool? followSystemTheme,
+  }) {
+    return ThemeState(
+      isDarkMode: isDarkMode ?? this.isDarkMode,
+      followSystemTheme: followSystemTheme ?? this.followSystemTheme,
+    );
+  }
+}
+
+class ThemeController extends Notifier<ThemeState> {
   static const themeKey = "dark_theme";
   static const followSystemThemeKey = "follow_system_theme";
 
-  bool _isDarkMode = false;
-  bool _followSystemTheme = true;
-
-  bool get isDarkMode => _isDarkMode;
-  bool get followSystemTheme => _followSystemTheme;
-
   @override
-  void onInit() {
-    super.onInit();
-    loadTheme();
+  ThemeState build() {
+    _initializeTheme();
+    return _getInitialTheme();
   }
 
-  void loadTheme() async {
+  ThemeState _getInitialTheme() {
+    try {
+      if (Hive.isBoxOpen(settingsBox)) {
+        final box = Hive.box(settingsBox);
+        final followSystemTheme =
+            box.get(followSystemThemeKey, defaultValue: true);
+        var isDarkMode = box.get(themeKey, defaultValue: false);
+
+        if (followSystemTheme) {
+          final brightness =
+              WidgetsBinding.instance.platformDispatcher.platformBrightness;
+          isDarkMode = brightness == Brightness.dark;
+        }
+
+        return ThemeState(
+          isDarkMode: isDarkMode,
+          followSystemTheme: followSystemTheme,
+        );
+      }
+    } catch (e) {
+      print("Error getting initial theme: $e");
+    }
+
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    return ThemeState(
+      isDarkMode: brightness == Brightness.dark,
+      followSystemTheme: true,
+    );
+  }
+
+  void _initializeTheme() async {
+    await loadTheme();
+  }
+
+  Future<void> loadTheme() async {
     try {
       if (!Hive.isBoxOpen(settingsBox)) {
         await Hive.openBox(settingsBox);
       }
 
       final box = Hive.box(settingsBox);
+      final followSystemTheme =
+          box.get(followSystemThemeKey, defaultValue: true);
+      var isDarkMode = box.get(themeKey, defaultValue: false);
 
-      _followSystemTheme = box.get(followSystemThemeKey, defaultValue: true);
-      _isDarkMode = box.get(themeKey, defaultValue: false);
-
-      if (_followSystemTheme) {
-        _isDarkMode = Get.isPlatformDarkMode;
+      if (followSystemTheme) {
+        final brightness =
+            WidgetsBinding.instance.platformDispatcher.platformBrightness;
+        isDarkMode = brightness == Brightness.dark;
       }
 
-      update();
-      applyTheme();
+      state = ThemeState(
+        isDarkMode: isDarkMode,
+        followSystemTheme: followSystemTheme,
+      );
     } catch (e) {
       print("Error loading theme: $e");
-      _followSystemTheme = true;
-      _isDarkMode = Get.isPlatformDarkMode;
-      update();
-      applyTheme();
     }
   }
 
-  void toggleTheme() async {
-    if (_followSystemTheme) return;
+  void setDarkMode(bool isDark) async {
+    state = state.copyWith(isDarkMode: isDark);
+    await _saveTheme();
+  }
 
-    _isDarkMode = !_isDarkMode;
-    update();
+  void setFollowSystemTheme(bool follow) async {
+    state = state.copyWith(followSystemTheme: follow);
 
+    if (follow) {
+      final brightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      state = state.copyWith(isDarkMode: brightness == Brightness.dark);
+    }
+
+    await _saveTheme();
+  }
+
+  Future<void> _saveTheme() async {
     try {
-      if (!Hive.isBoxOpen(settingsBox)) {
-        await Hive.openBox(settingsBox);
-      }
-
       final box = Hive.box(settingsBox);
-      await box.put(themeKey, _isDarkMode);
-
-      applyTheme();
+      await box.put(themeKey, state.isDarkMode);
+      await box.put(followSystemThemeKey, state.followSystemTheme);
     } catch (e) {
       print("Error saving theme: $e");
     }
   }
-
-  void setFollowSystemTheme(bool value) async {
-    _followSystemTheme = value;
-
-    if (_followSystemTheme) {
-      _isDarkMode = Get.isPlatformDarkMode;
-    }
-    update();
-
-    try {
-      if (!Hive.isBoxOpen(settingsBox)) {
-        await Hive.openBox(settingsBox);
-      }
-      final box = Hive.box(settingsBox);
-      await box.put(followSystemThemeKey, _followSystemTheme);
-
-      applyTheme();
-    } catch (e) {
-      print("Error saving follow system theme setting: $e");
-    }
-  }
-
-  void applyTheme() {
-    if (_followSystemTheme) {
-      Get.changeThemeMode(ThemeMode.system);
-    } else {
-      Get.changeThemeMode(_isDarkMode ? ThemeMode.dark : ThemeMode.light);
-    }
-  }
 }
+
+final themeControllerProvider =
+    NotifierProvider<ThemeController, ThemeState>(() {
+  return ThemeController();
+});

@@ -1,50 +1,86 @@
+import "dart:async";
 import "dart:io";
 
 import "package:flutter/material.dart";
 import "package:flutter_easyloading/flutter_easyloading.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/services/sync_service.dart";
 import "package:uuid/uuid.dart";
 
-class RecipeController extends GetxController {
-  final uuid = Uuid();
-  final AuthController authController = Get.find<AuthController>();
+class RecipeState {
+  final List<Recipe> recipes;
+  final bool isLoading;
 
-  final RxList<Recipe> recipes = <Recipe>[].obs;
-  bool _isLoading = false;
+  RecipeState({
+    required this.recipes,
+    this.isLoading = false,
+  });
+
+  RecipeState copyWith({
+    List<Recipe>? recipes,
+    bool? isLoading,
+  }) {
+    return RecipeState(
+      recipes: recipes ?? this.recipes,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+}
+
+class RecipeController extends Notifier<RecipeState> {
+  final uuid = Uuid();
 
   @override
-  void onInit() {
-    super.onInit();
-    getRecipes();
+  RecipeState build() {
+    List<Recipe> initialRecipes = [];
+    try {
+      if (Hive.isBoxOpen(recipesBox)) {
+        final box = Hive.box<Recipe>(recipesBox);
+        initialRecipes = box.values.toList();
+      }
+    } catch (e) {
+      debugPrint("Error loading initial recipes: $e");
+    }
+
+    Future.microtask(() => getRecipes());
+
+    return RecipeState(recipes: initialRecipes);
   }
 
   void refreshRecipes() async {
-    if (!_isLoading) {
+    if (!state.isLoading) {
       getRecipes();
     }
   }
 
   void getRecipes() async {
-    if (_isLoading) return;
+    if (state.isLoading) return;
 
     try {
-      _isLoading = true;
-      EasyLoading.show(status: "recipe_controller.loading_recipes".tr);
+      state = state.copyWith(isLoading: true);
 
+      // Solo mostrar loading si no hay recetas cargadas
+      if (state.recipes.isEmpty) {
+        EasyLoading.show(status: "recipe_controller.loading_recipes".tr);
+      }
+
+      if (!Hive.isBoxOpen(recipesBox)) {
+        await Hive.openBox<Recipe>(recipesBox);
+      }
       final box = Hive.box<Recipe>(recipesBox);
 
-      recipes.assignAll(box.values.toList());
+      state = state.copyWith(recipes: box.values.toList());
     } catch (e) {
       EasyLoading.showError("recipe_controller.load_error".trParams({
         "0": e.toString(),
       }));
     } finally {
-      _isLoading = false;
+      state = state.copyWith(isLoading: false);
       EasyLoading.dismiss();
     }
   }
@@ -58,6 +94,10 @@ class RecipeController extends GetxController {
     int preparationTime,
   ) async {
     try {
+      final authState = ref.read(authControllerProvider);
+      if (!Hive.isBoxOpen(recipesBox)) {
+        await Hive.openBox<Recipe>(recipesBox);
+      }
       var box = Hive.box<Recipe>(recipesBox);
       String id = const Uuid().v4();
 
@@ -69,19 +109,21 @@ class RecipeController extends GetxController {
         ingredients: ingredients,
         directions: directions,
         preparationTime: preparationTime,
-        ownerId: authController.isLoggedIn ? authController.user!.$id : "",
+        ownerId: authState.isLoggedIn ? authState.user!.$id : "",
         isPublic: false,
         cloudId: null,
       );
 
       await box.put(id, recipe);
-      recipes.add(recipe);
-      update();
+      final currentRecipes = List<Recipe>.from(state.recipes);
+      currentRecipes.add(recipe);
+      state = state.copyWith(recipes: currentRecipes);
 
-      if (authController.isLoggedIn && authController.autoSyncEnabled) {
+      if (authState.isLoggedIn && authState.autoSyncEnabled) {
         try {
-          await SyncService.syncRecipesToCloud();
-          update();
+          final syncService = SyncService(authState);
+          await syncService.syncRecipesToCloud();
+          getRecipes();
         } catch (e) {
           EasyLoading.showError("recipe_controller.sync_error".trParams({
             "0": e.toString(),
@@ -97,19 +139,23 @@ class RecipeController extends GetxController {
 
   Future<void> addSharedRecipe(Recipe sharedRecipe) async {
     try {
+      final authState = ref.read(authControllerProvider);
+      if (!Hive.isBoxOpen(recipesBox)) {
+        await Hive.openBox<Recipe>(recipesBox);
+      }
       var box = Hive.box<Recipe>(recipesBox);
       String id = const Uuid().v4();
 
-      String localImagePath = sharedRecipe.image;
+      String localImagePath = sharedRecipe.image!;
 
-      if (sharedRecipe.image.isNotEmpty &&
-          sharedRecipe.image.startsWith("http")) {
+      if (sharedRecipe.image!.isNotEmpty &&
+          sharedRecipe.image!.startsWith("http")) {
         try {
           localImagePath = await SyncService.downloadSharedRecipeImage(
-              sharedRecipe.image, id);
+              sharedRecipe.image!, id);
         } catch (e) {
           debugPrint("Error downloading shared recipe image: $e");
-          localImagePath = sharedRecipe.image;
+          localImagePath = sharedRecipe.image!;
         }
       }
 
@@ -121,19 +167,21 @@ class RecipeController extends GetxController {
         ingredients: sharedRecipe.ingredients,
         directions: sharedRecipe.directions,
         preparationTime: sharedRecipe.preparationTime,
-        ownerId: authController.isLoggedIn ? authController.user!.$id : "",
+        ownerId: authState.isLoggedIn ? authState.user!.$id : "",
         isPublic: false,
         cloudId: null,
       );
 
       await box.put(id, recipe);
-      recipes.add(recipe);
-      update();
+      final currentRecipes = List<Recipe>.from(state.recipes);
+      currentRecipes.add(recipe);
+      state = state.copyWith(recipes: currentRecipes);
 
-      if (authController.isLoggedIn && authController.autoSyncEnabled) {
+      if (authState.isLoggedIn && authState.autoSyncEnabled) {
         try {
-          await SyncService.syncRecipesToCloud();
-          update();
+          final syncService = SyncService(authState);
+          await syncService.syncRecipesToCloud();
+          getRecipes();
         } catch (e) {
           EasyLoading.showError("recipe_controller.sync_error".trParams({
             "0": e.toString(),
@@ -156,6 +204,9 @@ class RecipeController extends GetxController {
     bool? isPublic,
   }) async {
     try {
+      if (!Hive.isBoxOpen(recipesBox)) {
+        await Hive.openBox<Recipe>(recipesBox);
+      }
       var box = Hive.box<Recipe>(recipesBox);
 
       if (box.containsKey(id)) {
@@ -171,16 +222,16 @@ class RecipeController extends GetxController {
 
         await box.put(id, recipe);
 
-        int index = recipes.indexWhere((r) => r.id == id);
+        final currentRecipes = List<Recipe>.from(state.recipes);
+        int index = currentRecipes.indexWhere((r) => r.id == id);
         if (index != -1) {
-          recipes[index] = recipe;
+          currentRecipes[index] = recipe;
+          state = state.copyWith(recipes: currentRecipes);
         }
       } else {
         EasyLoading.showError("recipe_controller.recipe_not_found".tr);
         return;
       }
-
-      update();
     } catch (e) {
       EasyLoading.showError("recipe_controller.update_error".trParams({
         "0": e.toString(),
@@ -190,23 +241,30 @@ class RecipeController extends GetxController {
 
   Future<void> deleteRecipe(String id, String image) async {
     try {
+      final authState = ref.read(authControllerProvider);
+      if (!Hive.isBoxOpen(recipesBox)) {
+        await Hive.openBox<Recipe>(recipesBox);
+      }
       var box = Hive.box<Recipe>(recipesBox);
 
       if (box.containsKey(id)) {
         final recipe = box.get(id)!;
 
-        if (authController.isLoggedIn &&
+        if (authState.isLoggedIn &&
             recipe.cloudId != null &&
             recipe.cloudId!.isNotEmpty) {
           try {
-            await SyncService.deleteRecipeFromCloud(id);
+            final syncService = SyncService(authState);
+            await syncService.deleteRecipeFromCloud(id);
           } catch (e) {
             debugPrint("Error deleting recipe from cloud: $e");
           }
         }
 
         await box.delete(id);
-        recipes.removeWhere((recipe) => recipe.id == id);
+        final currentRecipes = List<Recipe>.from(state.recipes);
+        currentRecipes.removeWhere((recipe) => recipe.id == id);
+        state = state.copyWith(recipes: currentRecipes);
       } else {
         EasyLoading.showError("recipe_controller.recipe_not_found".tr);
         return;
@@ -225,8 +283,6 @@ class RecipeController extends GetxController {
           }));
         }
       }
-
-      update();
     } catch (e) {
       EasyLoading.showError("recipe_controller.delete_error".trParams({
         "0": e.toString(),
@@ -235,6 +291,14 @@ class RecipeController extends GetxController {
   }
 
   List<Recipe> getAllRecipesForExport() {
+    if (!Hive.isBoxOpen(recipesBox)) {
+      Hive.openBox<Recipe>(recipesBox);
+    }
     return Hive.box<Recipe>(recipesBox).values.toList();
   }
 }
+
+final recipeControllerProvider =
+    NotifierProvider<RecipeController, RecipeState>(() {
+  return RecipeController();
+});

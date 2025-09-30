@@ -1,15 +1,16 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 
-class ProfileInfoScreen extends StatelessWidget {
+class ProfileInfoScreen extends ConsumerWidget {
   const ProfileInfoScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
@@ -17,12 +18,13 @@ class ProfileInfoScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("profile_info_screen.title".tr),
         leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(CupertinoIcons.back),
         ),
       ),
-      body: GetBuilder<AuthController>(
-        builder: (controller) {
+      body: Consumer(
+        builder: (context, ref, child) {
+          final controller = ref.watch(authControllerProvider);
           if (!controller.isLoggedIn) {
             return _buildNotSignedInView(context);
           }
@@ -175,7 +177,7 @@ class ProfileInfoScreen extends StatelessWidget {
                       CupertinoIcons.chevron_right,
                       color: Colors.red,
                     ),
-                    onTap: () => _showDeleteAccountDialog(context, controller),
+                    onTap: () => _showDeleteAccountDialog(context, ref),
                   ),
                 )
                     .animate()
@@ -191,7 +193,9 @@ class ProfileInfoScreen extends StatelessWidget {
   }
 
   void _showDeleteAccountDialog(
-      BuildContext context, AuthController controller) {
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     UIHelpers.showConfirmationDialog(
       context: context,
       title: "profile_info_screen.confirm_delete_title".tr,
@@ -199,10 +203,11 @@ class ProfileInfoScreen extends StatelessWidget {
           "profile_info_screen.confirm_delete_enhanced_message_with_reauth".tr,
       lottieAsset: "assets/lottie/delete.json",
       confirmAction: () {
-        Get.back();
-        controller.deleteAccount().then((_) {
-          if (!controller.isLoggedIn) {
-            Get.back();
+        Navigator.of(context).pop();
+        final authController = ref.read(authControllerProvider.notifier);
+        authController.deleteAccount().then((_) {
+          if (!authController.build().isLoggedIn) {
+            Navigator.of(context).pop();
           }
         });
       },

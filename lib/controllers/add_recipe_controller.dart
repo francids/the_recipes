@@ -1,55 +1,137 @@
 import "dart:io";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:image_picker/image_picker.dart";
 import "package:path_provider/path_provider.dart";
 import "package:path/path.dart" as path;
 import "package:the_recipes/controllers/recipe_controller.dart";
 
-class AddRecipeController extends GetxController {
-  final RecipeController recipeController = Get.find<RecipeController>();
+class AddRecipeState {
+  final String title;
+  final String description;
+  final List<String> ingredientsList;
+  final List<String> directionsList;
+  final String fullPath;
+  final int preparationTime; // in seconds
+  final bool isRecipeGenerated;
+  final String generationError;
+  final String? fileName;
+  final File? image;
 
-  final RxString title = "".obs;
-  final RxString description = "".obs;
-  final RxList<String> ingredientsList = <String>[].obs;
-  final RxList<String> directionsList = <String>[].obs;
-  final RxString fullPath = "".obs;
-  final RxInt preparationTime = 0.obs; // in seconds
+  AddRecipeState({
+    this.title = "",
+    this.description = "",
+    this.ingredientsList = const [],
+    this.directionsList = const [],
+    this.fullPath = "",
+    this.preparationTime = 0,
+    this.isRecipeGenerated = false,
+    this.generationError = "",
+    this.fileName,
+    this.image,
+  });
 
-  final RxBool isRecipeGenerated = false.obs;
-  final RxString generationError = ''.obs;
+  AddRecipeState copyWith({
+    String? title,
+    String? description,
+    List<String>? ingredientsList,
+    List<String>? directionsList,
+    String? fullPath,
+    int? preparationTime,
+    bool? isRecipeGenerated,
+    String? generationError,
+    String? fileName,
+    File? image,
+  }) {
+    return AddRecipeState(
+      title: title ?? this.title,
+      description: description ?? this.description,
+      ingredientsList: ingredientsList ?? this.ingredientsList,
+      directionsList: directionsList ?? this.directionsList,
+      fullPath: fullPath ?? this.fullPath,
+      preparationTime: preparationTime ?? this.preparationTime,
+      isRecipeGenerated: isRecipeGenerated ?? this.isRecipeGenerated,
+      generationError: generationError ?? this.generationError,
+      fileName: fileName ?? this.fileName,
+      image: image ?? this.image,
+    );
+  }
+}
 
-  String? fileName;
-  File? image;
+class AddRecipeController extends Notifier<AddRecipeState> {
+  @override
+  AddRecipeState build() {
+    return AddRecipeState();
+  }
+
+  void updateTitle(String title) {
+    state = state.copyWith(title: title);
+  }
+
+  void updateDescription(String description) {
+    state = state.copyWith(description: description);
+  }
+
+  void updateIngredients(List<String> ingredients) {
+    state = state.copyWith(ingredientsList: ingredients);
+  }
+
+  void updateDirections(List<String> directions) {
+    state = state.copyWith(directionsList: directions);
+  }
+
+  void updatePreparationTime(int time) {
+    state = state.copyWith(preparationTime: time);
+  }
+
+  void setRecipeGenerated(bool generated) {
+    state = state.copyWith(isRecipeGenerated: generated);
+  }
+
+  void setGenerationError(String error) {
+    state = state.copyWith(generationError: error);
+  }
 
   void setImagePath(XFile file) {
-    fileName = DateTime.now().toString().replaceAll(" ", "") + file.name;
-    fullPath.value = file.path;
-    image = File(file.path);
+    final fileName = DateTime.now().toString().replaceAll(" ", "") + file.name;
+    state = state.copyWith(
+      fileName: fileName,
+      fullPath: file.path,
+      image: File(file.path),
+    );
   }
 
   Future<void> saveImageLocally() async {
-    if (image == null) return;
+    if (state.image == null) return;
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String imagesPath = path.join(appDocDir.path, "recipe-images");
     Directory imagesDir = Directory(imagesPath);
     if (!await imagesDir.exists()) {
       await imagesDir.create(recursive: true);
     }
-    String finalImagePath = path.join(imagesPath, fileName!);
-    await image!.copy(finalImagePath);
-    fullPath.value = finalImagePath;
+    String finalImagePath = path.join(imagesPath, state.fileName!);
+    await state.image!.copy(finalImagePath);
+    state = state.copyWith(fullPath: finalImagePath);
   }
 
   Future<void> addRecipe() async {
     await saveImageLocally();
 
-    await recipeController.addRecipe(
-      title.value,
-      description.value,
-      fullPath.value,
-      List<String>.from(ingredientsList),
-      List<String>.from(directionsList),
-      preparationTime.value, // already in seconds
-    );
+    await ref.read(recipeControllerProvider.notifier).addRecipe(
+          state.title,
+          state.description,
+          state.fullPath,
+          List<String>.from(state.ingredientsList),
+          List<String>.from(state.directionsList),
+          state.preparationTime,
+        );
+  }
+
+  void resetState() {
+    state = AddRecipeState();
   }
 }
+
+final addRecipeControllerProvider =
+    NotifierProvider<AddRecipeController, AddRecipeState>(() {
+  return AddRecipeController();
+});

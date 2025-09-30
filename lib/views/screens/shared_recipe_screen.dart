@@ -1,13 +1,14 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/controllers/share_recipe_controller.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/views/widgets/common_recipe_view.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 
-class SharedRecipeScreen extends StatelessWidget {
+class SharedRecipeScreen extends ConsumerWidget {
   const SharedRecipeScreen({
     super.key,
     required this.recipe,
@@ -16,27 +17,25 @@ class SharedRecipeScreen extends StatelessWidget {
   final Recipe recipe;
 
   @override
-  Widget build(BuildContext context) {
-    final RecipeController recipeController = Get.find<RecipeController>();
-    final ShareRecipeController shareRecipeController =
-        Get.find<ShareRecipeController>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final shareController = ref.watch(shareRecipeControllerProvider.notifier);
 
     final bool recipeExistsLocally =
-        shareRecipeController.isRecipeAlreadySaved(recipe);
+        shareController.isRecipeAlreadySaved(recipe);
 
     return Scaffold(
       appBar: AppBar(
         title: Text("shared_recipe.title".tr),
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            Navigator.of(context).pop();
           },
           icon: const Icon(CupertinoIcons.back),
         ),
         actions: [
           if (!recipeExistsLocally)
             IconButton(
-              onPressed: () => _saveRecipeLocally(context, recipeController),
+              onPressed: () => _saveRecipeLocally(context, ref),
               icon: const Icon(CupertinoIcons.download_circle),
               tooltip: "shared_recipe.save_locally".tr,
             ),
@@ -63,7 +62,7 @@ class SharedRecipeScreen extends StatelessWidget {
 
   Future<void> _saveRecipeLocally(
     BuildContext context,
-    RecipeController recipeController,
+    WidgetRef ref,
   ) async {
     try {
       UIHelpers.showLoadingDialog(
@@ -73,18 +72,18 @@ class SharedRecipeScreen extends StatelessWidget {
         lottieAsset: "assets/lottie/save_file.json",
       );
 
-      await recipeController.addSharedRecipe(recipe);
+      await ref.read(recipeControllerProvider.notifier).addSharedRecipe(recipe);
 
-      Get.back();
+      Navigator.of(context).pop();
 
       UIHelpers.showSuccessSnackbar(
         "shared_recipe.save_success".tr,
         context,
       );
 
-      Get.back();
+      Navigator.of(context).pop();
     } catch (e) {
-      Get.back();
+      Navigator.of(context).pop();
       UIHelpers.showErrorSnackbar(
         "shared_recipe.save_error".trParams({"0": e.toString()}),
         context,

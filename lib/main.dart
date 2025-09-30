@@ -1,15 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:the_recipes/app.dart";
-import "package:the_recipes/controllers/auth_controller.dart";
-import "package:the_recipes/controllers/favorites_controller.dart";
-import "package:the_recipes/controllers/language_controller.dart";
-import "package:the_recipes/controllers/recipe_controller.dart";
-import "package:the_recipes/controllers/share_recipe_controller.dart";
-import "package:the_recipes/controllers/theme_controller.dart";
-import "package:the_recipes/controllers/view_option_controller.dart";
 import "package:the_recipes/appwrite_config.dart";
 import "package:the_recipes/easy_loading_config.dart";
 import "package:the_recipes/hive/hive_adapters.dart";
@@ -38,17 +31,11 @@ void main() async {
     ],
   );
 
-  Get.lazyPut(() => RecipeController());
-  Get.put(AuthController());
-  Get.put(ThemeController());
-  Get.put(LanguageController());
-  Get.put(FavoritesController());
-  Get.put(ViewOptionController());
-  Get.put(ShareRecipeController());
-
   configureEasyLoading();
 
   runApp(
-    const TheRecipesApp(),
+    const ProviderScope(
+      child: TheRecipesApp(),
+    ),
   );
 }

@@ -1,25 +1,24 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
 import "package:the_recipes/env/env.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/widgets/settings/language_bottom_sheet.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Get.put(ProfileController());
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text("settings_screen.title".tr),
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            Navigator.of(context).pop();
           },
           icon: const Icon(CupertinoIcons.back),
         ),
@@ -52,7 +51,7 @@ class SettingsScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.displayMedium,
             ).animate().fadeIn(delay: 200.ms, duration: 300.ms),
             const SizedBox(height: 16),
-            _buildDataCard(context)
+            _buildDataCard(context, ref)
                 .animate()
                 .fadeIn(delay: 250.ms, duration: 300.ms),
             const SizedBox(height: 32),
@@ -72,19 +71,21 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildThemeCard(BuildContext context) {
-    return Card(
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: GetBuilder<ThemeController>(
-        builder: (controller) {
-          return Column(
+    return Consumer(
+      builder: (context, ref, child) {
+        final themeState = ref.watch(themeControllerProvider);
+        final themeController = ref.read(themeControllerProvider.notifier);
+        return Card(
+          elevation: 0,
+          margin: EdgeInsets.zero,
+          clipBehavior: Clip.antiAlias,
+          child: Column(
             children: [
               SwitchListTile(
                 title: Text(
                   "settings_screen.dark_theme".tr,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: controller.followSystemTheme
+                        color: themeState.followSystemTheme
                             ? Theme.of(context).colorScheme.outline
                             : null,
                       ),
@@ -95,21 +96,21 @@ class SettingsScreen extends StatelessWidget {
                         color: Theme.of(context).colorScheme.outline,
                       ),
                 ),
-                value: controller.isDarkMode,
-                onChanged: controller.followSystemTheme
+                value: themeState.isDarkMode,
+                onChanged: themeState.followSystemTheme
                     ? null
                     : (value) {
-                        controller.toggleTheme();
+                        themeController.setDarkMode(value);
                       },
                 secondary: Icon(
-                  controller.isDarkMode
+                  themeState.isDarkMode
                       ? CupertinoIcons.moon_fill
                       : CupertinoIcons.sun_max_fill,
-                  color: controller.followSystemTheme
+                  color: themeState.followSystemTheme
                       ? Theme.of(context).colorScheme.outline
                       : Theme.of(context).colorScheme.primary,
                 ),
-                activeThumbColor: controller.followSystemTheme
+                activeThumbColor: themeState.followSystemTheme
                     ? Theme.of(context).colorScheme.outline
                     : null,
               ),
@@ -125,9 +126,9 @@ class SettingsScreen extends StatelessWidget {
                         color: Theme.of(context).colorScheme.outline,
                       ),
                 ),
-                value: controller.followSystemTheme,
+                value: themeState.followSystemTheme,
                 onChanged: (value) {
-                  controller.setFollowSystemTheme(value);
+                  themeController.setFollowSystemTheme(value);
                 },
                 secondary: Icon(
                   CupertinoIcons.circle_lefthalf_fill,
@@ -135,9 +136,9 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -172,8 +173,8 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDataCard(BuildContext context) {
-    final profileController = Get.find<ProfileController>();
+  Widget _buildDataCard(BuildContext context, WidgetRef ref) {
+    final profileController = ref.read(profileControllerProvider);
 
     return Card(
       elevation: 0,

@@ -1,12 +1,13 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:share_plus/share_plus.dart";
 import "package:the_recipes/controllers/share_recipe_controller.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/widgets/qr_bottom_sheet.dart";
 
-class ShareRecipeBottomSheet extends StatelessWidget {
+class ShareRecipeBottomSheet extends ConsumerWidget {
   const ShareRecipeBottomSheet({
     super.key,
     required this.recipeId,
@@ -24,8 +25,9 @@ class ShareRecipeBottomSheet extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final shareRecipeController = Get.find<ShareRecipeController>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ShareRecipeController shareRecipeController =
+        ref.read(shareRecipeControllerProvider.notifier);
 
     return Padding(
       padding: EdgeInsets.only(
@@ -34,8 +36,8 @@ class ShareRecipeBottomSheet extends StatelessWidget {
         left: 16.0,
         right: 16.0,
       ),
-      child: Obx(
-        () => Column(
+      child: Consumer(
+        builder: (context, watch, child) => Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -173,7 +175,7 @@ class ShareRecipeBottomSheet extends StatelessWidget {
                 .slideX(begin: -0.15, curve: Curves.easeOutCubic),
             const SizedBox(height: 16.0),
             TextButton(
-              onPressed: () => Get.back(),
+              onPressed: () => Navigator.of(context).pop(),
               child: Text("ui_helpers.cancel".tr),
             )
                 .animate()

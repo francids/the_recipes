@@ -16,7 +16,6 @@ dependencies:
   flutter_easyloading: ^3.0.5
   flutter_image_compress: ^2.4.0
   flutter_native_splash: ^2.4.6
-  get: ^4.7.2
   google_fonts: ^6.3.1
   hive_ce: ^2.11.3
   hive_ce_flutter: ^2.3.2
@@ -32,6 +31,10 @@ dependencies:
   share_plus: ^11.1.0
   app_links: ^6.4.1
   screen_brightness: ^2.1.7
+  flutter_riverpod: ^3.0.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
@@ -40,6 +43,8 @@ dev_dependencies:
   hive_ce_generator: ^1.9.3
   build_runner: ^2.7.0
   envied_generator: ^1.2.0
+  custom_lint: ^0.8.0
+  riverpod_lint: ^3.0.0
 
 flutter:
   uses-material-design: true

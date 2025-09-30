@@ -3,18 +3,15 @@ import "dart:io";
 import "dart:typed_data";
 
 import "package:flutter_image_compress/flutter_image_compress.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:intl/intl.dart";
 import "package:the_recipes/appwrite_config.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:uuid/uuid.dart";
 
-class AIRecipeController extends GetConnect {
+class AIRecipeController {
   final functions = AppwriteConfig.functions;
-
-  @override
-  void onInit() {
-    httpClient.timeout = const Duration(seconds: 30);
-  }
 
   Future<Uint8List?> _compressImage(String imagePath) async {
     try {
@@ -41,7 +38,7 @@ class AIRecipeController extends GetConnect {
 
       final body = {
         "image": base64Image,
-        "language": Get.locale?.languageCode ?? "en",
+        "language": Intl.getCurrentLocale().split('_')[0],
       };
 
       final execution = await functions.createExecution(
@@ -62,7 +59,6 @@ class AIRecipeController extends GetConnect {
           preparationTime: recipeData["preparationTime"] ?? 0,
         );
       } else {
-        execution.printInfo();
         String errorMessage = _getErrorMessage(
             execution.responseStatusCode, execution.responseBody);
         throw AIRecipeException(errorMessage, execution.responseStatusCode);
@@ -106,3 +102,7 @@ class AIRecipeException implements Exception {
   @override
   String toString() => message;
 }
+
+final aiRecipeControllerProvider = Provider<AIRecipeController>((ref) {
+  return AIRecipeController();
+});

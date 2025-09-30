@@ -2,7 +2,6 @@ import "dart:io";
 
 import "package:the_recipes/models/recipe.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
 import "package:the_recipes/views/screens/recipe_screen.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:the_recipes/views/screens/recipes_page.dart";
@@ -22,12 +21,24 @@ class RecipeCard extends StatelessWidget {
     final imageWidth = isGridView ? null : 80.0;
     final imageHeight = isGridView ? null : 80.0;
 
+    if (recipe.image == null || recipe.image!.isEmpty) {
+      return Container(
+        width: imageWidth,
+        height: imageHeight,
+        color: Colors.grey[300],
+        child: Icon(
+          Icons.image_not_supported,
+          color: Colors.grey[600],
+        ),
+      );
+    }
+
     ImageProvider imageProvider;
-    if (recipe.image.startsWith("http://") ||
-        recipe.image.startsWith("https://")) {
-      imageProvider = NetworkImage(recipe.image);
+    if (recipe.image!.startsWith("http://") ||
+        recipe.image!.startsWith("https://")) {
+      imageProvider = NetworkImage(recipe.image!);
     } else {
-      imageProvider = FileImage(File(recipe.image));
+      imageProvider = FileImage(File(recipe.image!));
     }
 
     return Image(
@@ -228,9 +239,10 @@ class RecipeCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            Get.to(
-              RecipeScreen(recipe: recipe),
-              curve: Curves.easeOutCirc,
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => RecipeScreen(recipe: recipe),
+              ),
             );
           },
           child: cardContent,

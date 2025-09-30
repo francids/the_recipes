@@ -2,13 +2,13 @@ import "dart:io";
 import "package:appwrite/appwrite.dart";
 import "package:appwrite/models.dart" as models;
 import "package:flutter/material.dart";
-import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:path_provider/path_provider.dart";
 import "package:path/path.dart" as path;
 import "package:http/http.dart" as http;
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/appwrite_config.dart";
 import "package:uuid/uuid.dart";
@@ -17,10 +17,12 @@ class SyncService {
   static final _uuid = Uuid();
   static final _tables = AppwriteConfig.tables;
   static final _storage = AppwriteConfig.storage;
-  static final _authController = Get.find<AuthController>();
+  final AuthState _authState;
 
-  static Future<void> syncRecipesToCloud() async {
-    if (!_authController.isLoggedIn) {
+  SyncService(this._authState);
+
+  Future<void> syncRecipesToCloud() async {
+    if (!_authState.isLoggedIn) {
       throw Exception("sync_service.user_must_be_logged_in".tr);
     }
 
@@ -29,7 +31,7 @@ class SyncService {
       final userRecipes = localBox.values
           .where((recipe) =>
               recipe.ownerId!.isEmpty ||
-              recipe.ownerId == _authController.user!.$id)
+              recipe.ownerId == _authState.user!.$id)
           .toList();
 
       for (Recipe recipe in userRecipes) {
@@ -42,7 +44,7 @@ class SyncService {
             ingredients: recipe.ingredients,
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
-            ownerId: _authController.user!.$id,
+            ownerId: _authState.user!.$id,
             isPublic: recipe.isPublic,
             cloudId: recipe.cloudId,
           );
@@ -58,8 +60,8 @@ class SyncService {
     }
   }
 
-  static Future<void> syncRecipesFromCloud() async {
-    if (!_authController.isLoggedIn) {
+  Future<void> syncRecipesFromCloud() async {
+    if (!_authState.isLoggedIn) {
       throw Exception("sync_service.user_must_be_logged_in".tr);
     }
 
@@ -68,7 +70,7 @@ class SyncService {
         databaseId: AppwriteConfig.databaseId,
         tableId: AppwriteConfig.recipesTableId,
         queries: [
-          Query.equal('ownerId', _authController.user!.$id),
+          Query.equal('ownerId', _authState.user!.$id),
         ],
       );
 
@@ -133,7 +135,7 @@ class SyncService {
     }
   }
 
-  static Future<void> _uploadRecipeToCloud(Recipe recipe) async {
+  Future<void> _uploadRecipeToCloud(Recipe recipe) async {
     try {
       if (recipe.ownerId == null || recipe.ownerId!.isEmpty) {
         throw Exception("Recipe must have an owner ID to sync to cloud");
@@ -161,7 +163,9 @@ class SyncService {
         existingDoc = null;
       }
 
-      if (recipe.image.isNotEmpty && !recipe.image.startsWith("http")) {
+      if (recipe.image != null &&
+          recipe.image!.isNotEmpty &&
+          !recipe.image!.startsWith("http")) {
         if (existingDoc != null) {
           final existingImage = existingDoc.data["image"] as String?;
           if (existingImage != null && existingImage.isNotEmpty) {
@@ -187,17 +191,17 @@ class SyncService {
               }
 
               cloudImageUrl = await _uploadImage(
-                  recipe.image, cloudId, recipe.isPublic ?? false);
+                  recipe.image!, cloudId, recipe.isPublic ?? false);
             } else {
               cloudImageUrl = existingImage;
             }
           } else {
             cloudImageUrl = await _uploadImage(
-                recipe.image, cloudId, recipe.isPublic ?? false);
+                recipe.image!, cloudId, recipe.isPublic ?? false);
           }
         } else {
           cloudImageUrl = await _uploadImage(
-              recipe.image, cloudId, recipe.isPublic ?? false);
+              recipe.image!, cloudId, recipe.isPublic ?? false);
         }
       }
 
@@ -218,10 +222,12 @@ class SyncService {
           data: recipeData,
           permissions: [
             Permission.read(
-              isPublic ? Role.any() : Role.user(_authController.user!.$id),
+              isPublic
+                  ? Role.any()
+                  : Role.user(_authState.user!.$id),
             ),
-            Permission.update(Role.user(_authController.user!.$id)),
-            Permission.delete(Role.user(_authController.user!.$id)),
+            Permission.update(Role.user(_authState.user!.$id)),
+            Permission.delete(Role.user(_authState.user!.$id)),
           ],
         );
       } else {
@@ -233,10 +239,12 @@ class SyncService {
             data: recipeData,
             permissions: [
               Permission.read(
-                isPublic ? Role.any() : Role.user(_authController.user!.$id),
+                isPublic
+                    ? Role.any()
+                    : Role.user(_authState.user!.$id),
               ),
-              Permission.update(Role.user(_authController.user!.$id)),
-              Permission.delete(Role.user(_authController.user!.$id)),
+              Permission.update(Role.user(_authState.user!.$id)),
+              Permission.delete(Role.user(_authState.user!.$id)),
             ],
           );
 
@@ -264,10 +272,12 @@ class SyncService {
               data: recipeData,
               permissions: [
                 Permission.read(
-                  isPublic ? Role.any() : Role.user(_authController.user!.$id),
+                  isPublic
+                      ? Role.any()
+                      : Role.user(_authState.user!.$id),
                 ),
-                Permission.update(Role.user(_authController.user!.$id)),
-                Permission.delete(Role.user(_authController.user!.$id)),
+                Permission.update(Role.user(_authState.user!.$id)),
+                Permission.delete(Role.user(_authState.user!.$id)),
               ],
             );
           } else {
@@ -281,7 +291,7 @@ class SyncService {
     }
   }
 
-  static Future<String> _uploadImage(
+  Future<String> _uploadImage(
     String localPath,
     String recipeId,
     bool isPublic,
@@ -312,10 +322,12 @@ class SyncService {
         file: InputFile.fromPath(path: localPath, filename: fileName),
         permissions: [
           Permission.read(
-            isPublic ? Role.any() : Role.user(_authController.user!.$id),
+            isPublic
+                ? Role.any()
+                : Role.user(_authState.user!.$id),
           ),
-          Permission.update(Role.user(_authController.user!.$id)),
-          Permission.delete(Role.user(_authController.user!.$id)),
+          Permission.update(Role.user(_authState.user!.$id)),
+          Permission.delete(Role.user(_authState.user!.$id)),
         ],
       );
 
@@ -368,7 +380,7 @@ class SyncService {
     }
   }
 
-  static Future<void> fullSync() async {
+  Future<void> fullSync() async {
     try {
       await syncRecipesToCloud();
       await syncRecipesFromCloud();
@@ -378,8 +390,8 @@ class SyncService {
     }
   }
 
-  static Future<void> deleteRecipeFromCloud(String recipeId) async {
-    if (!_authController.isLoggedIn) {
+  Future<void> deleteRecipeFromCloud(String recipeId) async {
+    if (!_authState.isLoggedIn) {
       throw Exception("sync_service.user_must_be_logged_in".tr);
     }
 
@@ -441,8 +453,8 @@ class SyncService {
     }
   }
 
-  static Future<void> deleteAllUserRecipesFromCloud() async {
-    if (!_authController.isLoggedIn) {
+  Future<void> deleteAllUserRecipesFromCloud() async {
+    if (!_authState.isLoggedIn) {
       throw Exception("sync_service.user_must_be_logged_in".tr);
     }
 
@@ -451,7 +463,7 @@ class SyncService {
         databaseId: AppwriteConfig.databaseId,
         tableId: AppwriteConfig.recipesTableId,
         queries: [
-          Query.equal("ownerId", _authController.user!.$id),
+          Query.equal("ownerId", _authState.user!.$id),
         ],
       );
 
@@ -548,8 +560,8 @@ class SyncService {
           recipesToRemove.add(recipe.id);
 
           try {
-            if (recipe.image.isNotEmpty) {
-              final File imageFile = File(recipe.image);
+            if (recipe.image != null && recipe.image!.isNotEmpty) {
+              final File imageFile = File(recipe.image!);
               if (await imageFile.exists()) {
                 await imageFile.delete();
               }

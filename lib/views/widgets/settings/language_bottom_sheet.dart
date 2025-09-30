@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:the_recipes/controllers/language_controller.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:the_recipes/messages.dart";
 
-class LanguageBottomSheet extends StatelessWidget {
+class LanguageBottomSheet extends ConsumerWidget {
   const LanguageBottomSheet({super.key});
 
   static void show(BuildContext context) {
@@ -38,7 +39,7 @@ class LanguageBottomSheet extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 16.0,
@@ -65,13 +66,13 @@ class LanguageBottomSheet extends StatelessWidget {
               margin: EdgeInsets.zero,
               clipBehavior: Clip.antiAlias,
               child: RadioGroup<String>(
-                groupValue: Get.locale?.languageCode,
+                groupValue: ref.watch(languageControllerProvider),
                 onChanged: (value) {
                   if (value != null) {
-                    Get.find<LanguageController>().changeLanguage(
-                      Locale(value),
-                    );
-                    Get.back();
+                    ref
+                        .read(languageControllerProvider.notifier)
+                        .changeLanguage(Locale(value));
+                    Navigator.of(context).pop();
                   }
                 },
                 child: Column(
@@ -115,7 +116,7 @@ class LanguageBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           TextButton(
-            onPressed: () => Get.back(),
+            onPressed: () => Navigator.of(context).pop(),
             child: Text("ui_helpers.cancel".tr),
           )
               .animate()

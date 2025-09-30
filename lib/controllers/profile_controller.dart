@@ -1,23 +1,30 @@
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:file_picker/file_picker.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/services/export_service.dart";
 import "package:the_recipes/services/import_service.dart";
 import "package:the_recipes/services/sync_service.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 
-class ProfileController extends GetxController {
-  final AuthController _authController = Get.find<AuthController>();
-  final RecipeController _recipeController = Get.find<RecipeController>();
+class ProfileController {
+  final Ref ref;
 
-  Future<void> handleAutoSyncToggle(bool enabled, BuildContext context) async {
+  ProfileController(this.ref);
+
+  Future<void> handleAutoSyncToggle(
+    bool enabled,
+    BuildContext context,
+  ) async {
     if (enabled) {
-      await _authController.setAutoSyncEnabled(enabled);
+      await ref
+          .read(authControllerProvider.notifier)
+          .setAutoSyncEnabled(enabled);
       if (context.mounted) {
         UIHelpers.showLoadingDialog(
           context,
@@ -29,9 +36,11 @@ class ProfileController extends GetxController {
 
       try {
         await _assignOwnerIdToLocalRecipes();
-        await SyncService.fullSync();
-        _recipeController.refreshRecipes();
-        Get.back();
+        final authState = ref.read(authControllerProvider);
+        final syncService = SyncService(authState);
+        await syncService.fullSync();
+        ref.read(recipeControllerProvider.notifier).refreshRecipes();
+        Navigator.of(context).pop();
 
         if (context.mounted) {
           UIHelpers.showSuccessSnackbar(
@@ -40,8 +49,10 @@ class ProfileController extends GetxController {
           );
         }
       } catch (e) {
-        Get.back();
-        await _authController.setAutoSyncEnabled(false);
+        Navigator.of(context).pop();
+        await ref
+            .read(authControllerProvider.notifier)
+            .setAutoSyncEnabled(false);
         if (context.mounted) {
           UIHelpers.showErrorSnackbar(
             "profile_page.sync_error_message".trParams({"0": e.toString()}),
@@ -61,8 +72,10 @@ class ProfileController extends GetxController {
       message: "profile_page.disable_sync_confirmation_message".tr,
       lottieAsset: "assets/lottie/alert.json",
       confirmAction: () async {
-        Get.back();
-        await _authController.setAutoSyncEnabled(enabled);
+        Navigator.of(context).pop();
+        await ref
+            .read(authControllerProvider.notifier)
+            .setAutoSyncEnabled(enabled);
 
         try {
           UIHelpers.showLoadingDialog(
@@ -71,16 +84,20 @@ class ProfileController extends GetxController {
             "profile_page.deleting_cloud_recipes_description".tr,
           );
 
-          await SyncService.deleteAllUserRecipesFromCloud();
-          Get.back();
+          final authState = ref.read(authControllerProvider);
+          final syncService = SyncService(authState);
+          await syncService.deleteAllUserRecipesFromCloud();
+          Navigator.of(context).pop();
 
           UIHelpers.showSuccessSnackbar(
             "profile_page.auto_sync_disabled".tr,
             context,
           );
         } catch (e) {
-          Get.back();
-          await _authController.setAutoSyncEnabled(true);
+          Navigator.of(context).pop();
+          await ref
+              .read(authControllerProvider.notifier)
+              .setAutoSyncEnabled(true);
           UIHelpers.showErrorSnackbar(
             "profile_page.delete_cloud_recipes_error"
                 .trParams({"0": e.toString()}),
@@ -92,16 +109,17 @@ class ProfileController extends GetxController {
   }
 
   Future<void> _assignOwnerIdToLocalRecipes() async {
-    if (!_authController.isLoggedIn) return;
+    final authState = ref.read(authControllerProvider);
+    if (!authState.isLoggedIn) return;
 
     try {
       final box = Hive.box<Recipe>(recipesBox);
       final recipesToUpdate = <String, Recipe>{};
 
       for (var recipe in box.values) {
-        if (recipe.ownerId == null || 
+        if (recipe.ownerId == null ||
             recipe.ownerId!.isEmpty ||
-            recipe.ownerId != _authController.user!.$id) {
+            recipe.ownerId != authState.user!.$id) {
           final updatedRecipe = Recipe(
             id: recipe.id,
             title: recipe.title,
@@ -110,7 +128,7 @@ class ProfileController extends GetxController {
             ingredients: recipe.ingredients,
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
-            ownerId: _authController.user!.$id,
+            ownerId: authState.user!.$id,
             isPublic: recipe.isPublic,
             cloudId: recipe.cloudId,
           );
@@ -134,9 +152,11 @@ class ProfileController extends GetxController {
       lottieAsset: "assets/lottie/save_file.json",
       confirmAction: () async {
         if (!fromSettings) {
-          Get.back();
+          Navigator.of(context).pop();
         }
-        final recipes = _recipeController.getAllRecipesForExport();
+        final recipes = ref
+            .read(recipeControllerProvider.notifier)
+            .getAllRecipesForExport();
         await ExportService.exportRecipes(recipes, context);
       },
     );
@@ -150,7 +170,7 @@ class ProfileController extends GetxController {
       lottieAsset: "assets/lottie/load_file.json",
       confirmAction: () async {
         if (!fromSettings) {
-          Get.back();
+          Navigator.of(context).pop();
         }
         await _performImport(context);
       },
@@ -167,8 +187,11 @@ class ProfileController extends GetxController {
 
       if (result != null && result.files.single.path != null) {
         final filePath = result.files.single.path!;
+
+        final authState = ref.read(authControllerProvider);
+        final importService = ImportService(authState);
         final importResult =
-            await ImportService.importRecipes(filePath, context);
+            await importService.importRecipes(filePath, context);
 
         if (context.mounted) {
           UIHelpers.showSuccessSnackbar(
@@ -180,10 +203,10 @@ class ProfileController extends GetxController {
           );
         }
 
-        _recipeController.refreshRecipes();
+        ref.read(recipeControllerProvider.notifier).refreshRecipes();
 
-        if (_authController.isLoggedIn &&
-            _authController.autoSyncEnabled &&
+        if (authState.isLoggedIn &&
+            authState.autoSyncEnabled &&
             importResult.importedCount > 0) {
           await _syncImportedRecipes(context);
         }
@@ -208,8 +231,10 @@ class ProfileController extends GetxController {
         );
       }
       await _assignOwnerIdToImportedRecipes();
-      await SyncService.syncRecipesToCloud();
-      Get.back();
+      final authState = ref.read(authControllerProvider);
+      final syncService = SyncService(authState);
+      await syncService.syncRecipesToCloud();
+      Navigator.of(context).pop();
     } catch (e) {
       if (context.mounted) {
         UIHelpers.showErrorSnackbar(
@@ -221,7 +246,8 @@ class ProfileController extends GetxController {
   }
 
   Future<void> _assignOwnerIdToImportedRecipes() async {
-    if (!_authController.isLoggedIn) return;
+    final authState = ref.read(authControllerProvider);
+    if (!authState.isLoggedIn) return;
 
     try {
       final box = Hive.box<Recipe>(recipesBox);
@@ -237,7 +263,7 @@ class ProfileController extends GetxController {
             ingredients: recipe.ingredients,
             directions: recipe.directions,
             preparationTime: recipe.preparationTime,
-            ownerId: _authController.user!.$id,
+            ownerId: authState.user!.$id,
             isPublic: recipe.isPublic,
             cloudId: recipe.cloudId,
           );
@@ -253,3 +279,7 @@ class ProfileController extends GetxController {
     }
   }
 }
+
+final profileControllerProvider = Provider<ProfileController>((ref) {
+  return ProfileController(ref);
+});

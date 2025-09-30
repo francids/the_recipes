@@ -3,7 +3,7 @@ import "dart:io";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
-import "package:get/get.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 
 class CommonRecipeView extends StatelessWidget {
@@ -11,7 +11,7 @@ class CommonRecipeView extends StatelessWidget {
 
   final Recipe recipe;
 
-  String _formatPreparationTime(int seconds) {
+  String _formatPreparationTime(BuildContext context, int seconds) {
     if (seconds == 0) return "";
 
     final hours = seconds ~/ 3600;
@@ -31,7 +31,8 @@ class CommonRecipeView extends StatelessWidget {
     };
 
     Map<String, String> currentStrings =
-        localizedStrings[Get.locale] ?? localizedStrings["en"]!;
+        localizedStrings[Localizations.localeOf(context).languageCode] ??
+            localizedStrings["en"]!;
 
     List<String> parts = [];
     if (hours > 0) parts.add("$hours${currentStrings["h"]}");
@@ -74,16 +75,16 @@ class CommonRecipeView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(9.5),
                     color: Theme.of(context).colorScheme.surfaceContainerLow,
                   ),
-                  child: recipe.image.isNotEmpty
-                      ? recipe.image.startsWith("http")
+                  child: recipe.image != null && recipe.image!.isNotEmpty
+                      ? recipe.image!.startsWith("http")
                           ? Image.network(
-                              recipe.image,
+                              recipe.image!,
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.width,
                               fit: BoxFit.cover,
                             )
                           : Image.file(
-                              File(recipe.image),
+                              File(recipe.image!),
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.width,
                               fit: BoxFit.cover,
@@ -115,7 +116,7 @@ class CommonRecipeView extends StatelessWidget {
                 Chip(
                   avatar: Icon(CupertinoIcons.time),
                   label: Text(
-                    _formatPreparationTime(recipe.preparationTime),
+                    _formatPreparationTime(context, recipe.preparationTime),
                   ),
                 ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(
                       begin: 0.2,

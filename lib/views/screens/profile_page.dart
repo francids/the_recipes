@@ -1,28 +1,28 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:lottie/lottie.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/profile_controller.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/screens/profile_info_screen.dart";
 import "package:the_recipes/views/screens/shared_recipes_screen.dart";
 import "package:the_recipes/views/widgets/pressable_button.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Get.put(ProfileController());
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: GetBuilder<AuthController>(
-        builder: (authController) {
+      body: Consumer(
+        builder: (context, ref, child) {
+          final authController = ref.watch(authControllerProvider);
           if (!authController.isLoggedIn) {
             return Center(
-              child: _buildSignInPrompt(context),
+              child: _buildSignInPrompt(context, ref),
             );
           }
           return SingleChildScrollView(
@@ -34,11 +34,11 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).padding.top,
                 ),
-                _buildProfileHeader(context, authController)
+                _buildProfileHeader(context, ref)
                     .animate()
                     .fadeIn(duration: 300.ms)
                     .slideX(begin: -0.2, curve: Curves.easeOutCubic),
-                _buildRecipesManagementCard(context, authController)
+                _buildRecipesManagementCard(context, ref)
                     .animate()
                     .fadeIn(delay: 100.ms, duration: 250.ms)
                     .slideX(begin: -0.15, curve: Curves.easeOutCubic),
@@ -49,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                     .animate()
                     .fadeIn(delay: 200.ms, duration: 200.ms)
                     .slideX(begin: -0.1, curve: Curves.easeOutCubic),
-                _buildSignOutCard(context, authController)
+                _buildSignOutCard(context, ref)
                     .animate()
                     .fadeIn(delay: 300.ms, duration: 250.ms)
                     .slideX(begin: -0.15, curve: Curves.easeOutCubic),
@@ -61,10 +61,14 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSignInPrompt(BuildContext context) {
+  Widget _buildSignInPrompt(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final authController = Get.find<AuthController>();
+    final AuthController authController =
+        ref.read(authControllerProvider.notifier);
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -102,17 +106,26 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader(BuildContext context, AuthController controller) {
+  Widget _buildProfileHeader(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final user = controller.user;
+    final authController = ref.watch(authControllerProvider);
+    final user = authController.user;
 
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => Get.to(() => ProfileInfoScreen()),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfileInfoScreen(),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
@@ -120,10 +133,10 @@ class ProfilePage extends StatelessWidget {
               CircleAvatar(
                 radius: 32,
                 backgroundColor: theme.colorScheme.primary.withAlpha(25),
-                backgroundImage: controller.userProfileImageUrl != null
-                    ? NetworkImage(controller.userProfileImageUrl!)
+                backgroundImage: authController.userProfileImageUrl != null
+                    ? NetworkImage(authController.userProfileImageUrl!)
                     : null,
-                child: controller.userProfileImageUrl == null
+                child: authController.userProfileImageUrl == null
                     ? Icon(
                         CupertinoIcons.person,
                         size: 32,
@@ -157,7 +170,9 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSignOutCard(BuildContext context, AuthController controller) {
+  Widget _buildSignOutCard(BuildContext context, WidgetRef ref) {
+    final authController = ref.read(authControllerProvider.notifier);
+
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
@@ -170,8 +185,8 @@ class ProfilePage extends StatelessWidget {
             message: "profile_page.sign_out_confirmation_message".tr,
             lottieAsset: "assets/lottie/exit.json",
             confirmAction: () {
-              Get.back();
-              controller.signOut();
+              Navigator.of(context).pop();
+              authController.signOut();
             },
           );
         },
@@ -203,16 +218,19 @@ class ProfilePage extends StatelessWidget {
 
   Widget _buildRecipesManagementCard(
     BuildContext context,
-    AuthController authController,
+    WidgetRef ref,
   ) {
+    final authController = ref.read(authControllerProvider.notifier);
+    final profileController = ref.read(profileControllerProvider);
+
     return Card(
       elevation: 0,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          GetBuilder<ProfileController>(
-            builder: (profileController) => SwitchListTile(
+          Consumer(
+            builder: (context, ref, child) => SwitchListTile(
               title: Text(
                 "profile_page.backup_recipes".tr,
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -223,7 +241,7 @@ class ProfilePage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.outline,
                     ),
               ),
-              value: authController.autoSyncEnabled,
+              value: authController.build().autoSyncEnabled,
               onChanged: (value) =>
                   profileController.handleAutoSyncToggle(value, context),
               secondary: Icon(
@@ -232,7 +250,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          if (authController.autoSyncEnabled) ...[
+          if (authController.build().autoSyncEnabled) ...[
             const Divider(height: 1),
             ListTile(
               title: Text(
@@ -255,7 +273,12 @@ class ProfilePage extends StatelessWidget {
                 CupertinoIcons.chevron_forward,
                 color: Theme.of(context).colorScheme.outline,
               ),
-              onTap: () => Get.to(() => const SharedRecipesScreen()),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SharedRecipesScreen(),
+                ),
+              ),
             ),
           ]
         ],

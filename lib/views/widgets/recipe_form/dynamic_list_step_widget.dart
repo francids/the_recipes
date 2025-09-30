@@ -1,34 +1,41 @@
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:the_recipes/controllers/add_recipe_controller.dart";
 import "package:the_recipes/gestures/drag_start_listener.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/widgets/form_field.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:the_recipes/views/widgets/pressable_button.dart";
 
-class DynamicListStepWidget extends StatefulWidget {
-  final RxList<String> list;
+class DynamicListStepWidget extends ConsumerStatefulWidget {
+  final String type;
   final String label;
+  final VoidCallback? onChanged;
 
   const DynamicListStepWidget({
     Key? key,
-    required this.list,
+    required this.type,
     required this.label,
+    this.onChanged,
   }) : super(key: key);
 
   @override
-  State<DynamicListStepWidget> createState() => _DynamicListStepWidgetState();
+  ConsumerState<DynamicListStepWidget> createState() =>
+      _DynamicListStepWidgetState();
 }
 
-class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
-  final RxInt _rebuildTrigger = 0.obs;
-
+class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(addRecipeControllerProvider);
+    final list = widget.type == "ingredients"
+        ? state.ingredientsList
+        : state.directionsList;
     return Column(
       children: [
         PressableButton(
           child: FilledButton(
-            onPressed: () => widget.list.add(""),
+            onPressed: () => _addItem(ref),
             child: Text(
               "dynamic_list.add_item".trParams(
                 {
@@ -42,13 +49,13 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
             .fadeIn(duration: 400.ms)
             .slideY(begin: -0.2, curve: Curves.easeOutCubic),
         const SizedBox(height: 16),
-        Obx(() => _buildListContent()),
+        _buildListContent(list, ref),
       ],
     );
   }
 
-  Widget _buildListContent() {
-    if (widget.list.isEmpty) {
+  Widget _buildListContent(List<String> list, WidgetRef ref) {
+    if (list.isEmpty) {
       return Center(
         child: Text(
           "dynamic_list.no_items_yet".trParams(
@@ -64,64 +71,52 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
       ).animate().fadeIn(delay: 100.ms, duration: 300.ms);
     }
 
-    _rebuildTrigger.value;
-
     return ReorderableListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      onReorder: (oldIndex, newIndex) {
-        if (newIndex > oldIndex) {
-          newIndex = newIndex - 1;
-        }
-        final item = widget.list[oldIndex];
-        final newList = List<String>.from(widget.list);
-        newList.removeAt(oldIndex);
-        newList.insert(newIndex, item);
-        widget.list.assignAll(newList);
-        _rebuildTrigger.value++;
-      },
-      itemCount: widget.list.length,
-      itemBuilder: (context, i) => _buildListItem(i),
+      onReorder: (oldIndex, newIndex) =>
+          _onReorder(oldIndex, newIndex, list, ref),
+      itemCount: list.length,
+      itemBuilder: (context, i) => _buildListItem(i, list, ref),
     ).animate().fadeIn(delay: 200.ms, duration: 400.ms);
   }
 
-  Widget _buildListItem(int index) {
-    final itemKey = ValueKey("item-$index-${_rebuildTrigger.value}");
+  Widget _buildListItem(int index, List<String> list, WidgetRef ref) {
+    final itemKey = ValueKey("item-$index");
 
     Widget itemContent = Container(
+      key: itemKey,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Obx(
-        () => Row(
-          children: [
-            CustomDragStartListener(
-              index: index,
-              child: const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.drag_handle,
-                  color: Colors.grey,
-                ),
+      child: Row(
+        children: [
+          CustomDragStartListener(
+            index: index,
+            child: const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.drag_handle,
+                color: Colors.grey,
               ),
             ),
-            Expanded(
-              child: ModernFormField(
-                initialValue: widget.list[index],
-                onChanged: (text) => widget.list[index] = text,
-                keyboardType: TextInputType.text,
-                hintText: "${widget.label} ${index + 1}",
-              ),
+          ),
+          Expanded(
+            child: ModernFormField(
+              initialValue: list[index],
+              onChanged: (text) => _onItemChanged(index, text, list, ref),
+              keyboardType: TextInputType.text,
+              hintText: "${widget.label} ${index + 1}",
             ),
-            PressableButton(
-              child: IconButton(
-                icon: const Icon(Icons.remove_circle, color: Colors.red),
-                onPressed: () => widget.list.removeAt(index),
-              ),
+          ),
+          PressableButton(
+            child: IconButton(
+              icon: const Icon(Icons.remove_circle, color: Colors.red),
+              onPressed: () => _removeItem(index, list, ref),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
 
@@ -137,5 +132,57 @@ class _DynamicListStepWidgetState extends State<DynamicListStepWidget> {
       ],
       child: itemContent,
     );
+  }
+
+  void _addItem(WidgetRef ref) {
+    final state = ref.read(addRecipeControllerProvider);
+    final list = widget.type == "ingredients"
+        ? state.ingredientsList
+        : state.directionsList;
+    final newList = List<String>.from(list)..add("");
+    if (widget.type == "ingredients") {
+      ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
+    } else {
+      ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
+    }
+    widget.onChanged?.call();
+  }
+
+  void _onReorder(
+      int oldIndex, int newIndex, List<String> list, WidgetRef ref) {
+    if (newIndex > oldIndex) {
+      newIndex = newIndex - 1;
+    }
+    final newList = List<String>.from(list);
+    final item = newList.removeAt(oldIndex);
+    newList.insert(newIndex, item);
+    if (widget.type == "ingredients") {
+      ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
+    } else {
+      ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
+    }
+    widget.onChanged?.call();
+  }
+
+  void _onItemChanged(
+      int index, String text, List<String> list, WidgetRef ref) {
+    final newList = List<String>.from(list);
+    newList[index] = text;
+    if (widget.type == "ingredients") {
+      ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
+    } else {
+      ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
+    }
+    widget.onChanged?.call();
+  }
+
+  void _removeItem(int index, List<String> list, WidgetRef ref) {
+    final newList = List<String>.from(list)..removeAt(index);
+    if (widget.type == "ingredients") {
+      ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
+    } else {
+      ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
+    }
+    widget.onChanged?.call();
   }
 }

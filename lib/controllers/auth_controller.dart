@@ -3,67 +3,87 @@ import "package:appwrite/models.dart" as models;
 import "package:appwrite/enums.dart" as enums;
 import "package:flutter/foundation.dart";
 import "package:flutter_easyloading/flutter_easyloading.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:hive_ce_flutter/hive_flutter.dart";
 import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/services/sync_service.dart";
-import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/appwrite_config.dart";
 import "package:http/http.dart" as http;
 import "dart:convert";
 
-class AuthController extends GetxController {
+class AuthState {
+  final models.User? user;
+  final String? userProfileImageUrl;
+  final bool autoSyncEnabled;
+
+  AuthState({
+    this.user,
+    this.userProfileImageUrl,
+    this.autoSyncEnabled = false,
+  });
+
+  bool get isLoggedIn => user != null;
+
+  AuthState copyWith({
+    models.User? user,
+    String? userProfileImageUrl,
+    bool? autoSyncEnabled,
+  }) {
+    return AuthState(
+      user: user ?? this.user,
+      userProfileImageUrl: userProfileImageUrl ?? this.userProfileImageUrl,
+      autoSyncEnabled: autoSyncEnabled ?? this.autoSyncEnabled,
+    );
+  }
+}
+
+class AuthController extends Notifier<AuthState> {
   static const autoSyncKey = "autoSync";
-  static AuthController instance = Get.find();
   final _account = AppwriteConfig.account;
   final _functions = AppwriteConfig.functions;
 
-  models.User? _user;
-  String? _userProfileImageUrl;
-
-  models.User? get user => _user;
-  bool get isLoggedIn => _user != null;
-  String? get userProfileImageUrl => _userProfileImageUrl;
-
-  bool get autoSyncEnabled => _getAutoSyncSetting();
+  @override
+  AuthState build() {
+    _checkCurrentUser();
+    return AuthState(autoSyncEnabled: _getAutoSyncSetting());
+  }
 
   bool _getAutoSyncSetting() {
+    if (!Hive.isBoxOpen(settingsBox)) {
+      Hive.openBox(settingsBox);
+    }
     final box = Hive.box(settingsBox);
     return box.get(autoSyncKey, defaultValue: false) as bool;
   }
 
   Future<void> setAutoSyncEnabled(bool value) async {
+    if (!Hive.isBoxOpen(settingsBox)) {
+      await Hive.openBox(settingsBox);
+    }
     final box = Hive.box(settingsBox);
     await box.put(autoSyncKey, value);
-    update();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    _checkCurrentUser();
+    state = state.copyWith(autoSyncEnabled: value);
   }
 
   Future<void> _checkCurrentUser() async {
     try {
       final user = await _account.get();
-      _user = user;
-      await _loadUserProfileImage();
-      update();
+      await _loadUserProfileImage(user);
+      state = state.copyWith(user: user);
     } catch (e) {
-      _user = null;
-      _userProfileImageUrl = null;
-      update();
+      state = state.copyWith(user: null, userProfileImageUrl: null);
     }
   }
 
-  Future<void> _loadUserProfileImage() async {
+  Future<void> _loadUserProfileImage(models.User user) async {
     try {
       models.Preferences preferences = await _account.getPrefs();
       final Map<String, dynamic> currentPrefs = preferences.data;
-      _userProfileImageUrl = currentPrefs["profileImageUrl"] as String?;
+      final userProfileImageUrl = currentPrefs["profileImageUrl"] as String?;
+      state = state.copyWith(userProfileImageUrl: userProfileImageUrl);
     } catch (e) {
-      _userProfileImageUrl = null;
+      state = state.copyWith(userProfileImageUrl: null);
       debugPrint("Error loading user profile image: $e");
     }
   }
@@ -75,8 +95,7 @@ class AuthController extends GetxController {
       currentPrefs["profileImageUrl"] = imageUrl;
       await _account.updatePrefs(
           prefs: Map<dynamic, dynamic>.from(currentPrefs));
-      _userProfileImageUrl = imageUrl;
-      update();
+      state = state.copyWith(userProfileImageUrl: imageUrl);
     } on AppwriteException catch (e) {
       debugPrint(
         "Error storing profile image URL in preferences: ${e.message}",
@@ -97,7 +116,7 @@ class AuthController extends GetxController {
 
       await _checkCurrentUser();
 
-      if (_user != null) {
+      if (state.user != null) {
         final session = await _account.getSession(sessionId: "current");
         final providerAccessToken = session.providerAccessToken;
 
@@ -131,17 +150,13 @@ class AuthController extends GetxController {
 
   Future<void> signOut() async {
     try {
-      if (autoSyncEnabled) {
+      if (state.autoSyncEnabled) {
         await SyncService.clearLocalRecipesOnSignOut();
       }
       await setAutoSyncEnabled(false);
 
       await _account.deleteSession(sessionId: "current");
-      _user = null;
-      _userProfileImageUrl = null;
-
-      Get.find<RecipeController>().refreshRecipes();
-      update();
+      state = state.copyWith(user: null, userProfileImageUrl: null);
     } catch (e) {
       EasyLoading.showError(
         "auth_controller.sign_out_error".trParams(
@@ -157,8 +172,9 @@ class AuthController extends GetxController {
     try {
       EasyLoading.show(status: "auth_controller.deleting_account".tr);
 
-      if (_user != null) {
-        await SyncService.deleteAllUserRecipesFromCloud();
+      if (state.user != null) {
+        final syncService = SyncService(state);
+        await syncService.deleteAllUserRecipesFromCloud();
 
         await setAutoSyncEnabled(false);
 
@@ -167,9 +183,7 @@ class AuthController extends GetxController {
           path: "/delete",
         );
 
-        _user = null;
-        _userProfileImageUrl = null;
-        update();
+        state = state.copyWith(user: null, userProfileImageUrl: null);
         EasyLoading.dismiss();
       }
     } catch (e) {
@@ -184,3 +198,7 @@ class AuthController extends GetxController {
     }
   }
 }
+
+final authControllerProvider = NotifierProvider<AuthController, AuthState>(() {
+  return AuthController();
+});

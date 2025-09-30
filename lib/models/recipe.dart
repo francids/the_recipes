@@ -1,12 +1,11 @@
 import "package:hive_ce_flutter/hive_flutter.dart";
-import "package:the_recipes/controllers/auth_controller.dart";
 import "package:uuid/uuid.dart";
 
 class Recipe extends HiveObject {
   String id;
   String title;
   String description;
-  String image;
+  String? image;
   List<String> ingredients;
   List<String> directions;
   int preparationTime; // in seconds
@@ -18,25 +17,24 @@ class Recipe extends HiveObject {
     required this.id,
     required this.title,
     required this.description,
-    required this.image,
+    this.image,
     required this.ingredients,
     required this.directions,
     this.preparationTime = 0,
     String? ownerId,
     this.isPublic = false,
     this.cloudId,
-  })  : ownerId = ownerId ??
-            (AuthController().isLoggedIn ? AuthController().user!.$id : ""),
+  })  : ownerId = ownerId ?? "",
         assert(ingredients.isNotEmpty),
         assert(directions.isNotEmpty);
 
   Recipe.fromMap(Map<String, dynamic> map)
-      : id = map["id"]?.toString().isNotEmpty == true 
-            ? map["id"].toString() 
+      : id = map["id"]?.toString().isNotEmpty == true
+            ? map["id"].toString()
             : const Uuid().v4(),
         title = map["title"] ?? "",
         description = map["description"] ?? "",
-        image = map["image"] ?? "",
+        image = map["image"],
         ingredients = List<String>.from(map["ingredients"] ?? []),
         directions = List<String>.from(map["directions"] ?? []),
         preparationTime = map["preparationTime"] ?? 0,

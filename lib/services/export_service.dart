@@ -4,7 +4,7 @@ import "dart:typed_data";
 import "package:archive/archive_io.dart";
 import "package:file_picker/file_picker.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:the_recipes/views/widgets/ui_helpers.dart";
 
@@ -23,16 +23,17 @@ class ExportService {
   static Future<void> _saveRecipes(
       List<Recipe> recipes, BuildContext context) async {
     try {
-      Get.dialog(
-        const Center(
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
           child: CircularProgressIndicator(),
         ),
-        barrierDismissible: false,
       );
 
       final zipData = await _createExportArchive(recipes);
 
-      Get.back();
+      Navigator.of(context).pop();
 
       String fileName =
           "recipes_export_${DateTime.now().millisecondsSinceEpoch}.zip";
@@ -54,7 +55,7 @@ class ExportService {
       UIHelpers.showSuccessSnackbar(
           "export_service.saved_successfully".tr + "\n$outputFile", context);
     } catch (e) {
-      Get.back();
+      Navigator.of(context).pop();
       UIHelpers.showErrorSnackbar("export_service.save_failed".tr, context);
       print("Error saving recipes: $e");
     }
@@ -69,8 +70,8 @@ class ExportService {
     for (Recipe recipe in recipes) {
       String? imageFileName;
 
-      if (recipe.image.isNotEmpty) {
-        File imageFile = File(recipe.image);
+      if (recipe.image != null && recipe.image!.isNotEmpty) {
+        File imageFile = File(recipe.image!);
         if (await imageFile.exists()) {
           String originalName = imageFile.path.split("/").last;
           imageFileName = "${recipe.id}_$originalName";

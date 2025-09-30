@@ -1,6 +1,7 @@
 import "package:flutter/cupertino.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/screens/profile_page.dart";
 import "package:the_recipes/views/screens/settings_screen.dart";
 import "package:the_recipes/views/screens/recipes_page.dart";
@@ -9,14 +10,14 @@ import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:the_recipes/views/widgets/pressable_button.dart";
 
-class InicialScreen extends StatefulWidget {
+class InicialScreen extends ConsumerStatefulWidget {
   const InicialScreen({super.key});
 
   @override
-  State<InicialScreen> createState() => _InicialScreenState();
+  ConsumerState<InicialScreen> createState() => _InicialScreenState();
 }
 
-class _InicialScreenState extends State<InicialScreen>
+class _InicialScreenState extends ConsumerState<InicialScreen>
     with TickerProviderStateMixin {
   int _currentIndex = 0;
   late TabController _tabController;
@@ -61,7 +62,8 @@ class _InicialScreenState extends State<InicialScreen>
 
   @override
   Widget build(BuildContext context) {
-    final RecipeController recipeController = Get.put(RecipeController());
+    final RecipeController recipeController =
+        ref.read(recipeControllerProvider.notifier);
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -138,7 +140,11 @@ class _InicialScreenState extends State<InicialScreen>
                       horizontalTitleGap: 8,
                     ),
                     onTap: () {
-                      Get.to(() => const SettingsScreen());
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsScreen(),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -259,7 +265,11 @@ class _InicialScreenState extends State<InicialScreen>
                       child: FloatingActionButton(
                         elevation: 0,
                         onPressed: () async {
-                          await Get.to(const AddRecipeScreen());
+                          await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const AddRecipeScreen(),
+                            ),
+                          );
                         },
                         child: const Icon(CupertinoIcons.add),
                       ),

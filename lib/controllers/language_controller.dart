@@ -1,18 +1,32 @@
 import "package:flutter/material.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:hive_ce_flutter/adapters.dart";
+import "package:intl/intl.dart";
 import "package:the_recipes/hive_boxes.dart";
 
-class LanguageController extends GetxController {
+class LanguageController extends Notifier<String> {
   static const languageKey = "language_key";
 
-  String _currentLanguage = Get.deviceLocale?.languageCode ?? "en";
-  String get currentLanguage => _currentLanguage;
-
   @override
-  void onInit() {
-    super.onInit();
+  String build() {
     loadLanguage();
+    return _getInitialLanguage();
+  }
+
+  String _getInitialLanguage() {
+    try {
+      if (Hive.isBoxOpen(settingsBox)) {
+        final box = Hive.box(settingsBox);
+        final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
+        return box.get(
+          languageKey,
+          defaultValue: deviceLocale.languageCode,
+        );
+      }
+    } catch (e) {
+      print("Error getting initial language: $e");
+    }
+    return WidgetsBinding.instance.platformDispatcher.locale.languageCode;
   }
 
   void loadLanguage() async {
@@ -22,42 +36,40 @@ class LanguageController extends GetxController {
       }
 
       final box = Hive.box(settingsBox);
+      final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
       final language = box.get(
         languageKey,
-        defaultValue: Get.deviceLocale?.languageCode ?? "en",
+        defaultValue: deviceLocale.languageCode,
       );
 
-      _currentLanguage = language;
-
-      update();
+      state = language;
       applyLanguage();
     } catch (e) {
       print("Error loading language: $e");
-      _currentLanguage = "en";
-      update();
+      state = "en";
       applyLanguage();
     }
   }
 
   void changeLanguage(Locale language) async {
-    _currentLanguage = language.languageCode;
-    update();
+    state = language.languageCode;
 
     try {
-      if (!Hive.isBoxOpen(settingsBox)) {
-        await Hive.openBox(settingsBox);
-      }
-
       final box = Hive.box(settingsBox);
-      await box.put(languageKey, _currentLanguage);
-
-      applyLanguage();
+      await box.put(languageKey, language.languageCode);
     } catch (e) {
       print("Error saving language: $e");
     }
+
+    applyLanguage();
   }
 
   void applyLanguage() {
-    Get.updateLocale(Locale(_currentLanguage));
+    Intl.defaultLocale = state;
   }
 }
+
+final languageControllerProvider =
+    NotifierProvider<LanguageController, String>(() {
+  return LanguageController();
+});

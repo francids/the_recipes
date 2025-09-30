@@ -1,41 +1,65 @@
 import "package:appwrite/appwrite.dart";
 import "package:flutter/foundation.dart";
-import "package:get/get.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:the_recipes/appwrite_config.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/recipe_controller.dart";
 import "package:the_recipes/models/recipe.dart";
 
-class ShareRecipeController extends GetxController {
+class ShareRecipeState {
+  final Map<String, bool> isLoadingMap;
+
+  ShareRecipeState({
+    this.isLoadingMap = const {},
+  });
+
+  ShareRecipeState copyWith({
+    Map<String, bool>? isLoadingMap,
+  }) {
+    return ShareRecipeState(
+      isLoadingMap: isLoadingMap ?? this.isLoadingMap,
+    );
+  }
+}
+
+class ShareRecipeController extends Notifier<ShareRecipeState> {
   final _tables = AppwriteConfig.tables;
   final _storage = AppwriteConfig.storage;
-  final _authController = Get.find<AuthController>();
-  final _recipeController = Get.find<RecipeController>();
 
-  final RxMap<String, bool> _isLoading = <String, bool>{}.obs;
+  @override
+  ShareRecipeState build() {
+    return ShareRecipeState();
+  }
 
   bool isPublic(String recipeId) {
-    final recipe =
-        _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+    final recipes = ref.read(recipeControllerProvider).recipes;
+    final recipe = recipes.where((r) => r.id == recipeId).firstOrNull;
     return recipe?.isPublic ?? false;
   }
 
   bool isLoading(String recipeId) {
-    return _isLoading[recipeId] ?? false;
+    return state.isLoadingMap[recipeId] ?? false;
   }
 
   final String shareUrlTemplate = "https://recipes.francids.com/sharing?id=";
 
+  void _setLoading(String recipeId, bool loading) {
+    final newMap = Map<String, bool>.from(state.isLoadingMap);
+    newMap[recipeId] = loading;
+    state = state.copyWith(isLoadingMap: newMap);
+  }
+
   Future<void> makeRecipePublic(String recipeId) async {
-    _isLoading[recipeId] = true;
+    _setLoading(recipeId, true);
     try {
-      final recipe =
-          _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+      final recipes = ref.read(recipeControllerProvider).recipes;
+      final recipe = recipes.where((r) => r.id == recipeId).firstOrNull;
       if (recipe == null || recipe.cloudId == null) {
         debugPrint("Recipe not found or has no cloudId: $recipeId");
         return;
       }
 
+      final authState = ref.read(authControllerProvider);
       final cloudId = recipe.cloudId!;
 
       await _tables.updateRow(
@@ -47,8 +71,8 @@ class ShareRecipeController extends GetxController {
         },
         permissions: [
           Permission.read(Role.any()),
-          Permission.update(Role.user(_authController.user!.$id)),
-          Permission.delete(Role.user(_authController.user!.$id)),
+          Permission.update(Role.user(authState.user!.$id)),
+          Permission.delete(Role.user(authState.user!.$id)),
         ],
       );
       await _storage.updateFile(
@@ -56,28 +80,31 @@ class ShareRecipeController extends GetxController {
         fileId: cloudId,
         permissions: [
           Permission.read(Role.any()),
-          Permission.update(Role.user(_authController.user!.$id)),
-          Permission.delete(Role.user(_authController.user!.$id)),
+          Permission.update(Role.user(authState.user!.$id)),
+          Permission.delete(Role.user(authState.user!.$id)),
         ],
       );
-      _recipeController.updateLocalRecipe(recipeId, isPublic: true);
+      await ref
+          .read(recipeControllerProvider.notifier)
+          .updateLocalRecipe(recipeId, isPublic: true);
     } catch (e) {
       debugPrint("Error making recipe public: $e");
     } finally {
-      _isLoading[recipeId] = false;
+      _setLoading(recipeId, false);
     }
   }
 
   Future<void> makeRecipePrivate(String recipeId) async {
-    _isLoading[recipeId] = true;
+    _setLoading(recipeId, true);
     try {
-      final recipe =
-          _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+      final recipes = ref.read(recipeControllerProvider).recipes;
+      final recipe = recipes.where((r) => r.id == recipeId).firstOrNull;
       if (recipe == null || recipe.cloudId == null) {
         debugPrint("Recipe not found or has no cloudId: $recipeId");
         return;
       }
 
+      final authState = ref.read(authControllerProvider);
       final cloudId = recipe.cloudId!;
 
       await _tables.updateRow(
@@ -88,33 +115,36 @@ class ShareRecipeController extends GetxController {
           "isPublic": false,
         },
         permissions: [
-          Permission.read(Role.user(_authController.user!.$id)),
-          Permission.update(Role.user(_authController.user!.$id)),
-          Permission.delete(Role.user(_authController.user!.$id)),
+          Permission.read(Role.user(authState.user!.$id)),
+          Permission.update(Role.user(authState.user!.$id)),
+          Permission.delete(Role.user(authState.user!.$id)),
         ],
       );
       await _storage.updateFile(
         bucketId: AppwriteConfig.bucketId,
         fileId: cloudId,
         permissions: [
-          Permission.read(Role.user(_authController.user!.$id)),
-          Permission.update(Role.user(_authController.user!.$id)),
-          Permission.delete(Role.user(_authController.user!.$id)),
+          Permission.read(Role.user(authState.user!.$id)),
+          Permission.update(Role.user(authState.user!.$id)),
+          Permission.delete(Role.user(authState.user!.$id)),
         ],
       );
-      _recipeController.updateLocalRecipe(recipeId, isPublic: false);
+      await ref
+          .read(recipeControllerProvider.notifier)
+          .updateLocalRecipe(recipeId, isPublic: false);
     } catch (e) {
       debugPrint("Error making recipe private: $e");
     } finally {
-      _isLoading[recipeId] = false;
+      _setLoading(recipeId, false);
     }
   }
 
   String generateShareUrl(String recipeId) {
-    if (!_authController.isLoggedIn) return "";
+    final authState = ref.read(authControllerProvider);
+    if (!authState.isLoggedIn) return "";
 
-    final recipe =
-        _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+    final recipes = ref.read(recipeControllerProvider).recipes;
+    final recipe = recipes.where((r) => r.id == recipeId).firstOrNull;
     if (recipe == null || recipe.cloudId == null) {
       debugPrint("Recipe not found or has no cloudId: $recipeId");
       return "";
@@ -144,8 +174,8 @@ class ShareRecipeController extends GetxController {
   }
 
   String? getCloudId(String recipeId) {
-    final recipe =
-        _recipeController.recipes.firstWhereOrNull((r) => r.id == recipeId);
+    final recipes = ref.read(recipeControllerProvider).recipes;
+    final recipe = recipes.where((r) => r.id == recipeId).firstOrNull;
     return recipe?.cloudId;
   }
 
@@ -154,23 +184,27 @@ class ShareRecipeController extends GetxController {
   }
 
   Recipe? findLocalRecipeByCloudId(String cloudId) {
-    return _recipeController.recipes.firstWhereOrNull(
-      (recipe) => recipe.cloudId == cloudId,
-    );
+    final recipes = ref.read(recipeControllerProvider).recipes;
+    return recipes.where((recipe) => recipe.cloudId == cloudId).firstOrNull;
   }
 
   Recipe? findLocalRecipeByTitle(String title) {
-    var exactMatch = _recipeController.recipes.firstWhereOrNull(
-      (recipe) => recipe.title.toLowerCase() == title.toLowerCase(),
-    );
+    final recipes = ref.read(recipeControllerProvider).recipes;
+    var exactMatch = recipes
+        .where(
+          (recipe) => recipe.title.toLowerCase() == title.toLowerCase(),
+        )
+        .firstOrNull;
 
     if (exactMatch != null) return exactMatch;
 
-    return _recipeController.recipes.firstWhereOrNull(
-      (recipe) =>
-          recipe.title.toLowerCase().contains(title.toLowerCase()) ||
-          title.toLowerCase().contains(recipe.title.toLowerCase()),
-    );
+    return recipes
+        .where(
+          (recipe) =>
+              recipe.title.toLowerCase().contains(title.toLowerCase()) ||
+              title.toLowerCase().contains(recipe.title.toLowerCase()),
+        )
+        .firstOrNull;
   }
 
   bool isRecipeAlreadySaved(Recipe sharedRecipe) {
@@ -196,3 +230,8 @@ class ShareRecipeController extends GetxController {
     return false;
   }
 }
+
+final shareRecipeControllerProvider =
+    NotifierProvider<ShareRecipeController, ShareRecipeState>(() {
+  return ShareRecipeController();
+});

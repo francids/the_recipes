@@ -2,11 +2,11 @@ import "dart:convert";
 import "dart:io";
 import "package:archive/archive_io.dart";
 import "package:flutter/material.dart";
-import "package:get/get.dart";
 import "package:hive_ce_flutter/adapters.dart";
 import "package:path_provider/path_provider.dart";
 import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/hive_boxes.dart";
+import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
 import "package:path/path.dart" as path;
 import "package:uuid/uuid.dart";
@@ -14,10 +14,14 @@ import "package:the_recipes/views/widgets/ui_helpers.dart";
 
 class ImportService {
   static final Uuid _uuid = Uuid();
-  static final AuthController _authController = Get.find<AuthController>();
+  final AuthState _authState;
 
-  static Future<ImportResult> importRecipes(
-      String zipFilePath, BuildContext context) async {
+  ImportService(this._authState);
+
+  Future<ImportResult> importRecipes(
+    String zipFilePath,
+    BuildContext context,
+  ) async {
     try {
       UIHelpers.showLoadingDialog(
         context,
@@ -27,7 +31,7 @@ class ImportService {
 
       File zipFile = File(zipFilePath);
       if (!await zipFile.exists()) {
-        Get.back();
+        Navigator.of(context).pop();
         throw ImportException("import_service.file_not_found".tr);
       }
 
@@ -46,7 +50,7 @@ class ImportService {
       }
 
       if (jsonFile == null) {
-        Get.back();
+        Navigator.of(context).pop();
         throw ImportException("import_service.invalid_format".tr);
       }
 
@@ -57,7 +61,7 @@ class ImportService {
         try {
           jsonContent = latin1.decode(jsonFile.content as List<int>);
         } catch (e2) {
-          Get.back();
+          Navigator.of(context).pop();
           throw ImportException("import_service.encoding_error".tr);
         }
       }
@@ -66,23 +70,23 @@ class ImportService {
 
       if (!exportData.containsKey("recipes") ||
           exportData["recipes"] is! List) {
-        Get.back();
+        Navigator.of(context).pop();
         throw ImportException("import_service.invalid_format".tr);
       }
 
       List<dynamic> recipesData = exportData["recipes"];
       if (recipesData.isEmpty) {
-        Get.back();
+        Navigator.of(context).pop();
         UIHelpers.showErrorSnackbar(
             "import_service.no_recipes_found".tr, context);
         return ImportResult(importedCount: 0, skippedCount: 0, errors: []);
       }
 
       final result = await _processRecipes(recipesData, imageFiles);
-      Get.back();
+      Navigator.of(context).pop();
       return result;
     } catch (e) {
-      Get.back();
+      Navigator.of(context).pop();
       if (e is ImportException) {
         UIHelpers.showErrorSnackbar(e.message, context);
         rethrow;
@@ -95,8 +99,10 @@ class ImportService {
     }
   }
 
-  static Future<ImportResult> _processRecipes(
-      List<dynamic> recipesData, Map<String, ArchiveFile> imageFiles) async {
+  Future<ImportResult> _processRecipes(
+    List<dynamic> recipesData,
+    Map<String, ArchiveFile> imageFiles,
+  ) async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String imagesPath = path.join(appDocDir.path, "recipe-images");
     Directory imagesDir = Directory(imagesPath);
@@ -155,7 +161,9 @@ class ImportService {
           ingredients: List<String>.from(recipeData["ingredients"] ?? []),
           directions: List<String>.from(recipeData["directions"] ?? []),
           preparationTime: recipeData["preparationTime"] ?? 0,
-          ownerId: _authController.isLoggedIn ? _authController.user!.$id : "",
+          ownerId: _authState.isLoggedIn
+              ? _authState.user!.$id
+              : "",
           isPublic: false,
           cloudId: null,
         );
