@@ -52,7 +52,7 @@
       "schedule": "",
       "timeout": 15,
       "entrypoint": "index.ts",
-      "commands": "",
+      "commands": "bun i",
       "specification": "s-0.5vcpu-512mb",
       "path": "functions/the-recipes-ai"
     },
