@@ -136,7 +136,7 @@ class UIHelpers {
                     )
                         .animate()
                         .fadeIn(delay: 350.ms, duration: 250.ms)
-                        .slideX(begin: 0.1, curve: Curves.easeOutCubic),
+                        .slideX(begin: -0.1, curve: Curves.easeOutCubic),
                   ],
                 ),
               ],
