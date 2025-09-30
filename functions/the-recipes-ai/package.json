@@ -1,0 +1,12 @@
+{
+  "name": "the-recipes-ai",
+  "main": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "@genkit-ai/google-genai": "^1.20.0",
+    "genkit": "^1.20.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
