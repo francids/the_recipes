@@ -4,7 +4,11 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:image_picker/image_picker.dart";
 import "package:the_recipes/controllers/add_recipe_controller.dart";
+import "package:the_recipes/controllers/ai_recipe_controller.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/messages.dart";
+import "package:the_recipes/views/widgets/pressable_button.dart";
+import "package:the_recipes/views/widgets/ui_helpers.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
 class ImageStepWidget extends ConsumerWidget {
@@ -22,9 +26,61 @@ class ImageStepWidget extends ConsumerWidget {
     }
   }
 
+  void _generateRecipeFromImage(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    UIHelpers.showLoadingDialog(
+      context,
+      "image_step.analyzing_image_title".tr,
+      "image_step.analyzing_image_message".tr,
+    );
+
+    try {
+      final aiController = ref.read(aiRecipeControllerProvider);
+      final state = ref.read(addRecipeControllerProvider);
+      final recipe = await aiController.generateRecipeFromImage(state.fullPath);
+
+      ref.read(addRecipeControllerProvider.notifier).updateTitle(recipe.title);
+      ref
+          .read(addRecipeControllerProvider.notifier)
+          .updateDescription(recipe.description);
+      ref
+          .read(addRecipeControllerProvider.notifier)
+          .updateIngredients(recipe.ingredients);
+      ref
+          .read(addRecipeControllerProvider.notifier)
+          .updateDirections(recipe.directions);
+      ref
+          .read(addRecipeControllerProvider.notifier)
+          .updatePreparationTime(recipe.preparationTime);
+
+      Navigator.of(context).pop();
+      UIHelpers.showSuccessSnackbar(
+        "image_step.recipe_generated_success".tr,
+        context,
+      );
+    } on AIRecipeException catch (e) {
+      Navigator.of(context).pop();
+      UIHelpers.showErrorSnackbar(
+        e.message,
+        context,
+      );
+    } catch (e) {
+      Navigator.of(context).pop();
+      UIHelpers.showErrorSnackbar(
+        "image_step.recipe_generated_error".trParams({
+          "0": e.toString(),
+        }),
+        context,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(addRecipeControllerProvider);
+    final authState = ref.watch(authControllerProvider);
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
@@ -49,12 +105,19 @@ class ImageStepWidget extends ConsumerWidget {
               ),
             ),
           ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
+          const SizedBox(height: 24),
+          _buildAISection(context, ref, authState, isDarkMode)
+              .animate()
+              .fadeIn(delay: 400.ms, duration: 400.ms),
         ],
       ),
     );
   }
 
-  Widget _buildImageContainer(AddRecipeState state, WidgetRef ref) {
+  Widget _buildImageContainer(
+    AddRecipeState state,
+    WidgetRef ref,
+  ) {
     return Material(
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
@@ -79,6 +142,52 @@ class ImageStepWidget extends ConsumerWidget {
                   size: 40,
                 )
               : null,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAISection(
+    BuildContext context,
+    WidgetRef ref,
+    AuthState authState,
+    bool isDarkMode,
+  ) {
+    final state = ref.watch(addRecipeControllerProvider);
+
+    if (state.fullPath.isEmpty) {
+      return const SizedBox();
+    }
+
+    if (authState.isLoggedIn) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: PressableButton(
+          child: FilledButton.icon(
+            onPressed: () => _generateRecipeFromImage(context, ref),
+            icon: const Icon(Icons.auto_awesome, color: Colors.white),
+            label: Text(
+              "image_step.generate_recipe_info".tr,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Text(
+        "image_step.feature_not_available".tr,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 14,
+          color: isDarkMode ? Colors.white70 : Colors.black54,
         ),
       ),
     );
