@@ -24,6 +24,7 @@ class RecipeScreen extends ConsumerWidget {
     final favoritesAsyncState = ref.watch(favoritesControllerProvider);
     final authState = ref.watch(authControllerProvider);
     final shareController = ref.watch(shareRecipeControllerProvider.notifier);
+    ref.watch(recipeControllerProvider);
 
     return favoritesAsyncState.when(
       data: (favoritesState) => Scaffold(
