@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:the_recipes/custom_predictive_back_page_transitions_builder.dart";
 
 class TheRecipeAppTheme {
   static ThemeData theme = getTheme(false);
@@ -27,6 +28,12 @@ class TheRecipeAppTheme {
       useMaterial3: true,
       popupMenuTheme: _popupMenuTheme(isDark),
       snackBarTheme: _snackBarTheme(isDark),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: CustomPredictiveBackPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
     );
   }
 

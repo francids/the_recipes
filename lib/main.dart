@@ -9,6 +9,7 @@ import "package:the_recipes/hive/hive_adapters.dart";
 import "package:the_recipes/hive_boxes.dart";
 import "package:the_recipes/messages.dart";
 import "package:the_recipes/models/recipe.dart";
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ void main() async {
 
   configureEasyLoading();
 
+  timeDilation = 0.75;
   runApp(
     const ProviderScope(
       child: TheRecipesApp(),
