@@ -159,11 +159,9 @@ const theme = Astro.cookies.get("theme")?.value || "system";
     </script>
   </head>
 
-  <body>
+  <body class="bg-white dark:bg-zinc-900 min-h-screen">
     <Navbar />
-    <main class="bg-white dark:bg-zinc-900 min-h-screen">
-      <slot />
-    </main>
+    <slot />
     <Footer />
     <ScrollTopButton />
   </body>
