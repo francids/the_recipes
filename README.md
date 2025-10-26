@@ -20,14 +20,14 @@
 
 El repositorio está organizado en tres carpetas principales:
 
-- **`lib/`**: Contiene el código fuente de la aplicación móvil Flutter, incluyendo controladores, modelos, vistas y configuraciones de la app.
-- **`website/`**: Sitio web desarrollado en Vite con Bun que presenta la aplicación y maneja la funcionalidad de compartir recetas a través de enlaces únicos.
+- **`lib/`**: Contiene el código fuente de la aplicación móvil, incluyendo controladores, modelos, vistas y configuraciones de la app.
+- **`website/`**: Sitio web que presenta la aplicación y maneja la funcionalidad de compartir recetas a través de enlaces únicos.
 - **`functions/`**: Funciones serverless de Appwrite que proporcionan servicios de backend para la gestión de cuentas y funcionalidades de IA.
 
 ## Tecnologías utilizadas
 
 - La aplicación móvil está desarrollada en [Flutter](https://flutter.dev/) con [Hive CE](https://pub.dev/packages/hive_ce) y [GetX](https://pub.dev/packages/get).
-- El sitio web está desarrollado en [Vite](https://vite.dev/) con [Tailwind CSS](https://tailwindcss.com/) y [Bun](https://bun.sh/).
+- El sitio web está desarrollado en [Astro](https://astro.build/) con [Tailwind CSS](https://tailwindcss.com/).
 - Las funciones serverless están desarrolladas en [Bun](https://bun.sh/) y se ejecutan en [Appwrite Functions](https://appwrite.io/products/functions). Las funciones de IA utilizan [Genkit](https://genkit.dev/) y [Gemini](https://ai.google.dev/).
 - La aplicación móvil usa [Appwrite](https://appwrite.io/) para la autenticación de usuarios, almacenamiento de recetas y demás.
 
