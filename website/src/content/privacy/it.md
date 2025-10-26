@@ -49,7 +49,7 @@ L'applicazione richiede le seguenti autorizzazioni per funzionare correttamente:
 
 "The Recipes" è un'applicazione open source. Crediamo nella totale trasparenza, quindi puoi esaminare il nostro codice sorgente in qualsiasi momento per verificare come gestiamo i tuoi dati.
 
-- **Codice sorgente:** [https://github.com/francids/the_recipes](https://github.com/francids/the_recipes)
+- **Codice sorgente:** [https://github.com/francids/recipes](https://github.com/francids/recipes)
 
 ### **Modifiche a questa Informativa sulla Privacy**
 

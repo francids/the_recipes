@@ -49,7 +49,7 @@ lastUpdated: 2025-07-03
 
 "The Recipes"는 오픈 소스 애플리케이션입니다. 저희는 완전한 투명성을 믿기 때문에 언제든지 소스 코드를 검토하여 데이터 처리 방식을 확인할 수 있습니다.
 
-- **소스 코드:** [https://github.com/francids/the_recipes](https://github.com/francids/the_recipes)
+- **소스 코드:** [https://github.com/francids/recipes](https://github.com/francids/recipes)
 
 ### **개인정보 처리방침 변경**
 

@@ -49,7 +49,7 @@ Die App benötigt folgende Berechtigungen, um ordnungsgemäß zu funktionieren:
 
 "The Recipes" ist eine Open-Source-Anwendung. Wir glauben an vollständige Transparenz, daher kannst du unseren Quellcode jederzeit überprüfen, um zu sehen, wie wir mit deinen Daten umgehen.
 
-- **Quellcode:** [https://github.com/francids/the_recipes](https://github.com/francids/the_recipes)
+- **Quellcode:** [https://github.com/francids/recipes](https://github.com/francids/recipes)
 
 ### **Änderungen dieser Datenschutzrichtlinie**
 

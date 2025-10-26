@@ -49,7 +49,7 @@ lastUpdated: 2025-07-03
 
 "The Recipes"是一个开源应用程序。我们相信完全透明，因此您可以随时查看我们的源代码，以验证我们如何处理您的数据。
 
-- **源代码:** [https://github.com/francids/the_recipes](https://github.com/francids/the_recipes)
+- **源代码:** [https://github.com/francids/recipes](https://github.com/francids/recipes)
 
 ### **本隐私政策的变更**
 

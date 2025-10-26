@@ -49,7 +49,7 @@ The application requests the following permissions to function properly:
 
 "The Recipes" is an open-source application. We believe in total transparency, so you can review our source code at any time to verify how we handle your data.
 
-- **Source code:** [https://github.com/francids/the_recipes](https://github.com/francids/the_recipes)
+- **Source code:** [https://github.com/francids/recipes](https://github.com/francids/recipes)
 
 ### **Changes to this Privacy Policy**
 

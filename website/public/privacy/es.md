@@ -44,7 +44,7 @@ La aplicación solicita los siguientes permisos para funcionar correctamente:
 
 "The Recipes" es una aplicación de código abierto. Creemos en la transparencia total, por lo que puedes revisar nuestro código fuente en cualquier momento para verificar cómo manejamos tus datos.
 
-- **Código fuente:** [https://github.com/francids/the_recipes](https://github.com/francids/the_recipes)
+- **Código fuente:** [https://github.com/francids/recipes](https://github.com/francids/recipes)
 
 ### **Cambios a esta Política de Privacidad**
 
