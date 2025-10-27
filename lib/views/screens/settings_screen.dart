@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:the_recipes/controllers/profile_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
-import "package:the_recipes/env/env.dart";
+import "package:the_recipes/env.dart";
 import "package:the_recipes/messages.dart";
 import "package:the_recipes/views/widgets/settings/language_bottom_sheet.dart";
 import "package:flutter_animate/flutter_animate.dart";
@@ -249,7 +249,7 @@ class SettingsScreen extends ConsumerWidget {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             subtitle: Text(
-              Env.APP_VERSION,
+              Environment.APP_VERSION,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.outline,
                   ),
