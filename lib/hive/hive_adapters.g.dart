@@ -8,7 +8,7 @@ part of 'hive_adapters.dart';
 
 class RecipeAdapter extends TypeAdapter<Recipe> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   Recipe read(BinaryReader reader) {
@@ -20,7 +20,7 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
       id: fields[0] as String,
       title: fields[1] as String,
       description: fields[2] as String,
-      image: fields[3] as String,
+      image: fields[3] as String?,
       ingredients: (fields[4] as List).cast<String>(),
       directions: (fields[5] as List).cast<String>(),
       preparationTime: fields[6] == null ? 0 : (fields[6] as num).toInt(),

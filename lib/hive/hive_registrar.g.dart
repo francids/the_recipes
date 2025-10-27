@@ -10,3 +10,9 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(RecipeAdapter());
   }
 }
+
+extension IsolatedHiveRegistrar on IsolatedHiveInterface {
+  void registerAdapters() {
+    registerAdapter(RecipeAdapter());
+  }
+}
