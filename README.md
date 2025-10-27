@@ -42,3 +42,7 @@ Para iniciar con el desarrollo de la aplicación móvil, se debe tener [Flutter]
 3. Genera los archivos necesarios con build_runner: `dart run build_runner build --delete-conflicting-outputs`
 4. Inicia el emulador o conecta un dispositivo físico.
 5. Corre la aplicación: `flutter run`
+
+Para correr la aplicación en Android necesitarás firmar la aplicación. Puedes seguir las instrucciones oficiales de Flutter para [firmar la aplicación](https://docs.flutter.dev/deployment/android#sign-the-app).
+
+Asegúrate de agregar el archivo `key.properties` en la carpeta `android/` con las propiedades `storeFile`, `storePassword`, `keyAlias` y `keyPassword` correspondientes a tu archivo de firma.
