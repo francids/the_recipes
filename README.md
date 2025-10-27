@@ -33,6 +33,7 @@ El repositorio está organizado en tres carpetas principales:
 
 ## Desarrollo
 
+> [!NOTE]
 > Para iniciar con el desarrollo del sitio web o las funciones, revisar el archivo `README.md` correspondiente en cada carpeta.
 
 Para iniciar con el desarrollo de la aplicación móvil, se debe tener [Flutter](https://flutter.dev/) instalado.
