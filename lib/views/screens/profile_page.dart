@@ -185,7 +185,6 @@ class ProfilePage extends ConsumerWidget {
             message: "profile_page.sign_out_confirmation_message".tr,
             lottieAsset: "assets/lottie/exit.json",
             confirmAction: () {
-              Navigator.of(context).pop();
               authController.signOut();
             },
           );
@@ -220,7 +219,7 @@ class ProfilePage extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    final authController = ref.read(authControllerProvider.notifier);
+    final authState = ref.watch(authControllerProvider);
     final profileController = ref.read(profileControllerProvider);
 
     return Card(
@@ -229,28 +228,26 @@ class ProfilePage extends ConsumerWidget {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          Consumer(
-            builder: (context, ref, child) => SwitchListTile(
-              title: Text(
-                "profile_page.backup_recipes".tr,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              subtitle: Text(
-                "profile_page.backup_recipes_description".tr,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-              ),
-              value: authController.build().autoSyncEnabled,
-              onChanged: (value) =>
-                  profileController.handleAutoSyncToggle(value, context),
-              secondary: Icon(
-                CupertinoIcons.cloud_upload,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+          SwitchListTile(
+            title: Text(
+              "profile_page.backup_recipes".tr,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            subtitle: Text(
+              "profile_page.backup_recipes_description".tr,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+            ),
+            value: authState.autoSyncEnabled,
+            onChanged: (value) =>
+                profileController.handleAutoSyncToggle(value, context),
+            secondary: Icon(
+              CupertinoIcons.cloud_upload,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          if (authController.build().autoSyncEnabled) ...[
+          if (authState.autoSyncEnabled) ...[
             const Divider(height: 1),
             ListTile(
               title: Text(

@@ -29,10 +29,14 @@ class AuthState {
     models.User? user,
     String? userProfileImageUrl,
     bool? autoSyncEnabled,
+    bool clearUser = false,
+    bool clearProfileImage = false,
   }) {
     return AuthState(
-      user: user ?? this.user,
-      userProfileImageUrl: userProfileImageUrl ?? this.userProfileImageUrl,
+      user: clearUser ? null : (user ?? this.user),
+      userProfileImageUrl: clearProfileImage
+          ? null
+          : (userProfileImageUrl ?? this.userProfileImageUrl),
       autoSyncEnabled: autoSyncEnabled ?? this.autoSyncEnabled,
     );
   }
@@ -45,8 +49,18 @@ class AuthController extends Notifier<AuthState> {
 
   @override
   AuthState build() {
-    _checkCurrentUser();
+    _initializeAuth();
     return AuthState(autoSyncEnabled: _getAutoSyncSetting());
+  }
+
+  Future<void> _initializeAuth() async {
+    try {
+      final user = await _account.get();
+      await _loadUserProfileImage(user);
+      state = state.copyWith(user: user);
+    } catch (e) {
+      debugPrint("No authenticated user: $e");
+    }
   }
 
   bool _getAutoSyncSetting() {
@@ -64,16 +78,6 @@ class AuthController extends Notifier<AuthState> {
     final box = Hive.box(settingsBox);
     await box.put(autoSyncKey, value);
     state = state.copyWith(autoSyncEnabled: value);
-  }
-
-  Future<void> _checkCurrentUser() async {
-    try {
-      final user = await _account.get();
-      await _loadUserProfileImage(user);
-      state = state.copyWith(user: user);
-    } catch (e) {
-      state = state.copyWith(user: null, userProfileImageUrl: null);
-    }
   }
 
   Future<void> _loadUserProfileImage(models.User user) async {
@@ -114,36 +118,35 @@ class AuthController extends Notifier<AuthState> {
         scopes: ["profile", "email", "openid"],
       );
 
-      await _checkCurrentUser();
+      final user = await _account.get();
+      state = state.copyWith(user: user);
 
-      if (state.user != null) {
-        final session = await _account.getSession(sessionId: "current");
-        final providerAccessToken = session.providerAccessToken;
+      final session = await _account.getSession(sessionId: "current");
+      final providerAccessToken = session.providerAccessToken;
 
-        final response = await http.get(
-          Uri.parse("https://www.googleapis.com/oauth2/v3/userinfo"),
-          headers: {
-            "Authorization": "Bearer $providerAccessToken",
-          },
-        );
+      final response = await http.get(
+        Uri.parse("https://www.googleapis.com/oauth2/v3/userinfo"),
+        headers: {
+          "Authorization": "Bearer $providerAccessToken",
+        },
+      );
 
-        if (response.statusCode == 200) {
-          final Map<String, dynamic> userData = jsonDecode(response.body);
-          final String? userImageUrl = userData["picture"];
-          if (userImageUrl != null) {
-            await _storeUserProfileImage(userImageUrl);
-          }
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> userData = jsonDecode(response.body);
+        final String? userImageUrl = userData["picture"];
+        if (userImageUrl != null) {
+          await _storeUserProfileImage(userImageUrl);
         }
       }
 
       EasyLoading.dismiss();
     } on AppwriteException catch (e) {
       EasyLoading.dismiss();
-      print("Appwrite error: ${e.code} - ${e.message}");
+      debugPrint("Appwrite error: ${e.code} - ${e.message}");
       EasyLoading.showError("auth_controller.sign_in_error".tr);
     } catch (e) {
       EasyLoading.dismiss();
-      print("General error: $e");
+      debugPrint("General error: $e");
       EasyLoading.showError("auth_controller.sign_in_error".tr);
     }
   }
@@ -156,7 +159,8 @@ class AuthController extends Notifier<AuthState> {
       await setAutoSyncEnabled(false);
 
       await _account.deleteSession(sessionId: "current");
-      state = state.copyWith(user: null, userProfileImageUrl: null);
+
+      state = state.copyWith(clearUser: true, clearProfileImage: true);
     } catch (e) {
       EasyLoading.showError(
         "auth_controller.sign_out_error".trParams(
@@ -183,7 +187,7 @@ class AuthController extends Notifier<AuthState> {
           path: "/delete",
         );
 
-        state = state.copyWith(user: null, userProfileImageUrl: null);
+        state = state.copyWith(clearUser: true, clearProfileImage: true);
         EasyLoading.dismiss();
       }
     } catch (e) {

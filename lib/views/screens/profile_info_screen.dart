@@ -203,10 +203,10 @@ class ProfileInfoScreen extends ConsumerWidget {
           "profile_info_screen.confirm_delete_enhanced_message_with_reauth".tr,
       lottieAsset: "assets/lottie/delete.json",
       confirmAction: () {
-        Navigator.of(context).pop();
         final authController = ref.read(authControllerProvider.notifier);
         authController.deleteAccount().then((_) {
-          if (!authController.build().isLoggedIn) {
+          final authState = ref.read(authControllerProvider);
+          if (!authState.isLoggedIn) {
             Navigator.of(context).pop();
           }
         });

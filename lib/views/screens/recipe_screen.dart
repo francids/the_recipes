@@ -64,6 +64,7 @@ class RecipeScreen extends ConsumerWidget {
               icon: const Icon(CupertinoIcons.ellipsis_vertical),
               tooltip: "inicial_screen.menu_tooltip".tr,
               onPressed: () {
+                final navigatorContext = Navigator.of(context);
                 showMenu(
                   context: context,
                   position: const RelativeRect.fromLTRB(100, 100, 0, 0),
@@ -75,28 +76,30 @@ class RecipeScreen extends ConsumerWidget {
                         horizontalTitleGap: 8,
                       ),
                       onTap: () {
-                        UIHelpers.showConfirmationDialog(
-                          context: context,
-                          title: "recipe_screen.delete_confirmation_title".tr,
-                          message:
-                              "recipe_screen.delete_confirmation_message".tr,
-                          lottieAsset: "assets/lottie/delete.json",
-                          confirmAction: () async {
-                            Navigator.of(context).pop();
-                            UIHelpers.showLoadingDialog(
-                              context,
-                              "recipe_screen.deleting_recipe".tr,
-                              "recipe_screen.deleting_recipe_message".tr,
-                            );
-                            await ref
-                                .read(recipeControllerProvider.notifier)
-                                .deleteRecipe(
-                                  recipe.id,
-                                  recipe.image!,
-                                );
-                            Navigator.of(context).pop();
-                          },
-                        );
+                        Future.delayed(Duration.zero, () {
+                          UIHelpers.showConfirmationDialog(
+                            context: context,
+                            title: "recipe_screen.delete_confirmation_title".tr,
+                            message:
+                                "recipe_screen.delete_confirmation_message".tr,
+                            lottieAsset: "assets/lottie/delete.json",
+                            confirmAction: () async {
+                              navigatorContext.pop();
+                              UIHelpers.showLoadingDialog(
+                                context,
+                                "recipe_screen.deleting_recipe".tr,
+                                "recipe_screen.deleting_recipe_message".tr,
+                              );
+                              await ref
+                                  .read(recipeControllerProvider.notifier)
+                                  .deleteRecipe(
+                                    recipe.id,
+                                    recipe.image!,
+                                  );
+                              navigatorContext.pop();
+                            },
+                          );
+                        });
                       },
                     ),
                   ],

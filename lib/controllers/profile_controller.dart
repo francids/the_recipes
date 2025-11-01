@@ -72,7 +72,6 @@ class ProfileController {
       message: "profile_page.disable_sync_confirmation_message".tr,
       lottieAsset: "assets/lottie/alert.json",
       confirmAction: () async {
-        Navigator.of(context).pop();
         await ref
             .read(authControllerProvider.notifier)
             .setAutoSyncEnabled(enabled);
