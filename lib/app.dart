@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_easyloading/flutter_easyloading.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:the_recipes/controllers/auth_controller.dart";
 import "package:the_recipes/controllers/language_controller.dart";
 import "package:the_recipes/controllers/share_recipe_controller.dart";
 import "package:the_recipes/controllers/theme_controller.dart";
@@ -105,6 +106,7 @@ class _TheRecipesAppState extends ConsumerState<TheRecipesApp>
   Widget build(BuildContext context) {
     final language = ref.watch(languageControllerProvider);
     final themeState = ref.watch(themeControllerProvider);
+    ref.watch(authControllerProvider);
 
     ThemeMode themeMode;
     if (themeState.followSystemTheme) {
