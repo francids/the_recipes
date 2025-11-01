@@ -25,12 +25,16 @@ class DynamicListStepWidget extends ConsumerStatefulWidget {
 }
 
 class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
+  final Set<String> _animatedItems = {};
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(addRecipeControllerProvider);
-    final list = widget.type == "ingredients"
+    final List<String> list = widget.type == "ingredients"
         ? state.ingredientsList
-        : state.directionsList;
+        : widget.type == "directions"
+            ? state.directionsList
+            : [];
     return Column(
       children: [
         PressableButton(
@@ -82,55 +86,61 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
   }
 
   Widget _buildListItem(int index, List<String> list, WidgetRef ref) {
-    final itemKey = ValueKey("item-$index");
+    final itemKey =
+        ValueKey("${widget.type}-$index-${list[index]}-${list.length}");
+    final itemId = "${widget.type}-${list[index]}";
+    final shouldAnimate = !_animatedItems.contains(itemId);
 
-    Widget itemContent = Container(
-      key: itemKey,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        children: [
-          CustomDragStartListener(
-            index: index,
-            child: const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: Icon(
-                Icons.drag_handle,
-                color: Colors.grey,
-              ),
-            ),
-          ),
-          Expanded(
-            child: ModernFormField(
-              initialValue: list[index],
-              onChanged: (text) => _onItemChanged(index, text, list, ref),
-              keyboardType: TextInputType.text,
-              hintText: "${widget.label} ${index + 1}",
-            ),
-          ),
-          PressableButton(
-            child: IconButton(
-              icon: const Icon(Icons.remove_circle, color: Colors.red),
-              onPressed: () => _removeItem(index, list, ref),
-            ),
-          ),
-        ],
-      ),
-    );
+    if (shouldAnimate) {
+      _animatedItems.add(itemId);
+    }
 
     return Animate(
       key: itemKey,
-      delay: (index * 50).ms,
-      effects: [
-        FadeEffect(duration: 300.ms),
-        SlideEffect(
-          begin: const Offset(0.1, 0),
-          curve: Curves.easeOutCubic,
+      delay: shouldAnimate ? (index * 50).ms : 0.ms,
+      effects: shouldAnimate
+          ? [
+              FadeEffect(duration: 300.ms),
+              SlideEffect(
+                begin: const Offset(0.1, 0),
+                curve: Curves.easeOutCubic,
+              ),
+            ]
+          : [],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
         ),
-      ],
-      child: itemContent,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          children: [
+            CustomDragStartListener(
+              index: index,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Icons.drag_handle,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            Expanded(
+              child: ModernFormField(
+                initialValue: list[index],
+                onChanged: (text) => _onItemChanged(index, text, list, ref),
+                keyboardType: TextInputType.text,
+                hintText: "${widget.label} ${index + 1}",
+              ),
+            ),
+            PressableButton(
+              child: IconButton(
+                icon: const Icon(Icons.remove_circle, color: Colors.red),
+                onPressed: () => _removeItem(index, list, ref),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -142,14 +152,18 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
     final newList = List<String>.from(list)..add("");
     if (widget.type == "ingredients") {
       ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
-    } else {
+    } else if (widget.type == "directions") {
       ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
     }
     widget.onChanged?.call();
   }
 
   void _onReorder(
-      int oldIndex, int newIndex, List<String> list, WidgetRef ref) {
+    int oldIndex,
+    int newIndex,
+    List<String> list,
+    WidgetRef ref,
+  ) {
     if (newIndex > oldIndex) {
       newIndex = newIndex - 1;
     }
@@ -158,19 +172,23 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
     newList.insert(newIndex, item);
     if (widget.type == "ingredients") {
       ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
-    } else {
+    } else if (widget.type == "directions") {
       ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
     }
     widget.onChanged?.call();
   }
 
   void _onItemChanged(
-      int index, String text, List<String> list, WidgetRef ref) {
+    int index,
+    String text,
+    List<String> list,
+    WidgetRef ref,
+  ) {
     final newList = List<String>.from(list);
     newList[index] = text;
     if (widget.type == "ingredients") {
       ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
-    } else {
+    } else if (widget.type == "directions") {
       ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
     }
     widget.onChanged?.call();
@@ -180,7 +198,7 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
     final newList = List<String>.from(list)..removeAt(index);
     if (widget.type == "ingredients") {
       ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
-    } else {
+    } else if (widget.type == "directions") {
       ref.read(addRecipeControllerProvider.notifier).updateDirections(newList);
     }
     widget.onChanged?.call();
