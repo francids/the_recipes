@@ -221,13 +221,15 @@ class TheRecipeAppTheme {
           fontWeight: FontWeight.w500,
         ),
         bodyLarge: TextStyle(
-          color: isDark ? Colors.white : Colors.black87,
+          color: isDark ? Colors.white : Colors.black.withAlpha(230),
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
         bodyMedium: TextStyle(
-          color: isDark ? Colors.white70 : Colors.black87,
-          fontSize: 13,
+          color: isDark
+              ? Colors.white.withAlpha(225)
+              : Colors.black.withAlpha(225),
+          fontSize: 14,
         ),
         bodySmall: TextStyle(
           color: isDark ? Colors.white60 : Colors.black54,

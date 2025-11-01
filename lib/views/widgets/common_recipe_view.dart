@@ -54,7 +54,7 @@ class CommonRecipeView extends StatelessWidget {
             left: 16,
             right: 16,
             top: 16,
-            bottom: 32,
+            bottom: 40,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class CommonRecipeView extends StatelessWidget {
                 child: Container(
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9.5),
+                    borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).colorScheme.surfaceContainerLow,
                   ),
                   child: recipe.image != null && recipe.image!.isNotEmpty
@@ -132,59 +132,144 @@ class CommonRecipeView extends StatelessWidget {
                     duration: 400.ms,
                     curve: Curves.easeOutCubic,
                   ),
-              const Divider(height: 32),
-              Text(
-                "recipe_screen.ingredients_title".tr,
-                style: Theme.of(context).textTheme.displayMedium,
-              ).animate().fadeIn(delay: 300.ms, duration: 500.ms).slideY(
-                  begin: 0.2, duration: 400.ms, curve: Curves.easeOutCubic),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 2);
-                  },
-                  itemBuilder: (context, index) {
-                    return Text(
-                      "\u2022   ${recipe.ingredients[index]}",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    );
-                  },
-                  itemCount: recipe.ingredients.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                ),
-              ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
-              const Divider(height: 32),
-              Text(
-                "recipe_screen.instructions_title".tr,
-                style: Theme.of(context).textTheme.displayMedium,
-              ).animate().fadeIn(delay: 500.ms, duration: 500.ms).slideY(
-                  begin: 0.2, duration: 400.ms, curve: Curves.easeOutCubic),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 8);
-                  },
-                  itemBuilder: (context, index) {
-                    return Text(
-                      "${index + 1}. ${recipe.directions[index]}",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    );
-                  },
-                  itemCount: recipe.directions.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                ),
-              ).animate().fadeIn(delay: 600.ms, duration: 500.ms),
+              const Divider(height: 36),
+              _buildSectionTitle(context, "recipe_screen.ingredients_title".tr)
+                  .animate()
+                  .fadeIn(delay: 300.ms, duration: 500.ms)
+                  .slideY(
+                    begin: 0.2,
+                    duration: 400.ms,
+                    curve: Curves.easeOutCubic,
+                  ),
+              const SizedBox(height: 12),
+              _buildIngredientsSection(context)
+                  .animate()
+                  .fadeIn(delay: 400.ms, duration: 500.ms),
+              const Divider(height: 36),
+              _buildSectionTitle(context, "recipe_screen.instructions_title".tr)
+                  .animate()
+                  .fadeIn(delay: 500.ms, duration: 500.ms)
+                  .slideY(
+                    begin: 0.2,
+                    duration: 400.ms,
+                    curve: Curves.easeOutCubic,
+                  ),
+              const SizedBox(height: 12),
+              _buildInstructionsSection(context)
+                  .animate()
+                  .fadeIn(delay: 600.ms, duration: 500.ms),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Row(
+      spacing: 10,
+      children: [
+        Container(
+          width: 2,
+          height: 20,
+          decoration: BoxDecoration(
+            color: Theme.of(context).chipTheme.iconTheme!.color!,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIngredientsSection(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: ListView.separated(
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 10);
+        },
+        itemBuilder: (context, index) {
+          return Row(
+            spacing: 10,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 4,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).chipTheme.iconTheme!.color!,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  recipe.ingredients[index],
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+            ],
+          );
+        },
+        itemCount: recipe.ingredients.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.symmetric(vertical: 4),
+      ),
+    );
+  }
+
+  Widget _buildInstructionsSection(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: ListView.separated(
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 10);
+        },
+        itemBuilder: (context, index) {
+          return Row(
+            spacing: 10,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).chipTheme.backgroundColor,
+                  border: Border.all(
+                    width: 0.5,
+                    color: Theme.of(context).chipTheme.iconTheme!.color!,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  (index + 1).toString(),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).chipTheme.iconTheme!.color!,
+                      ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 2.2),
+                  child: Text(
+                    recipe.directions[index],
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+        itemCount: recipe.directions.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.symmetric(vertical: 4),
       ),
     );
   }
