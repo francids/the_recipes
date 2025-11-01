@@ -26,6 +26,30 @@ class DynamicListStepWidget extends ConsumerStatefulWidget {
 
 class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
   final Set<String> _animatedItems = {};
+  final List<TextEditingController> _controllers = [];
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  void _syncControllers(List<String> list) {
+    while (_controllers.length < list.length) {
+      _controllers.add(TextEditingController());
+    }
+    while (_controllers.length > list.length) {
+      _controllers.removeLast().dispose();
+    }
+
+    for (int i = 0; i < list.length; i++) {
+      if (_controllers[i].text != list[i]) {
+        _controllers[i].text = list[i];
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +59,9 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
         : widget.type == "directions"
             ? state.directionsList
             : [];
+
+    _syncControllers(list);
+
     return Column(
       children: [
         PressableButton(
@@ -86,9 +113,8 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
   }
 
   Widget _buildListItem(int index, List<String> list, WidgetRef ref) {
-    final itemKey =
-        ValueKey("${widget.type}-$index-${list[index]}-${list.length}");
-    final itemId = "${widget.type}-${list[index]}";
+    final itemKey = ValueKey("${widget.type}-$index");
+    final itemId = "${widget.type}-$index";
     final shouldAnimate = !_animatedItems.contains(itemId);
 
     if (shouldAnimate) {
@@ -126,7 +152,7 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
             ),
             Expanded(
               child: ModernFormField(
-                initialValue: list[index],
+                controller: _controllers[index],
                 onChanged: (text) => _onItemChanged(index, text, list, ref),
                 keyboardType: TextInputType.text,
                 hintText: "${widget.label} ${index + 1}",
@@ -167,9 +193,14 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
     if (newIndex > oldIndex) {
       newIndex = newIndex - 1;
     }
+
+    final controller = _controllers.removeAt(oldIndex);
+    _controllers.insert(newIndex, controller);
+
     final newList = List<String>.from(list);
     final item = newList.removeAt(oldIndex);
     newList.insert(newIndex, item);
+
     if (widget.type == "ingredients") {
       ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
     } else if (widget.type == "directions") {
@@ -195,6 +226,9 @@ class _DynamicListStepWidgetState extends ConsumerState<DynamicListStepWidget> {
   }
 
   void _removeItem(int index, List<String> list, WidgetRef ref) {
+    _controllers[index].dispose();
+    _controllers.removeAt(index);
+
     final newList = List<String>.from(list)..removeAt(index);
     if (widget.type == "ingredients") {
       ref.read(addRecipeControllerProvider.notifier).updateIngredients(newList);
