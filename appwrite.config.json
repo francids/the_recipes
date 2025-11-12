@@ -46,15 +46,15 @@
       "name": "The Recipes AI",
       "enabled": true,
       "logging": true,
-      "runtime": "bun-1.1",
+      "runtime": "python-3.12",
       "scopes": [],
       "events": [],
       "schedule": "",
       "timeout": 15,
-      "entrypoint": "index.ts",
-      "commands": "bun i",
+      "entrypoint": "main.py",
+      "commands": "pip install .",
       "specification": "s-0.5vcpu-512mb",
-      "path": "functions/the-recipes-ai"
+      "path": "functions/ai"
     },
     {
       "$id": "the-recipes-accounts",
@@ -62,15 +62,15 @@
       "name": "The Recipes Accounts",
       "enabled": true,
       "logging": true,
-      "runtime": "bun-1.1",
+      "runtime": "python-3.12",
       "scopes": ["users.write"],
       "events": [],
       "schedule": "",
       "timeout": 15,
-      "entrypoint": "src/index.ts",
-      "commands": "bun i",
+      "entrypoint": "main.py",
+      "commands": "pip install .",
       "specification": "s-0.5vcpu-512mb",
-      "path": "functions/the-recipes-accounts"
+      "path": "functions/accounts"
     }
   ],
   "sites": [
