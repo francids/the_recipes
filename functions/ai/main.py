@@ -72,7 +72,7 @@ def main(context):
         try:
             recipe = generate_recipe(image, language)
             context.log("Recipe generated successfully")
-            return context.res.json(recipe)
+            return context.res.json(recipe.model_dump())
         except Exception as e:
             context.error(f"Error generating recipe: {e}")
             return context.res.json(
