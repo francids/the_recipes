@@ -6,3 +6,9 @@ dependencies = [
     "google-genai>=1.49.0",
     "pydantic>=2.12.4",
 ]
+
+[tool.setuptools]
+py-modules = [
+    "main",
+    "generate"
+]
