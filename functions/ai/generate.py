@@ -51,9 +51,9 @@ def generate_recipe(img: str, lang: str) -> Recipe:
 def detect_image_format(img64: str) -> str:
     header = img64[:10]
     if header.startswith("/9j/"):
-        return "jpeg"
+        return "image/jpeg"
     if header.startswith("iVBORw0K"):
-        return "png"
+        return "image/png"
     if header.startswith("UklGR"):
-        return "webp"
-    return "jpeg"
+        return "image/webp"
+    return "image/jpeg"
