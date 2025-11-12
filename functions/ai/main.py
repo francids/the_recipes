@@ -20,9 +20,9 @@ VALID_LANGUAGES = [
 def main(context):
     if context.req.path == "/generate-recipe":
         try:
-            data = context.req.body
-            image = data.get("image")
-            language = data.get("language")
+            data = context.req.body_json
+            image = data["image"]
+            language = data["language"]
 
         except Exception as e:
             context.error(f"Error parsing JSON: {e}")
